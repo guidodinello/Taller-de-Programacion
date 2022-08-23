@@ -1,5 +1,10 @@
 package logica.controladores;
 import logica.interfaces.ICtrlUsuario;
+import logica.clases.Proveedor;
+import logica.clases.Turista;
+import logica.clases.Usuario;
+import logica.handlers.HandlerUsuarios;
+import datatypes.tipoUsuario;
 
 import java.util.Date;
 
@@ -16,6 +21,6 @@ public class CtrlUsuario implements ICtrlUsuario {
 			hu.agregarProveedor(usr);
 		}
 		// cambiar hu.agregarUsuario
-		hu.add(usr);
+		hu.agregarUsuario(usr);
 	}
 }
