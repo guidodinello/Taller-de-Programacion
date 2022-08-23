@@ -1,5 +1,5 @@
 package logica.interfaces;
 
-public class ICtrlPaquete {
+public interface ICtrlPaquete {
 
 }

@@ -1,5 +1,6 @@
 package logica.controladores;
+import logica.interfaces.*;
 
-public class CtrlPaquete {
+public class CtrlPaquete implements ICtrlPaquete {
 
 }

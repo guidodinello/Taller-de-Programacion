@@ -1,5 +1,6 @@
 package logica.controladores;
+import logica.interfaces.ICtrlUsuario;
 
-public class CtrlUsuario {
+public class CtrlUsuario implements ICtrlUsuario {
 
 }

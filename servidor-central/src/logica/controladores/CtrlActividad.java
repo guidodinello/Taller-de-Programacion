@@ -1,5 +1,6 @@
 package logica.controladores;
+import logica.interfaces.*;
 
-public class CtrlActividad {
+public class CtrlActividad implements ICtrlActividad{
 
 }

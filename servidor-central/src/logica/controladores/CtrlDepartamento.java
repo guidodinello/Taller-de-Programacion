@@ -1,5 +1,6 @@
 package logica.controladores;
+import logica.interfaces.*;
 
-public class CtrlDepartamento {
+public class CtrlDepartamento implements ICtrlDepartamento {
 
 }

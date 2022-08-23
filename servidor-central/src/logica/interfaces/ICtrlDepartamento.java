@@ -1,5 +1,5 @@
 package logica.interfaces;
 
-public class ICtrlDepartamento {
+public interface ICtrlDepartamento {
 
 }
