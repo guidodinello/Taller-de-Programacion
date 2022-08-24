@@ -24,6 +24,18 @@ public class Usuario {
 		return email;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+	
+	public GregorianCalendar getFechaNac() {
+		return fechaNac;
+	}
+	
 	public List<String> getKey() {
 		return List.of(nickname, email);
 	}

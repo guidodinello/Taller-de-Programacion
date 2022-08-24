@@ -89,8 +89,18 @@ public class CtrlUsuario implements ICtrlUsuario {
 	
 	public DTUsuario getInfoBasicaUsuario(String usr) {
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
-		Usuario usuario = hU.getUsuario(usr);
+		DTUsuario resultado = null;
+		try {
+			Usuario usuario = hU.getUsuarioByNickname(usr);
+			if(usuario instanceof Turista) {
+				resultado = new DTTurista(usuario);
+			}else {
+				resultado = new DTProveedor(usuario); 
+			}
+			
+		}catch (Exception e){}
 		
-		return null;
+		
+		return resultado;
 	}
 }
