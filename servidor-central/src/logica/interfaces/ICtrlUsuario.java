@@ -3,7 +3,14 @@ package logica.interfaces;
 import java.util.Date;
 import java.util.Set;
 
+import datatypes.DTActividad;
+import datatypes.DTSalida;
+import datatypes.DTUsuario;
 import datatypes.tipoUsuario;
+
+import excepciones.InvalidArgument;
+import excepciones.YaExisteException;
+
 import logica.clases.Proveedor;
 import logica.clases.Turista;
 import logica.clases.Usuario;
@@ -11,7 +18,7 @@ import logica.clases.Usuario;
 public interface ICtrlUsuario {
 
 	public abstract void altaUsuario(String nickname,String email, String nombre, String apellido, Date fechaNac,
-			tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb);
+			tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws InvalidArgument, YaExisteException;
 	public abstract void ingresarInscripcion(String nickname, String salida, int cant, Date fecha);
 	public abstract void listarTuristas();
 	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, Date fechaAlta); 
