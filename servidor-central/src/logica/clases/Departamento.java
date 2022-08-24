@@ -31,4 +31,8 @@ public class Departamento{
 	public Set<String> listarActividades() {
 		return actividades.keySet();
 	}
+	
+	public void agregarActividad(ActividadTuristica actividad) {
+		this.actividades.put(actividad.getNombre(), actividad);
+	}
 }

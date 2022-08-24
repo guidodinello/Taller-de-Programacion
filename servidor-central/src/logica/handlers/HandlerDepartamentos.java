@@ -47,11 +47,4 @@ public class HandlerDepartamentos{
 		return departamentos.get(depto);
 	}
 	
-	public Set<String> listarDepartamentos(){
-		Set<String> resu = new HashSet<>();
-		for(Map.Entry<String, Departamento> entry : this.departamentos.entrySet()) {
-			resu.add(entry.getValue().getNombre());
-		}
-		return resu;
-	}
 }

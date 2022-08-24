@@ -5,7 +5,7 @@ import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 
 import excepciones.YaExisteException;
@@ -14,13 +14,14 @@ import logica.clases.ActividadTuristica;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerActividades;
 import logica.interfaces.*;
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Set;
 import logica.clases.SalidaTuristica;
 import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
 import logica.handlers.HandlerSalidas;
+import logica.handlers.HandlerUsuarios;
 
 public class CtrlActividad implements ICtrlActividad{
 	
@@ -55,8 +56,21 @@ public class CtrlActividad implements ICtrlActividad{
 		return null;
 	}
 	
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, Date fechaAlta) {
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta) {
+		HandlerActividades hA = HandlerActividades.getInstance();
+		if(hA.existeActividad(nomActividad)){
+			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
+		}
 		
+		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta);
+		
+		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
+		hD.getDepto(nomDep).agregarActividad(resu);
+		
+		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+		hU.getProveedorByNickname(nickProv).agregarActividad(resu);
+		
+		hA.agregarActividad(resu);
 	}
 	
 	public Set<String> listarNombresSalidasDeActividad(String actividad){
@@ -68,7 +82,7 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	//Salidas
-	public Set<DTSalida> listarInfoSalidasVigentes(String actividad,Date fechaSistema){
+	public Set<DTSalida> listarInfoSalidasVigentes(String actividad,GregorianCalendar fechaSistema){
 		HandlerActividades hA = HandlerActividades.getInstance();
 		ActividadTuristica at = hA.getActividad(actividad);
 		return at.getInfoBasicaSalidasVigentes(fechaSistema);
@@ -76,7 +90,7 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerActividades hA = HandlerActividades.getInstance();
 		ActividadTuristica actividadAux = hA.obtenerActividadTuristica(actividad);
 	
-	public void altaSalidaTuristica(String nombreSal,Date fechaSal, String lugarSal,int cantMaxTuristas, Date fechaAlta,String  actividad) throws YaExisteException {
+	public void altaSalidaTuristica(String nombreSal,GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas, GregorianCalendar fechaAlta,String  actividad) throws YaExisteException {
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		if (hS.existeSalida(nombreSal)) {
 			throw new YaExisteException("La salida " + nombreSal + "ya se encuentra registrada");
@@ -95,7 +109,7 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	//Paquetes
-	public Date crearPaquete(String nombre,String descripción,int validez,float descuento,Date fechaDeAlta) {
+	public GregorianCalendar crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) {
 		return null;
 	}
 	
