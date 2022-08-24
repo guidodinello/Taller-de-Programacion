@@ -3,8 +3,15 @@
 
 # compiled java 
 servidor-central/bin/
+servidor-central/.settings/
+
 
 *.class
+*.jar
+*.zip
+
+*.project
+*.classpath
 
 # Maven
 log/

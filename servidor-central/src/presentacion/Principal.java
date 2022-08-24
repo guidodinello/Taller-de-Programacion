@@ -21,13 +21,14 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 
+import presentacion.altaUsuario;
 
 public class Principal {
 
     private JFrame frmGestionDeTurismoUy;
     private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
-    private CrearUsuario creUsrInternalFrame;
+    private altaUsuario creUsrInternalFrame;
     private JTextField textField;
     private JTextField textField_1;
   //  private ConsultarUsuario conUsrInternalFrame;
@@ -55,14 +56,10 @@ public class Principal {
     public Principal() {
         initialize();
 
-        // Inicialización
         Fabrica fabrica = Fabrica.getInstance();
         ICU = fabrica.getICtrlUsuario();
         
-        // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
-        // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
-        // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
-        creUsrInternalFrame = new CrearUsuario(ICU);
+        creUsrInternalFrame = new altaUsuario(ICU);
         GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
         gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0};
         creUsrInternalFrame.setVisible(false);

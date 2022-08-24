@@ -5,7 +5,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -15,12 +17,29 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import excepciones.InvalidArgument;
+import excepciones.YaExisteException;
 import logica.interfaces.ICtrlUsuario;
+import datatypes.tipoUsuario;
+
+import java.util.Date;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JPanel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.FlowLayout;
+import javax.swing.JTextPane;
+
 
 @SuppressWarnings("serial")
 public class altaUsuario extends JInternalFrame {
-	public altaUsuario() {
-	}
 	
     private ICtrlUsuario ctrlUsr;
     
@@ -29,204 +48,356 @@ public class altaUsuario extends JInternalFrame {
     private JTextField textFieldApellido;
     private JTextField textFieldEmail;
     //decidir como mostrar la fecha
-    private JRadioButton usrTypeBtn;
+    
+    private JRadioButton provBtn;
+    private JRadioButton turBtn;
+    private ButtonGroup BtnGroup;
+    
+    private JTextField textFieldNacionalidad;
+    private JTextField textFieldSitioWeb;
+    private JTextField textFieldDescripcion;
     
     private JLabel lblIngreseNickName;
     private JLabel lblIngreseNombre;
     private JLabel lblIngreseApellido;
     private JLabel lblIngreseEmail;
     //label fecha
-    private JLabel lblTipoUsuario;
+    
+    private JLabel lblIngreseTipoUsuario;
+    private JLabel lblNacionalidad;
+    private JLabel lblSitioWeb;
+    private JLabel lblIngreseDescripcion;
     
     private JButton btnAceptar;
     private JButton btnCancelar;
+    private JPanel panel;
+    private JLabel lblNacionalidad_1;
+    private JTextField textField;
+    private JTextField textField_1;
     
     public altaUsuario(ICtrlUsuario icu) {
         ctrlUsr = icu;
 
-        // Propiedades del JInternalFrame como dimensión, posición dentro del frame,
-        // etc.
         setResizable(true);
         setIconifiable(true);
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Registrar un Usuario");
-        setBounds(10, 40, 360, 150);
-
-        // En este caso utilizaremos el GridBagLayout que permite armar una grilla
-        // en donde las filas y columnas no son uniformes.
-        // Conviene trabajar este componente desde la vista de diseño gráfico y sólo
-        // manipular los valores para ajustar alguna cosa.
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWidths = new int[] { 100, 120, 120, 0 };
-        gridBagLayout.rowHeights = new int[] { 30, 30, 30, 0, 0 };
-        gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
-        gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-        getContentPane().setLayout(gridBagLayout);
+        setBounds(10, 40, 452, 341);
 
         //================ NICKNAME ================//
         lblIngreseNickName = new JLabel("Nickname:");
-        lblIngreseNickName.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_lblIngreseNickName = new GridBagConstraints();
-        gbc_lblIngreseNickName.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseNickName.insets = new Insets(0, 0, 5, 5);
-        gbc_lblIngreseNickName.gridx = 0;
-        gbc_lblIngreseNickName.gridy = 0;
-        getContentPane().add(lblIngreseNickName, gbc_lblIngreseNickName);
+        lblIngreseNickName.setHorizontalAlignment(SwingConstants.CENTER);
 
         textFieldNickName = new JTextField();
-        GridBagConstraints gbc_textFieldNickName = new GridBagConstraints();
-        gbc_textFieldNickName.gridwidth = 2;
-        gbc_textFieldNickName.fill = GridBagConstraints.BOTH;
-        gbc_textFieldNickName.insets = new Insets(0, 0, 5, 0);
-        gbc_textFieldNickName.gridx = 1;
-        gbc_textFieldNickName.gridy = 0;
-        getContentPane().add(textFieldNickName, gbc_textFieldNickName);
         textFieldNombre.setColumns(10);
         //================ NICKNAME ================//
 
         //================ NOMBRE ================//
         lblIngreseNombre = new JLabel("Nombre:");
-        lblIngreseNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_lblIngreseNombre = new GridBagConstraints();
-        gbc_lblIngreseNombre.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseNombre.insets = new Insets(0, 0, 5, 5);
-        gbc_lblIngreseNombre.gridx = 0;
-        gbc_lblIngreseNombre.gridy = 1;
-        getContentPane().add(lblIngreseNombre, gbc_lblIngreseNombre);
+        lblIngreseNombre.setHorizontalAlignment(SwingConstants.CENTER);
 
-        textFieldApellido = new JTextField();
-        GridBagConstraints gbc_textFieldNombre = new GridBagConstraints();
-        gbc_textFieldNombre.gridwidth = 2;
-        gbc_textFieldNombre.fill = GridBagConstraints.BOTH;
-        gbc_textFieldNombre.insets = new Insets(0, 0, 5, 0);
-        gbc_textFieldNombre.gridx = 1;
-        gbc_textFieldNombre.gridy = 1;
-        getContentPane().add(textFieldNombre, gbc_textFieldNombre);
+        textFieldNombre = new JTextField();
         textFieldNombre.setColumns(10);
         //================ NOMBRE ================//
 
         //================ APELLIDO ================//
         lblIngreseApellido = new JLabel("Apellido:");
-        lblIngreseApellido.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_lblIngreseApellido = new GridBagConstraints();
-        gbc_lblIngreseApellido.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseApellido.insets = new Insets(0, 0, 5, 5);
-        gbc_lblIngreseApellido.gridx = 0;
-        gbc_lblIngreseApellido.gridy = 2;
-        getContentPane().add(lblIngreseApellido, gbc_lblIngreseApellido);
-
-        textFieldApellido = new JTextField();
-        textFieldApellido.setToolTipText("Ingrese su apellido");
-        textFieldApellido.setColumns(10);
-        GridBagConstraints gbc_textFieldApellido = new GridBagConstraints();
-        gbc_textFieldApellido.gridwidth = 2;
-        gbc_textFieldApellido.fill = GridBagConstraints.BOTH;
-        gbc_textFieldApellido.insets = new Insets(0, 0, 5, 0);
-        gbc_textFieldApellido.gridx = 1;
-        gbc_textFieldApellido.gridy = 2;
-        getContentPane().add(textFieldApellido, gbc_textFieldApellido);
-        //================ APELLIDO ================//
-        
-        //================ EMAIL ================//
-        lblIngreseEmail = new JLabel("Email:");
-        lblIngreseEmail.setHorizontalAlignment(SwingConstants.RIGHT);
-        GridBagConstraints gbc_lblIngreseEmail = new GridBagConstraints();
-        gbc_lblIngreseEmail.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseEmail.insets = new Insets(0, 0, 5, 5);
-        gbc_lblIngreseEmail.gridx = 0;
-        gbc_lblIngreseEmail.gridy = 2;
-        getContentPane().add(lblIngreseEmail, gbc_lblIngreseEmail);
+        lblIngreseApellido.setHorizontalAlignment(SwingConstants.CENTER);
 
         textFieldEmail = new JTextField();
         textFieldEmail.setToolTipText("Ingrese su email");
         textFieldEmail.setColumns(10);
-        GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
-        gbc_textFieldEmail.gridwidth = 2;
-        gbc_textFieldEmail.fill = GridBagConstraints.BOTH;
-        gbc_textFieldEmail.insets = new Insets(0, 0, 5, 0);
-        gbc_textFieldEmail.gridx = 1;
-        gbc_textFieldEmail.gridy = 2;
-        getContentPane().add(textFieldEmail, gbc_textFieldEmail);
+        
+        String prov = "Proveedor";
+
+        String tur = "Turista";
+        
+        BtnGroup = new ButtonGroup();
+		//================ RADIO BUTTONS TURISTA_PROVEEDOR ================//
+		
+		//================ ACEPTAR-CANCELAR BUTTONS ================//
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent arg0) {
+		        cmdRegistroUsuarioActionPerformed(arg0);
+		    }
+		});
+        //================ APELLIDO ================//
+        
+        //================ EMAIL ================//
+        lblIngreseEmail = new JLabel("Email:");
+        lblIngreseEmail.setHorizontalAlignment(SwingConstants.CENTER);
+        
+                textFieldApellido = new JTextField();
+                textFieldApellido.setToolTipText("Ingrese su apellido");
+                textFieldApellido.setColumns(10);
         //================ EMAIL ================//
         
         //================ FECHA DE NACIMIENTO ================//
         
         //================ FECHA DE NACIMIENTO ================//
         
-        
         //================ RADIO BUTTONS TURISTA_PROVEEDOR ================//
-        
-        //================ INFO TURISTA ================//
-        //================ INFO TURISTA ================//
-        //================ INFO PROVEEDOR ================//
-        //================ INFO PROVEEDOR ================//
-        //================ RADIO BUTTONS TURISTA_PROVEEDOR ================//
-
-        // Un botón (JButton) con un evento asociado que permite registrar el usuario.
-        // Dado que el código de registro tiene cierta complejidad, conviene delegarlo
-        // a otro método en lugar de incluirlo directamente de el método actionPerformed 
-        btnAceptar = new JButton("Aceptar");
-        btnAceptar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                //cmdRegistroUsuarioActionPerformed(arg0);
-            }
+        lblIngreseTipoUsuario = new JLabel("Tipo Usuario:");
+        lblIngreseTipoUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+        provBtn = new JRadioButton(prov);
+        provBtn.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        	    if (e.getStateChange() == ItemEvent.SELECTED) {
+        	    	//setVisible(true);
+//                  //================ INFO PROVEEDOR ================//
+//                  //================ INFO PROVEEDOR ================//
+        	    }
+        	    else if (e.getStateChange() == ItemEvent.DESELECTED) {
+        	    	//setVisible(false);
+        	    }
+        	}
         });
+        provBtn.setMnemonic(KeyEvent.VK_P);
+        provBtn.setActionCommand(prov);
+        BtnGroup.add(provBtn);
+        
 
-        GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
-        gbc_btnAceptar.fill = GridBagConstraints.BOTH;
-        gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
-        gbc_btnAceptar.gridx = 1;
-        gbc_btnAceptar.gridy = 3;
-        getContentPane().add(btnAceptar, gbc_btnAceptar);
-
-        // Un botón (JButton) con un evento asociado que permite cerrar el formulario (solo ocultarlo).
-        // Dado que antes de cerrar se limpia el formulario, se invoca un método reutilizable para ello. 
-        btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(new ActionListener() {
+        turBtn = new JRadioButton(tur);
+        turBtn.setMnemonic(KeyEvent.VK_T);
+        turBtn.setActionCommand(tur);
+        BtnGroup.add(turBtn);
+        turBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //limpiarFormulario();
-                setVisible(false);
+                //================ INFO TURISTA ================//
+                lblNacionalidad = new JLabel("Nacionalidad:");
+                lblNacionalidad.setHorizontalAlignment(SwingConstants.RIGHT);
+                GridBagConstraints gbc_lblNacionalidad = new GridBagConstraints();
+                gbc_lblNacionalidad.fill = GridBagConstraints.BOTH;
+                gbc_lblNacionalidad.insets = new Insets(0, 0, 5, 5);
+                gbc_lblNacionalidad.gridx = 0;
+                gbc_lblNacionalidad.gridy = 2;
+                getContentPane().add(lblNacionalidad, gbc_lblNacionalidad);
+                
+                textFieldNacionalidad = new JTextField();
+                textFieldNacionalidad.setToolTipText("Ingrese su Nacionalidad");
+                textFieldNacionalidad.setColumns(10);
+                GridBagConstraints gbc_textFieldNacionalidad = new GridBagConstraints();
+                gbc_textFieldNacionalidad.gridwidth = 2;
+                gbc_textFieldNacionalidad.fill = GridBagConstraints.BOTH;
+                gbc_textFieldNacionalidad.insets = new Insets(0, 0, 5, 0);
+                gbc_textFieldNacionalidad.gridx = 1;
+                gbc_textFieldNacionalidad.gridy = 2;
+                getContentPane().add(textFieldNacionalidad, gbc_textFieldNacionalidad);
+                //================ INFO TURISTA ================//
             }
         });
-        GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-        gbc_btnCancelar.fill = GridBagConstraints.BOTH;
-        gbc_btnCancelar.gridx = 2;
-        gbc_btnCancelar.gridy = 3;
-        getContentPane().add(btnCancelar, gbc_btnCancelar);
+
+        
+                btnCancelar = new JButton("Cancelar");
+                btnCancelar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        limpiarFormulario();
+                        setVisible(false);
+                    }
+                });
+                
+                panel = new JPanel();
+                GroupLayout groupLayout = new GroupLayout(getContentPane());
+                groupLayout.setHorizontalGroup(
+                	groupLayout.createParallelGroup(Alignment.LEADING)
+                		.addGroup(groupLayout.createSequentialGroup()
+                			.addGap(6)
+                			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                				.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                				.addGroup(groupLayout.createSequentialGroup()
+                					.addComponent(lblIngreseNickName, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+                					.addGap(6)
+                					.addComponent(textFieldNickName, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
+                				.addGroup(groupLayout.createSequentialGroup()
+                					.addComponent(lblIngreseNombre, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+                					.addGap(6)
+                					.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
+                				.addGroup(groupLayout.createSequentialGroup()
+                					.addComponent(lblIngreseApellido, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+                					.addGap(6)
+                					.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
+                				.addGroup(groupLayout.createSequentialGroup()
+                					.addComponent(lblIngreseEmail, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+                					.addGap(6)
+                					.addComponent(textFieldApellido, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE))
+                				.addGroup(groupLayout.createSequentialGroup()
+                					.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+                					.addGap(15)
+                					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                						.addGroup(groupLayout.createSequentialGroup()
+                							.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+                							.addGap(18)
+                							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
+                						.addGroup(groupLayout.createSequentialGroup()
+                							.addComponent(provBtn)
+                							.addGap(46)
+                							.addComponent(turBtn)))))
+                			.addContainerGap())
+                );
+                groupLayout.setVerticalGroup(
+                	groupLayout.createParallelGroup(Alignment.LEADING)
+                		.addGroup(groupLayout.createSequentialGroup()
+                			.addGap(6)
+                			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                				.addComponent(lblIngreseNickName, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                				.addComponent(textFieldNickName, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+                			.addGap(6)
+                			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                				.addComponent(lblIngreseNombre, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                				.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+                			.addGap(6)
+                			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                				.addComponent(lblIngreseApellido, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                				.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+                			.addGap(6)
+                			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+                				.addComponent(lblIngreseEmail, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                				.addComponent(textFieldApellido, GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                			.addPreferredGap(ComponentPlacement.RELATED)
+                			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                				.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+                				.addComponent(provBtn)
+                				.addComponent(turBtn))
+                			.addPreferredGap(ComponentPlacement.RELATED)
+                			.addComponent(panel, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                			.addPreferredGap(ComponentPlacement.UNRELATED)
+                			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+                				.addComponent(btnAceptar)
+                				.addComponent(btnCancelar))
+                			.addContainerGap())
+                );
+                
+                lblNacionalidad_1 = new JLabel("Nacionalidad");
+                lblNacionalidad_1.setHorizontalAlignment(SwingConstants.CENTER);
+                
+                textField = new JTextField();
+                textField.setColumns(10);
+                
+                JLabel lblSitioWeb_1 = new JLabel("Sitio Web");
+                lblSitioWeb_1.setHorizontalAlignment(SwingConstants.CENTER);
+                
+                textField_1 = new JTextField();
+                textField_1.setColumns(10);
+                
+                JLabel lblDescripcion = new JLabel("Descripcion");
+                lblDescripcion.setHorizontalAlignment(SwingConstants.CENTER);
+                
+                JTextPane textPane = new JTextPane();
+                GroupLayout gl_panel = new GroupLayout(panel);
+                gl_panel.setHorizontalGroup(
+                	gl_panel.createParallelGroup(Alignment.LEADING)
+                		.addGroup(gl_panel.createSequentialGroup()
+                			.addGap(21)
+                			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+                				.addComponent(lblNacionalidad_1)
+                				.addComponent(lblSitioWeb_1)
+                				.addComponent(lblDescripcion))
+                			.addPreferredGap(ComponentPlacement.RELATED)
+                			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+                				.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+                				.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                				.addComponent(textPane, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+                			.addContainerGap(270, Short.MAX_VALUE))
+                );
+                gl_panel.setVerticalGroup(
+                	gl_panel.createParallelGroup(Alignment.LEADING)
+                		.addGroup(gl_panel.createSequentialGroup()
+                			.addGap(8)
+                			.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+                				.addComponent(lblNacionalidad_1)
+                				.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                			.addGap(8)
+                			.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+                				.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                				.addComponent(lblSitioWeb_1))
+                			.addPreferredGap(ComponentPlacement.UNRELATED)
+                			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+                				.addComponent(lblDescripcion)
+                				.addComponent(textPane, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+                			.addContainerGap())
+                );
+                panel.setLayout(gl_panel);
+                groupLayout.setAutoCreateGaps(true);
+                groupLayout.setAutoCreateContainerGaps(true);
+                getContentPane().setLayout(groupLayout);
+        //================ ACEPTAR-CANCELAR BUTTONS ================//
     }
 
-//
-//    // Este método es invocado al querer registrar un usuario, funcionalidad
-//    // provista por la operación del sistem registrarUsuario().
-//    // Previamente se hace una verificación de los campos, particularmente que no sean vacíos
-//    // y que la cédula sea un número. 
-//    // Tanto en caso de que haya un error (de verificación o de registro) o no, se despliega
-//    // un mensaje utilizando un panel de mensaje (JOptionPane).
-//    protected void cmdRegistroUsuarioActionPerformed(ActionEvent arg0) {
-//        // Obtengo datos de los controles Swing
-//        String nombreU = this.textFieldNombre.getText();
-//        String apellidoU = this.textFieldApellido.getText();
-//        String ciU = this.textFieldCI.getText();
-//
-//        if (checkFormulario()) {
-//            try {
-//                controlUsr.registrarUsuario(nombreU, apellidoU, ciU);
-//
-//                // Muestro éxito de la operación
-//                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
-//                        JOptionPane.INFORMATION_MESSAGE);
-//
-//            } catch (UsuarioRepetidoException e) {
-//                // Muestro error de registro
-//                JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-//            }
-//
-//            // Limpio el internal frame antes de cerrar la ventana
-//            limpiarFormulario();
-//            setVisible(false);
-//        }
-//    }
+    protected void cmdRegistroUsuarioActionPerformed(ActionEvent arg0) {
+    	String nickname = this.textFieldNickName.getText();
+        String nombre = this.textFieldNombre.getText();
+        String apellido = this.textFieldApellido.getText();
+        String email = this.textFieldEmail.getText();
+//        castear la fecha a tipo Date
+        Date fechaNac = new Date();
+//        capturar radio button value para pasar tipo Usuaeio
+        tipoUsuario tipo = tipoUsuario.turista;
+        
+//        String nacionalidad = this.textFieldNacionalidad.getText();
+//        String descripcion = this.textFieldDescripcion.getText();
+//        String sitioWeb = this.textFieldEmail.getText();
+        String nacionalidad = "";
+        String descripcion = "";
+        String sitioWeb = "";
 
+        if (checkFormulario()) {
+            try {
+                ctrlUsr.altaUsuario(nickname, email, nombre, apellido, fechaNac, tipo, nacionalidad, descripcion, sitioWeb);
+
+                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+//          } catch (YaExisteException e) {
+//              JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+//          } catch (InvalidArgument e) {
+//            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+//          }
+            } catch (Exception e) {
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+            }
+            limpiarFormulario();
+            setVisible(false);
+        }
+    }
+    
+    private boolean checkFormulario() {
+    	String nickname = this.textFieldNickName.getText();
+        String nombre = this.textFieldNombre.getText();
+        String apellido = this.textFieldApellido.getText();
+        String email = this.textFieldEmail.getText();
+
+        if (nickname.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        String usrTypeSelected = BtnGroup.getSelection().getActionCommand();
+        if (usrTypeSelected == "Turista") {
+        	String nacionalidad = this.textFieldNacionalidad.getText();
+        	if (nacionalidad.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+        	}
+        }
+        if (usrTypeSelected == "Proveedor") {
+        	String descripcion = this.textFieldDescripcion.getText();
+        	if (descripcion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+        	}
+        }
+        return true;
+    }
+    
+    private void limpiarFormulario() {
+    	textFieldNickName.setText("");
+        textFieldNombre.setText("");
+        textFieldApellido.setText("");
+        textFieldEmail.setText("");
+    }
 }
