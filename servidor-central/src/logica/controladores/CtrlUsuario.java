@@ -8,11 +8,13 @@ import logica.clases.InscripcionSalida;
 import logica.handlers.HandlerSalidas;
 import logica.handlers.HandlerUsuarios;
 import datatypes.DTActividad;
+import datatypes.DTProveedor;
 import datatypes.DTSalida;
+import datatypes.DTTurista;
 import datatypes.DTUsuario;
 import datatypes.tipoUsuario;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -24,7 +26,7 @@ public class CtrlUsuario implements ICtrlUsuario {
 	
 	public CtrlUsuario() {}
 	
-	public void altaUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws InvalidArgument, YaExisteException {
+	public void altaUsuario(String nickname, String email, String nombre, String apellido, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws InvalidArgument, YaExisteException {
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		if (tipo == tipoUsuario.turista) {
 			Turista t = new Turista(nickname, email, nombre, apellido, fechaNac, nacionalidad);
@@ -38,7 +40,7 @@ public class CtrlUsuario implements ICtrlUsuario {
 	}
 	
 
-	public void ingresarInscripcion(String nickname, String salida, int cant, Date fecha) { 
+	public void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) { 
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		try {
@@ -69,17 +71,24 @@ public class CtrlUsuario implements ICtrlUsuario {
 		});
 		return res;
 	}
-	
 	public void actualizarUsuario(String nickname, String nombre, String apellido, Date fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) { 
 	
 	}
 	
-	public Set<DTSalida> listarInfoSalidasTurista(Turista t){ 
+	public Set<DTSalida> listarInfoSalidasTurista(String t){ 
 		return null;
  	}
 	
-	public Set<DTActividad> listarInfoCompletaActividadesProveedor(Proveedor p) {
-		return null;
+	public Set<DTActividad> listarInfoCompletaActividadesProveedor(String p) {
+		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+		Set<DTActividad> resultado = new HashSet<DTActividad>();
+		try {
+			Proveedor prov = hU.getProveedorByNickname(p);
+			p.actividades.forEach((act) -> {
+				resutlado.add(new DTActividad(act));
+			});
+		}catch (Exception e) {}
+		return resultado;
 	}
 	
 	public Set<String> listarUsuarios(){ 
@@ -91,10 +100,17 @@ public class CtrlUsuario implements ICtrlUsuario {
 		return resultado;
 	}
 	
-	public DTUsuario getInfoBasicaUsuario(Usuario usr) {
+	public DTUsuario getInfoBasicaUsuario(String usr) {
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
-		Usuario usuario = hU.getUsuario(usr);
-		
-		return null;
+		DTUsuario resultado = null;
+		try {
+			Usuario usuario = hU.getUsuarioByNickname(usr);
+			if(usuario instanceof Turista) {
+				resultado = new DTTurista((Turista)usuario);
+			}else {
+				resultado = new DTProveedor((Proveedor)usuario); 
+			}	
+		}catch (Exception e){}
+		return resultado;
 	}
 }
