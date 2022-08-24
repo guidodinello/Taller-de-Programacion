@@ -12,7 +12,7 @@ import datatypes.DTSalida;
 import datatypes.DTUsuario;
 import datatypes.tipoUsuario;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -24,7 +24,7 @@ public class CtrlUsuario implements ICtrlUsuario {
 	
 	public CtrlUsuario() {}
 	
-	public void altaUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws InvalidArgument, YaExisteException {
+	public void altaUsuario(String nickname, String email, String nombre, String apellido, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws InvalidArgument, YaExisteException {
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		if (tipo == tipoUsuario.turista) {
 			Turista t = new Turista(nickname, email, nombre, apellido, fechaNac, nacionalidad);
@@ -38,7 +38,7 @@ public class CtrlUsuario implements ICtrlUsuario {
 	}
 	
 
-	public void ingresarInscripcion(String nickname, String salida, int cant, Date fecha) { 
+	public void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) { 
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		try {
@@ -60,21 +60,21 @@ public class CtrlUsuario implements ICtrlUsuario {
 		turistas.forEach((e) -> { res.add(e.getNickname()); });
 		return res;
 	}
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, Date fechaAlta) { 
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta) { 
 
 	} 
 	public Set<String> listarProveedores() { 
 		return null;
 	}
-	public void actualizarUsuario(String nickname, String nombre, String apellido, Date fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) { 
+	public void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) { 
 	
 	}
 	
-	public Set<DTSalida> listarInfoSalidasTurista(Turista t){ 
+	public Set<DTSalida> listarInfoSalidasTurista(String t){ 
 		return null;
  	}
 	
-	public Set<DTActividad> listarInfoCompletaActividadesProveedor(Proveedor p) {
+	public Set<DTActividad> listarInfoCompletaActividadesProveedor(String p) {
 		return null;
 	}
 	
