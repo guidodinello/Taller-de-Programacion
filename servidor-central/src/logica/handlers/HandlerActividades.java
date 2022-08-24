@@ -19,7 +19,16 @@ public class HandlerActividades{
         return instancia;
     }
 
-	public ActividadTuristica getActividad(String actividad) {
+	public boolean existeActividad(String nombre) {
+		return actividades.containsKey(nombre);
+	}
+	
+	public void agregarActividad(ActividadTuristica actividad) {
+		actividades.put(actividad.getNombre(), actividad);
+	}
+
+    
+	public ActividadTuristica obtenerActividadTuristica(String actividad) {
 		return actividadesTuristicas.get(actividad);
 	}
 }

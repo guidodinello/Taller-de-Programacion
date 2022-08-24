@@ -1,9 +1,9 @@
 package logica.clases;
 
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.GregorianCalendar;
 
 import datatypes.DTSalida;
 
@@ -13,10 +13,10 @@ public class ActividadTuristica{
 	private String nombre, descripcion, nombreCiudad;
 	private int duracionHs;
 	private float costoPorTurista;
-	private Date fechaAlta;
+	private GregorianCalendar fechaAlta;
 	private Map<String, SalidaTuristica> salidas;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, Date fechaAlta) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
@@ -46,7 +46,7 @@ public class ActividadTuristica{
 		return nombreCiudad;
 	}
 	
-	public Date getFechaAlta() {
+	public GregorianCalendar getFechaAlta() {
 		return fechaAlta;
 	}
 	
@@ -54,7 +54,7 @@ public class ActividadTuristica{
 		//to-do
 	}
 
-	public Set<DTSalida> getInfoBasicaSalidasVigentes(Date fechaSistema) {
+	public Set<DTSalida> getInfoBasicaSalidasVigentes(GregorianCalendar fechaSistema) {
 		Set<DTSalida> res = new HashSet<DTSalida>();
 		salidas.values().forEach((e) -> {
 			if(e.getfechaSalida().after(fechaSistema)) {
