@@ -9,7 +9,7 @@ public class DTSalida {
 	private Date fechaAlta;
 	private int maxTuristas;
 	private String lugarSalida;
-	private Set<String> turistasInscriptos; //va a ser set???
+	private Set<String> turistasInscriptos; //va a ser set??? // resp: Creo que es suficiente con poner los nicks nomas
 	
 	 public DTSalida() {
 		this.setNombre(new String());

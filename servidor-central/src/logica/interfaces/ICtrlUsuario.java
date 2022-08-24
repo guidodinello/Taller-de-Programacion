@@ -20,7 +20,7 @@ public interface ICtrlUsuario {
 	public abstract void altaUsuario(String nickname,String email, String nombre, String apellido, Date fechaNac,
 			tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws InvalidArgument, YaExisteException;
 	public abstract void ingresarInscripcion(String nickname, String salida, int cant, Date fecha);
-	public abstract void listarTuristas();
+	public abstract Set<String> listarTuristas();
 	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, Date fechaAlta); 
 	public abstract Set<String> listarProveedores();
 	public abstract void actualizarUsuario(String nickname, String nombre, String apellido, Date fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb);

@@ -1,11 +1,13 @@
 package logica.clases;
 
 //importaciones
-import java.util.Collection;
+//import logica.clases.ActividadTuristica;
+//import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-public class Departamento {
+public class Departamento{
 	private String nombre;
 	private String URL;
 	private Map<String, ActividadTuristica> actividades;
@@ -18,5 +20,13 @@ public class Departamento {
 	
 	public String getNombre() {
 		return this.nombre;
+	}
+	
+	public String getURL() {
+		return URL;
+	}
+
+	public Set<String> listarActividades() {
+		return actividades.keySet();
 	}
 }
