@@ -16,7 +16,7 @@ public class HandlerSalidas {
         salidasTuristicas = new HashMap<String, SalidaTuristica>();
     }
 
-    public static HandlerSalidas getinstance() {
+    public static HandlerSalidas getInstance() {
         if (instancia == null)
             instancia = new HandlerSalidas();
         return instancia;
