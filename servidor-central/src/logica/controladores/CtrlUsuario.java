@@ -8,7 +8,9 @@ import logica.clases.InscripcionSalida;
 import logica.handlers.HandlerSalidas;
 import logica.handlers.HandlerUsuarios;
 import datatypes.DTActividad;
+import datatypes.DTProveedor;
 import datatypes.DTSalida;
+import datatypes.DTTurista;
 import datatypes.DTUsuario;
 import datatypes.tipoUsuario;
 
@@ -93,14 +95,11 @@ public class CtrlUsuario implements ICtrlUsuario {
 		try {
 			Usuario usuario = hU.getUsuarioByNickname(usr);
 			if(usuario instanceof Turista) {
-				resultado = new DTTurista(usuario);
+				resultado = new DTTurista((Turista)usuario);
 			}else {
-				resultado = new DTProveedor(usuario); 
-			}
-			
+				resultado = new DTProveedor((Proveedor)usuario); 
+			}	
 		}catch (Exception e){}
-		
-		
 		return resultado;
 	}
 }
