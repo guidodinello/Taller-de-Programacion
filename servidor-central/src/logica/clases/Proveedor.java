@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 import datatypes.DTActividad;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class Proveedor extends Usuario {
@@ -38,6 +39,10 @@ public class Proveedor extends Usuario {
 	}
 	
 	public Set<DTActividad> getDTActividades(){
-		return null;
+		Set<DTActividad> resultado = new HashSet<DTActividad>();
+		this.actividades.forEach((key, value)->{
+			resultado.add(value.getDTActividad());
+		});
+		return resultado;
 	}
 }

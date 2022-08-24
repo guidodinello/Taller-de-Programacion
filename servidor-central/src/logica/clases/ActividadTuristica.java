@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.GregorianCalendar;
 
+import datatypes.DTActividad;
 import datatypes.DTSalida;
 
 import java.util.HashMap;
@@ -64,5 +65,17 @@ public class ActividadTuristica{
 			}
 		});
 		return res;
+	}
+	
+	public DTActividad getDTActividad() {
+		String n = this.nombre;
+		String des =this.descripcion;
+		int dura = this.duracionHs;
+		float costo = this.costoPorTurista;
+		Set<String> salidas = new HashSet<String>();
+		this.salidas.forEach((key,value)->{
+			salidas.add(value.getNombre());
+		});
+		return new DTActividad(n, des,dura, costo, salidas);
 	}
 }
