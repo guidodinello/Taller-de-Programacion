@@ -8,13 +8,15 @@ public class SalidaTuristica {
 	    private Date fechaAlta;
 	    private int cantidadMaximaDeTuristas;
 	    private String lugarSalida;
-
-	    public SalidaTuristica(String Sn, Date Ds, Date Da,int CmaxT,String SlugarSal) {
+	    private ActividadTuristica actividadSalida;
+	   
+	    public SalidaTuristica(String Sn, Date Ds,String SlugarSal, int CmaxT,Date Da,ActividadTuristica actividad) {
 	        this.nombre = Sn;
 	        this.fechaSalida = Ds;
 	        this.fechaAlta= Da;
 	        this.cantidadMaximaDeTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
+	        this.actividadSalida = actividad;
 	    }
 
 	    public String getNombre() {

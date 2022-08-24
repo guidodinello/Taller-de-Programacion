@@ -1,4 +1,5 @@
 package presentacion;
+import logica.interfaces.Fabrica;
 
 import java.awt.EventQueue;
 
@@ -7,23 +8,30 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import logica.*;
-
+import presentacion.*;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import logica.controladores.*;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JTextField;
+import java.awt.GridBagLayout;
 
 
 public class Principal {
 
-    private JFrame frmGestionDeUsuarios;
+    private JFrame frmGestionDeTurismoUy;
     private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
     private CrearUsuario creUsrInternalFrame;
-    private ConsultarUsuario conUsrInternalFrame;
-    private ListaUsuarios lisUsrInternalFrame;
+    private JTextField textField;
+    private JTextField textField_1;
+  //  private ConsultarUsuario conUsrInternalFrame;
+   // private ListaUsuarios lisUsrInternalFrame;
 
     /**
      * Launch the application.
@@ -33,7 +41,7 @@ public class Principal {
             public void run() {
                 try {
                     Principal window = new Principal();
-                    window.frmGestionDeUsuarios.setVisible(true);
+                    window.frmGestionDeTurismoUy.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -49,24 +57,51 @@ public class Principal {
 
         // Inicialización
         Fabrica fabrica = Fabrica.getInstance();
-        ICU = fabrica.getIControladorUsuario();
+        ICU = fabrica.getICtrlUsuario();
         
         // Se crean los tres InternalFrame y se incluyen al Frame principal ocultos.
         // De esta forma, no es necesario crear y destruir objetos lo que enlentece la ejecución.
         // Cada InternalFrame usa un layout diferente, simplemente para mostrar distintas opciones.
         creUsrInternalFrame = new CrearUsuario(ICU);
+        GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
+        gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0};
         creUsrInternalFrame.setVisible(false);
 
-        conUsrInternalFrame = new ConsultarUsuario(ICU);
-        conUsrInternalFrame.setVisible(false);
+       // conUsrInternalFrame = new ConsultarUsuario(ICU);
+        //conUsrInternalFrame.setVisible(false);
 
-        lisUsrInternalFrame = new ListaUsuarios(ICU);
-        lisUsrInternalFrame.setVisible(false);
-        frmGestionDeUsuarios.getContentPane().setLayout(null);
+        //lisUsrInternalFrame = new ListaUsuarios(ICU);
+        //lisUsrInternalFrame.setVisible(false);
+        //frmGestionDeUsuarios.getContentPane().setLayout(null);
 
-        frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(creUsrInternalFrame);
-        frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
+        frmGestionDeTurismoUy.getContentPane().add(creUsrInternalFrame);
+        
+        JLabel lblNewLabel = new JLabel("New label");
+        GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+        gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
+        gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
+        gbc_lblNewLabel.gridx = 0;
+        gbc_lblNewLabel.gridy = 3;
+        creUsrInternalFrame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+        
+        textField = new JTextField();
+        GridBagConstraints gbc_textField = new GridBagConstraints();
+        gbc_textField.insets = new Insets(0, 0, 0, 5);
+        gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textField.gridx = 1;
+        gbc_textField.gridy = 3;
+        creUsrInternalFrame.getContentPane().add(textField, gbc_textField);
+        textField.setColumns(10);
+        
+        textField_1 = new JTextField();
+        GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+        gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textField_1.gridx = 2;
+        gbc_textField_1.gridy = 3;
+        creUsrInternalFrame.getContentPane().add(textField_1, gbc_textField_1);
+        textField_1.setColumns(10);
+        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
     }
 
     /**
@@ -75,16 +110,16 @@ public class Principal {
     private void initialize() {
         
         // Se crea el Frame con las dimensiones indicadas.
-        frmGestionDeUsuarios = new JFrame();
-        frmGestionDeUsuarios.setTitle("Gestion de Usuarios 1.0");
-        frmGestionDeUsuarios.setBounds(100, 100, 450, 400);
-        frmGestionDeUsuarios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmGestionDeTurismoUy = new JFrame();
+        frmGestionDeTurismoUy.setTitle("Turismo.uy");
+        frmGestionDeTurismoUy.setBounds(100, 100, 450, 400);
+        frmGestionDeTurismoUy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
         // Cada menú contiene diferentes opciones (JMenuItem), los cuales tienen un 
         // evento asociado que permite realizar una acción una vez se seleccionan. 
         JMenuBar menuBar = new JMenuBar();
-        frmGestionDeUsuarios.setJMenuBar(menuBar);
+        frmGestionDeTurismoUy.setJMenuBar(menuBar);
 
         JMenu menuSistema = new JMenu("Sistema");
         menuBar.add(menuSistema);
@@ -93,8 +128,8 @@ public class Principal {
         menuSalir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 // Salgo de la aplicación
-                frmGestionDeUsuarios.setVisible(false);
-                frmGestionDeUsuarios.dispose();
+                frmGestionDeTurismoUy.setVisible(false);
+                frmGestionDeTurismoUy.dispose();
             }
         });
         menuSistema.add(menuSalir);
@@ -102,6 +137,8 @@ public class Principal {
         JMenu menuUsuarios = new JMenu("Usuarios");
         menuBar.add(menuUsuarios);
 
+        // SE CREA EL ITEM REGISTRAR USUARIO
+        
         JMenuItem menuItemRegistrar = new JMenuItem("Registrar Usuario");
         menuItemRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -111,24 +148,7 @@ public class Principal {
         });
         menuUsuarios.add(menuItemRegistrar);
 
-        JMenuItem menuItemVerInfo = new JMenuItem("Ver Información");
-        menuItemVerInfo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para ver información de un usuario
-                conUsrInternalFrame.setVisible(true);
-            }
-        });
-        menuUsuarios.add(menuItemVerInfo);
+        
 
-        JMenuItem mntmListaUsuarios = new JMenuItem("ListarUsuarios");
-        mntmListaUsuarios.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para ver la lista de todos los usuarios,
-                // cargando previamente la lista
-                lisUsrInternalFrame.cargarUsuarios();
-                lisUsrInternalFrame.setVisible(true);
-            }
-        });
-        menuUsuarios.add(mntmListaUsuarios);
     }
 }
