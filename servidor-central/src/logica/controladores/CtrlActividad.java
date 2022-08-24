@@ -1,4 +1,7 @@
 package logica.controladores;
+import java.util.HashSet;
+import java.util.Set;
+
 import excepciones.YaExisteException;
 import logica.clases.Departamento;
 import logica.handlers.HandlerDepartamentos;
@@ -16,5 +19,11 @@ public class CtrlActividad implements ICtrlActividad{
 		Departamento newD = new Departamento(nombreDepartamento, URL);
 		hD.add(newD);
 		
+	}
+	
+	public Set<String> listarDepartamentos(){
+		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
+		Set<String> resu = hD.listarDepartamentos();
+		return resu;
 	}
 }

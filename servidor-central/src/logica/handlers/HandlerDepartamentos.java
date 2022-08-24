@@ -4,8 +4,12 @@ package logica.handlers;
 //importaciones
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
 import logica.clases.Departamento;
+import logica.controladores.hD;
 
 
 public class HandlerDepartamentos {
@@ -31,5 +35,13 @@ public class HandlerDepartamentos {
 	
 	public boolean existeDepartamento(String nombreDepartamento) {
 		return this.departamentos.containsKey(nombreDepartamento);
+	}
+	
+	public Set<String> listarDepartamentos(){
+		Set<String> resu = new HashSet<>();
+		for(Map.Entry<String, Departamento> entry : this.departamentos.entrySet()) {
+			resu.add(entry.getValue().getNombre());
+		}
+		return resu;
 	}
 }
