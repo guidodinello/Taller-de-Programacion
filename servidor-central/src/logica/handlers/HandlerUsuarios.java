@@ -96,4 +96,10 @@ public class HandlerUsuarios{
 		Set<Turista> res = new HashSet<Turista>(turistas.values());
 		return res;
 	}
+	
+	public Set<Usuario> listarUsuarios(){
+		Set<Usuario> res = new HashSet<Usuario>(turistas.values());
+		res.addAll(this.proveedores.values());
+		return res;
+	}
 }

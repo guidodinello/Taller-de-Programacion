@@ -79,10 +79,18 @@ public class CtrlUsuario implements ICtrlUsuario {
 	}
 	
 	public Set<String> listarUsuarios(){ 
-		return null; 
+		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+		Set<Usuario> usuarios = hU.listarUsuarios();
+		Set<String> resultado = new HashSet<String>();
+		usuarios.forEach((Usuario usuario) -> {
+			resultado.add(usuario.getNickname());});
+		return resultado;
 	}
 	
-	public DTUsuario getInfoBasicaUsuario(Usuario usr) { 
+	public DTUsuario getInfoBasicaUsuario(Usuario usr) {
+		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+		Usuario usuario = hU.getUsuario(usr);
+		
 		return null;
 	}
 }
