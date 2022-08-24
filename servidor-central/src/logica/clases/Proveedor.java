@@ -1,12 +1,15 @@
 package logica.clases;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Proveedor extends Usuario {
-
-	public Proveedor(String nickname, String email, String nombre, String apellido, Date fechaNac, String descripcion,
-			String sitioWeb) {
-		// TODO Auto-generated constructor stub
+	
+	String descripcion, sitioWeb;
+	
+	public Proveedor(String nickname, String email, String nombre, String apellido, GregorianCalendar fechaNac, String descripcion, String sitioWeb) {
+		super(nickname, email, nombre, apellido, fechaNac);
+		this.descripcion = descripcion;
+		this.sitioWeb = sitioWeb;
 	}
 
 }
