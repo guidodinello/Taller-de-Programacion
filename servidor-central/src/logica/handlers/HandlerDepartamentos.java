@@ -4,14 +4,13 @@ package logica.handlers;
 //import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-<<<<<<< HEAD
 import java.util.HashSet;
-=======
->>>>>>> a6a9cc4d3104180c12f9768eabf36e420f78ff94
 
 import logica.clases.Departamento;
+import logica.controladores.hD;
 
 
 public class HandlerDepartamentos{
@@ -38,7 +37,6 @@ public class HandlerDepartamentos{
 	public boolean existeDepartamento(String nombreDepartamento) {
 		return this.departamentos.containsKey(nombreDepartamento);
 	}
-<<<<<<< HEAD
 
 	public Set<Departamento> obtenerDepartamentos() {
 		Set<Departamento> departamentos = new HashSet<Departamento>(this.departamentos.values());
@@ -48,7 +46,6 @@ public class HandlerDepartamentos{
 	public Departamento getDepto(String depto) {
 		return departamentos.get(depto);
 	}
-=======
 	
 	public Set<String> listarDepartamentos(){
 		Set<String> resu = new HashSet<>();
@@ -57,6 +54,4 @@ public class HandlerDepartamentos{
 		}
 		return resu;
 	}
-
->>>>>>> a6a9cc4d3104180c12f9768eabf36e420f78ff94
 }

@@ -35,6 +35,7 @@ public class CtrlActividad implements ICtrlActividad{
 		
 	}
 	
+	
 	public Set<String> listarDepartamentos(){
 		Set<String> departamentos = new HashSet<String>();
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
@@ -72,6 +73,8 @@ public class CtrlActividad implements ICtrlActividad{
 		ActividadTuristica at = hA.getActividad(actividad);
 		return at.getInfoBasicaSalidasVigentes(fechaSistema);
 	}
+		HandlerActividades hA = HandlerActividades.getInstance();
+		ActividadTuristica actividadAux = hA.obtenerActividadTuristica(actividad);
 	
 	public void altaSalidaTuristica(String nombreSal,Date fechaSal, String lugarSal,int cantMaxTuristas, Date fechaAlta,String  actividad) throws YaExisteException {
 		HandlerSalidas hS = HandlerSalidas.getInstance();
