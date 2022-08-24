@@ -11,5 +11,13 @@ public class Proveedor extends Usuario {
 		this.descripcion = descripcion;
 		this.sitioWeb = sitioWeb;
 	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
+	public String getSitioWeb() {
+		return sitioWeb;
+	}
 
 }
