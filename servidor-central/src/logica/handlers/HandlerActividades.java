@@ -20,11 +20,11 @@ public class HandlerActividades{
     }
 
 	public boolean existeActividad(String nombre) {
-		return actividades.containsKey(nombre);
+		return actividadesTuristicas.containsKey(nombre);
 	}
 	
 	public void agregarActividad(ActividadTuristica actividad) {
-		actividades.put(actividad.getNombre(), actividad);
+		actividadesTuristicas.put(actividad.getNombre(), actividad);
 	}
 
     

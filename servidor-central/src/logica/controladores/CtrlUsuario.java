@@ -60,12 +60,16 @@ public class CtrlUsuario implements ICtrlUsuario {
 		turistas.forEach((e) -> { res.add(e.getNickname()); });
 		return res;
 	}
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, Date fechaAlta) { 
-
-	} 
+	
 	public Set<String> listarProveedores() { 
-		return null;
+		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+		Set<String> res = new HashSet<String>();
+		hU.listarProveedores().forEach(e->{
+			res.add(e.getNickname());
+		});
+		return res;
 	}
+	
 	public void actualizarUsuario(String nickname, String nombre, String apellido, Date fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) { 
 	
 	}
