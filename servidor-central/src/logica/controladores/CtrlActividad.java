@@ -59,10 +59,13 @@ public class CtrlActividad implements ICtrlActividad{
 		return null;
 		
 	}
+	
 	public Set<String> listarDepartamentos(){
-		return null;
-		
+		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
+		Set<String> resu = hD.listarDepartamentos();
+		return resu;
 	}
+	
 	public Set<String> listarActividadesDepartamento(String depto){
 		return null;
 		
