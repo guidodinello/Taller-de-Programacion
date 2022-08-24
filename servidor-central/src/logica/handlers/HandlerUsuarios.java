@@ -81,7 +81,7 @@ public class HandlerUsuarios{
 		Turista t = turistas.get(key);
 		if (t != null)
 			return (Usuario)t;
-		throw new NoExisteUsuario("No existe usuario con nickname: " + key.get(0) + " e email: " + key.get(1));; 
+		throw new NoExisteUsuario("No existe usuario con nickname: " + key.get(0) + " e email: " + key.get(1));
 	}
 	
 	public Turista getTurista(String nickname, String email) throws NoExisteUsuario {
