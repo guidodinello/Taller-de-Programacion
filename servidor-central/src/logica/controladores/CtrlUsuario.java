@@ -77,7 +77,15 @@ public class CtrlUsuario implements ICtrlUsuario {
  	}
 	
 	public Set<DTActividad> listarInfoCompletaActividadesProveedor(String p) {
-		return null;
+		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+		Set<DTActividad> resultado = new HashSet<DTActividad>();
+		try {
+			Proveedor prov = hU.getProveedorByNickname(p);
+			p.actividades.forEach((act) -> {
+				resutlado.add(new DTActividad(act));
+			});
+		}catch (Exception e) {}
+		return resultado;
 	}
 	
 	public Set<String> listarUsuarios(){ 
