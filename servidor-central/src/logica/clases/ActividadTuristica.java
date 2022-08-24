@@ -1,16 +1,68 @@
 package logica.clases;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.GregorianCalendar;
 
-public class ActividadTuristica {
-	private String nombre;
-	private String descripcion;
+import datatypes.DTSalida;
+
+import java.util.HashMap;
+
+public class ActividadTuristica{
+	private String nombre, descripcion, nombreCiudad;
 	private int duracionHs;
 	private float costoPorTurista;
-	private String nombreCiudad;
 	private GregorianCalendar fechaAlta;
+	private Map<String, SalidaTuristica> salidas;
+	
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.duracionHs = duracionHs;
+		this.costoPorTurista = costoPorTurista;
+		this.nombreCiudad = nombreCiudad;
+		this.fechaAlta = fechaAlta;
+		salidas = new HashMap<String, SalidaTuristica>();
+	}
 	
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
+	public int getDuracionHs() {
+		return duracionHs;
+	}
+	
+	public float getCostoPorTurista() {
+		return costoPorTurista;
+	}
+	
+	public String getNombreCiudad() {
+		return nombreCiudad;
+	}
+	
+	public GregorianCalendar getFechaAlta() {
+		return fechaAlta;
+	}
+	
+	public void agregarSalida() {
+		//to-do
+	}
+
+	public Set<DTSalida> getInfoBasicaSalidasVigentes(GregorianCalendar fechaSistema) {
+		Set<DTSalida> res = new HashSet<DTSalida>();
+		salidas.values().forEach((e) -> {
+			if(e.getfechaSalida().after(fechaSistema)) {
+				Set<String> turistas = new HashSet<String>();
+				DTSalida actual = new DTSalida(e.getNombre(), e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas);
+				res.add(actual);
+			}
+		});
+		return res;
 	}
 }

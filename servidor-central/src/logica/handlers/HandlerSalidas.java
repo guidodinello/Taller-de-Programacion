@@ -8,7 +8,7 @@ import logica.clases.SalidaTuristica;
 /*
  * Clase que contiene la coleccion global de Salidas Turisticas 
  */
-public class HandlerSalidas {
+public class HandlerSalidas{
     private Map<String,SalidaTuristica > salidasTuristicas;
     private static HandlerSalidas instancia = null;
 

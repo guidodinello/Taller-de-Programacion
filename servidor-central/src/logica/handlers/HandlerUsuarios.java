@@ -3,6 +3,8 @@ package logica.handlers;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -12,7 +14,7 @@ import logica.clases.Proveedor;
 import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 
-public class HandlerUsuarios {
+public class HandlerUsuarios{
 	
 	private static HandlerUsuarios instance = null;
 
@@ -79,7 +81,7 @@ public class HandlerUsuarios {
 		Turista t = turistas.get(key);
 		if (t != null)
 			return (Usuario)t;
-		throw new NoExisteUsuario("No existe usuario con nickname: " + key.get(0) + " e email: " + key.get(1));; 
+		throw new NoExisteUsuario("No existe usuario con nickname: " + key.get(0) + " e email: " + key.get(1));
 	}
 	
 	public Turista getTurista(String nickname, String email) throws NoExisteUsuario {
@@ -88,5 +90,16 @@ public class HandlerUsuarios {
 	
 	public Proveedor getProveedor(String nickname, String email) throws NoExisteUsuario {
 		return (Proveedor)getUsuario(List.of(nickname, email));
+	}
+
+	public Set<Turista> listarTuristas() {
+		Set<Turista> res = new HashSet<Turista>(turistas.values());
+		return res;
+	}
+	
+	public Set<Usuario> listarUsuarios(){
+		Set<Usuario> res = new HashSet<Usuario>(turistas.values());
+		res.addAll(this.proveedores.values());
+		return res;
 	}
 }

@@ -10,7 +10,6 @@ import datatypes.DTActividad;
 
 public interface ICtrlActividad {
 
-	//departamento
 	public abstract void altaDepartamento(String nombreDepartamento, String descripcion,String URL) throws YaExisteException;
 	public abstract DTActividad getInfoActividad(String actividad);
 	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, Date fechaAlta);
@@ -21,7 +20,6 @@ public interface ICtrlActividad {
 	public abstract Set<String> listarDepartamentos();
 	public abstract Set<String> listarActividadesDepartamento(String depto);
 	public abstract Set<String> listarActividadesDepartamentoMenosPaquete(String depto, String nombrePaquete);
-	
 	public abstract Date crearPaquete(String nombre,String descripción,int validez,float descuento,Date fechaDeAlta);
 	public abstract Set<String> listarPaquetes();
 	public abstract void ingresarActividadAPaquete(String nombrePaquete,String nombreActividad);
