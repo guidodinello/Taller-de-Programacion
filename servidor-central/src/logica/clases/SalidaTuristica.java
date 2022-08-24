@@ -1,16 +1,19 @@
 package logica.clases;
-import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
+import logica.handlers.HandlerUsuarios;
 
 public class SalidaTuristica{
 	
 	 private String nombre;
-	    private Date fechaSalida;
-	    private Date fechaAlta;
+	    private GregorianCalendar fechaSalida;
+	    private GregorianCalendar fechaAlta;
 	    private int cantidadMaximaDeTuristas;
 	    private String lugarSalida;
-	    private ActividadTuristica actividadSalida;
+	    private ActividadTuristica actividad;
 		   
-	    public SalidaTuristica(String Sn, Date Ds,String SlugarSal, int CmaxT,Date Da,ActividadTuristica actividad) {
+	    public SalidaTuristica(String Sn, GregorianCalendar Ds,String SlugarSal, int CmaxT,GregorianCalendar Da,ActividadTuristica actividad) {
 	        this.nombre = Sn;
 	        this.fechaSalida = Ds;
 	        this.fechaAlta= Da;
@@ -23,11 +26,11 @@ public class SalidaTuristica{
 	        return nombre;
 	    }
 
-	    public Date getfechaSalida() {
+	    public GregorianCalendar getfechaSalida() {
 	        return fechaSalida;
 	    }
 
-	    public Date getfechaAlta() {
+	    public GregorianCalendar getfechaAlta() {
 	        return fechaAlta;
 	    }
 	    public int getcantidadMaximaDeTuristas() {
@@ -45,13 +48,12 @@ public class SalidaTuristica{
 	        nombre = Sn;
 	    }
 
-	    public void setfechaSalida(Date Dsalida ) {
+	    public void setfechaSalida(GregorianCalendar Dsalida ) {
 	        fechaSalida = Dsalida;
 	    }
-	    public void setfechaAlta(Date Dalta ) {
+	    public void setfechaAlta(GregorianCalendar Dalta ) {
 	        fechaAlta = Dalta;
 	    }
-
 
 	    public void setCantidadMaximaDeTuristas(int IcmTurista) {
 	        cantidadMaximaDeTuristas = IcmTurista;
@@ -59,11 +61,21 @@ public class SalidaTuristica{
 	    public void setLugarSalida(String SlugarSal) {
 	        lugarSalida = SlugarSal;
 	    }
-
+	    
 		public float calcularCosto(int cant) {
 			
 			return 0;
 		}
-	    
-
+		
+		public Set<String> getTuristasInscriptos(){
+			HandlerUsuarios hU = HandlerUsuarios.getInstance();
+			Set<String> resultado = new HashSet<String>();
+			Set<Turista> turistas = hU.listarTuristas();
+			turistas.forEach((t)->{
+				if(t.inscriptoSalida(this)) {
+					resultado.add(t.getNombre());
+				}
+			});
+			return resultado;
+		}
 }

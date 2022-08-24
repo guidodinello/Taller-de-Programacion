@@ -1,6 +1,9 @@
 package logica.clases;
 
 import java.util.GregorianCalendar;
+import java.util.Set;
+
+import datatypes.DTActividad;
 
 public class Proveedor extends Usuario {
 	
@@ -18,6 +21,10 @@ public class Proveedor extends Usuario {
 	
 	public String getSitioWeb() {
 		return sitioWeb;
+	}
+	
+	public Set<DTActividad> getDTActividades(){
+		return null;
 	}
 
 }

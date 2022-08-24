@@ -73,7 +73,13 @@ public class CtrlUsuario implements ICtrlUsuario {
 	}
 	
 	public Set<DTSalida> listarInfoSalidasTurista(String t){ 
-		return null;
+		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+		Set<DTSalida> resultado = null;
+		try {
+			Turista turis = hU.getTuristaByNickname(t);
+			resultado = turis.getInfoInscripciones();
+		}catch (Exception e) {}
+		return resultado;
  	}
 	
 	public Set<DTActividad> listarInfoCompletaActividadesProveedor(String p) {
@@ -81,9 +87,7 @@ public class CtrlUsuario implements ICtrlUsuario {
 		Set<DTActividad> resultado = new HashSet<DTActividad>();
 		try {
 			Proveedor prov = hU.getProveedorByNickname(p);
-			p.actividades.forEach((act) -> {
-				resutlado.add(new DTActividad(act));
-			});
+			resultado = prov.getDTActividades();
 		}catch (Exception e) {}
 		return resultado;
 	}
