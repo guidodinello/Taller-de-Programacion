@@ -1,19 +1,28 @@
 package logica.handlers;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import logica.clases.Usuario;
 import logica.clases.Turista;
 import logica.clases.Proveedor;
+import excepciones.NoExisteUsuario;
+import excepciones.YaExisteException;
 
 public class HandlerUsuarios {
 	
 	private static HandlerUsuarios instance = null;
 
-	Map<List<String>, Proveedor> proveedores = new HashMap<Proveedor>();
-	Map<List<String>, Turista> turistas = new HashMap<Turista>();
+	Map<List<String>, Proveedor> proveedores;
+	Map<List<String>, Turista> turistas;
 	
-	private HandlerUsuarios() {}
+	private HandlerUsuarios() {
+		proveedores = new HashMap<List<String>, Proveedor>();
+		turistas = new HashMap<List<String>, Turista>();
+	}
 
 	public static HandlerUsuarios getInstance() {
         if (instance == null)
@@ -21,47 +30,63 @@ public class HandlerUsuarios {
         return instance;
 	}
 	
-	/* Posible sol para error en add
-	private <T> boolean uniqueKey(String nickname, String email, Map<List<String>, T> collection) {
-		List<String> key = List.of(nickname, email);
-        Iterator<Map.Entry<List<String>, String> > iterator = collection.entrySet().iterator();
+	private <T> boolean uniqueKey(List<String> key, Map<List<String>, T> collection) throws YaExisteException{
+		String nickname = key.get(0);
+		String email = key.get(1);
+
+        Iterator<Entry<List<String>, T>> iterator = collection.entrySet().iterator();
         
-        bool nickname_flag = false;
-        bool email_flag = false;
+        boolean nickname_flag = false;
+        boolean email_flag = false;
 
         while (iterator.hasNext()) {
-            Map.Entry<List<String>, String> entry = iterator.next();
+            Entry<List<String>, T> entry = iterator.next();
             if (entry.getKey().get(0) == nickname)
             	nickname_flag = true;
             if (entry.getKey().get(1) == email)
             	email_flag = true;
             if (email_flag && nickname_flag)
-            	throw YaExisteUsuario("el nickname y el email introducidos ya existen");
+            	throw new YaExisteException("el nickname y el email introducidos ya existen");
             else {
             	if (nickname_flag)
-            		throw YaExisteUsuario("el nickname introducido ya existe");
+            		throw new YaExisteException("el nickname " + nickname + " ya existe");
             	else 
-            		throw YaExisteUsuario("el email introducidos ya existe");
+            		throw new YaExisteException("el email " + email + " introducidos ya existe");
             }
         }
         return true;
 	}
-	*/
 	
-	private <T> void add(T usr, Map<List<String>, T> collection) {
+	private <T extends Usuario> void add(T usr, Map<List<String>, T> collection) throws YaExisteException {
 		List<String> keys = List.of(usr.getNickname(), usr.getEmail());
-		if (! collection.containsKey()) {
+		if (! uniqueKey(keys, collection)) {
 			collection.put(keys, usr);
-		} else 
-			throw YaExisteUsuario;
-			// problema no sabemos si ya existia el noickname o el email o ambos 
+		}
 	}
 
-	public void agregarTurista(Turista turista) {
+	public void agregarTurista(Turista turista) throws YaExisteException {
 		add(turista, turistas);
 	}
 
-	public void agregarProveedor(Proveedor prov) {
+	public void agregarProveedor(Proveedor prov) throws YaExisteException {
 		add(prov, proveedores);
+	}
+	
+	public Usuario getUsuario(List<String> key) throws NoExisteUsuario {
+		Proveedor p = proveedores.get(key);
+		if (p != null)
+			return (Usuario)p;
+		Turista t = turistas.get(key);
+		if (t != null)
+			return (Usuario)t;
+		throw new NoExisteUsuario("No existe usuario con nickname: " + key.get(0) + " e email: " + key.get(1));; 
+	}
+	
+	public Turista getTurista(String nickname, String email) throws NoExisteUsuario {
+		return (Turista)getUsuario(List.of(nickname, email));
+	}
+	
+	public Proveedor getProveedor(String nickname, String email) throws NoExisteUsuario {
+		return (Proveedor)getUsuario(List.of(nickname, email));
 	}
 }
