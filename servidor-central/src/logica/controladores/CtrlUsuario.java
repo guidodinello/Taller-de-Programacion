@@ -109,10 +109,12 @@ public class CtrlUsuario implements ICtrlUsuario{
 		DTUsuario resultado = null;
 		try {
 			Usuario usuario = hU.getUsuarioByNickname(usr);
-			if(usuario instanceof Turista) {
-				resultado = new DTTurista((Turista)usuario);
+			if(usuario instanceof Proveedor) {
+				System.out.print("entra");
+				resultado = new DTProveedor((Proveedor)usuario);
 			}else {
-				resultado = new DTProveedor((Proveedor)usuario); 
+				System.out.print("entraElse");
+				resultado =  new DTTurista((Turista)usuario);
 			}	
 		}catch (Exception e){}
 		return resultado;

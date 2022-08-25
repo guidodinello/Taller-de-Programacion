@@ -2,6 +2,7 @@ package datatypes;
 
 import logica.clases.Turista;
 
+
 public class DTTurista extends DTUsuario {
 	private String nacionalidad;
 	

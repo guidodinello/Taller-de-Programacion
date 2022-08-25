@@ -29,6 +29,7 @@ public class Principal {
     private ICtrlUsuario ICU;
     //private ICtrlActividad ICA;
     private altaUsuario creUsrInternalFrame;
+    private ConsultaDeUsuario consultaDeUsuario;
     private JTextField textField;
     private JTextField textField_1;
   //  private ConsultarUsuario conUsrInternalFrame;
@@ -59,7 +60,10 @@ public class Principal {
         Fabrica fabrica = Fabrica.getInstance();
         ICU = fabrica.getICtrlUsuario();
         
-        creUsrInternalFrame = new altaUsuario(ICU);
+        consultaDeUsuario = new ConsultaDeUsuario(ICU);
+        consultaDeUsuario.setVisible(false);
+        frmGestionDeTurismoUy.add(consultaDeUsuario);
+        /*creUsrInternalFrame = new altaUsuario(ICU);
         GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
         gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0};
         creUsrInternalFrame.setVisible(false);
@@ -98,7 +102,7 @@ public class Principal {
         gbc_textField_1.gridy = 3;
         creUsrInternalFrame.getContentPane().add(textField_1, gbc_textField_1);
         textField_1.setColumns(10);
-        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
+        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);*/
     }
 
     /**
@@ -109,7 +113,8 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeTurismoUy = new JFrame();
         frmGestionDeTurismoUy.setTitle("Turismo.uy");
-        frmGestionDeTurismoUy.setBounds(100, 100, 450, 400);
+        frmGestionDeTurismoUy.setResizable(true);
+        frmGestionDeTurismoUy.setBounds(100, 100, 700, 700);
         frmGestionDeTurismoUy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
@@ -145,6 +150,13 @@ public class Principal {
         });
         menuUsuarios.add(menuItemRegistrar);
 
+        JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
+        menuItemConsultaUsuario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		consultaDeUsuario.setVisible(true);
+        	};
+        });
+        menuUsuarios.add(menuItemConsultaUsuario);
         
 
     }

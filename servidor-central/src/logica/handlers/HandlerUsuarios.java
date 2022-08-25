@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import logica.clases.Usuario;
@@ -62,6 +63,18 @@ public class HandlerUsuarios {
 	private HandlerUsuarios() {
 		proveedores = new DoubleKeyedHashMap<Proveedor>();
 		turistas = new DoubleKeyedHashMap<Turista>();
+		try {
+			Proveedor p1 = new Proveedor("manu", "manuE", "manuNom", "manuApe",new GregorianCalendar() , "nashe", "manuSitio");
+			proveedores.add("manu", "manuE", p1);
+			Proveedor p2 = new Proveedor("manu2", "manu2", "manuNom", "manuApe",new GregorianCalendar() , "nashe", "manuSitio");
+			proveedores.add("manu2", "manuE2", p2);
+			Turista t1 = new Turista("manuT", "manuET", "manuNomT", "manuApeT",new GregorianCalendar(), "uruguay");
+			turistas.add("manuT", "manuET", t1);
+			Turista t12 = new Turista("manuT2", "manuET2", "manuNomT", "manuApeT",new GregorianCalendar(), "uruguay");
+			turistas.add("manuT2", "manuET2", t12);
+		}catch(Exception e) {
+		}
+
 	}
 
 	public static HandlerUsuarios getInstance() {
