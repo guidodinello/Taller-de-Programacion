@@ -70,7 +70,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		setClosable(true);
 		setTitle("Consultar un Usuario");
 				
-		//setBounds(30, 30, 453, 431);
+		setBounds(30, 30, 453, 431);
 				
 		GridBagLayout gbl = new GridBagLayout();
 		gbl.columnWidths = new int[] { 0, 100, 120, 120, 0 };
