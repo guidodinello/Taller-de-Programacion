@@ -43,12 +43,12 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 	private JButton btnCerrar;
 	
 	public InscripcionSalidaTuristica(ICtrlActividad ica, ICtrlUsuario icu) {
+		setMaximizable(true);
 		controlAct = ica;
 		controlUsr = icu;
 		
 		setResizable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Inscripcion a Salida Turistica");
