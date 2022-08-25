@@ -52,34 +52,40 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
         setTitle("Inscripcion a Salida Turistica");
-        setBounds(30, 30, 300, 274);
+        setBounds(30, 30, 345, 364);
         
-        lblDepartamentos = new JLabel("Departamentos");
-        lblDepartamentos.setHorizontalAlignment(SwingConstants.CENTER);
-        lblActividades = new JLabel("Actividades");
-        lblActividades.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSalidasVigentes = new JLabel("Salidas vigentes");
-        lblSalidasVigentes.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTuristas = new JLabel("Turistas");
-        lblTuristas.setHorizontalAlignment(SwingConstants.CENTER);
-        lblCantTuristas = new JLabel("Cantidad de Turistas");
-        lblCantTuristas.setHorizontalAlignment(SwingConstants.CENTER);
+        lblDepartamentos = new JLabel("Departamento:");
+        lblDepartamentos.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblActividades = new JLabel("Actividad:");
+        lblActividades.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblSalidasVigentes = new JLabel("Salida:");
+        lblSalidasVigentes.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblTuristas = new JLabel("Turista:");
+        lblTuristas.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblCantTuristas = new JLabel("Cant. de Turistas:");
+        lblCantTuristas.setHorizontalAlignment(SwingConstants.RIGHT);
         
         comboBoxDepartamentos = new JComboBox<String>();
+        comboBoxDepartamentos.setEnabled(true);
+        comboBoxDepartamentos.setToolTipText("Seleccione un departamento");
         comboBoxActividades = new JComboBox<String>();
+        comboBoxActividades.setEnabled(false);
+        comboBoxActividades.setToolTipText("Seleccione una actividad");
         comboBoxSalidasVigentes = new JComboBox<DTSalida>();
+        comboBoxSalidasVigentes.setEnabled(false);
+        comboBoxSalidasVigentes.setToolTipText("Seleccione una salida");
         comboBoxTuristas = new JComboBox<String>();
+        comboBoxTuristas.setEnabled(false);
+        comboBoxTuristas.setToolTipText("Seleccione un turista");
         
         textFieldCantTuristas = new JTextField();
+        textFieldCantTuristas.setEnabled(false);
+        textFieldCantTuristas.setToolTipText("Ingrese la cantidad de turistas a inscribir");
         
         btnCerrar = new JButton("Cancelar");
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                comboBoxDepartamentos.removeAllItems();
-                comboBoxActividades.removeAllItems();
-                comboBoxSalidasVigentes.removeAllItems();
-                comboBoxTuristas.removeAllItems();
-                textFieldCantTuristas.setText("");
+                limpiarFormulario();
                 setVisible(false);
             }
         });
@@ -91,34 +97,71 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
         	}
         });
         
+        comboBoxDepartamentos.addActionListener(new ActionListener( ) {
+        	public void actionPerformed(ActionEvent arg0) {
+        		cargarActividades(comboBoxDepartamentos.getSelectedItem().toString());
+        	}
+        });
+        
         //Layout
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.TRAILING)
-        		.addComponent(lblDepartamentos, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-        		.addComponent(comboBoxDepartamentos, Alignment.LEADING, 0, 284, Short.MAX_VALUE)
-        		.addComponent(lblActividades, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-        		.addComponent(comboBoxActividades, Alignment.LEADING, 0, 284, Short.MAX_VALUE)
-        		.addComponent(lblSalidasVigentes, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-        		.addComponent(comboBoxSalidasVigentes, Alignment.LEADING, 0, 284, Short.MAX_VALUE)
-        		.addComponent(lblTuristas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-        		.addComponent(comboBoxTuristas, Alignment.LEADING, 0, 284, Short.MAX_VALUE)
-        		.addComponent(textFieldCantTuristas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-        		.addComponent(btnCerrar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+        		.addGroup(groupLayout.createSequentialGroup()
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addContainerGap(39, Short.MAX_VALUE)
+        					.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+        					.addGap(41)
+        					.addComponent(btnCerrar, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addContainerGap()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        						.addComponent(lblTuristas, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+        						.addComponent(lblCantTuristas, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        						.addComponent(lblSalidasVigentes, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+        						.addComponent(lblActividades, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+        						.addComponent(lblDepartamentos, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+        					.addPreferredGap(ComponentPlacement.UNRELATED)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        						.addComponent(textFieldCantTuristas, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+        						.addComponent(comboBoxTuristas, 0, 181, Short.MAX_VALUE)
+        						.addComponent(comboBoxSalidasVigentes, 0, 181, Short.MAX_VALUE)
+        						.addComponent(comboBoxActividades, 0, 181, Short.MAX_VALUE)
+        						.addComponent(comboBoxDepartamentos, Alignment.LEADING, 0, 181, Short.MAX_VALUE))))
+        			.addGap(41))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
-        			.addComponent(lblDepartamentos)
-        			.addComponent(comboBoxDepartamentos, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-        			.addComponent(lblActividades)
-        			.addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-        			.addComponent(lblSalidasVigentes)
-        			.addComponent(comboBoxSalidasVigentes, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-        			.addComponent(lblTuristas)
-        			.addComponent(comboBoxTuristas, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-        			.addComponent(textFieldCantTuristas)
-        			.addComponent(btnCerrar))
+        			.addGap(20)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(comboBoxDepartamentos, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblDepartamentos))
+        			.addGap(26)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblActividades))
+        			.addGap(26)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(comboBoxSalidasVigentes, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblSalidasVigentes))
+        			.addGap(26)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(comboBoxTuristas, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblTuristas))
+        			.addGap(20)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(textFieldCantTuristas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblCantTuristas))
+        					.addGap(64))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(btnAceptar)
+        						.addComponent(btnCerrar))
+        					.addContainerGap())))
         );
         getContentPane().setLayout(groupLayout);
 	}
@@ -176,5 +219,13 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 		
 		model = new DefaultComboBoxModel<String>(arrTuristas);
 		comboBoxTuristas.setModel(model);
+	}
+	
+	private void limpiarFormulario() {
+		comboBoxDepartamentos.removeAllItems();
+        comboBoxActividades.removeAllItems();
+        comboBoxSalidasVigentes.removeAllItems();
+        comboBoxTuristas.removeAllItems();
+        textFieldCantTuristas.setText("");
 	}
 }
