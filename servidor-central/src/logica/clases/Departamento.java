@@ -27,6 +27,10 @@ public class Departamento{
 	public String getURL() {
 		return URL;
 	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
 
 	public Set<String> listarActividades() {
 		return actividades.keySet();

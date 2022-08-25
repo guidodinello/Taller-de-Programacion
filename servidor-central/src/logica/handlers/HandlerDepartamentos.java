@@ -4,13 +4,13 @@ package logica.handlers;
 //import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
+//import java.util.HashSet;
 
 import logica.clases.Departamento;
-import logica.controladores.hD;
+//import logica.controladores.hD;
 
 
 public class HandlerDepartamentos{

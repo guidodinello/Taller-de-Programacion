@@ -7,13 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import logica.*;
-import presentacion.*;
+//import logica.*;
+//import presentacion.*;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import logica.controladores.*;
-import logica.interfaces.ICtrlActividad;
+//import logica.controladores.*;
+//import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -21,13 +21,13 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 
-import presentacion.altaUsuario;
+//import presentacion.altaUsuario;
 
 public class Principal {
 
     private JFrame frmGestionDeTurismoUy;
     private ICtrlUsuario ICU;
-    private ICtrlActividad ICA;
+    //private ICtrlActividad ICA;
     private altaUsuario creUsrInternalFrame;
     private JTextField textField;
     private JTextField textField_1;

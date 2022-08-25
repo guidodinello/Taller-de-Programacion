@@ -2,7 +2,7 @@ package datatypes;
 import java.util.*;
 import java.util.GregorianCalendar;
 
-import logica.clases.SalidaTuristica;
+//import logica.clases.SalidaTuristica;
 
 
 public class DTSalida {

@@ -22,7 +22,7 @@ import excepciones.InvalidArgument;
 import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 
-public class CtrlUsuario implements ICtrlUsuario {
+public class CtrlUsuario implements ICtrlUsuario{
 	
 	public CtrlUsuario() {}
 	
@@ -44,7 +44,7 @@ public class CtrlUsuario implements ICtrlUsuario {
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		try {
-			Turista turista = hU.getTurista(nickname, "email"); // No tengo email?
+			Turista turista = hU.getTuristaByNickname(nickname);
 			SalidaTuristica salidaT = hS.obtenerSalidaTuristica(salida);
 			float costo = salidaT.calcularCosto(cant);
 			InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo);
@@ -71,7 +71,7 @@ public class CtrlUsuario implements ICtrlUsuario {
 		});
 		return res;
 	}
-	public void actualizarUsuario(String nickname, String nombre, String apellido, Date fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) { 
+	public void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) { 
 	
 	}
 	

@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -314,7 +314,7 @@ public class altaUsuario extends JInternalFrame {
 		String apellido = this.textFieldApellido.getText();
 		String email = this.textFieldEmail.getText();
 //        castear la fecha a tipo Date
-		Date fechaNac = new Date();
+		GregorianCalendar fechaNac = new GregorianCalendar();
 //        capturar radio button value para pasar tipo Usuaeio
 		tipoUsuario tipo = tipoUsuario.turista;
 

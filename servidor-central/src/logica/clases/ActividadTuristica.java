@@ -78,4 +78,5 @@ public class ActividadTuristica{
 		});
 		return new DTActividad(n, des,dura, costo, salidas);
 	}
+
 }
