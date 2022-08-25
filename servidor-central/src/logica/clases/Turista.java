@@ -56,6 +56,6 @@ public class Turista extends Usuario {
 	
 	public boolean inscriptoSalida(SalidaTuristica s) {
 		return this.inscripciones.containsValue(s);
+		//return this.inscripciones.containsKey(s.getNombre()); // Por algun motivo a Java le gusta mas esto(?)
 	}
-
 }
