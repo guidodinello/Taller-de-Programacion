@@ -2,6 +2,8 @@ package logica.clases;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
+
+import datatypes.DTSalida;
 import logica.handlers.HandlerUsuarios;
 
 public class SalidaTuristica{
@@ -78,4 +80,5 @@ public class SalidaTuristica{
 			});
 			return resultado;
 		}
+		
 }
