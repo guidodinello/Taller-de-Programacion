@@ -19,11 +19,6 @@ public class HandlerDepartamentos{
 	
 	private HandlerDepartamentos() {
 		this.departamentos = new HashMap<String, Departamento>();
-
-		Departamento d1 = new Departamento("Artigas","prueba","prueba");
-		
-		departamentos.put("Artigas",d1);
-	
 	};
 	
 	public static HandlerDepartamentos getInstance() {

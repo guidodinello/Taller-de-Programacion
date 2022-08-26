@@ -110,12 +110,14 @@ public class Principal {
 		try {
 			ICA.altaDepartamento("Montevideo", "Capital de Uruguay", "mvdeo.com.uy");
 			ICA.altaDepartamento("Canelones", "Me gustan los canelones", "canelones.com.uy");
+			ICA.altaDepartamento("Artigas", "El procer", "artigas.com.uy");
 		} catch (YaExisteException e1) {
 			e1.printStackTrace();
 		}
 		try {
 			ICA.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null);
 			ICA.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null);
+			ICA.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null);
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}
