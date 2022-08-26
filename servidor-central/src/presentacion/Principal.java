@@ -100,9 +100,9 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         
         try {
-			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", null, tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
-			ICU.altaUsuario("agus", "agus@", "Agustin", "Franco", null, tipoUsuario.turista, "uruguayo", "le gusta pasear", "agus.com");
-			ICU.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", null, tipoUsuario.turista, "uruguayo", "", "eze.com");
+			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
+			ICU.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", "le gusta pasear", "agus.com");
+			ICU.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", "", "eze.com");
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}
@@ -187,6 +187,7 @@ public class Principal {
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		consultaDeUsuario.cargarDatosVentana();
         		consultaDeUsuario.setVisible(true);
         	};
         });
