@@ -155,6 +155,7 @@ public class Principal {
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		consultaDeUsuario.cargarDatosVentana();
         		consultaDeUsuario.setVisible(true);
         	};
         });
