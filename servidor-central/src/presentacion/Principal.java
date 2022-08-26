@@ -48,7 +48,7 @@ public class Principal {
     private InscripcionSalidaTuristica creInscrInternalFrame;
     //frame consultas
     private ConsultaDeUsuario consultaDeUsuario;
-    //private ConultaActividad consultaActividad;
+    private ConsultaDeActividadTuristica consultaActividadInternalFrame;
     //private ConsultaSalida consultaSalida;
     
 
@@ -98,6 +98,10 @@ public class Principal {
         crearActividadTuristica.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         
+        consultaActividadInternalFrame = new ConsultaDeActividadTuristica(ICA);
+        consultaActividadInternalFrame.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
+        
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
 			ICU.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
@@ -121,6 +125,9 @@ public class Principal {
 			ICA.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null);
 			ICA.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null);
 			ICA.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null);
+			ICA.altaActividadTuristica("Montevideo", "Actividad 4", "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
+					+ "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
+					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null);
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}
@@ -219,6 +226,17 @@ public class Principal {
         	}
         });
         menuActividades.add(menuItemIngresarInscripcion);
+        
+        JMenuItem menuItemConsultaActividadTuristica = new JMenuItem("Consulta Actividad Turistica");
+        menuItemConsultaActividadTuristica.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// Muestro el InternalFrame para consulta una actividad
+        		consultaActividadInternalFrame.limpiarFormulario();
+        		consultaActividadInternalFrame.cargarDepartamentos();
+        		consultaActividadInternalFrame.setVisible(true);
+        	}
+        });
+        menuActividades.add(menuItemConsultaActividadTuristica);
 
     }
 }
