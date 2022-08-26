@@ -331,7 +331,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         getContentPane().add(TextSitioWeb, gbc_TextSitioWeb);
         TextSitioWeb.setVisible(false);
         
-        btnVerSalidaTurista = new JButton("Ver detalles");
+        btnVerSalidaTurista = new JButton("Ver Detalles");
         GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
         gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
         gbc_btnNewButton.gridx = 4;
@@ -359,7 +359,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         getContentPane().add(ComboBoxActividadesProveedor, gbc_ComboBoxActividadesProveedor);
         ComboBoxActividadesProveedor.setVisible(false);
         
-        btnVerActividad = new JButton("Ver detalles");
+        btnVerActividad = new JButton("Ver Detalles");
         GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
         gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
         gbc_btnNewButton_1.gridx = 4;
