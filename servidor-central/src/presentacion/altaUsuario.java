@@ -154,9 +154,11 @@ public class altaUsuario extends JInternalFrame {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					proveedor_panel.setVisible(true);
 					turista_panel.setVisible(false);
+					blank_panel.setVisible(false);
 				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 					proveedor_panel.setVisible(false);
 					turista_panel.setVisible(true);
+					blank_panel.setVisible(false);
 				}
 			}
 		});
@@ -168,6 +170,7 @@ public class altaUsuario extends JInternalFrame {
 		turBtn.setMnemonic(KeyEvent.VK_T);
 		turBtn.setActionCommand(tur);
 		BtnGroup.add(turBtn);
+		
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -275,7 +278,7 @@ public class altaUsuario extends JInternalFrame {
 		
 		selectedDate = new JTextField();
 		selectedDate.setHorizontalAlignment(SwingConstants.CENTER);
-		selectedDate.setBackground(new Color(77, 147, 130)); 
+		selectedDate.setBackground(new Color(200,200,200)); 
 		selectedDate.setColumns(10);
 		GroupLayout gl_panel_fechaNac = new GroupLayout(panel_fechaNac);
 		gl_panel_fechaNac.setHorizontalGroup(
@@ -322,6 +325,12 @@ public class altaUsuario extends JInternalFrame {
 		f.setVisible(false);
 		
 		panel.setLayout(new CardLayout(0, 0));
+		
+		blank_panel = new JPanel();
+		blank_panel.setBackground(new Color(200,200,200));
+		blank_panel.setSize(1, 1);
+		blank_panel.setVisible(true);
+		panel.add(blank_panel, "name_32883367802349");
 
 		turista_panel = new JPanel();
 		panel.add(turista_panel, "name_32116916439377");
@@ -379,12 +388,11 @@ public class altaUsuario extends JInternalFrame {
 						.addContainerGap()));
 		proveedor_panel.setLayout(gl_proveedor_panel);
 
-		blank_panel = new JPanel();
-		panel.add(blank_panel, "name_32883367802349");
 		groupLayout.setAutoCreateGaps(true);
 		groupLayout.setAutoCreateContainerGaps(true);
 		getContentPane().setLayout(groupLayout);
 		
+		pack();
 		// ================ ACEPTAR-CANCELAR BUTTONS ================//
 	}
 
@@ -479,5 +487,13 @@ public class altaUsuario extends JInternalFrame {
 		textFieldApellido.setText("");
 		textFieldEmail.setText("");
 		selectedDate.setText("");
+		
+		BtnGroup.clearSelection();
+		
+		blank_panel.setVisible(true);
+		turista_panel.setVisible(false);
+		proveedor_panel.setVisible(false);
+		
+		
 	}
 }
