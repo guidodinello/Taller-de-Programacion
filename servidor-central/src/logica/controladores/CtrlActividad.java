@@ -79,8 +79,19 @@ public class CtrlActividad implements ICtrlActividad{
 		hA.agregarActividad(resu);
 	}
 	
+	@SuppressWarnings("null")
 	public Set<String> listarNombresSalidasDeActividad(String actividad){
-		return null;
+		Set<String> result = null;
+		HandlerSalidas hS = HandlerSalidas.getInstance();
+		SalidaTuristica[] salidas=  hS.getSalidas();
+		for (int i = 0; i < salidas.length; i++) {
+			String nombreSal =salidas[i].getActividad().getNombre();
+			if(nombreSal == actividad) {
+				result.add(nombreSal);
+			}
+		}
+		return result;
+		
 	}
 	
 	public Set<String> listarActividadesDepartamentoMenosPaquete(String depto, String nombrePaquete){
@@ -110,7 +121,26 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	public DTSalida getInfoCompletaSalida(String salida) {
-		return null;
+	
+		HandlerSalidas hS = HandlerSalidas.getInstance();
+		
+		DTSalida nueva =   new DTSalida();
+		SalidaTuristica[] salidas=  hS.getSalidas();
+		for (int i = 0; i < salidas.length; i++) {
+			String nombreSal =salidas[i].getNombre();
+			if(nombreSal == salida) {
+				//TODO crear DT
+				nueva.setNombre(nombreSal);
+				nueva.setfechaAlta(salidas[i].getfechaAlta());
+				nueva.setfechaSalida(salidas[i].getfechaSalida());
+				nueva.setlugarSalida(salidas[i].getlugarSalida());
+				nueva.setmaxTuristas(salidas[i].getcantidadMaximaDeTuristas());
+				nueva.setTuristas(salidas[i].getTuristasInscriptos());
+			}
+		}
+		
+		
+		return nueva;
 	}
 	
 	//Paquetes

@@ -18,6 +18,8 @@ import javax.swing.SwingConstants;
 //import excepciones.YaExisteException;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
+import excepciones.InvalidArgument;
+import excepciones.YaExisteException;
 
 import java.util.GregorianCalendar;
 import javax.swing.GroupLayout;
@@ -45,24 +47,18 @@ public class altaUsuario extends JInternalFrame {
 	private ButtonGroup BtnGroup;
 
 	private JTextField textFieldNacionalidad;
-	//private JTextField textFieldSitioWeb;
-	private JTextField textFieldDescripcion;
+	private JTextField textFieldSitioWeb;
+	private JTextPane textFieldDescripcion;
 
 	private JLabel lblIngreseNickName;
 	private JLabel lblIngreseNombre;
 	private JLabel lblIngreseApellido;
 	private JLabel lblIngreseEmail;
-	// label fecha
 
 	private JLabel lblIngreseTipoUsuario;
-	//private JLabel lblNacionalidad;
-	//private JLabel lblSitioWeb;
-	//private JLabel lblIngreseDescripcion;
 
 	private JButton btnAceptar;
 	private JButton btnCancelar;
-	private JTextField textField;
-	private JTextField textField_1;
 	
 	private JPanel turista_panel;
 	private JPanel proveedor_panel;
@@ -85,7 +81,7 @@ public class altaUsuario extends JInternalFrame {
 		lblIngreseNickName.setHorizontalAlignment(SwingConstants.CENTER);
 
 		textFieldNickName = new JTextField();
-		textFieldNombre.setColumns(10);
+		//textFieldNombre.setColumns(10);
 		// ================ NICKNAME ================//
 
 		// ================ NOMBRE ================//
@@ -157,13 +153,6 @@ public class altaUsuario extends JInternalFrame {
 		turBtn.setMnemonic(KeyEvent.VK_T);
 		turBtn.setActionCommand(tur);
 		BtnGroup.add(turBtn);
-		turBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// ================ INFO TURISTA ================//
-				// CardLayout cl = (CardLayout)getContentPane()..getLayout();
-				// ================ INFO TURISTA ================//
-			}
-		});
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -250,18 +239,18 @@ public class altaUsuario extends JInternalFrame {
 		JLabel lblNacionalidad_1 = new JLabel("Nacionalidad");
 		lblNacionalidad_1.setHorizontalAlignment(SwingConstants.CENTER);
 
-		textField = new JTextField();
-		textField.setColumns(10);
+		textFieldNacionalidad = new JTextField();
+		textFieldNacionalidad.setColumns(10);
 		GroupLayout gl_turista_panel = new GroupLayout(turista_panel);
 		gl_turista_panel.setHorizontalGroup(gl_turista_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_turista_panel.createSequentialGroup().addGap(1).addComponent(lblNacionalidad_1)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFieldNacionalidad, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(66, Short.MAX_VALUE)));
 		gl_turista_panel.setVerticalGroup(gl_turista_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_turista_panel.createSequentialGroup().addGap(31)
 						.addGroup(gl_turista_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textFieldNacionalidad, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNacionalidad_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
 										Short.MAX_VALUE))
 						.addGap(43)));
@@ -275,28 +264,28 @@ public class altaUsuario extends JInternalFrame {
 
 		JLabel lblDescripcion = new JLabel("Descripcion");
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		textFieldSitioWeb = new JTextField();
+		textFieldSitioWeb.setColumns(10);
 
-		JTextPane textPane = new JTextPane();
+		textFieldDescripcion = new JTextPane();
 		GroupLayout gl_proveedor_panel = new GroupLayout(proveedor_panel);
 		gl_proveedor_panel.setHorizontalGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_proveedor_panel.createSequentialGroup().addGap(21)
 						.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_proveedor_panel.createSequentialGroup().addComponent(lblDescripcion)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(textPane))
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(textFieldDescripcion))
 								.addGroup(gl_proveedor_panel.createSequentialGroup().addComponent(lblSitioWeb_1)
-										.addGap(18).addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 253,
+										.addGap(18).addComponent(textFieldSitioWeb, GroupLayout.PREFERRED_SIZE, 253,
 												GroupLayout.PREFERRED_SIZE)))
 						.addContainerGap(58, Short.MAX_VALUE)));
 		gl_proveedor_panel.setVerticalGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_proveedor_panel.createSequentialGroup().addGap(23)
 						.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblSitioWeb_1)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								.addComponent(textFieldSitioWeb, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING).addComponent(lblDescripcion)
-								.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+								.addComponent(textFieldDescripcion, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
 						.addContainerGap()));
 		proveedor_panel.setLayout(gl_proveedor_panel);
 
@@ -313,17 +302,22 @@ public class altaUsuario extends JInternalFrame {
 		String nombre = this.textFieldNombre.getText();
 		String apellido = this.textFieldApellido.getText();
 		String email = this.textFieldEmail.getText();
-//        castear la fecha a tipo Date
 		GregorianCalendar fechaNac = new GregorianCalendar();
-//        capturar radio button value para pasar tipo Usuaeio
-		tipoUsuario tipo = tipoUsuario.turista;
-
-//        String nacionalidad = this.textFieldNacionalidad.getText();
-//        String descripcion = this.textFieldDescripcion.getText();
-//        String sitioWeb = this.textFieldEmail.getText();
-		String nacionalidad = "";
-		String descripcion = "";
-		String sitioWeb = "";
+		
+        String descripcion = "";
+        String sitioWeb = "";
+        String nacionalidad = "";
+		
+		String stringTipo = BtnGroup.getSelection().getActionCommand();
+		tipoUsuario tipo;
+		if (stringTipo == "Proveedor") {
+			tipo = tipoUsuario.proveedor;
+	        sitioWeb = this.textFieldSitioWeb.getText();
+	        descripcion = this.textFieldDescripcion.getText();
+		} else {
+			tipo = tipoUsuario.turista;
+        	nacionalidad = this.textFieldNacionalidad.getText();
+		}
 
 		if (checkFormulario()) {
 			try {
@@ -333,14 +327,16 @@ public class altaUsuario extends JInternalFrame {
 				JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
 						JOptionPane.INFORMATION_MESSAGE);
 
-//          } catch (YaExisteException e) {
-//              JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-//          } catch (InvalidArgument e) {
-//            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-//          }
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-			}
+			} catch (YaExisteException e) {
+              JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+            }
+			
+			if (tipo == tipoUsuario.proveedor) {
+				textFieldSitioWeb.setText("");
+				textFieldDescripcion.setText("");
+			} else
+				textFieldNacionalidad.setText("");
+
 			limpiarFormulario();
 			setVisible(false);
 		}

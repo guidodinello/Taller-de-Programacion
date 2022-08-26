@@ -25,6 +25,8 @@ public class ActividadTuristica{
 		this.nombreCiudad = nombreCiudad;
 		this.fechaAlta = fechaAlta;
 		salidas = new HashMap<String, SalidaTuristica>();
+
+		
 	}
 	
 	public String getNombre() {

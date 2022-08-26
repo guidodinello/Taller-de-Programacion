@@ -37,17 +37,21 @@ import excepciones.YaExisteException;
 
 public class Principal {
 
+	//Frame principal
     private JFrame frmGestionDeTurismoUy;
+    //interfaces
     private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
-    private altaUsuario creUsrInternalFrame;
-    private ConsultaDeUsuario consultaDeUsuario;
+    //frame altas
+    private altaUsuario altaUsuario;
+    private altaSalida altaSalida;
     private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
-    private JTextField textField;
-    private JTextField textField_1;
-  //  private ConsultarUsuario conUsrInternalFrame;
-   // private ListaUsuarios lisUsrInternalFrame;
+    //frame consultas
+    private ConsultaDeUsuario consultaDeUsuario;
+    //private ConultaActividad consultaActividad;
+    //private ConsultaSalida consultaSalida;
+    
 
     /**
      * Launch the application.
@@ -75,8 +79,15 @@ public class Principal {
         ICU = fabrica.getICtrlUsuario();
         ICA = fabrica.getICtrlActividad();
         
+        altaUsuario = new altaUsuario(ICU);
+        altaUsuario.setVisible(false);
+        frmGestionDeTurismoUy.add(altaUsuario);
         
-        consultaDeUsuario = new ConsultaDeUsuario(ICU);
+        altaSalida = new altaSalida(ICA);
+        altaSalida.setVisible(false);
+        frmGestionDeTurismoUy.add(altaSalida);
+        
+        consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeUsuario);
         
@@ -87,52 +98,11 @@ public class Principal {
         crearActividadTuristica = new altaActividadTuristica(ICA, ICU);
         crearActividadTuristica.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
-        /*creUsrInternalFrame = new altaUsuario(ICU);
-        GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
-        gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0};
-        creUsrInternalFrame.setVisible(false);
-
-       // conUsrInternalFrame = new ConsultarUsuario(ICU);
-        //conUsrInternalFrame.setVisible(false);
-
-        //lisUsrInternalFrame = new ListaUsuarios(ICU);
-        //lisUsrInternalFrame.setVisible(false);
-        //frmGestionDeUsuarios.getContentPane().setLayout(null);
-
-        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
-        frmGestionDeTurismoUy.getContentPane().add(creUsrInternalFrame);
         
-        JLabel lblNewLabel = new JLabel("New label");
-        GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-        gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-        gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-        gbc_lblNewLabel.gridx = 0;
-        gbc_lblNewLabel.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
-        
-        textField = new JTextField();
-        GridBagConstraints gbc_textField = new GridBagConstraints();
-        gbc_textField.insets = new Insets(0, 0, 0, 5);
-        gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_textField.gridx = 1;
-        gbc_textField.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(textField, gbc_textField);
-        textField.setColumns(10);
-        
-        textField_1 = new JTextField();
-        GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-        gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-        gbc_textField_1.gridx = 2;
-        gbc_textField_1.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(textField_1, gbc_textField_1);
-        textField_1.setColumns(10);
-        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);*/
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", null, tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
 			ICU.altaUsuario("agus", "agus@", "Agustin", "Franco", null, tipoUsuario.turista, "uruguayo", "le gusta pasear", "agus.com");
 			ICU.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", null, tipoUsuario.turista, "uruguayo", "", "eze.com");
-		} catch (InvalidArgument e2) {
-			e2.printStackTrace();
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}
@@ -199,11 +169,18 @@ public class Principal {
         JMenuItem menuItemRegistrar = new JMenuItem("Registrar Usuario");
         menuItemRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para registrar un usuario
-                creUsrInternalFrame.setVisible(true);
+                altaUsuario.setVisible(true);
             }
         });
         menuUsuarios.add(menuItemRegistrar);
+        
+        JMenuItem menuItemRegistrarSalida = new JMenuItem("Registrar Salida Turistica");
+        menuItemRegistrarSalida.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                altaSalida.setVisible(true);
+            }
+        });
+        menuUsuarios.add(menuItemRegistrarSalida);
 
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
