@@ -5,7 +5,9 @@ import logica.clases.DatePicker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,6 +38,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JTextPane;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Image;
 
 
 @SuppressWarnings("serial")
@@ -259,8 +262,15 @@ public class altaUsuario extends JInternalFrame {
 					.addContainerGap())
 		);
 		
-		Icon icon = new ImageIcon("../icons/calendario.png");
-		btnNewButton = new JButton(icon);
+		btnNewButton = new JButton("...");
+		Image icon;
+		try {
+			icon = ImageIO.read(getClass().getResource("icons/calendario.png"));
+			btnNewButton.setIcon(new ImageIcon(icon));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
 		
 		JLabel lblFechaDeNacimiento = new JLabel("<html><p>Fecha de Nacimiento</p></html>");
 		lblFechaDeNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
