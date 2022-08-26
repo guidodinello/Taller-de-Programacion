@@ -83,11 +83,11 @@ public class HandlerUsuarios {
 	}
 	
 	public Proveedor getProveedorByNickname(String n) {
-		return (Proveedor)this.getUsuarioByNickname(n);
+		return (Proveedor)usuarios.get(n);
 	}
 	
 	public Turista getTuristaByNickname(String n) {
-		return (Turista)this.getUsuarioByNickname(n);
+		return (Turista)usuarios.get(n);
 	}
 
 	public Usuario getUsuarioByEmail(String n){

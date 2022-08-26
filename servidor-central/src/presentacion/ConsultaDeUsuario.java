@@ -380,14 +380,15 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			LabelSalidasDeActividadesDelProveedor.setVisible(false);
         			ComboBoxSalidasDeActividadesDelProveedor.setVisible(false);
         			
-        			/*DTTurista dtT = (DTTurista)dtU;
+        			TextTipoUsuario.setText("Turista");
+        			DTTurista dtT = (DTTurista)dtU;
         			TextNacionalidad.setText(dtT.getNacionalidad());
-        			Set<DTSalida> dtS = ctrlUsuario.listarInfoSalidasTurista(dtT.getNombre());
+        			Set<DTSalida> dtS = ctrlUsuario.listarInfoSalidasTurista(dtT.getNickname());
         			dtS.forEach((dt)->{
         				String infoSalida = "Nombre: "+ dt.getNombre() + ". Fecha salida: " + dt.getfechaSalida().toString() +
         						". Lugar de salida: " + dt.getlugarSalida();
         				ComboBoxSalidasInscripto.addItem(infoSalida);
-        			});*/
+        			});
         			
         		}else {
         			LabelNacionalidad.setVisible(false);
@@ -404,10 +405,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			LabelSalidasDeActividadesDelProveedor.setVisible(true);
         			ComboBoxSalidasDeActividadesDelProveedor.setVisible(true);
         			
-        			/*DTProveedor dtP = (DTProveedor)dtU;
+        			TextTipoUsuario.setText("Proveedor");
+        			DTProveedor dtP = (DTProveedor)dtU;
         			TextDescripcion.setText(dtP.getDescripcion());
         			TextSitioWeb.setText(dtP.getLinkSitioWeb());
-        			Set<DTActividad> dtA = ctrlUsuario.listarInfoCompletaActividadesProveedor(dtP.getNombre());
+        			Set<DTActividad> dtA = ctrlUsuario.listarInfoCompletaActividadesProveedor(dtP.getNickname());
         			dtA.forEach((dt)->{
         				String infoActividad = "Nombre: " + dt.getNombre() + ". Descripición: " + dt.getDescripcion();
         				ComboBoxActividadesProveedor.addItem(infoActividad);
@@ -417,7 +419,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: s." + "Actividad asociada: " +
         							nombAct);
         				});
-        			});*/
+        			});
         			
         		}
         		

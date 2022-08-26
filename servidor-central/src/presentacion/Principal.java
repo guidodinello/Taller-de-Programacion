@@ -86,46 +86,7 @@ public class Principal {
         crearActividadTuristica = new altaActividadTuristica(ICA, ICU);
         crearActividadTuristica.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
-        /*creUsrInternalFrame = new altaUsuario(ICU);
-        GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
-        gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0};
-        creUsrInternalFrame.setVisible(false);
-
-       // conUsrInternalFrame = new ConsultarUsuario(ICU);
-        //conUsrInternalFrame.setVisible(false);
-
-        //lisUsrInternalFrame = new ListaUsuarios(ICU);
-        //lisUsrInternalFrame.setVisible(false);
-        //frmGestionDeUsuarios.getContentPane().setLayout(null);
-
-        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
-        frmGestionDeTurismoUy.getContentPane().add(creUsrInternalFrame);
         
-        JLabel lblNewLabel = new JLabel("New label");
-        GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-        gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-        gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-        gbc_lblNewLabel.gridx = 0;
-        gbc_lblNewLabel.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
-        
-        textField = new JTextField();
-        GridBagConstraints gbc_textField = new GridBagConstraints();
-        gbc_textField.insets = new Insets(0, 0, 0, 5);
-        gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_textField.gridx = 1;
-        gbc_textField.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(textField, gbc_textField);
-        textField.setColumns(10);
-        
-        textField_1 = new JTextField();
-        GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-        gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-        gbc_textField_1.gridx = 2;
-        gbc_textField_1.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(textField_1, gbc_textField_1);
-        textField_1.setColumns(10);
-        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);*/
     }
 
     /**
@@ -184,7 +145,7 @@ public class Principal {
         JMenu menuActividades = new JMenu("Actividades");
         menuBar.add(menuActividades);
         
-        JMenuItem menuItemAltaActividadTuristica = new JMenuItem("Alta de Actividad Turística");
+        JMenuItem menuItemAltaActividadTuristica = new JMenuItem("Alta de Actividad Turï¿½stica");
         menuItemAltaActividadTuristica.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		crearActividadTuristica.setVisible(true);
