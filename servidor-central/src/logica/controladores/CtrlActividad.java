@@ -74,12 +74,8 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		hD.getDepto(nomDep).agregarActividad(resu);
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
-		try {
-			Proveedor p = (Proveedor) hU.getProveedorByNickname(nickProv);
-			p.agregarActividad(resu);
-		} catch (NoExisteUsuario e) {
-			e.printStackTrace();
-		}
+		Proveedor p = (Proveedor) hU.getProveedorByNickname(nickProv);
+		p.agregarActividad(resu);
 		hA.agregarActividad(resu);
 	}
 	

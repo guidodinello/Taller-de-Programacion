@@ -43,16 +43,12 @@ public class CtrlUsuario implements ICtrlUsuario{
 	public void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) { 
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		HandlerSalidas hS = HandlerSalidas.getInstance();
-		try {
-			Turista turista = hU.getTuristaByNickname(nickname);
-			SalidaTuristica salidaT = hS.obtenerSalidaTuristica(salida);
-			float costo = salidaT.calcularCosto(cant);
-			InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo);
-			turista.agregarInscripcion(insc);
-		} catch (NoExisteUsuario e) {
-			e.printStackTrace();
-		}
-		
+		Turista turista = hU.getTuristaByNickname(nickname);
+		SalidaTuristica salidaT = hS.obtenerSalidaTuristica(salida);
+		float costo = salidaT.calcularCosto(cant);
+		InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo);
+		turista.agregarInscripcion(insc);
+	
 	}
 	
 	public Set<String> listarTuristas() {
@@ -78,20 +74,16 @@ public class CtrlUsuario implements ICtrlUsuario{
 	public Set<DTSalida> listarInfoSalidasTurista(String t){ 
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		Set<DTSalida> resultado = null;
-		try {
-			Turista turis = hU.getTuristaByNickname(t);
-			resultado = turis.getInfoInscripciones();
-		}catch (Exception e) {}
+		Turista turis = hU.getTuristaByNickname(t);
+		resultado = turis.getInfoInscripciones();
 		return resultado;
  	}
 	
 	public Set<DTActividad> listarInfoCompletaActividadesProveedor(String p) {
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		Set<DTActividad> resultado = new HashSet<DTActividad>();
-		try {
-			Proveedor prov = hU.getProveedorByNickname(p);
-			resultado = prov.getDTActividades();
-		}catch (Exception e) {}
+		Proveedor prov = hU.getProveedorByNickname(p);
+		resultado = prov.getDTActividades();
 		return resultado;
 	}
 	
@@ -107,16 +99,12 @@ public class CtrlUsuario implements ICtrlUsuario{
 	public DTUsuario getInfoBasicaUsuario(String usr) {
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		DTUsuario resultado = null;
-		try {
-			Usuario usuario = hU.getUsuarioByNickname(usr);
-			if(usuario instanceof Proveedor) {
-				System.out.print("entra");
-				resultado = new DTProveedor((Proveedor)usuario);
-			}else {
-				System.out.print("entraElse");
+		Usuario usuario = hU.getUsuarioByNickname(usr);
+		if(usuario instanceof Proveedor) {
+			resultado = new DTProveedor((Proveedor)usuario);
+		}else {
 				resultado =  new DTTurista((Turista)usuario);
-			}	
-		}catch (Exception e){}
+		}	
 		return resultado;
 	}
 }

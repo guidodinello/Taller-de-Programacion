@@ -404,7 +404,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			LabelSalidasDeActividadesDelProveedor.setVisible(true);
         			ComboBoxSalidasDeActividadesDelProveedor.setVisible(true);
         			
-        			DTProveedor dtP = (DTProveedor)dtU;
+        			/*DTProveedor dtP = (DTProveedor)dtU;
         			TextDescripcion.setText(dtP.getDescripcion());
         			TextSitioWeb.setText(dtP.getLinkSitioWeb());
         			Set<DTActividad> dtA = ctrlUsuario.listarInfoCompletaActividadesProveedor(dtP.getNombre());
@@ -417,7 +417,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: s." + "Actividad asociada: " +
         							nombAct);
         				});
-        			});
+        			});*/
         			
         		}
         		
