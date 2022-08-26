@@ -57,8 +57,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private JComboBox<String> ComboBoxActividadesProveedor;
 	private JLabel LabelSalidasDeActividadesDelProveedor;
 	private JComboBox<String> ComboBoxSalidasDeActividadesDelProveedor;
+	//borrando
+	private boolean seteandoDatosIniciales = false;
 	
 	public ConsultaDeUsuario(ICtrlUsuario iCU) {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		//meto la interfaz
 		this.ctrlUsuario = iCU;
 		
@@ -66,7 +69,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Usuario");
 				
@@ -348,14 +350,9 @@ public class ConsultaDeUsuario extends JInternalFrame {
         ComboBoxSalidasDeActividadesDelProveedor.setVisible(false);
 		        
         //Eventos
-        //Lleno el comboBox de selccionar con los usuarios
-        Set<String> usuarios = ctrlUsuario.listarUsuarios();
-        usuarios.forEach((u)->{
-        	ComboBoxSelUsuario.addItem(u);
-        });
-       
         ComboBoxSelUsuario.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
+        		if(seteandoDatosIniciales == true)return;//si esta borrando te reconoce como un action listener y por eso usamos el control borrandoDatos
         		//cmdBuscarUsuarioActionPerformed(e);
         		DTUsuario dtU = ctrlUsuario.getInfoBasicaUsuario(ComboBoxSelUsuario.getSelectedItem().toString());
         		TextNickname.setText(dtU.getNickname());
@@ -384,9 +381,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			TextNacionalidad.setText(dtT.getNacionalidad());
         			Set<DTSalida> dtS = ctrlUsuario.listarInfoSalidasTurista(dtT.getNombre());
         			dtS.forEach((dt)->{
+        				seteandoDatosIniciales = true;
         				String infoSalida = "Nombre: "+ dt.getNombre() + ". Fecha salida: " + dt.getfechaSalida().toString() +
         						". Lugar de salida: " + dt.getlugarSalida();
         				ComboBoxSalidasInscripto.addItem(infoSalida);
+        				seteandoDatosIniciales = false;
         			});*/
         			
         		}else {
@@ -409,13 +408,17 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			TextSitioWeb.setText(dtP.getLinkSitioWeb());
         			Set<DTActividad> dtA = ctrlUsuario.listarInfoCompletaActividadesProveedor(dtP.getNombre());
         			dtA.forEach((dt)->{
+        				seteandoDatosIniciales = true;
         				String infoActividad = "Nombre: " + dt.getNombre() + ". Descripición: " + dt.getDescripcion();
         				ComboBoxActividadesProveedor.addItem(infoActividad);
+        				seteandoDatosIniciales = false;
         				String nombAct = dt.getNombre();
         				Set<String> dtAS = dt.getSalidas();
         				dtAS.forEach((s)->{
-        					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: s." + "Actividad asociada: " +
+        					seteandoDatosIniciales = true;
+        					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: "+ s + " Actividad asociada: " +
         							nombAct);
+        					seteandoDatosIniciales = false;
         				});
         			});*/
         			
@@ -425,7 +428,48 @@ public class ConsultaDeUsuario extends JInternalFrame {
         });
 	}
 	
+	public void cargarDatosVentana() {
+		limpiarCampos();
+		Set<String> usuarios = ctrlUsuario.listarUsuarios();
+        usuarios.forEach((u)->{
+        	seteandoDatosIniciales = true;
+        	ComboBoxSelUsuario.addItem(u);
+        	seteandoDatosIniciales = false;
+        });
+        
+        //Setea inicialmente las cosas de un usuario especifico en invisible
+		LabelNacionalidad.setVisible(false);
+		TextNacionalidad.setVisible(false);
+		LabelSalidasInscripto.setVisible(false);
+		ComboBoxSalidasInscripto.setVisible(false);
+		LabelDescripcion.setVisible(false);
+		TextDescripcion.setVisible(false);
+		LabelSitioWeb.setVisible(false);
+		TextSitioWeb.setVisible(false);
+		LabelActividadesProveedor.setVisible(false);
+		ComboBoxActividadesProveedor.setVisible(false);
+		LabelSalidasDeActividadesDelProveedor.setVisible(false);
+		ComboBoxSalidasDeActividadesDelProveedor.setVisible(false);
+        
+	}
 	
+	private void limpiarCampos() {
+		seteandoDatosIniciales = true;
+    	ComboBoxSelUsuario.removeAllItems();
+    	TextTipoUsuario.setText("");
+    	TextNickname.setText("");
+    	TextEmail.setText("");
+    	TextNombre.setText("");
+    	TextApellido.setText("");
+    	TextFechaNac.setText("");
+    	TextNacionalidad.setText("");
+    	ComboBoxSalidasInscripto.removeAllItems();
+    	TextDescripcion.setText("");
+    	TextSitioWeb.setText("");
+    	ComboBoxActividadesProveedor.removeAllItems();
+    	ComboBoxSalidasDeActividadesDelProveedor.removeAllItems();
+    	seteandoDatosIniciales = false;
+    }
 	
 	
 	
