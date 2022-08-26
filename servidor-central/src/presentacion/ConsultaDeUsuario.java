@@ -418,7 +418,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         				Set<String> dtAS = dt.getSalidas();
         				dtAS.forEach((s)->{
         					seteandoDatosIniciales = true;
-        					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: s." + "Actividad asociada: " +
+        					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: "+ s + " Actividad asociada: " +
         							nombAct);
         					seteandoDatosIniciales = false;
         				});
