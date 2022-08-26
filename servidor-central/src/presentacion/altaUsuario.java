@@ -274,15 +274,14 @@ public class altaUsuario extends JInternalFrame {
 		gl_panel_fechaNac.setHorizontalGroup(
 			gl_panel_fechaNac.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_fechaNac.createSequentialGroup()
-					.addComponent(lblFechaDeNacimiento, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-					.addGap(4))
-				.addGroup(gl_panel_fechaNac.createSequentialGroup()
-					.addComponent(selectedDate, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(gl_panel_fechaNac.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(30, Short.MAX_VALUE))
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(22, Short.MAX_VALUE))
+				.addGroup(gl_panel_fechaNac.createSequentialGroup()
+					.addGroup(gl_panel_fechaNac.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(lblFechaDeNacimiento, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+						.addComponent(selectedDate, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel_fechaNac.setVerticalGroup(
 			gl_panel_fechaNac.createParallelGroup(Alignment.TRAILING)
