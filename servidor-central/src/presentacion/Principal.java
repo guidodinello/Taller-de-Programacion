@@ -145,7 +145,7 @@ public class Principal {
         menuUsuarios.add(menuItemRegistrar);
         
         JMenuItem menuItemRegistrarSalida = new JMenuItem("Registrar Salida Turistica");
-        menuItemRegistrar.addActionListener(new ActionListener() {
+        menuItemRegistrarSalida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 altaSalida.setVisible(true);
             }
