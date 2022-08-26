@@ -21,6 +21,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.DTSalida;
+import excepciones.InscriptionFailException;
 
 @SuppressWarnings("serial")
 public class InscripcionSalidaTuristica extends JInternalFrame {
@@ -105,6 +106,7 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
         			borrandoFormularios = true;
         			comboBoxSalidasVigentes.removeAllItems();
         			borrandoFormularios = false;
+        			comboBoxSalidasVigentes.setEnabled(false);
         		}
         	}
         });
@@ -182,13 +184,23 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 	}
 	
 	protected void cmdInscripcionSalidaTuristicasActionPerformed(ActionEvent arg0) {
-		//String departamento = this.comboBoxDepartamentos.getSelectedItem().toString();
-		//String actividad = this.comboBoxActividades.getSelectedItem().toString();
-		//DTSalida salida = this.comboBoxSalidasVigentes.getItemAt(this.comboBoxSalidasVigentes.getSelectedIndex());
-		//String turista = this.comboBoxTuristas.getSelectedItem().toString();
-		//String cantTuristas = this.textFieldCantTuristas.getText();
-		
-		
+		if(checkFormulario()) {
+			DTSalida salida = this.comboBoxSalidasVigentes.getItemAt(this.comboBoxSalidasVigentes.getSelectedIndex());
+			String turista = this.comboBoxTuristas.getSelectedItem().toString();
+			String cantTuristas = this.textFieldCantTuristas.getText();
+			
+			Integer number = Integer.valueOf(cantTuristas);
+			
+			try {
+				controlUsr.ingresarInscripcion(turista, salida.getNombre(), number, new GregorianCalendar());
+				
+				JOptionPane.showMessageDialog(this, "La inscripcion se ha realizado con exito", "Inscripcion a Salida Turistica", JOptionPane.INFORMATION_MESSAGE);
+				limpiarFormulario();
+	            setVisible(false);
+			} catch (InscriptionFailException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Inscripcion a Salida Turistica", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 	
 	//Carga de ComboBoxes
@@ -204,6 +216,11 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 		
 		model = new DefaultComboBoxModel<String>(arrDeptos);
 		comboBoxDepartamentos.setModel(model);
+		comboBoxActividades.setEnabled(false);
+		comboBoxSalidasVigentes.setEnabled(false);
+		borrandoFormularios = true;
+		comboBoxDepartamentos.setSelectedItem(null);
+		borrandoFormularios = false;
 	}
 	
 	public void cargarActividades(String departamento) {
@@ -218,6 +235,10 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 		
 		model = new DefaultComboBoxModel<String>(arrActs);
 		comboBoxActividades.setModel(model);
+		comboBoxSalidasVigentes.setEnabled(false);
+		borrandoFormularios = true;
+		comboBoxActividades.setSelectedItem(null);
+		borrandoFormularios = false;
 	}
 	
 	public void cargarSalidasVigentes(String actividad, GregorianCalendar fechaSistema) {
@@ -232,6 +253,7 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 		
 		model = new DefaultComboBoxModel<DTSalida>(arrSalidas);
 		comboBoxSalidasVigentes.setModel(model);
+		comboBoxSalidasVigentes.setSelectedItem(null);
 	}
 	
 	public void cargarTuristas() {
@@ -243,6 +265,7 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 		
 		model = new DefaultComboBoxModel<String>(arrTuristas);
 		comboBoxTuristas.setModel(model);
+		comboBoxTuristas.setSelectedItem(null);
 	}
 	
 	public void limpiarFormulario() {
@@ -253,5 +276,25 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
         comboBoxTuristas.removeAllItems();
         textFieldCantTuristas.setText("");
         borrandoFormularios = false;
+	}
+	
+	private boolean checkFormulario() {
+		if(comboBoxDepartamentos.getSelectedIndex() == -1 || comboBoxActividades.getSelectedIndex() == -1 || 
+		   comboBoxSalidasVigentes.getSelectedIndex() == -1 || comboBoxTuristas.getSelectedIndex() == -1 || textFieldCantTuristas.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Inscripcion a Salida Turistica", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		else {
+			try {
+				@SuppressWarnings("unused")
+				Integer number = Integer.valueOf(textFieldCantTuristas.getText());
+			} catch(NumberFormatException ex){
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "La cantidad de turistas a inscribir debe ser un entero", "Inscripcion a Salida Turistica", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

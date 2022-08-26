@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import logica.interfaces.Fabrica;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
+import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import datatypes.DTUsuario;
 
@@ -104,7 +105,12 @@ public class ctrlUsuario {
 		int cant = 5;
 		GregorianCalendar fecha = new GregorianCalendar(2022, 12, 1);
 		
-		controladorUsuario.ingresarInscripcion(nick, salida, cant, fecha); 
+		try {
+			controladorUsuario.ingresarInscripcion(nick, salida, cant, fecha);
+		} catch (InscriptionFailException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} 
 	}
 
 }

@@ -18,7 +18,7 @@ import javax.swing.SwingConstants;
 //import excepciones.YaExisteException;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
-import excepciones.InvalidArgument;
+//import excepciones.InvalidArgument;
 import excepciones.YaExisteException;
 
 import java.util.GregorianCalendar;

@@ -3,14 +3,14 @@ package logica.handlers;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.Collection;
-import java.util.GregorianCalendar;
+//import java.util.Collection;
+//import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import logica.clases.Usuario;
 import logica.clases.Turista;
 import logica.clases.Proveedor;
-import excepciones.NoExisteUsuario;
+//import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 
 public class HandlerUsuarios {
@@ -24,17 +24,6 @@ public class HandlerUsuarios {
 		usuarios = new HashMap<String, Usuario>();
 		proveedores = new HashMap<String, Proveedor>();
 		turistas = new HashMap<String, Turista>();
-		
-		Turista t1 = new Turista("manuT1", "emailT1", "nombreT1", "apellidT1", new GregorianCalendar(), "uru" );
-		Turista t2 = new Turista("manuT2", "emailT2", "nombreT2", "apellidT2", new GregorianCalendar(), "uru" );
-		Proveedor p1 = new Proveedor("manuP1", "emailP1", "nombreP1", "apellidP1", new GregorianCalendar(), "desc", "link1" );
-		Proveedor p2 = new Proveedor("manuP2", "emailP2", "nombreP2", "apellidP2", new GregorianCalendar(), "desc", "link2" );
-		try {
-			this.agregarUsuario(t1);
-			this.agregarUsuario(t2);
-			this.agregarUsuario(p1);
-			this.agregarUsuario(p2);
-		}catch(Exception e) {}
 	}
 
 	public static HandlerUsuarios getInstance() {

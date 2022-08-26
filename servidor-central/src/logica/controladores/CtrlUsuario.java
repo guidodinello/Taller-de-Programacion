@@ -19,8 +19,9 @@ import java.util.Set;
 import java.util.HashSet;
 
 //import excepciones.InvalidArgument;
-import excepciones.NoExisteUsuario;
+//import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
+import excepciones.InscriptionFailException;
 
 public class CtrlUsuario implements ICtrlUsuario{
 	
@@ -40,13 +41,18 @@ public class CtrlUsuario implements ICtrlUsuario{
 	}
 	
 
-	public void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) { 
+	public void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) throws InscriptionFailException { 
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		Turista turista = hU.getTuristaByNickname(nickname);
 		SalidaTuristica salidaT = hS.obtenerSalidaTuristica(salida);
+		if(turista.inscriptoSalida(salidaT))
+			throw new InscriptionFailException("El usuario " + turista.getNickname() + " ya se encuentra registrado en la salida seleccionada");
+		if(salidaT.getPlazosDisponibles() - cant < 0)
+			throw new InscriptionFailException("La salida " + salidaT.getNombre() + " no tiene los plazos suficientes para la inscripcion");
 		float costo = salidaT.calcularCosto(cant);
 		InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo);
+		salidaT.reducirPlazos(cant);
 		turista.agregarInscripcion(insc);
 	
 	}

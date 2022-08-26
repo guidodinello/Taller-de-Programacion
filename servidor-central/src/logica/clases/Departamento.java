@@ -1,6 +1,6 @@
 package logica.clases;
 
-import java.util.GregorianCalendar;
+//import java.util.GregorianCalendar;
 //importaciones
 //import logica.clases.ActividadTuristica;
 //import java.util.Collection;
@@ -34,12 +34,6 @@ public class Departamento{
 	}
 
 	public Set<String> listarActividades() {
-		GregorianCalendar g = new GregorianCalendar();
-		ActividadTuristica a1 = new ActividadTuristica("act1","act1d",3,34,"mont",g);
-		ActividadTuristica a2 = new ActividadTuristica("act2","act2d",3,34,"mont",g);
-		actividades.put("act1", a1);
-		actividades.put("act2", a2);
-
 		return actividades.keySet();
 	}
 	

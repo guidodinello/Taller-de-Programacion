@@ -8,7 +8,7 @@ import datatypes.DTSalida;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
-import excepciones.NoExisteUsuario;
+//import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 import logica.clases.Departamento;
 import logica.clases.ActividadTuristica;
@@ -129,7 +129,6 @@ public class CtrlActividad implements ICtrlActividad{
 		for (int i = 0; i < salidas.length; i++) {
 			String nombreSal =salidas[i].getNombre();
 			if(nombreSal == salida) {
-				//TODO crear DT
 				nueva.setNombre(nombreSal);
 				nueva.setfechaAlta(salidas[i].getfechaAlta());
 				nueva.setfechaSalida(salidas[i].getfechaSalida());

@@ -8,8 +8,9 @@ import datatypes.DTSalida;
 import datatypes.DTUsuario;
 import datatypes.tipoUsuario;
 
-import excepciones.InvalidArgument;
+//import excepciones.InvalidArgument;
 import excepciones.YaExisteException;
+import excepciones.InscriptionFailException;
 
 //import logica.clases.Proveedor;
 //import logica.clases.Turista;
@@ -19,7 +20,7 @@ public interface ICtrlUsuario {
 
 	public abstract void altaUsuario(String nickname,String email, String nombre, String apellido, GregorianCalendar fechaNac,
 			tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
-	public abstract void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha);
+	public abstract void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) throws InscriptionFailException;
 	public abstract Set<String> listarTuristas();
 //	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta);
 	public abstract Set<String> listarProveedores();
