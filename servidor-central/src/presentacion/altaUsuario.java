@@ -153,13 +153,6 @@ public class altaUsuario extends JInternalFrame {
 		turBtn.setMnemonic(KeyEvent.VK_T);
 		turBtn.setActionCommand(tur);
 		BtnGroup.add(turBtn);
-		turBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// ================ INFO TURISTA ================//
-				// CardLayout cl = (CardLayout)getContentPane()..getLayout();
-				// ================ INFO TURISTA ================//
-			}
-		});
 
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -336,9 +329,7 @@ public class altaUsuario extends JInternalFrame {
 
 			} catch (YaExisteException e) {
               JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-            } catch (InvalidArgument e) {
-            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-          }
+            }
 			
 			if (tipo == tipoUsuario.proveedor) {
 				textFieldSitioWeb.setText("");

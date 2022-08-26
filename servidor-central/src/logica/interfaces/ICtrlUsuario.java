@@ -18,7 +18,7 @@ import excepciones.YaExisteException;
 public interface ICtrlUsuario {
 
 	public abstract void altaUsuario(String nickname,String email, String nombre, String apellido, GregorianCalendar fechaNac,
-			tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws InvalidArgument, YaExisteException;
+			tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
 	public abstract void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha);
 	public abstract Set<String> listarTuristas();
 //	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta);

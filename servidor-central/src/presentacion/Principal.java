@@ -177,8 +177,6 @@ public class Principal {
         		// Muestro el InternalFrame para ingresar inscripcion
         		try {
 					ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", null, tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
-				} catch (InvalidArgument e2) {
-					e2.printStackTrace();
 				} catch (YaExisteException e2) {
 					e2.printStackTrace();
 				}
