@@ -33,8 +33,8 @@ public class altaActividadTuristica extends JInternalFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JComboBox comboBox;
-	private JComboBox comboBox_1;
+	private JComboBox<String> comboBox;
+	private JComboBox<String> comboBox_1;
 
 	/**
 	 * Launch the application.
@@ -307,16 +307,24 @@ public class altaActividadTuristica extends JInternalFrame {
 		textField_3.setText("");
 		textField_4.setText("");
 	}
-	/*
+	
 	public void cargarProveedores() {
-        DefaultComboBoxModel<String> model;
-        try {
-        	Set<String> proveedores = IUsuario.listarProveedores(); //IActividad.listarDepartamentos();
-            model = new DefaultComboBoxModel<String>(controlUsr.getUsuarios());
-            comboBox.setModel(model);
-        } catch (NoExisteUsuario e) {
-            // No se imprime mensaje de error sino que simplemente no se muestra ningún elemento
-        }
+       	Set<String> proveedores = IUsuario.listarProveedores();
+       	String[] arrProveedores = new String[proveedores.size()];
+    	proveedores.toArray(arrProveedores);
+       	
+    	DefaultComboBoxModel<String> model;
+        model = new DefaultComboBoxModel<String>(arrProveedores);
+        comboBox.setModel(model);
 	}
-	*/
+	
+	public void cargarDepartamentos() {
+       	Set<String> departamentos = IActividad.listarDepartamentos();
+       	String[] arrDepartamentos = new String[departamentos.size()];
+    	departamentos.toArray(arrDepartamentos);
+       	
+    	DefaultComboBoxModel<String> model;
+        model = new DefaultComboBoxModel<String>(arrDepartamentos);
+        comboBox.setModel(model);
+	}
 }
