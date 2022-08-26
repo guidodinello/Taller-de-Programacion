@@ -18,6 +18,8 @@ import logica.interfaces.*;
 //import java.util.GregorianCalendar;
 //import java.util.Set;
 import logica.clases.SalidaTuristica;
+import logica.clases.Turista;
+import logica.clases.Proveedor;
 //import datatypes.DTActividad;
 //import datatypes.DTPaquete;
 //import datatypes.DTSalida;
@@ -66,19 +68,18 @@ public class CtrlActividad implements ICtrlActividad{
 		if(hA.existeActividad(nomActividad)){
 			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
 		}
-		
+
 		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta);
 		
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		hD.getDepto(nomDep).agregarActividad(resu);
-		
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		try {
-			hU.getProveedorByNickname(nickProv).agregarActividad(resu);
+			Proveedor p = (Proveedor) hU.getProveedorByNickname(nickProv);
+			p.agregarActividad(resu);
 		} catch (NoExisteUsuario e) {
 			e.printStackTrace();
 		}
-		
 		hA.agregarActividad(resu);
 	}
 	

@@ -8,9 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-import excepciones.UsuarioNoExisteException;
+//import excepciones.UsuarioNoExisteException;
 import excepciones.YaExisteException;
-import logica.DataUsuario;
+//import logica.DataUsuario;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 
@@ -271,25 +271,25 @@ public class altaActividadTuristica extends JInternalFrame {
         try {
             Integer.parseInt(duraHs);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La duración en horas debe ser un número entero positivo", "Alta de Actividad Turistica",
+            JOptionPane.showMessageDialog(this, "La duraciï¿½n en horas debe ser un nï¿½mero entero positivo", "Alta de Actividad Turistica",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         try {
             Float.parseFloat(costo);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El costo debe ser un número positivo", "Alta de Actividad Turistica",
+            JOptionPane.showMessageDialog(this, "El costo debe ser un nï¿½mero positivo", "Alta de Actividad Turistica",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
         if(Integer.parseInt(duraHs) < 0) {
-        	JOptionPane.showMessageDialog(this, "La duración en horas debe ser un número entero positivo", "Alta de Actividad Turistica",
+        	JOptionPane.showMessageDialog(this, "La duraciï¿½n en horas debe ser un nï¿½mero entero positivo", "Alta de Actividad Turistica",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if(Float.parseFloat(costo) < 0) {
-        	JOptionPane.showMessageDialog(this, "El costo debe ser un número positivo", "Alta de Actividad Turistica",
+        	JOptionPane.showMessageDialog(this, "El costo debe ser un nï¿½mero positivo", "Alta de Actividad Turistica",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

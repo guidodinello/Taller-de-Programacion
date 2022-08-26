@@ -349,7 +349,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		        
         //Eventos
         //Lleno el comboBox de selccionar con los usuarios
-        Set<String> usuarios = iCU.listarUsuarios();
+        Set<String> usuarios = ctrlUsuario.listarUsuarios();
         usuarios.forEach((u)->{
         	ComboBoxSelUsuario.addItem(u);
         });
@@ -357,14 +357,14 @@ public class ConsultaDeUsuario extends JInternalFrame {
         ComboBoxSelUsuario.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e) {
         		//cmdBuscarUsuarioActionPerformed(e);
-        		DTUsuario dtU = iCU.getInfoBasicaUsuario(ComboBoxSelUsuario.getSelectedItem().toString());
+        		DTUsuario dtU = ctrlUsuario.getInfoBasicaUsuario(ComboBoxSelUsuario.getSelectedItem().toString());
         		TextNickname.setText(dtU.getNickname());
         		TextEmail.setText(dtU.getEmail());
         		TextNombre.setText(dtU.getNombre());
         		TextApellido.setText(dtU.getApellido());
         		TextFechaNac.setText(dtU.getFechaNac().toString());
         		
-        		
+
         		if(dtU instanceof DTTurista) {
         			LabelNacionalidad.setVisible(true);
         			TextNacionalidad.setVisible(true);
@@ -380,14 +380,14 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			LabelSalidasDeActividadesDelProveedor.setVisible(false);
         			ComboBoxSalidasDeActividadesDelProveedor.setVisible(false);
         			
-        			DTTurista dtT = (DTTurista)dtU;
+        			/*DTTurista dtT = (DTTurista)dtU;
         			TextNacionalidad.setText(dtT.getNacionalidad());
-        			Set<DTSalida> dtS = iCU.listarInfoSalidasTurista(dtT.getNombre());
+        			Set<DTSalida> dtS = ctrlUsuario.listarInfoSalidasTurista(dtT.getNombre());
         			dtS.forEach((dt)->{
         				String infoSalida = "Nombre: "+ dt.getNombre() + ". Fecha salida: " + dt.getfechaSalida().toString() +
         						". Lugar de salida: " + dt.getlugarSalida();
         				ComboBoxSalidasInscripto.addItem(infoSalida);
-        			});
+        			});*/
         			
         		}else {
         			LabelNacionalidad.setVisible(false);
@@ -407,7 +407,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			DTProveedor dtP = (DTProveedor)dtU;
         			TextDescripcion.setText(dtP.getDescripcion());
         			TextSitioWeb.setText(dtP.getLinkSitioWeb());
-        			Set<DTActividad> dtA = iCU.listarInfoCompletaActividadesProveedor(dtP.getNombre());
+        			Set<DTActividad> dtA = ctrlUsuario.listarInfoCompletaActividadesProveedor(dtP.getNombre());
         			dtA.forEach((dt)->{
         				String infoActividad = "Nombre: " + dt.getNombre() + ". Descripición: " + dt.getDescripcion();
         				ComboBoxActividadesProveedor.addItem(infoActividad);
