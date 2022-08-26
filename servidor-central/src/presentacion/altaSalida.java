@@ -268,9 +268,16 @@ public class altaSalida extends JInternalFrame {
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 12;
+		gbc_btnNewButton.gridy = 13;
 		
 		getContentPane().add(btnNewButton, gbc_btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Cancelar");
+		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton_1.gridx = 3;
+		gbc_btnNewButton_1.gridy = 13;
+		getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
 		 btnNewButton.addActionListener(new ActionListener(){
 			 public void actionPerformed(ActionEvent e) {
 				 

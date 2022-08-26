@@ -377,17 +377,16 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			LabelSalidasDeActividadesDelProveedor.setVisible(false);
         			ComboBoxSalidasDeActividadesDelProveedor.setVisible(false);
         			
-        			TextTipoUsuario.setText("Turista");
-        			DTTurista dtT = (DTTurista)dtU;
+        			/*DTTurista dtT = (DTTurista)dtU;
         			TextNacionalidad.setText(dtT.getNacionalidad());
-        			Set<DTSalida> dtS = ctrlUsuario.listarInfoSalidasTurista(dtT.getNickname());
+        			Set<DTSalida> dtS = ctrlUsuario.listarInfoSalidasTurista(dtT.getNombre());
         			dtS.forEach((dt)->{
         				seteandoDatosIniciales = true;
         				String infoSalida = "Nombre: "+ dt.getNombre() + ". Fecha salida: " + dt.getfechaSalida().toString() +
         						". Lugar de salida: " + dt.getlugarSalida();
         				ComboBoxSalidasInscripto.addItem(infoSalida);
         				seteandoDatosIniciales = false;
-        			});
+        			});*/
         			
         		}else {
         			LabelNacionalidad.setVisible(false);
@@ -404,11 +403,10 @@ public class ConsultaDeUsuario extends JInternalFrame {
         			LabelSalidasDeActividadesDelProveedor.setVisible(true);
         			ComboBoxSalidasDeActividadesDelProveedor.setVisible(true);
         			
-        			TextTipoUsuario.setText("Proveedor");
-        			DTProveedor dtP = (DTProveedor)dtU;
+        			/*DTProveedor dtP = (DTProveedor)dtU;
         			TextDescripcion.setText(dtP.getDescripcion());
         			TextSitioWeb.setText(dtP.getLinkSitioWeb());
-        			Set<DTActividad> dtA = ctrlUsuario.listarInfoCompletaActividadesProveedor(dtP.getNickname());
+        			Set<DTActividad> dtA = ctrlUsuario.listarInfoCompletaActividadesProveedor(dtP.getNombre());
         			dtA.forEach((dt)->{
         				seteandoDatosIniciales = true;
         				String infoActividad = "Nombre: " + dt.getNombre() + ". Descripición: " + dt.getDescripcion();
@@ -422,14 +420,12 @@ public class ConsultaDeUsuario extends JInternalFrame {
         							nombAct);
         					seteandoDatosIniciales = false;
         				});
-        			});
+        			});*/
         			
         		}
         		
         	};
         });
-        
-      
 	}
 	
 	public void cargarDatosVentana() {
@@ -475,5 +471,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
     	seteandoDatosIniciales = false;
     }
 	
-
+	
+	
+	
+	
+	
+	
+	
 }
