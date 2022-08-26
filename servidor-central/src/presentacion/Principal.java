@@ -1,14 +1,13 @@
 package presentacion;
 import logica.interfaces.Fabrica;
+import logica.interfaces.ICtrlActividad;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
-//import logica.*;
-//import presentacion.*;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +19,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
+import javax.swing.JButton;
 
 //import presentacion.altaUsuario;
 
@@ -27,10 +27,11 @@ public class Principal {
 
     private JFrame frmGestionDeTurismoUy;
     private ICtrlUsuario ICU;
-    //private ICtrlActividad ICA;
+    private ICtrlActividad ICA;
     private altaUsuario creUsrInternalFrame;
     private JTextField textField;
     private JTextField textField_1;
+    private JInternalFrame altaSalida;
   //  private ConsultarUsuario conUsrInternalFrame;
    // private ListaUsuarios lisUsrInternalFrame;
 
@@ -58,9 +59,21 @@ public class Principal {
 
         Fabrica fabrica = Fabrica.getInstance();
         ICU = fabrica.getICtrlUsuario();
+        ICA = fabrica.getICtrlActividad();
+        altaSalida = new altaSalida(ICA);
+        altaSalida.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(altaSalida);
         
-        creUsrInternalFrame = new altaUsuario(ICU);
-        GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
+        JButton btnNewButton = new JButton("Confirmar Alta");
+        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+        gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+        gbc_btnNewButton.gridx = 2;
+        gbc_btnNewButton.gridy = 12;
+        altaSalida.getContentPane().add(btnNewButton, gbc_btnNewButton);
+        
+        
+    //    creUsrInternalFrame = new altaUsuario(ICU);
+       /* GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
         gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0};
         creUsrInternalFrame.setVisible(false);
 
@@ -100,7 +113,8 @@ public class Principal {
         textField_1.setColumns(10);
         //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
     }
-
+*/
+    }
     /**
      * Initialize the contents of the frame.
      */
@@ -144,8 +158,17 @@ public class Principal {
             }
         });
         menuUsuarios.add(menuItemRegistrar);
-
         
-
+        
+        JMenuItem menuItemAltaSal = new JMenuItem("Alta de Salida");
+        menuItemAltaSal.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Muestro el InternalFrame para registrar un usuario
+                altaSalida.setVisible(true);
+            }
+        });
+        menuUsuarios.add(menuItemAltaSal);
     }
-}
+}  
+
+   
