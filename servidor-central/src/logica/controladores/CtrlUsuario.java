@@ -81,8 +81,11 @@ public class CtrlUsuario implements ICtrlUsuario{
 	
 	public Set<DTActividad> listarInfoCompletaActividadesProveedor(String p) {
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
-		Set<DTActividad> resultado = new HashSet<DTActividad>();
+		Set<DTActividad> resultado = null;
 		Proveedor prov = hU.getProveedorByNickname(p);
+		if(prov == null) {
+			System.out.print(prov);
+		}
 		resultado = prov.getDTActividades();
 		return resultado;
 	}
