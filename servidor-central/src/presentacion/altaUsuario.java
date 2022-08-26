@@ -18,6 +18,8 @@ import javax.swing.SwingConstants;
 //import excepciones.YaExisteException;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
+import excepciones.InvalidArgument;
+import excepciones.YaExisteException;
 
 import java.util.GregorianCalendar;
 import javax.swing.GroupLayout;
@@ -85,7 +87,7 @@ public class altaUsuario extends JInternalFrame {
 		lblIngreseNickName.setHorizontalAlignment(SwingConstants.CENTER);
 
 		textFieldNickName = new JTextField();
-		textFieldNombre.setColumns(10);
+		//textFieldNombre.setColumns(10);
 		// ================ NICKNAME ================//
 
 		// ================ NOMBRE ================//
@@ -318,12 +320,12 @@ public class altaUsuario extends JInternalFrame {
 //        capturar radio button value para pasar tipo Usuaeio
 		tipoUsuario tipo = tipoUsuario.turista;
 
-//        String nacionalidad = this.textFieldNacionalidad.getText();
-//        String descripcion = this.textFieldDescripcion.getText();
-//        String sitioWeb = this.textFieldEmail.getText();
-		String nacionalidad = "";
-		String descripcion = "";
-		String sitioWeb = "";
+        //this.textFieldNacionalidad.setText("nacionalidad prueba");
+        //this.textFieldDescripcion.setText("descripcion prueba ");
+        
+        String nacionalidad = this.textFieldNacionalidad.getText();
+        String descripcion = this.textFieldDescripcion.getText();
+        String sitioWeb = this.textFieldEmail.getText();
 
 		if (checkFormulario()) {
 			try {
@@ -333,14 +335,12 @@ public class altaUsuario extends JInternalFrame {
 				JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
 						JOptionPane.INFORMATION_MESSAGE);
 
-//          } catch (YaExisteException e) {
-//              JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-//          } catch (InvalidArgument e) {
-//            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-//          }
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-			}
+			} catch (YaExisteException e) {
+              JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+            } catch (InvalidArgument e) {
+            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+          }
+
 			limpiarFormulario();
 			setVisible(false);
 		}

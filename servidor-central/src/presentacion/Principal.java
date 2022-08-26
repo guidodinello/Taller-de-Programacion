@@ -1,25 +1,36 @@
 package presentacion;
+
+import logica.clases.Departamento; // testeando - borrar
+
 import logica.interfaces.Fabrica;
-import logica.interfaces.ICtrlActividad;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+//import logica.*;
+//import presentacion.*;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //import logica.controladores.*;
-//import logica.interfaces.ICtrlActividad;
+import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
-import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+//import javax.swing.JLabel;
+//import java.awt.GridBagConstraints;
+//import java.awt.Insets;
 import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import javax.swing.JButton;
+
+
+import datatypes.tipoUsuario;
+import excepciones.InvalidArgument;
+import excepciones.YaExisteException;
+
+//import javax.swing.BoxLayout;
+//import java.awt.BorderLayout;
+//import java.awt.GridBagLayout;
 
 //import presentacion.altaUsuario;
 
@@ -28,10 +39,13 @@ public class Principal {
     private JFrame frmGestionDeTurismoUy;
     private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
-    private altaUsuario creUsrInternalFrame;
+    private altaUsuario altaUsuario;
+    private altaSalida altaSalida;
+    private ConsultaDeUsuario consultaDeUsuario;
+    private altaActividadTuristica crearActividadTuristica;
+    private InscripcionSalidaTuristica creInscrInternalFrame;
     private JTextField textField;
     private JTextField textField_1;
-    private JInternalFrame altaSalida;
   //  private ConsultarUsuario conUsrInternalFrame;
    // private ListaUsuarios lisUsrInternalFrame;
 
@@ -60,61 +74,30 @@ public class Principal {
         Fabrica fabrica = Fabrica.getInstance();
         ICU = fabrica.getICtrlUsuario();
         ICA = fabrica.getICtrlActividad();
+        
+        altaUsuario = new altaUsuario(ICU);
+        altaUsuario.setVisible(false);
+        frmGestionDeTurismoUy.add(altaUsuario);
+        
         altaSalida = new altaSalida(ICA);
         altaSalida.setVisible(false);
-        frmGestionDeTurismoUy.getContentPane().add(altaSalida);
-        
-        JButton btnNewButton = new JButton("Confirmar Alta");
-        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-        gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-        gbc_btnNewButton.gridx = 2;
-        gbc_btnNewButton.gridy = 12;
-        altaSalida.getContentPane().add(btnNewButton, gbc_btnNewButton);
+        frmGestionDeTurismoUy.add(altaSalida);
         
         
-    //    creUsrInternalFrame = new altaUsuario(ICU);
-       /* GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
-        gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0};
-        creUsrInternalFrame.setVisible(false);
-
-       // conUsrInternalFrame = new ConsultarUsuario(ICU);
-        //conUsrInternalFrame.setVisible(false);
-
-        //lisUsrInternalFrame = new ListaUsuarios(ICU);
-        //lisUsrInternalFrame.setVisible(false);
-        //frmGestionDeUsuarios.getContentPane().setLayout(null);
-
-        //frmGestionDeUsuarios.getContentPane().add(conUsrInternalFrame);
-        frmGestionDeTurismoUy.getContentPane().add(creUsrInternalFrame);
+        consultaDeUsuario = new ConsultaDeUsuario(ICU);
+        consultaDeUsuario.setVisible(false);
+        frmGestionDeTurismoUy.add(consultaDeUsuario);
         
-        JLabel lblNewLabel = new JLabel("New label");
-        GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-        gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-        gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
-        gbc_lblNewLabel.gridx = 0;
-        gbc_lblNewLabel.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+        creInscrInternalFrame = new InscripcionSalidaTuristica(ICA,ICU);
+        creInscrInternalFrame.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(creInscrInternalFrame);
         
-        textField = new JTextField();
-        GridBagConstraints gbc_textField = new GridBagConstraints();
-        gbc_textField.insets = new Insets(0, 0, 0, 5);
-        gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-        gbc_textField.gridx = 1;
-        gbc_textField.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(textField, gbc_textField);
-        textField.setColumns(10);
+        crearActividadTuristica = new altaActividadTuristica(ICA, ICU);
+        crearActividadTuristica.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         
-        textField_1 = new JTextField();
-        GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-        gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-        gbc_textField_1.gridx = 2;
-        gbc_textField_1.gridy = 3;
-        creUsrInternalFrame.getContentPane().add(textField_1, gbc_textField_1);
-        textField_1.setColumns(10);
-        //frmGestionDeUsuarios.getContentPane().add(lisUsrInternalFrame);
     }
-*/
-    }
+
     /**
      * Initialize the contents of the frame.
      */
@@ -123,7 +106,8 @@ public class Principal {
         // Se crea el Frame con las dimensiones indicadas.
         frmGestionDeTurismoUy = new JFrame();
         frmGestionDeTurismoUy.setTitle("Turismo.uy");
-        frmGestionDeTurismoUy.setBounds(100, 100, 450, 400);
+        frmGestionDeTurismoUy.setResizable(true);
+        frmGestionDeTurismoUy.setBounds(100, 100, 700, 700);
         frmGestionDeTurismoUy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.
@@ -153,22 +137,66 @@ public class Principal {
         JMenuItem menuItemRegistrar = new JMenuItem("Registrar Usuario");
         menuItemRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para registrar un usuario
-                creUsrInternalFrame.setVisible(true);
+                altaUsuario.setVisible(true);
             }
         });
         menuUsuarios.add(menuItemRegistrar);
         
-        
-        JMenuItem menuItemAltaSal = new JMenuItem("Alta de Salida");
-        menuItemAltaSal.addActionListener(new ActionListener() {
+        JMenuItem menuItemRegistrarSalida = new JMenuItem("Registrar Salida Turistica");
+        menuItemRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para registrar un usuario
                 altaSalida.setVisible(true);
             }
         });
-        menuUsuarios.add(menuItemAltaSal);
-    }
-}  
+        menuUsuarios.add(menuItemRegistrarSalida);
 
-   
+        JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
+        menuItemConsultaUsuario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		consultaDeUsuario.setVisible(true);
+        	};
+        });
+        menuUsuarios.add(menuItemConsultaUsuario);
+        
+        JMenu menuActividades = new JMenu("Actividades");
+        menuBar.add(menuActividades);
+        
+        JMenuItem menuItemAltaActividadTuristica = new JMenuItem("Alta de Actividad Tur�stica");
+        menuItemAltaActividadTuristica.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		crearActividadTuristica.setVisible(true);
+        	};
+        });
+        menuActividades.add(menuItemAltaActividadTuristica);
+        
+        JMenuItem menuItemIngresarInscripcion = new JMenuItem("Registrar Inscripcion");
+        menuItemIngresarInscripcion.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// Muestro el InternalFrame para ingresar inscripcion
+        		try {
+					ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", null, tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
+				} catch (InvalidArgument e2) {
+					e2.printStackTrace();
+				} catch (YaExisteException e2) {
+					e2.printStackTrace();
+				}
+        		
+        		try {
+					ICA.altaDepartamento("Montevideo", "Capital de Uruguay", "mvdeo.com.uy");
+					ICA.altaDepartamento("Canelones", "Me gustan los canelones", "canelones.com.uy");
+				} catch (YaExisteException e1) {
+					e1.printStackTrace();
+				}
+        		try {
+					ICA.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null);
+				} catch (YaExisteException e2) {
+					e2.printStackTrace();
+				}
+        		creInscrInternalFrame.cargarDepartamentos();
+        		creInscrInternalFrame.setVisible(true);
+        	}
+        });
+        menuActividades.add(menuItemIngresarInscripcion);
+
+    }
+}

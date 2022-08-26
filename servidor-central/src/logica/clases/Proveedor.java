@@ -15,6 +15,7 @@ public class Proveedor extends Usuario {
 		super(nickname, email, nombre, apellido, fechaNac);
 		this.descripcion = descripcion;
 		this.sitioWeb = sitioWeb;
+		actividades = new HashMap<String, ActividadTuristica>();
 	}
 	
 	public String getDescripcion() {

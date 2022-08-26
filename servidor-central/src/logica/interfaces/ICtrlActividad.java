@@ -8,7 +8,7 @@ import datatypes.DTActividad;
 
 
 
-public interface ICtrlActividad {
+public interface ICtrlActividad{
 
 	public abstract void altaDepartamento(String nombreDepartamento, String descripcion,String URL) throws YaExisteException;
 	public abstract DTActividad getInfoActividad(String actividad);

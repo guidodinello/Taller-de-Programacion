@@ -35,9 +35,5 @@ public class Usuario {
 	public GregorianCalendar getFechaNac() {
 		return fechaNac;
 	}
-	
-	public List<String> getKey() {
-		return List.of(nickname, email);
-	}
 
 }

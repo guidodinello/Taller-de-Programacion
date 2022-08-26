@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import logica.clases.Usuario;
@@ -13,55 +14,27 @@ import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 
 public class HandlerUsuarios {
-
-	private class DoubleKeyedHashMap<T> {
-		private Map<String, T> hashByNickname;
-		private Map<String, T> hashByEmail;
-
-		public DoubleKeyedHashMap() {
-			hashByNickname = new HashMap<String, T>();
-			hashByEmail = new HashMap<String, T>();
-		}
-
-		public void add(String nickname, String email, T usr) throws YaExisteException {
-			T repeated_nick_value = hashByNickname.get(usr);
-			T repeated_email_value = hashByEmail.get(usr);
-			if (repeated_nick_value != null)
-				throw new YaExisteException("el nickname " + nickname + " ya existe");
-			if (repeated_email_value != null)
-				throw new YaExisteException("el email " + email + " introducidos ya existe");
-			hashByNickname.put(nickname, usr);
-			hashByEmail.put(email, usr);
-		}
-
-		public Collection<T> values() {
-			return hashByNickname.values();
-		}
-
-		public T getByNickname(String nick) throws NoExisteUsuario {
-			T usr = hashByNickname.get(nick);
-			if (usr != null)
-				return usr;
-			throw new NoExisteUsuario("No existe usuario con nickname: " + nick);
-		}
-
-		public T getByEmail(String e) throws NoExisteUsuario {
-			T usr = hashByEmail.get(e);
-			if (usr != null)
-				return usr;
-			throw new NoExisteUsuario("No existe usuario con email: " + e);
-		}
-
-	}
-
 	private static HandlerUsuarios instance = null;
-
-	DoubleKeyedHashMap<Proveedor> proveedores;
-	DoubleKeyedHashMap<Turista> turistas;
+	
+	private Map<String, Usuario> usuarios; //guarda todos por el nickname
+	private Map<String, Proveedor> proveedores;//guarda por el email
+	private Map<String, Turista> turistas;//guarda por el email
 
 	private HandlerUsuarios() {
-		proveedores = new DoubleKeyedHashMap<Proveedor>();
-		turistas = new DoubleKeyedHashMap<Turista>();
+		usuarios = new HashMap<String, Usuario>();
+		proveedores = new HashMap<String, Proveedor>();
+		turistas = new HashMap<String, Turista>();
+		
+		Turista t1 = new Turista("manuT1", "emailT1", "nombreT1", "apellidT1", new GregorianCalendar(), "uru" );
+		Turista t2 = new Turista("manuT2", "emailT2", "nombreT2", "apellidT2", new GregorianCalendar(), "uru" );
+		Proveedor p1 = new Proveedor("manuP1", "emailP1", "nombreP1", "apellidP1", new GregorianCalendar(), "desc", "link1" );
+		Proveedor p2 = new Proveedor("manuP2", "emailP2", "nombreP2", "apellidP2", new GregorianCalendar(), "desc", "link2" );
+		try {
+			this.agregarUsuario(t1);
+			this.agregarUsuario(t2);
+			this.agregarUsuario(p1);
+			this.agregarUsuario(p2);
+		}catch(Exception e) {}
 	}
 
 	public static HandlerUsuarios getInstance() {
@@ -71,52 +44,57 @@ public class HandlerUsuarios {
 	}
 
 	public void agregarTurista(Turista t) throws YaExisteException {
-		turistas.add(t.getNickname(), t.getEmail(), t);
+		if(usuarios.containsKey(t.getNickname())) {
+			throw new YaExisteException("El usuario con el nickname " +t.getNickname() + " ya se encuentra registrado.");
+		}
+		if(turistas.containsKey(t.getEmail())) {
+			throw new YaExisteException("El usuario con el email " +t.getEmail() + " ya se encuentra registrado.");
+		}
+		usuarios.put(t.getNickname(), t);
+		turistas.put(t.getEmail(), t);
 	}
 
 	public void agregarProveedor(Proveedor p) throws YaExisteException {
-		proveedores.add(p.getNickname(), p.getEmail(), p);
+		if(usuarios.containsKey(p.getNickname())) {
+			throw new YaExisteException("El usuario con el nickname " +p.getNickname() + " ya se encuentra registrado.");
+		}
+		if(proveedores.containsKey(p.getEmail())) {
+			throw new YaExisteException("El usuario con el email " +p.getEmail() + " ya se encuentra registrado.");
+		}
+		usuarios.put(p.getNickname(), p);
+		proveedores.put(p.getEmail(), p);
 	}
+	
 
 	public void agregarUsuario(Usuario u) throws YaExisteException {
 		if (u instanceof Proveedor) {
 			Proveedor p = (Proveedor) u;
-			proveedores.add(p.getNickname(), p.getEmail(), p);
+			this.agregarProveedor((Proveedor)p);
 		} else {
 			Turista t = (Turista) u;
-			turistas.add(t.getNickname(), t.getEmail(), t);
+			this.agregarTurista((Turista)t);
 		}
 
 	}
 
-	public Usuario getUsuarioByNickname(String n) throws NoExisteUsuario {
-		Proveedor p = proveedores.getByNickname(n);
-		if (p != null)
-			return (Usuario) p;
-		return (Usuario) turistas.getByNickname(n);
+	//tira null si no existe
+	public Usuario getUsuarioByNickname(String n){
+		return usuarios.get(n);
+	}
+	
+	public Proveedor getProveedorByNickname(String n) {
+		return (Proveedor)this.getUsuarioByNickname(n);
+	}
+	
+	public Turista getTuristaByNickname(String n) {
+		return (Turista)this.getUsuarioByNickname(n);
 	}
 
-	public Usuario getUsuarioByEmail(String n) throws NoExisteUsuario {
-		Proveedor p = proveedores.getByEmail(n);
-		if (p != null)
-			return (Usuario) p;
-		return (Usuario) turistas.getByEmail(n);
-	}
-
-	public Turista getTuristaByNickname(String n) throws NoExisteUsuario {
-		return turistas.getByNickname(n);
-	}
-
-	public Proveedor getProveedorByNickname(String n) throws NoExisteUsuario {
-		return proveedores.getByNickname(n);
-	}
-
-	public Turista getTuristaByEmail(String e) throws NoExisteUsuario {
-		return turistas.getByEmail(e);
-	}
-
-	public Proveedor getProveedorByEmail(String e) throws NoExisteUsuario {
-		return proveedores.getByEmail(e);
+	public Usuario getUsuarioByEmail(String n){
+		if(proveedores.get(n) != null) {
+			return proveedores.get(n);
+		}
+		return turistas.get(n);
 	}
 
 	public Set<Turista> listarTuristas() {
@@ -130,8 +108,7 @@ public class HandlerUsuarios {
 	}
 
 	public Set<Usuario> listarUsuarios() {
-		Set<Usuario> res = new HashSet<Usuario>(turistas.values());
-		res.addAll(proveedores.values());
+		Set<Usuario> res = new HashSet<Usuario>(usuarios.values());
 		return res;
 	}
 }
