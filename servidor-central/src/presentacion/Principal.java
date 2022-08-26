@@ -41,6 +41,7 @@ public class Principal {
     private ICtrlActividad ICA;
     private altaUsuario creUsrInternalFrame;
     private ConsultaDeUsuario consultaDeUsuario;
+    private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
     private JTextField textField;
     private JTextField textField_1;
@@ -81,6 +82,10 @@ public class Principal {
         creInscrInternalFrame = new InscripcionSalidaTuristica(ICA,ICU);
         creInscrInternalFrame.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(creInscrInternalFrame);
+        
+        crearActividadTuristica = new altaActividadTuristica(ICA, ICU);
+        crearActividadTuristica.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         /*creUsrInternalFrame = new altaUsuario(ICU);
         GridBagLayout gridBagLayout = (GridBagLayout) creUsrInternalFrame.getContentPane().getLayout();
         gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0};
@@ -176,9 +181,16 @@ public class Principal {
         });
         menuUsuarios.add(menuItemConsultaUsuario);
         
-        
         JMenu menuActividades = new JMenu("Actividades");
         menuBar.add(menuActividades);
+        
+        JMenuItem menuItemAltaActividadTuristica = new JMenuItem("Alta de Actividad Turística");
+        menuItemAltaActividadTuristica.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		crearActividadTuristica.setVisible(true);
+        	};
+        });
+        menuActividades.add(menuItemAltaActividadTuristica);
         
         JMenuItem menuItemIngresarInscripcion = new JMenuItem("Registrar Inscripcion");
         menuItemIngresarInscripcion.addActionListener(new ActionListener() {
