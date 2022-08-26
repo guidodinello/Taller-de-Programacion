@@ -36,17 +36,20 @@ import excepciones.YaExisteException;
 
 public class Principal {
 
+	//Frame principal
     private JFrame frmGestionDeTurismoUy;
+    //interfaces
     private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
+    //frame altas
     private altaUsuario altaUsuario;
-    private ConsultaDeUsuario consultaDeUsuario;
     private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
-    private JTextField textField;
-    private JTextField textField_1;
-  //  private ConsultarUsuario conUsrInternalFrame;
-   // private ListaUsuarios lisUsrInternalFrame;
+    //frame consultas
+    private ConsultaDeUsuario consultaDeUsuario;
+    //private ConultaActividad consultaActividad;
+    //private ConsultaSalida consultaSalida;
+    
 
     /**
      * Launch the application.
@@ -79,7 +82,7 @@ public class Principal {
         frmGestionDeTurismoUy.add(altaUsuario);
         
         
-        consultaDeUsuario = new ConsultaDeUsuario(ICU);
+        consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeUsuario);
         

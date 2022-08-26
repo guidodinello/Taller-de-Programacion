@@ -59,6 +59,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private JComboBox<String> ComboBoxSalidasDeActividadesDelProveedor;
 	
 	public ConsultaDeUsuario(ICtrlUsuario iCU) {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		//meto la interfaz
 		this.ctrlUsuario = iCU;
 		
@@ -66,7 +67,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consultar un Usuario");
 				
