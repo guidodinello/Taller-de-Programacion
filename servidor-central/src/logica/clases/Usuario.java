@@ -1,7 +1,7 @@
 package logica.clases;
 
 import java.util.GregorianCalendar;
-import java.util.List;
+//import java.util.List;
 
 public class Usuario {
 

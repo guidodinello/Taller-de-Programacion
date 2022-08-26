@@ -22,6 +22,7 @@ import datatypes.DTTurista;
 import datatypes.DTUsuario;
 import logica.interfaces.ICtrlUsuario;
 
+@SuppressWarnings("serial")
 public class ConsultaDeUsuario extends JInternalFrame {
 
 	//Controlador

@@ -3,7 +3,7 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import datatypes.DTSalida;
+//import datatypes.DTSalida;
 import logica.handlers.HandlerUsuarios;
 
 public class SalidaTuristica{
@@ -14,6 +14,7 @@ public class SalidaTuristica{
 	    private int cantidadMaximaDeTuristas;
 	    private String lugarSalida;
 	    private ActividadTuristica actividad;
+	    private int plazosDisponibles;
 		   
 	    public SalidaTuristica(String Sn, GregorianCalendar Ds,String SlugarSal, int CmaxT,GregorianCalendar Da,ActividadTuristica actividad) {
 	        this.nombre = Sn;
@@ -22,6 +23,7 @@ public class SalidaTuristica{
 	        this.cantidadMaximaDeTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.actividad = actividad;
+	        this.plazosDisponibles = cantidadMaximaDeTuristas;
 	    }
 
 	    public String getNombre() {
@@ -45,6 +47,10 @@ public class SalidaTuristica{
 	    public ActividadTuristica getActividad() {
 	    	return actividad;
 	    }
+	    
+	    public int getPlazosDisponibles() {
+	    	return plazosDisponibles;
+	    }
 
 	    public void setNombre(String Sn) {
 	        nombre = Sn;
@@ -66,7 +72,11 @@ public class SalidaTuristica{
 	    
 		public float calcularCosto(int cant) {
 			
-			return 0;
+			return cant*actividad.getCostoPorTurista();
+		}
+		
+		public void reducirPlazos(int cantidad) {
+			plazosDisponibles -= cantidad;
 		}
 		
 		public Set<String> getTuristasInscriptos(){

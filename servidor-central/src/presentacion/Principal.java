@@ -1,6 +1,5 @@
 package presentacion;
 
-import logica.clases.Departamento; // testeando - borrar
 import java.util.GregorianCalendar;
 
 import logica.interfaces.Fabrica;
@@ -22,11 +21,11 @@ import logica.interfaces.ICtrlUsuario;
 //import javax.swing.JLabel;
 //import java.awt.GridBagConstraints;
 //import java.awt.Insets;
-import javax.swing.JTextField;
+//import javax.swing.JTextField;
 
 
 import datatypes.tipoUsuario;
-import excepciones.InvalidArgument;
+//import excepciones.InvalidArgument;
 import excepciones.YaExisteException;
 
 //import javax.swing.BoxLayout;
@@ -101,8 +100,12 @@ public class Principal {
         
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
-			ICU.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", "le gusta pasear", "agus.com");
-			ICU.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", "", "eze.com");
+			ICU.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
+			ICU.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
+			ICU.altaUsuario("manuT1", "emailT1", "nombreT1", "apellidT1", new GregorianCalendar(), tipoUsuario.turista, "uru", null, null);
+			ICU.altaUsuario("manuT2", "emailT2", "nombreT2", "apellidT2", new GregorianCalendar(), tipoUsuario.turista, "uru", null, null );
+			ICU.altaUsuario("manuP1", "emailP1", "nombreP1", "apellidP1", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "descManuP1", "linkP1" );
+			ICU.altaUsuario("manuP2", "emailP2", "nombreP2", "apellidP2", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "descManuP2", "linkP2" );
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}
@@ -126,7 +129,8 @@ public class Principal {
 		try {
 			ICA.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1");
 			ICA.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");
-			ICA.altaSalidaTuristica("A Canelones", new GregorianCalendar(), "Canelones", 10, new GregorianCalendar(), "Actividad 2");
+			ICA.altaSalidaTuristica("A Canelones", fecha, "Canelones", 10, new GregorianCalendar(), "Actividad 2");
+			ICA.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(), "Actividad 3");
 		} catch (YaExisteException e1) {
 			e1.printStackTrace();
 		}

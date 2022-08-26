@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -20,12 +19,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import excepciones.IncompleteException;
-import excepciones.YaExisteException;
+//import excepciones.IncompleteException;
+//import excepciones.YaExisteException;
 import logica.interfaces.ICtrlActividad;
 import java.awt.Color;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class altaSalida extends JInternalFrame {
 
 	//Controlador
