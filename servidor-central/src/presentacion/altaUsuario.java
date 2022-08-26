@@ -5,6 +5,7 @@ import logica.clases.DatePicker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -263,14 +264,11 @@ public class altaUsuario extends JInternalFrame {
 		);
 		
 		btnNewButton = new JButton("...");
-		Image icon;
-		try {
-			icon = ImageIO.read(getClass().getResource("icons/calendario.png"));
-			btnNewButton.setIcon(new ImageIcon(icon));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
+		String icon_path = "src/icons/calendario.png";
+		ImageIcon icon = new ImageIcon(icon_path,"calendario");
+		Image img = icon.getImage();
+		Image scaled_img = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;  
+		btnNewButton.setIcon(new ImageIcon(scaled_img));
 		
 		JLabel lblFechaDeNacimiento = new JLabel("<html><p>Fecha de Nacimiento</p></html>");
 		lblFechaDeNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
