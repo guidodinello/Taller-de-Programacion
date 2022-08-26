@@ -39,7 +39,7 @@ public class Principal {
     private JFrame frmGestionDeTurismoUy;
     private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
-    private altaUsuario creUsrInternalFrame;
+    private altaUsuario altaUsuario;
     private ConsultaDeUsuario consultaDeUsuario;
     private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
@@ -73,6 +73,10 @@ public class Principal {
         Fabrica fabrica = Fabrica.getInstance();
         ICU = fabrica.getICtrlUsuario();
         ICA = fabrica.getICtrlActividad();
+        
+        altaUsuario = new altaUsuario(ICU);
+        altaUsuario.setVisible(false);
+        frmGestionDeTurismoUy.add(altaUsuario);
         
         
         consultaDeUsuario = new ConsultaDeUsuario(ICU);
@@ -128,8 +132,7 @@ public class Principal {
         JMenuItem menuItemRegistrar = new JMenuItem("Registrar Usuario");
         menuItemRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Muestro el InternalFrame para registrar un usuario
-                creUsrInternalFrame.setVisible(true);
+                altaUsuario.setVisible(true);
             }
         });
         menuUsuarios.add(menuItemRegistrar);
