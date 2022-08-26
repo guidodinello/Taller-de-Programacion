@@ -190,6 +190,7 @@ public class Principal {
         JMenuItem menuItemRegistrarSalida = new JMenuItem("Registrar Salida Turistica");
         menuItemRegistrarSalida.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	altaSalida.cargarDatos();
                 altaSalida.setVisible(true);
             }
         });
