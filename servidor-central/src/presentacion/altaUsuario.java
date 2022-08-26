@@ -35,6 +35,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JTextPane;
 import java.awt.CardLayout;
+import java.awt.Color;
 
 
 @SuppressWarnings("serial")
@@ -75,6 +76,7 @@ public class altaUsuario extends JInternalFrame {
 
 	private JTextField date;
 	private JInternalFrame f;
+	private JTextField selectedDate;
 	public altaUsuario(ICtrlUsuario icu) {
 
 		ctrlUsr = icu;
@@ -173,7 +175,7 @@ public class altaUsuario extends JInternalFrame {
 
 		panel = new JPanel();
 		
-		JPanel panel_1 = new JPanel();
+		JPanel panel_fechaNac = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -211,7 +213,7 @@ public class altaUsuario extends JInternalFrame {
 										.addComponent(textFieldNombre)
 										.addComponent(textFieldNickName, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+									.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
 									.addGap(51)))
 							.addGap(95))
 						.addGroup(groupLayout.createSequentialGroup()
@@ -242,7 +244,7 @@ public class altaUsuario extends JInternalFrame {
 								.addComponent(lblIngreseEmail, GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
 							.addGap(13))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
@@ -262,25 +264,37 @@ public class altaUsuario extends JInternalFrame {
 		
 		JLabel lblFechaDeNacimiento = new JLabel("<html><p>Fecha de Nacimiento</p></html>");
 		lblFechaDeNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(12)
-					.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-					.addGap(12))
-				.addComponent(lblFechaDeNacimiento, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		
+		selectedDate = new JTextField();
+		selectedDate.setHorizontalAlignment(SwingConstants.CENTER);
+		selectedDate.setBackground(new Color(77, 147, 130)); 
+		selectedDate.setText("None");
+		selectedDate.setColumns(10);
+		GroupLayout gl_panel_fechaNac = new GroupLayout(panel_fechaNac);
+		gl_panel_fechaNac.setHorizontalGroup(
+			gl_panel_fechaNac.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_fechaNac.createSequentialGroup()
+					.addComponent(lblFechaDeNacimiento, GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+					.addGap(4))
+				.addGroup(gl_panel_fechaNac.createSequentialGroup()
+					.addComponent(selectedDate, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(gl_panel_fechaNac.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblFechaDeNacimiento, GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(30, Short.MAX_VALUE))
+		);
+		gl_panel_fechaNac.setVerticalGroup(
+			gl_panel_fechaNac.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_fechaNac.createSequentialGroup()
+					.addComponent(lblFechaDeNacimiento, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-					.addGap(19))
+					.addGap(12)
+					.addComponent(selectedDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(6))
 		);
-		panel_1.setLayout(gl_panel_1);
+		panel_fechaNac.setLayout(gl_panel_fechaNac);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				f.setVisible(true);
