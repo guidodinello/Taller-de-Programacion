@@ -18,7 +18,7 @@ import logica.interfaces.*;
 //import java.util.GregorianCalendar;
 //import java.util.Set;
 import logica.clases.SalidaTuristica;
-import logica.clases.Turista;
+//import logica.clases.Turista;
 import logica.clases.Proveedor;
 //import datatypes.DTActividad;
 //import datatypes.DTPaquete;
@@ -115,6 +115,7 @@ public class CtrlActividad implements ICtrlActividad{
 		ActividadTuristica actividadAux = hA.obtenerActividadTuristica(actividad);
 		
 		SalidaTuristica newSal = new SalidaTuristica(nombreSal,fechaSal,lugarSal,cantMaxTuristas,fechaAlta,actividadAux);
+		actividadAux.agregarSalida(newSal);
 		hS.addSalidas(newSal);
 	
 	}
