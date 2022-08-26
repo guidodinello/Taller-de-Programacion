@@ -42,6 +42,8 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 	private JButton btnAceptar;
 	private JButton btnCerrar;
 	
+	private boolean borrandoFormularios = false;
+	
 	public InscripcionSalidaTuristica(ICtrlActividad ica, ICtrlUsuario icu) {
 		setMaximizable(true);
 		controlAct = ica;
@@ -75,17 +77,15 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
         comboBoxSalidasVigentes.setEnabled(false);
         comboBoxSalidasVigentes.setToolTipText("Seleccione una salida");
         comboBoxTuristas = new JComboBox<String>();
-        comboBoxTuristas.setEnabled(false);
         comboBoxTuristas.setToolTipText("Seleccione un turista");
         
         textFieldCantTuristas = new JTextField();
-        textFieldCantTuristas.setEnabled(false);
         textFieldCantTuristas.setToolTipText("Ingrese la cantidad de turistas a inscribir");
         
         btnCerrar = new JButton("Cancelar");
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                limpiarFormulario();
+            	limpiarFormulario();
                 setVisible(false);
             }
         });
@@ -99,7 +99,22 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
         
         comboBoxDepartamentos.addActionListener(new ActionListener( ) {
         	public void actionPerformed(ActionEvent arg0) {
-        		cargarActividades(comboBoxDepartamentos.getSelectedItem().toString());
+        		if(!borrandoFormularios) {
+        			cargarActividades(comboBoxDepartamentos.getSelectedItem().toString());
+        			comboBoxActividades.setEnabled(true);
+        			borrandoFormularios = true;
+        			comboBoxSalidasVigentes.removeAllItems();
+        			borrandoFormularios = false;
+        		}
+        	}
+        });
+        
+        comboBoxActividades.addActionListener(new ActionListener( ) {
+        	public void actionPerformed(ActionEvent arg0) {
+        		if(!borrandoFormularios) {
+        			cargarSalidasVigentes(comboBoxActividades.getSelectedItem().toString(), new GregorianCalendar());
+        			comboBoxSalidasVigentes.setEnabled(true);
+        		}
         	}
         });
         
@@ -178,6 +193,9 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 	
 	//Carga de ComboBoxes
 	public void cargarDepartamentos() {
+		borrandoFormularios = true;
+		comboBoxDepartamentos.removeAllItems();
+		borrandoFormularios = false;
 		DefaultComboBoxModel<String> model;
 		//El ComboBox no soporta Sets, hay que decidir que hacer
 		Set<String> setDeptos = controlAct.listarDepartamentos();
@@ -189,6 +207,9 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 	}
 	
 	public void cargarActividades(String departamento) {
+		borrandoFormularios = true;
+		comboBoxActividades.removeAllItems();
+		borrandoFormularios = false;
 		DefaultComboBoxModel<String> model;
 		//El ComboBox no soporta Sets, hay que decidir que hacer
 		Set<String> setActs = controlAct.listarActividadesDepartamento(departamento);
@@ -200,6 +221,9 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 	}
 	
 	public void cargarSalidasVigentes(String actividad, GregorianCalendar fechaSistema) {
+		borrandoFormularios = true;
+		comboBoxSalidasVigentes.removeAllItems();
+		borrandoFormularios = false;
 		DefaultComboBoxModel<DTSalida> model;
 		//El ComboBox no soporta Sets, hay que decidir que hacer
 		Set<DTSalida> setSalidas = controlAct.listarInfoSalidasVigentes(actividad, fechaSistema);
@@ -210,7 +234,7 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 		comboBoxSalidasVigentes.setModel(model);
 	}
 	
-	public void cargarTuristas(String nickname) {
+	public void cargarTuristas() {
 		DefaultComboBoxModel<String> model;
 		//El ComboBox no soporta Sets, hay que decidir que hacer
 		Set<String> setTuristas = controlUsr.listarTuristas();
@@ -221,11 +245,13 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 		comboBoxTuristas.setModel(model);
 	}
 	
-	private void limpiarFormulario() {
+	public void limpiarFormulario() {
+		borrandoFormularios = true;
 		comboBoxDepartamentos.removeAllItems();
         comboBoxActividades.removeAllItems();
         comboBoxSalidasVigentes.removeAllItems();
         comboBoxTuristas.removeAllItems();
         textFieldCantTuristas.setText("");
+        borrandoFormularios = false;
 	}
 }

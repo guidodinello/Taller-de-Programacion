@@ -77,6 +77,10 @@ public class DTSalida {
 	public Set<String> getTuristasInscriptos() {
 		return turistasInscriptos;
 	}
+	
+	public String toString() {
+		return nombre + " - " + lugarSalida;
+	}
     
 ////////////////////////////////////////////////////////////////////////////
     /* Sirve para mostrar textualmente la información del usuario, por ejemplo en un ComboBox

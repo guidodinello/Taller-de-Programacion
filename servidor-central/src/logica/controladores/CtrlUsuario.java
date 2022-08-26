@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
 
-import excepciones.InvalidArgument;
+//import excepciones.InvalidArgument;
 import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 
@@ -26,7 +26,7 @@ public class CtrlUsuario implements ICtrlUsuario{
 	
 	public CtrlUsuario() {}
 	
-	public void altaUsuario(String nickname, String email, String nombre, String apellido, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws InvalidArgument, YaExisteException {
+	public void altaUsuario(String nickname, String email, String nombre, String apellido, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		if (tipo == tipoUsuario.turista) {
 			Turista t = new Turista(nickname, email, nombre, apellido, fechaNac, nacionalidad);
@@ -34,8 +34,8 @@ public class CtrlUsuario implements ICtrlUsuario{
 		} else if (tipo == tipoUsuario.proveedor) {
 			Proveedor p = new Proveedor(nickname, email, nombre, apellido, fechaNac, descripcion, sitioWeb);
 			hu.agregarProveedor(p);
-		} else 
-			throw new InvalidArgument("El tipo de usuario especificado no pertence al enumerado");
+		} //else 
+//			throw new InvalidArgument("El tipo de usuario especificado no pertence al enumerado");
 
 	}
 	

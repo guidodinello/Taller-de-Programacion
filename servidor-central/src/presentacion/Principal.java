@@ -1,6 +1,7 @@
 package presentacion;
 
 import logica.clases.Departamento; // testeando - borrar
+import java.util.GregorianCalendar;
 
 import logica.interfaces.Fabrica;
 
@@ -36,17 +37,21 @@ import excepciones.YaExisteException;
 
 public class Principal {
 
+	//Frame principal
     private JFrame frmGestionDeTurismoUy;
+    //interfaces
     private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
+    //frame altas
     private altaUsuario altaUsuario;
-    private ConsultaDeUsuario consultaDeUsuario;
+    private altaSalida altaSalida;
     private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
-    private JTextField textField;
-    private JTextField textField_1;
-  //  private ConsultarUsuario conUsrInternalFrame;
-   // private ListaUsuarios lisUsrInternalFrame;
+    //frame consultas
+    private ConsultaDeUsuario consultaDeUsuario;
+    //private ConultaActividad consultaActividad;
+    //private ConsultaSalida consultaSalida;
+    
 
     /**
      * Launch the application.
@@ -78,8 +83,11 @@ public class Principal {
         altaUsuario.setVisible(false);
         frmGestionDeTurismoUy.add(altaUsuario);
         
+        altaSalida = new altaSalida(ICA);
+        altaSalida.setVisible(false);
+        frmGestionDeTurismoUy.add(altaSalida);
         
-        consultaDeUsuario = new ConsultaDeUsuario(ICU);
+        consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeUsuario);
         
@@ -91,6 +99,35 @@ public class Principal {
         crearActividadTuristica.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         
+        try {
+			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
+			ICU.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", "le gusta pasear", "agus.com");
+			ICU.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", "", "eze.com");
+		} catch (YaExisteException e2) {
+			e2.printStackTrace();
+		}
+		
+		try {
+			ICA.altaDepartamento("Montevideo", "Capital de Uruguay", "mvdeo.com.uy");
+			ICA.altaDepartamento("Canelones", "Me gustan los canelones", "canelones.com.uy");
+		} catch (YaExisteException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			ICA.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null);
+			ICA.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null);
+		} catch (YaExisteException e2) {
+			e2.printStackTrace();
+		}
+		
+		GregorianCalendar fecha = new GregorianCalendar(2022,8,30);
+		try {
+			ICA.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1");
+			ICA.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");
+			ICA.altaSalidaTuristica("A Canelones", new GregorianCalendar(), "Canelones", 10, new GregorianCalendar(), "Actividad 2");
+		} catch (YaExisteException e1) {
+			e1.printStackTrace();
+		}
     }
 
     /**
@@ -136,10 +173,19 @@ public class Principal {
             }
         });
         menuUsuarios.add(menuItemRegistrar);
+        
+        JMenuItem menuItemRegistrarSalida = new JMenuItem("Registrar Salida Turistica");
+        menuItemRegistrarSalida.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                altaSalida.setVisible(true);
+            }
+        });
+        menuUsuarios.add(menuItemRegistrarSalida);
 
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		consultaDeUsuario.cargarDatosVentana();
         		consultaDeUsuario.setVisible(true);
         	};
         });
@@ -148,7 +194,7 @@ public class Principal {
         JMenu menuActividades = new JMenu("Actividades");
         menuBar.add(menuActividades);
         
-        JMenuItem menuItemAltaActividadTuristica = new JMenuItem("Alta de Actividad Tur�stica");
+        JMenuItem menuItemAltaActividadTuristica = new JMenuItem("Alta de Actividad Turistica");
         menuItemAltaActividadTuristica.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		crearActividadTuristica.setVisible(true);
@@ -160,26 +206,9 @@ public class Principal {
         menuItemIngresarInscripcion.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		// Muestro el InternalFrame para ingresar inscripcion
-        		try {
-					ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", null, tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
-				} catch (InvalidArgument e2) {
-					e2.printStackTrace();
-				} catch (YaExisteException e2) {
-					e2.printStackTrace();
-				}
-        		
-        		try {
-					ICA.altaDepartamento("Montevideo", "Capital de Uruguay", "mvdeo.com.uy");
-					ICA.altaDepartamento("Canelones", "Me gustan los canelones", "canelones.com.uy");
-				} catch (YaExisteException e1) {
-					e1.printStackTrace();
-				}
-        		try {
-					ICA.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null);
-				} catch (YaExisteException e2) {
-					e2.printStackTrace();
-				}
+        		creInscrInternalFrame.limpiarFormulario();
         		creInscrInternalFrame.cargarDepartamentos();
+        		creInscrInternalFrame.cargarTuristas();
         		creInscrInternalFrame.setVisible(true);
         	}
         });

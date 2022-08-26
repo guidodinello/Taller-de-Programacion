@@ -1,5 +1,6 @@
 package logica.handlers;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ public class HandlerActividades{
 
     private HandlerActividades() {
         actividadesTuristicas = new HashMap<String, ActividadTuristica>();
+				
     }
 
     public static HandlerActividades getInstance() {

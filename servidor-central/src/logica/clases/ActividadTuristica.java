@@ -25,6 +25,8 @@ public class ActividadTuristica{
 		this.nombreCiudad = nombreCiudad;
 		this.fechaAlta = fechaAlta;
 		salidas = new HashMap<String, SalidaTuristica>();
+
+		
 	}
 	
 	public String getNombre() {
@@ -51,8 +53,8 @@ public class ActividadTuristica{
 		return fechaAlta;
 	}
 	
-	public void agregarSalida() {
-		//to-do
+	public void agregarSalida(SalidaTuristica s) {
+		salidas.put(s.getNombre(), s);
 	}
 
 	public Set<DTSalida> getInfoBasicaSalidasVigentes(GregorianCalendar fechaSistema) {
