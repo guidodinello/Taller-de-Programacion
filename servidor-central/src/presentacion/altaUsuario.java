@@ -276,7 +276,6 @@ public class altaUsuario extends JInternalFrame {
 		selectedDate = new JTextField();
 		selectedDate.setHorizontalAlignment(SwingConstants.CENTER);
 		selectedDate.setBackground(new Color(77, 147, 130)); 
-		selectedDate.setText("None");
 		selectedDate.setColumns(10);
 		GroupLayout gl_panel_fechaNac = new GroupLayout(panel_fechaNac);
 		gl_panel_fechaNac.setHorizontalGroup(
@@ -439,8 +438,9 @@ public class altaUsuario extends JInternalFrame {
 		String nombre = this.textFieldNombre.getText();
 		String apellido = this.textFieldApellido.getText();
 		String email = this.textFieldEmail.getText();
+		String fechaNac = this.selectedDate.getText();
 
-		if (nickname.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty()) {
+		if (nickname.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || fechaNac.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
@@ -478,5 +478,6 @@ public class altaUsuario extends JInternalFrame {
 		textFieldNombre.setText("");
 		textFieldApellido.setText("");
 		textFieldEmail.setText("");
+		selectedDate.setText("");
 	}
 }
