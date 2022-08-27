@@ -28,6 +28,7 @@ import logica.interfaces.ICtrlActividad;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -140,7 +141,8 @@ public class ConsultaSalida extends JInternalFrame {
 				JLabel lblNewLabel_7 = new JLabel("Fecha Salida:");
 				
 				textField_10 = new JTextField();
-				textField_10.setEnabled(false);
+				textField_10.setEditable(false);
+				//textField_10.setEnabled(false);
 				textField_10.setColumns(10);
 				
 				JLabel lblNewLabel_8 = new JLabel("Turistas Inscriptos:");
@@ -331,14 +333,15 @@ public class ConsultaSalida extends JInternalFrame {
 					}
 				});
 				   rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+					
 					public void actionPerformed(ActionEvent e) {
 						if(!settear || comboBox_1.getSelectedIndex()== -1 || ComboBoxSelDepartamento.getSelectedIndex() == -1 || comboBoxSal.getSelectedIndex()==-1) return;
 					DTSalida res = iCS.getInfoCompletaSalida(comboBoxSal.getSelectedItem().toString());
 					textField_2.setText(res.getNombre());
 					textField_8.setText(res.getlugarSalida());
 					textField_7.setText(String.valueOf(res.getcantidadMaximaDeTuristas()));
-					textField_9.setText(String.valueOf(res.getfechaAlta()));
-					textField_10.setText(String.valueOf(res.getfechaSalida()));
+					textField_9.setText(String.valueOf(fechaStringFormato(res.getfechaAlta(), true)));
+					textField_10.setText(String.valueOf(fechaStringFormato(res.getfechaSalida(), false)));
 					Set<String > aux = res.getTuristasInscriptos();
 					  String[] arrayOfString = new String[aux.size()];
 					  
@@ -365,6 +368,16 @@ public class ConsultaSalida extends JInternalFrame {
 	      });
 	      
 	     
+	}
+	
+	public String fechaStringFormato(GregorianCalendar g, boolean conHora) {
+		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
+		String mes = String.valueOf(g.get(g.MONTH));
+		String anio = String.valueOf(g.get(g.YEAR));
+		String hora = String.valueOf(g.get(g.HOUR));
+		String resultado = (conHora)?
+				 dia + "/" + mes + "/" + anio + " " + hora + "hs": dia + "/" + mes + "/" + anio;
+		return resultado;
 	}
 }
 		

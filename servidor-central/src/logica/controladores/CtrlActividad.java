@@ -134,17 +134,12 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	//Paquetes
-<<<<<<< HEAD
 	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) throws YaExisteException {
 		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		if(hP.existePaquete(nombre))
 			throw new YaExisteException("El paquete " + nombre + " ya se encuentra registrado");
 		PaqueteTuristico newPaquete = new PaqueteTuristico(nombre, descripcion, validez, descuento, fechaDeAlta);
 		hP.addPaquete(newPaquete);
-=======
-	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) {
-		
->>>>>>> 6e5dc8fbfe6dca4bec50d46475388151bd81b52e
 	}
 	
 	public Set<String> listarPaquetes(){

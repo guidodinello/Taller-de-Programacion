@@ -95,17 +95,10 @@ public class Principal {
         consultaDeSalida.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeSalida);
         
-<<<<<<< HEAD
         consultaDeUsuario = new ConsultaDeUsuario(ICU, consultaActividadInternalFrame);
         consultaDeUsuario.setBounds(30, 30, 654, 431);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);
-
-       // consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
-        //consultaDeUsuario.setBounds(30, 30, 654, 431);
-        //consultaDeUsuario.setVisible(false);
-        //frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);
-
         
         creInscrInternalFrame = new InscripcionSalidaTuristica(ICA,ICU);
         creInscrInternalFrame.setBounds(30, 30, 345, 364);
