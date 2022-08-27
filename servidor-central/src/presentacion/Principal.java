@@ -95,7 +95,7 @@ public class Principal {
         consultaDeSalida.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeSalida);
         
-        consultaDeUsuario = new ConsultaDeUsuario(ICU, consultaActividadInternalFrame);
+        consultaDeUsuario = new ConsultaDeUsuario(ICU);
         consultaDeUsuario.setBounds(30, 30, 654, 431);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);
@@ -213,7 +213,7 @@ public class Principal {
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		consultaDeUsuario.cargarDatosVentana();
+        		consultaDeUsuario.cargarDatosVentana(consultaActividadInternalFrame);
         		consultaDeUsuario.setVisible(true);
         	};
         });

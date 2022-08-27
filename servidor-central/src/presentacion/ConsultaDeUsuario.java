@@ -15,6 +15,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -69,6 +70,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private JLabel LabelSalidasDeActividadesDelProveedor;
 	private JLabel DescripcionActividadProveedorLabel;
 	private JTextArea DescripcionActividadProveedorTextArea;
+	private JScrollPane DescripcionActividadProveedorScrollPane;
 	private JComboBox<String> ComboBoxSalidasDeActividadesDelProveedor;
 	private JButton btnVerSalidaProveedor;
 	//borrando
@@ -80,11 +82,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	
 
 	
-	public ConsultaDeUsuario(ICtrlUsuario iCU, ConsultaDeActividadTuristica consultaActividad) {
+	public ConsultaDeUsuario(ICtrlUsuario iCU) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		//meto la interfaz y la ventana de actividada
 		this.ctrlUsuario = iCU;
-		ventanaConsultaActividad = consultaActividad;
+		
 		//Cuestiones de configuracion del frame
 		setResizable(true);
 		setIconifiable(true);
@@ -92,11 +94,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		setClosable(true);
 		setTitle("Consultar un Usuario");
 				
-		setBounds(30, 30, 654, 501);
+		setBounds(30, 30, 654, 555);
 				
 		GridBagLayout gbl = new GridBagLayout();
 		gbl.columnWidths = new int[] { 41, 219, 134, 104, 43 };
-		gbl.rowHeights = new int[] { 0, 0, 30, 30, 30, 30, 30, 30, 30, 47, 30, 30, 28, 36, 0, 0 };
+		gbl.rowHeights = new int[] { 0, 0, 30, 30, 30, 30, 30, 30, 30, 47, 30, 30, 44, 36, 0, 0 };
 		gbl.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		gbl.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gbl);
@@ -310,6 +312,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         TextDescripcion.setLineWrap(true); 
         TextDescripcion.setEditable(false);
         GridBagConstraints gbc_TextDescripcion = new GridBagConstraints();
+        gbc_TextDescripcion.gridwidth = 2;
         gbc_TextDescripcion.fill = GridBagConstraints.BOTH;
         gbc_TextDescripcion.insets = new Insets(0, 0, 5, 5);
         gbc_TextDescripcion.gridx = 2;
@@ -382,6 +385,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         getContentPane().add(DescripcionActividadProveedorLabel, gbc_lblNewLabel);
         
         DescripcionActividadProveedorTextArea = new JTextArea();
+        DescripcionActividadProveedorScrollPane = new JScrollPane(DescripcionActividadProveedorTextArea);
         DescripcionActividadProveedorTextArea.setWrapStyleWord(true);
         DescripcionActividadProveedorTextArea.setLineWrap(true); 
         DescripcionActividadProveedorTextArea.setEditable(false);
@@ -391,7 +395,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         gbc_textArea.fill = GridBagConstraints.BOTH;
         gbc_textArea.gridx = 2;
         gbc_textArea.gridy = 12;
-        getContentPane().add(DescripcionActividadProveedorTextArea, gbc_textArea);
+        getContentPane().add(DescripcionActividadProveedorScrollPane, gbc_textArea);
         
         //Salidas de actividades del proveedor
         LabelSalidasDeActividadesDelProveedor = new JLabel("Salidas de la actividad: ");
@@ -478,7 +482,8 @@ public class ConsultaDeUsuario extends JInternalFrame {
         });
 	}
 	
-	public void cargarDatosVentana() {
+	public void cargarDatosVentana(ConsultaDeActividadTuristica consultaActividad) {
+		ventanaConsultaActividad = consultaActividad;
 		limpiarTodosCampos();
 		Set<String> usuarios = ctrlUsuario.listarUsuarios();
         usuarios.forEach((u)->{
@@ -568,6 +573,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		btnVerActividad.setVisible(b);
 		DescripcionActividadProveedorLabel.setVisible(b);
 		DescripcionActividadProveedorTextArea.setVisible(b);
+		DescripcionActividadProveedorScrollPane.setVisible(b);
 		btnVerSalidaProveedor.setVisible(b);
 	}
 	
@@ -622,14 +628,14 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	}
 	
 	public void pasarDatosConsultaActividad() {
-		if(ComboBoxSalidasInscripto.getSelectedItem() == null) {
+		if(ComboBoxActividadesProveedor.getSelectedItem() == null) {
 			JOptionPane.showMessageDialog(this,
 					"No hay actividad para mostrar", "No hay actividad", JOptionPane.ERROR_MESSAGE);
 		}else {
-			return;
-			//ventanaConsultaActividad.datosQueVienenDesdeConsultaDeUsuario(nombreDepartamento ,nombreActividad);
+			String nombreDepartamento = ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex()).getDepartamento();
+			String nombreActividad =ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex()).getNombre(); 
+			ventanaConsultaActividad.datosQueVienenDesdeConsultaDeUsuario(nombreDepartamento ,nombreActividad);
 		}
 	}
-	
 	
 }
