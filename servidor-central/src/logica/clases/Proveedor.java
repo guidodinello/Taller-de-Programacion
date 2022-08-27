@@ -26,7 +26,14 @@ public class Proveedor extends Usuario {
 		return sitioWeb;
 	}
 	
-
+	public void setDescripcion(String desc) {
+		this.descripcion = desc;
+	}
+	
+	public void setSitioWeb(String sitioWeb) {
+		this.sitioWeb = sitioWeb;
+	}
+	
 	public void agregarActividad(ActividadTuristica actividad) {
 		this.actividades.put(actividad.getNombre(), actividad);
 	}

@@ -21,6 +21,10 @@ public class Turista extends Usuario {
 		return nacionalidad;
 	}
 	
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+	
 	public Set<DTSalida> getInfoInscripciones() {
 		Set<DTSalida> resultado = new HashSet<DTSalida>();
 		inscripciones.forEach((key, value)->{
