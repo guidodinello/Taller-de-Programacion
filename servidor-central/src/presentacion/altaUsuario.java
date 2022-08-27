@@ -3,6 +3,7 @@ package presentacion;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,6 +29,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JTextPane;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 
 
@@ -74,38 +76,47 @@ public class altaUsuario extends JInternalFrame {
 
 		ctrlUsr = icu;
 
-		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Registrar un Usuario");
-		setBounds(10, 40, 605, 329);
+		//setBounds(10, 40, 605, 329);
 
 		
 		lblIngreseNickName = new JLabel("Nickname:");
+		lblIngreseNickName.setBounds(18, 6, 110, 25);
 		lblIngreseNickName.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldNickName = new JTextField();
+		textFieldNickName.setBounds(140, 6, 300, 25);
 		
 		lblIngreseNombre = new JLabel("Nombre:");
+		lblIngreseNombre.setBounds(18, 37, 110, 25);
 		lblIngreseNombre.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldNombre = new JTextField();
+		textFieldNombre.setBounds(140, 37, 300, 25);
 		
 		lblIngreseApellido = new JLabel("Apellido:");
+		lblIngreseApellido.setBounds(18, 68, 110, 25);
 		lblIngreseApellido.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldApellido = new JTextField();
+		textFieldApellido.setBounds(140, 99, 300, 27);
 
 		lblIngreseEmail = new JLabel("Email:");
+		lblIngreseEmail.setBounds(18, 102, 110, 21);
 		lblIngreseEmail.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldEmail = new JTextField();
+		textFieldEmail.setBounds(140, 68, 300, 25);
 		
 		String prov = "Proveedor";
 		String tur = "Turista";
 		BtnGroup = new ButtonGroup();
 		
 		lblIngreseTipoUsuario = new JLabel("Tipo Usuario:");
+		lblIngreseTipoUsuario.setBounds(33, 139, 95, 23);
 		lblIngreseTipoUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		provBtn = new JRadioButton(prov);
+		provBtn.setBounds(186, 139, 98, 23);
 		provBtn.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -120,6 +131,7 @@ public class altaUsuario extends JInternalFrame {
 		BtnGroup.add(provBtn);
 
 		turBtn = new JRadioButton(tur);
+		turBtn.setBounds(378, 139, 75, 23);
 		turBtn.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -136,12 +148,14 @@ public class altaUsuario extends JInternalFrame {
 		
 		
 		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setBounds(141, 254, 115, 25);
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cmdRegistroUsuarioActionPerformed(arg0);
 			}
 		});
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(335, 254, 115, 25);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarFormulario();
@@ -151,8 +165,10 @@ public class altaUsuario extends JInternalFrame {
 		
 
 		panel = new JPanel();
+		panel.setBounds(12, 180, 571, 68);
 		
 		JPanel panel_fechaNac = new JPanel();
+		panel_fechaNac.setBounds(465, 6, 106, 124);
 		
 		
 		JLabel lblFechaDeNacimiento = new JLabel("<html><p>Fecha de Nacimiento</p></html>");
@@ -294,86 +310,31 @@ public class altaUsuario extends JInternalFrame {
 					.addContainerGap(27, Short.MAX_VALUE))
 		);
 		turista_panel.setLayout(gl_turista_panel);
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(33)
-							.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-							.addGap(58)
-							.addComponent(provBtn)
-							.addGap(94)
-							.addComponent(turBtn))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(141)
-							.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-							.addGap(79)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblIngreseNickName, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblIngreseNombre, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblIngreseApellido, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblIngreseEmail, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
-							.addGap(12)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textFieldNickName, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldApellido, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE))
-							.addGap(37)
-							.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 571, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(6)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblIngreseNickName, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addGap(6)
-									.addComponent(lblIngreseNombre, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addGap(6)
-									.addComponent(lblIngreseApellido, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addGap(9)
-									.addComponent(lblIngreseEmail, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(textFieldNickName, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addGap(6)
-									.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addGap(6)
-									.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addGap(6)
-									.addComponent(textFieldApellido, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-							.addGap(13)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-								.addComponent(provBtn)
-								.addComponent(turBtn)))
-						.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAceptar)
-						.addComponent(btnCancelar)))
-		);
 		panel.setLayout(new CardLayout(0, 0));
 		panel.add(blank_panel, "name_11119719302903");
 		panel.add(proveedor_panel, "name_11119758041676");
 		panel.add(turista_panel, "name_11119793380911");
-		getContentPane().setLayout(groupLayout);
+		getContentPane().setLayout(null);
+		getContentPane().add(lblIngreseTipoUsuario);
+		getContentPane().add(provBtn);
+		getContentPane().add(turBtn);
+		getContentPane().add(btnAceptar);
+		getContentPane().add(btnCancelar);
+		getContentPane().add(lblIngreseNickName);
+		getContentPane().add(lblIngreseNombre);
+		getContentPane().add(lblIngreseApellido);
+		getContentPane().add(lblIngreseEmail);
+		getContentPane().add(textFieldNickName);
+		getContentPane().add(textFieldNombre);
+		getContentPane().add(textFieldEmail);
+		getContentPane().add(textFieldApellido);
+		getContentPane().add(panel_fechaNac);
+		getContentPane().add(panel);
 		
-		pack();
+		//pack();
+		setBounds(30, 30, 610, 320);
+		
+		setResizable(true);
 		
 	}
 
