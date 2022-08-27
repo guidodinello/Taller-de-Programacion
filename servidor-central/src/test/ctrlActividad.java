@@ -22,6 +22,7 @@ public class ctrlActividad{
 	private static ICtrlActividad controladorActividad;
 	private static ICtrlUsuario controladorUsuario;
 	
+	
 	@BeforeAll
 	public static void iniciar() {
 		Fabrica fabrica = Fabrica.getInstance();
@@ -123,7 +124,7 @@ public class ctrlActividad{
 		assertEquals(da.getDuracionHs(), 2);
 		assertEquals(da.getCosto(), 10);
 	}
-	
+	////////////////////////////////////////////TEST SALIDAS////////////////////////////////////////////////////////////////////////
 	@Test
 	void testListarInfoSalidasVigentes() {
 		Set<DTSalida> salidasAct1 = controladorActividad.listarInfoSalidasVigentes("Actividad 1", new GregorianCalendar());
@@ -142,4 +143,58 @@ public class ctrlActividad{
 		assertEquals(salidasAct2St.contains("Al Cerro"), false);
 		
 	}
+	
+	@Test
+	void testlistarNombresSalidasDeActividad(){
+	
+	 Set<String> salidas =  controladorActividad.listarNombresSalidasDeActividad("Actividad 1");
+	
+	 assertEquals(salidas.contains("A Centro"),true, "La salida asociada a la Actividad 1 es A centro");
+		
+	 Set<String> salidas2 =  controladorActividad.listarNombresSalidasDeActividad("Actividad 2");
+	
+	 assertEquals(salidas2.contains("A Palomeque"),true, "La salida asociada a la Actividad 2 es A Palomeque");
+	 assertEquals(salidas2.contains("A Canelones"),true, "La salida asociada a la Actividad 2 es A Canelones");
+		
+	 Set<String> salidas3 =  controladorActividad.listarNombresSalidasDeActividad("Actividad 3");
+	
+	 assertEquals(salidas3.contains("Al Cerro "),true, "La salida asociada a la Actividad 3 es Al cerro");
+	}
+	
 }
+
+
+/*
+
+package com.vogella.junit5;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
+
+class CalculatorTest {
+
+    Calculator calculator;
+
+    @BeforeEach                                         
+    void setUp() {
+        calculator = new Calculator();
+    }
+
+    @Test                                               
+    @DisplayName("Simple multiplication should work")   
+    void testMultiply() {
+        assertEquals(20, calculator.multiply(4, 5),     
+                "Regular multiplication should work");  
+    }
+
+    @RepeatedTest(5)                                    
+    @DisplayName("Ensure correct handling of zero")
+    void testMultiplyWithZero() {
+        assertEquals(0, calculator.multiply(0, 5), "Multiple with zero should be zero");
+        assertEquals(0, calculator.multiply(5, 0), "Multiple with zero should be zero");
+    }
+}*/

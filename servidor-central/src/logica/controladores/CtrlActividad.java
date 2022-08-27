@@ -139,8 +139,8 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	//Paquetes
-	public GregorianCalendar crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) {
-		return null;
+	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) {
+		
 	}
 	
 	public Set<String> listarPaquetes(){
