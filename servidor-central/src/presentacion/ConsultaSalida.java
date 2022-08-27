@@ -297,10 +297,12 @@ public class ConsultaSalida extends JInternalFrame {
 			    	    public void actionPerformed(ActionEvent e) {
 			    	    if( ComboBoxSelDepartamento.getSelectedIndex() == -1) return;
 			    	    comboBox_1.setEnabled(true);
-			    	   
+			    	    lblNewLabel.setEnabled(true);
 			    	    lblNewLabel_1.setEnabled(true);
 			    	    rdbtnNewRadioButton.setEnabled(true);
+			    	    
 			    	    settear = false;
+			    	    comboBox_1.removeAllItems();
 			    	    Set<String> actividades = iCS.listarActividadesDepartamento(ComboBoxSelDepartamento.getSelectedItem().toString() );
 			    	        actividades.forEach((act)->{
 			    	        	
@@ -319,10 +321,12 @@ public class ConsultaSalida extends JInternalFrame {
 						 rdbtnNewRadioButton_1.setEnabled(true);
 							
 						 settear =false;
+						 comboBoxSal.removeAllItems();
+						 
 						 comboBoxSal.setEnabled(true);
 					
 						Set<String> salidas = iCS.listarNombresSalidasDeActividad(comboBox_1.getSelectedItem().toString());
-						
+						if (salidas.isEmpty())return;
 		        	        salidas.forEach((sal)->{
 		        	        
 		        	        	comboBoxSal.addItem(sal);
