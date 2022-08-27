@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 //import java.util.HashSet;
 
+import logica.clases.ActividadTuristica;
 import logica.clases.Departamento;
 //import logica.controladores.hD;
 
@@ -45,6 +46,14 @@ public class HandlerDepartamentos{
 	
 	public Departamento getDepto(String depto) {
 		return departamentos.get(depto);
+	}
+	
+	//Pre: la actividad tiene que estar en un departamento
+	//Pre: la actividad solo esta en un depto
+	public String getDeptoContains(ActividadTuristica n) {
+		return departamentos.entrySet().stream()
+			.filter(depto -> depto.getValue().getActividades().containsValue(n))
+			.findFirst().get().getValue().getNombre();
 	}
 
 }

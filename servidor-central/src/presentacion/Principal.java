@@ -86,7 +86,7 @@ public class Principal {
         altaSalida.setVisible(false);
         frmGestionDeTurismoUy.add(altaSalida);
         
-        consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
+        consultaDeUsuario = new ConsultaDeUsuario(ICU, consultaActividadInternalFrame/*, consultaSalida*/);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeUsuario);
         
@@ -100,7 +100,7 @@ public class Principal {
         
         consultaActividadInternalFrame = new ConsultaDeActividadTuristica(ICA);
         consultaActividadInternalFrame.setVisible(false);
-        frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
+        frmGestionDeTurismoUy.add(consultaActividadInternalFrame);
         
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
