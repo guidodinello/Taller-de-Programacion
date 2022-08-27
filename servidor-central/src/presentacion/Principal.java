@@ -53,6 +53,7 @@ public class Principal {
     private ConsultaSalida consultaDeSalida;
     private CrearPaquete crearPaquete;
     private AgregarActividadAPaquete agregarActividadPaquete;
+    private ConsultaPaquete consultarPaquete;
     
     private boolean yaSeCargaronLosDatosDePrueba;
     
@@ -88,7 +89,7 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().setLayout(null);
         
         altaUsuario = new altaUsuario(ICU);
-        altaUsuario.setBounds(10, 40, 452, 341);
+        //altaUsuario.setBounds(10, 40, 452, 341);
         altaUsuario.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().setLayout(null);
         frmGestionDeTurismoUy.getContentPane().add(altaUsuario);
@@ -132,7 +133,11 @@ public class Principal {
         agregarActividadPaquete = new AgregarActividadAPaquete(ICA);
         agregarActividadPaquete.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(agregarActividadPaquete);
-        
+
+        consultarPaquete = new ConsultaPaquete(ICA);
+        consultarPaquete.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(consultarPaquete);
+
     }
 
     /**
@@ -261,6 +266,15 @@ public class Principal {
         	}
         });
         menuActividades.add(menuItemCrearPaquete);
+        
+        JMenuItem menuItemConsultarPaquete = new JMenuItem("Consultar Paquete de Actividades Turisticas");
+        menuItemConsultarPaquete.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		consultarPaquete.cargarDatosIniciales();
+        		consultarPaquete.setVisible(true);
+        	}
+        });
+        menuActividades.add(menuItemConsultarPaquete);
 
         JMenuItem menuItemAgregarActividadAPaquete = new JMenuItem("Agregar Actividad a Paquete");
         menuItemAgregarActividadAPaquete.addActionListener(new ActionListener() {
