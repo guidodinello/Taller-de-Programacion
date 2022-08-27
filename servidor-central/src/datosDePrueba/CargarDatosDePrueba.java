@@ -243,8 +243,12 @@ public class CargarDatosDePrueba {
 				  line = br.readLine();
 				  String[] values = line.split(",");
 				  String[] valuesFecha = values[4].split("/");
-				  ICA.crearPaquete(values[1] , values[5],Integer.parseInt(values[2]),Float.parseFloat(values[3]), new GregorianCalendar(Integer.parseInt(valuesFecha[2]),
-				  	Integer.parseInt(valuesFecha[1]), Integer.parseInt(valuesFecha[0])));
+				  try {
+					ICA.crearPaquete(values[1] , values[5],Integer.parseInt(values[2]),Float.parseFloat(values[3]), new GregorianCalendar(Integer.parseInt(valuesFecha[2]),
+					  	Integer.parseInt(valuesFecha[1]), Integer.parseInt(valuesFecha[0])));
+				} catch (YaExisteException e) {
+					e.printStackTrace();
+				} 
 				  		//Ref, Nombre, Validez, Descuento, FechaAlta, Descripción -> como recibo
 				  for(int j = 0; j < 2; j++) {
 					line = brA.readLine();

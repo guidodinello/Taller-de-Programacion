@@ -50,6 +50,7 @@ public class Principal {
     private ConsultaDeUsuario consultaDeUsuario;
     private ConsultaDeActividadTuristica consultaActividadInternalFrame;
     private ConsultaSalida consultaDeSalida;
+    private CrearPaquete crearPaquete;
     
 
     /**
@@ -95,7 +96,7 @@ public class Principal {
         consultaDeSalida.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeSalida);
         
-<<<<<<< HEAD
+
         consultaDeUsuario = new ConsultaDeUsuario(ICU, consultaActividadInternalFrame);
         consultaDeUsuario.setBounds(30, 30, 654, 431);
         consultaDeUsuario.setVisible(false);
@@ -122,6 +123,10 @@ public class Principal {
         consultaActividadInternalFrame.setLocation(110, 11);
         consultaActividadInternalFrame.setVisible(false);
         frmGestionDeTurismoUy.add(consultaActividadInternalFrame);
+        
+        crearPaquete = new CrearPaquete(ICA);
+        crearPaquete.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(crearPaquete);
         
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
@@ -162,6 +167,19 @@ public class Principal {
 		} catch (YaExisteException e1) {
 			e1.printStackTrace();
 		}
+		
+		try {
+			ICA.crearPaquete("Paquete 1", "paquete desc 1", 10, 80, new GregorianCalendar());
+			ICA.crearPaquete("Paquete 2", "paquete desc 2", 10, 80, new GregorianCalendar());
+			ICA.crearPaquete("Paquete 3", "paquete desc 1", 10, 80, new GregorianCalendar());
+		} catch (YaExisteException e) {
+			e.printStackTrace();
+		}
+		
+		ICA.ingresarActividadAPaquete("Paquete 1", "Actividad 1");
+		ICA.ingresarActividadAPaquete("Paquete 1", "Actividad 4");
+		ICA.ingresarActividadAPaquete("Paquete 1", "Actividad 3");
+		ICA.ingresarActividadAPaquete("Paquete 2", "Actividad 3");
     }
 
     /**
@@ -268,6 +286,16 @@ public class Principal {
         	}
         });
         menuActividades.add(menuItemConsultaActividadTuristica);
+        
+        JMenuItem menuItemCrearPaquete = new JMenuItem("Crear Paquete de Actividades Turisticas");
+        menuItemCrearPaquete.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//Muestro el InternalFrame para crear paquete
+        		crearPaquete.limpiarFormulario();
+        		crearPaquete.setVisible(true);
+        	}
+        });
+        menuActividades.add(menuItemCrearPaquete);
 
     }
 }
