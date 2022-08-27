@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
+import logica.clases.Turista;
+import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
 import logica.interfaces.ICtrlUsuario;
 import logica.interfaces.ICtrlActividad;
@@ -32,6 +34,7 @@ public class ctrlUsuario {
 		controladorUsuario = fabrica.getICtrlUsuario();
 		controladorActividad = fabrica.getICtrlActividad();
 		 try {
+				controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), tipoUsuario.turista, null, "usr_descripcion", "usr_stiioWeb");
 				controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
 				controladorUsuario.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
 				controladorUsuario.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
@@ -221,27 +224,34 @@ public class ctrlUsuario {
 	}
 	
 	@Test
-	void testListarInfoSalidasTutista() {
-//		Set<DTSalida> eze_inscripciones = controladorUsuario.listarInfoSalidasTurista("eze");
-//		
-//		GregorianCalendar fecha = new GregorianCalendar(2022,8,30);
-//		
-//		Map<String, DTSalida> inscripciones = new HashMap<String, DTSalida>();
-//		inscripciones.put("Al Cerro", new DTSalida("Al Cerro", fecha, "",10, "Cerro Signorelli"));
-//		inscripciones.put("A Canelones", new DTSalida("A Canelones",fecha, "Canelones", 10, new GregorianCalendar(), "Actividad 2"));
-//		
-//		for (DTSalida dt : eze_inscripciones){
-//			String nomSal = dt.getNombre();
-//			DTSalida insc = inscripciones.get(nomSal);
-//			assertEquals(dt.getfechaSalida(), insc.getfechaSalida());
-//			assertEquals(dt.getfechaAlta(), insc.getfechaAlta());
-//			assertEquals(dt.getcantidadMaximaDeTuristas(), insc.getcantidadMaximaDeTuristas());
-//			assertEquals(dt.getlugarSalida(), insc.getlugarSalida());
-//			
-//
-//		}
-
+	public void testactualizarUsuario() { 
+		controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), tipoUsuario.turista, "", "usr_descripcion", "usr_stiioWeb");
 	}
+	
+	@Test
+	public void testlistarInfoSalidasTurista(){ 
+		String t = "eze";
+		Set<DTSalida> obtenido = controladorUsuario.listarInfoSalidasTurista(t);
+		
+		Map<String, DTSalida> esperado = new HashMap<String, DTSalida>();
+		
+		esperado.put("A Canelones", controladorActividad.getInfoCompletaSalida("A Canelones"));
+		esperado.put("Al Cerro", controladorActividad.getInfoCompletaSalida("Al Cerro"));
+
+		for (DTSalida dts : obtenido) {
+			DTSalida sal = esperado.get(dts.getNombre());
+			assertEquals(dts.getfechaSalida(), sal.getfechaSalida());
+			assertEquals(dts.getfechaAlta(), sal.getfechaAlta());
+			assertEquals(dts.getcantidadMaximaDeTuristas(), sal.getcantidadMaximaDeTuristas());
+			assertEquals(dts.getlugarSalida(), sal.getlugarSalida());
+			
+			for (String turistas : dts.getTuristasInscriptos()) {
+				assertEquals(sal.getTuristasInscriptos().contains(turistas), true);
+			}
+		}
+		
+ 	}
+	
 	
 	@Test
 	public void listarInfoCompletaActividadesProveedor() {
