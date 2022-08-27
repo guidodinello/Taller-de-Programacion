@@ -36,6 +36,8 @@ public class altaSalida extends JInternalFrame {
 
 	//Si el usuario es proveedor
 
+	private JComboBox<String> ComboBoxSelDepartamento;
+	
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_3;
@@ -77,8 +79,8 @@ public class altaSalida extends JInternalFrame {
 		gbc_labelSelcDepartamento.gridy = 2;
 		getContentPane().add(LabelSelcDepartamento, gbc_labelSelcDepartamento);
 		
-		@SuppressWarnings("unchecked")
-		JComboBox <String> ComboBoxSelDepartamento = new JComboBox();
+		//@SuppressWarnings("unchecked")
+		ComboBoxSelDepartamento = new JComboBox<String>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 2;
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
@@ -86,16 +88,7 @@ public class altaSalida extends JInternalFrame {
 		gbc_comboBox.gridx = 2;
 		gbc_comboBox.gridy = 2;
 		getContentPane().add(ComboBoxSelDepartamento, gbc_comboBox);
-		
-		
-		
-		
-        Set<String> departamentos = iCS.listarDepartamentos();
-        departamentos.forEach((d)->{
-        	ComboBoxSelDepartamento.addItem(d);
-        });
-		
-		
+			
 		
 		/////////////////SELECCIONAR ACTIVIDAD//////////////////////////////////////////////
 		
@@ -302,7 +295,8 @@ public class altaSalida extends JInternalFrame {
 						
 						int CantT = Integer.parseInt(cantT);
 						//TODO GREGORIAN CALENDAR INSTEAD OR CALENDAR
-						 //iCS.altaSalidaTuristica(nombreSal,cal2 , lugarS,CantT,cal, sAct);	
+						//GregorianCalendar fechaSalida = new GregorianCalendar(anio, mes, dia, hora);//anio mes dia y hora vienen del cliente ingresnado
+						 //iCS.altaSalidaTuristica(nombreSal,fechaSalida, lugarS,CantT, new GregorianCalendar(), sAct);	
 					}
 					
 					//else throw new IncompleteException("rellene todos los campos");
@@ -335,6 +329,12 @@ public class altaSalida extends JInternalFrame {
        
 	}
 	
+	public void cargarDatos() {
+        Set<String> departamentos = ctrlSalida.listarDepartamentos();
+        departamentos.forEach((d)->{
+        	ComboBoxSelDepartamento.addItem(d);
+        });
+	}
 }
 	
 	
