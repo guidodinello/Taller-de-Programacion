@@ -78,33 +78,43 @@ public class Principal {
         ICU = fabrica.getICtrlUsuario();
         ICA = fabrica.getICtrlActividad();
         
+        frmGestionDeTurismoUy.getContentPane().setLayout(null);
+        
         altaUsuario = new altaUsuario(ICU);
+        altaUsuario.setBounds(10, 40, 452, 341);
         altaUsuario.setVisible(false);
-        frmGestionDeTurismoUy.add(altaUsuario);
+        frmGestionDeTurismoUy.getContentPane().setLayout(null);
+        frmGestionDeTurismoUy.getContentPane().add(altaUsuario);
         
         altaSalida = new altaSalida(ICA);
+        altaSalida.setBounds(30, 30, 453, 431);
         altaSalida.setVisible(false);
-        frmGestionDeTurismoUy.add(altaSalida);
+        frmGestionDeTurismoUy.getContentPane().add(altaSalida);
         
         consultaDeSalida= new ConsultaSalida(ICA);
         consultaDeSalida.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeSalida);
         
         consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
+        consultaDeUsuario.setBounds(30, 30, 654, 431);
         consultaDeUsuario.setVisible(false);
-        frmGestionDeTurismoUy.add(consultaDeUsuario);
+        frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);
         
         creInscrInternalFrame = new InscripcionSalidaTuristica(ICA,ICU);
+        creInscrInternalFrame.setBounds(30, 30, 345, 364);
         creInscrInternalFrame.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(creInscrInternalFrame);
         
         crearActividadTuristica = new altaActividadTuristica(ICA, ICU);
+        crearActividadTuristica.setBounds(100, 100, 450, 260);
         crearActividadTuristica.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         
         consultaActividadInternalFrame = new ConsultaDeActividadTuristica(ICA);
+        consultaActividadInternalFrame.setSize(443, 450);
+        consultaActividadInternalFrame.setLocation(110, 11);
         consultaActividadInternalFrame.setVisible(false);
-        frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
+        frmGestionDeTurismoUy.add(consultaActividadInternalFrame);
         
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
@@ -136,7 +146,7 @@ public class Principal {
 			e2.printStackTrace();
 		}
 		
-		GregorianCalendar fecha = new GregorianCalendar(2022,8,30);
+		GregorianCalendar fecha = new GregorianCalendar(2022, 8, 30);
 		try {
 			ICA.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1");
 			ICA.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");
@@ -156,7 +166,7 @@ public class Principal {
         frmGestionDeTurismoUy = new JFrame();
         frmGestionDeTurismoUy.setTitle("Turismo.uy");
         frmGestionDeTurismoUy.setResizable(true);
-        frmGestionDeTurismoUy.setBounds(100, 100, 700, 700);
+        frmGestionDeTurismoUy.setBounds(100, 100, 697, 700);
         frmGestionDeTurismoUy.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Se crea una barra de menú (JMenuBar) con dos menú (JMenu) desplegables.

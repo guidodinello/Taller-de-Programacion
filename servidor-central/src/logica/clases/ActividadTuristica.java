@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import datatypes.DTActividad;
 import datatypes.DTSalida;
+import logica.handlers.HandlerDepartamentos;
 
 import java.util.HashMap;
 
@@ -82,7 +83,9 @@ public class ActividadTuristica{
 		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
-		return new DTActividad(n, des,dura, costo, salidas);
+		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
+		String nombreDepto = hD.getDeptoContains(this);
+		return new DTActividad(n, des, nombreDepto, dura, costo, salidas);
 	}
 
 }

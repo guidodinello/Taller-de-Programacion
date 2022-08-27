@@ -33,6 +33,10 @@ public class Departamento{
 		return descripcion;
 	}
 
+	public Map<String, ActividadTuristica> getActividades(){
+		return actividades;
+	}
+	
 	public Set<String> listarActividades() {
 		return actividades.keySet();
 	}
