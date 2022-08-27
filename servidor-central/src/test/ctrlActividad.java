@@ -158,7 +158,7 @@ public class ctrlActividad{
 		
 	 Set<String> salidas3 =  controladorActividad.listarNombresSalidasDeActividad("Actividad 3");
 	
-	 assertEquals(salidas3.contains("Al Cerro "),true, "La salida asociada a la Actividad 3 es Al cerro");
+	 assertEquals(salidas3.contains("Al Cerro"),true, "La salida asociada a la Actividad 3 es Al cerro");
 	}
 	
 }

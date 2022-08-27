@@ -50,6 +50,7 @@ public class Principal {
     private ConsultaDeUsuario consultaDeUsuario;
     private ConsultaDeActividadTuristica consultaActividadInternalFrame;
     private ConsultaSalida consultaDeSalida;
+    private CrearPaquete crearPaquete;
     
 
     /**
@@ -93,10 +94,12 @@ public class Principal {
         
         consultaDeSalida= new ConsultaSalida(ICA);
         consultaDeSalida.setVisible(false);
-        frmGestionDeTurismoUy.add(consultaDeSalida);
+        frmGestionDeTurismoUy.getContentPane().add(consultaDeSalida);
         
-        consultaDeUsuario = new ConsultaDeUsuario(ICU, consultaActividadInternalFrame);
-        consultaDeUsuario.setBounds(30, 30, 654, 431);
+
+
+        consultaDeUsuario = new ConsultaDeUsuario(ICU);
+        consultaDeUsuario.setBounds(30, 30, 654, 528);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);
         
@@ -114,7 +117,11 @@ public class Principal {
         consultaActividadInternalFrame.setSize(443, 450);
         consultaActividadInternalFrame.setLocation(110, 11);
         consultaActividadInternalFrame.setVisible(false);
-        frmGestionDeTurismoUy.add(consultaActividadInternalFrame);
+        frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
+        
+        crearPaquete = new CrearPaquete(ICA);
+        crearPaquete.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(crearPaquete);
         
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
@@ -155,6 +162,19 @@ public class Principal {
 		} catch (YaExisteException e1) {
 			e1.printStackTrace();
 		}
+		
+		try {
+			ICA.crearPaquete("Paquete 1", "paquete desc 1", 10, 80, new GregorianCalendar());
+			ICA.crearPaquete("Paquete 2", "paquete desc 2", 10, 80, new GregorianCalendar());
+			ICA.crearPaquete("Paquete 3", "paquete desc 1", 10, 80, new GregorianCalendar());
+		} catch (YaExisteException e) {
+			e.printStackTrace();
+		}
+		
+		ICA.ingresarActividadAPaquete("Paquete 1", "Actividad 1");
+		ICA.ingresarActividadAPaquete("Paquete 1", "Actividad 4");
+		ICA.ingresarActividadAPaquete("Paquete 1", "Actividad 3");
+		ICA.ingresarActividadAPaquete("Paquete 2", "Actividad 3");
     }
 
     /**
@@ -213,7 +233,7 @@ public class Principal {
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		consultaDeUsuario.cargarDatosVentana();
+        		consultaDeUsuario.cargarDatosVentana(consultaActividadInternalFrame);
         		consultaDeUsuario.setVisible(true);
         	};
         });
@@ -261,6 +281,16 @@ public class Principal {
         	}
         });
         menuActividades.add(menuItemConsultaActividadTuristica);
+        
+        JMenuItem menuItemCrearPaquete = new JMenuItem("Crear Paquete de Actividades Turisticas");
+        menuItemCrearPaquete.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//Muestro el InternalFrame para crear paquete
+        		crearPaquete.limpiarFormulario();
+        		crearPaquete.setVisible(true);
+        	}
+        });
+        menuActividades.add(menuItemCrearPaquete);
 
     }
 }
