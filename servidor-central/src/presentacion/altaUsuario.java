@@ -5,10 +5,6 @@ import logica.clases.DatePicker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,19 +15,14 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import logica.clases.DatePicker;
-//import excepciones.InvalidArgument;
-//import excepciones.YaExisteException;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
-//import excepciones.InvalidArgument;
 import excepciones.YaExisteException;
 
 import java.util.GregorianCalendar;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JPanel;
 import java.awt.event.ItemListener;
@@ -40,9 +31,6 @@ import javax.swing.JTextPane;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Rectangle;
 
 
@@ -55,7 +43,6 @@ public class altaUsuario extends JInternalFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JTextField textFieldEmail;
-	// decidir como mostrar la fecha
 
 	private JRadioButton provBtn;
 	private JRadioButton turBtn;
@@ -79,12 +66,13 @@ public class altaUsuario extends JInternalFrame {
 	private JPanel proveedor_panel;
 	private JPanel blank_panel;
 	private JPanel panel;
-	private JButton btnNewButton;
+	private JButton calendarBtn;
 	private GregorianCalendar fechaNac;
 
 	private JTextField date;
 	private JInternalFrame f;
 	private JTextField selectedDate;
+	
 	public altaUsuario(ICtrlUsuario icu) {
 
 		ctrlUsr = icu;
@@ -100,55 +88,23 @@ public class altaUsuario extends JInternalFrame {
 		
 		lblIngreseNickName = new JLabel("Nickname:");
 		lblIngreseNickName.setHorizontalAlignment(SwingConstants.CENTER);
-
 		textFieldNickName = new JTextField();
-		//textFieldNombre.setColumns(10);
-		
-
 		
 		lblIngreseNombre = new JLabel("Nombre:");
 		lblIngreseNombre.setHorizontalAlignment(SwingConstants.CENTER);
-
 		textFieldNombre = new JTextField();
-		textFieldNombre.setColumns(10);
-		
-
 		
 		lblIngreseApellido = new JLabel("Apellido:");
 		lblIngreseApellido.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldApellido = new JTextField();
 
-		textFieldEmail = new JTextField();
-		textFieldEmail.setToolTipText("Ingrese su email");
-		textFieldEmail.setColumns(10);
-
-		String prov = "Proveedor";
-		String tur = "Turista";
-
-		BtnGroup = new ButtonGroup();
-		
-
-		
-		btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cmdRegistroUsuarioActionPerformed(arg0);
-			}
-		});
-		
-
-		
 		lblIngreseEmail = new JLabel("Email:");
 		lblIngreseEmail.setHorizontalAlignment(SwingConstants.CENTER);
-
-		textFieldApellido = new JTextField();
-		textFieldApellido.setToolTipText("Ingrese su apellido");
-		textFieldApellido.setColumns(10);
+		textFieldEmail = new JTextField();
 		
-
-		
-
-		
-
+		String prov = "Proveedor";
+		String tur = "Turista";
+		BtnGroup = new ButtonGroup();
 		
 		lblIngreseTipoUsuario = new JLabel("Tipo Usuario:");
 		lblIngreseTipoUsuario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -180,7 +136,14 @@ public class altaUsuario extends JInternalFrame {
 		turBtn.setActionCommand(tur);
 		BtnGroup.add(turBtn);
 		
-
+		
+		
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cmdRegistroUsuarioActionPerformed(arg0);
+			}
+		});
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -188,6 +151,7 @@ public class altaUsuario extends JInternalFrame {
 				setVisible(false);
 			}
 		});
+		
 
 		panel = new JPanel();
 		
@@ -280,17 +244,19 @@ public class altaUsuario extends JInternalFrame {
 					.addContainerGap())
 		);
 		
-		btnNewButton = new JButton("...");
-		String icon_path = "src/icons/calendario.png";
-		ImageIcon icon = new ImageIcon(icon_path,"calendario");
-		Image img = icon.getImage();
-		Image scaled_img = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;  
-		btnNewButton.setIcon(new ImageIcon(scaled_img));
 		
 		JLabel lblFechaDeNacimiento = new JLabel("<html><p>Fecha de Nacimiento</p></html>");
 		lblFechaDeNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
 		
+		calendarBtn = new JButton("...");
+		String icon_path = "src/icons/calendario.png";
+		ImageIcon icon = new ImageIcon(icon_path,"calendario");
+		Image img = icon.getImage();
+		Image scaled_img = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;  
+		calendarBtn.setIcon(new ImageIcon(scaled_img));
+		
 		selectedDate = new JTextField();
+		selectedDate.setEditable(false);
 		selectedDate.setHorizontalAlignment(SwingConstants.CENTER);
 		selectedDate.setBackground(new Color(200,200,200)); 
 		selectedDate.setColumns(10);
@@ -304,7 +270,7 @@ public class altaUsuario extends JInternalFrame {
 							.addComponent(lblFechaDeNacimiento, 0, 0, Short.MAX_VALUE))
 						.addGroup(gl_panel_fechaNac.createSequentialGroup()
 							.addGap(26)
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
+							.addComponent(calendarBtn, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_fechaNac.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(selectedDate, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)))
@@ -316,13 +282,13 @@ public class altaUsuario extends JInternalFrame {
 					.addGap(6)
 					.addComponent(lblFechaDeNacimiento, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
 					.addGap(12)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addComponent(calendarBtn, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(selectedDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(6))
 		);
 		panel_fechaNac.setLayout(gl_panel_fechaNac);
-		btnNewButton.addActionListener(new ActionListener() {
+		calendarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				f.setVisible(true);
 				date.setText(new DatePicker(f).setPickedDate());
@@ -341,6 +307,8 @@ public class altaUsuario extends JInternalFrame {
 		f = new JInternalFrame();
 		f.setVisible(false);
 		
+		
+		
 		panel.setLayout(new CardLayout());
 		
 		blank_panel = new JPanel();
@@ -348,37 +316,23 @@ public class altaUsuario extends JInternalFrame {
 		blank_panel.setVisible(true);
 
 		turista_panel = new JPanel();
-				
-						JLabel lblNacionalidad_1 = new JLabel("Nacionalidad");
-						lblNacionalidad_1.setBounds(1, 38, 92, 15);
-						lblNacionalidad_1.setHorizontalAlignment(SwingConstants.CENTER);
-				
-						textFieldNacionalidad = new JTextField();
-						textFieldNacionalidad.setBounds(105, 31, 247, 30);
-						textFieldNacionalidad.setColumns(10);
+		JLabel lblNacionalidad_1 = new JLabel("Nacionalidad");
+		lblNacionalidad_1.setBounds(1, 38, 92, 15);
+		lblNacionalidad_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldNacionalidad = new JTextField();
+		textFieldNacionalidad.setBounds(105, 31, 247, 30);
 
 		proveedor_panel = new JPanel();
-				
-						JLabel lblSitioWeb_1 = new JLabel("Sitio Web");
-						lblSitioWeb_1.setHorizontalAlignment(SwingConstants.CENTER);
-		
-				textFieldSitioWeb = new JTextField();
-				textFieldSitioWeb.setColumns(10);
-		
-				JLabel lblDescripcion = new JLabel("Descripcion");
-		
-				textFieldDescripcion = new JTextPane();
+		JLabel lblSitioWeb_1 = new JLabel("Sitio Web");
+		lblSitioWeb_1.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldSitioWeb = new JTextField();
+		JLabel lblDescripcion = new JLabel("Descripcion");
+		textFieldDescripcion = new JTextPane();
 
 		groupLayout.setAutoCreateGaps(true);
 		groupLayout.setAutoCreateContainerGaps(true);
 		getContentPane().setLayout(groupLayout);
 
-		Rectangle rp = proveedor_panel.getBounds();
-		Rectangle tp = turista_panel.getBounds();
-		blank_panel.setBounds((int)Math.max(rp.getX(), tp.getX()),
-								(int)Math.max(rp.getY(), tp.getY()),
-								(int)Math.max(rp.getWidth(), tp.getWidth()),
-								(int)Math.max(rp.getHeight(), tp.getHeight()));
 		panel.add(blank_panel, "blank_panel");
 		panel.add(proveedor_panel, "proveedor_panel");
 		GroupLayout gl_proveedor_panel = new GroupLayout(proveedor_panel);
