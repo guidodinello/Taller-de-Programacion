@@ -22,9 +22,8 @@ public interface ICtrlUsuario {
 			tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
 	public abstract void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) throws InscriptionFailException;
 	public abstract Set<String> listarTuristas();
-//	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta);
 	public abstract Set<String> listarProveedores();
-	public abstract void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb);
+	public abstract void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, String nacionalidad, String desc, String sitioWeb);
 	public abstract Set<DTSalida> listarInfoSalidasTurista(String t); 
 	public abstract Set<DTActividad> listarInfoCompletaActividadesProveedor(String p);
 	public abstract Set<String> listarUsuarios();

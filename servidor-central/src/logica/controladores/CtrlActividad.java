@@ -8,21 +8,16 @@ import datatypes.DTSalida;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
-//import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 import logica.clases.Departamento;
 import logica.clases.ActividadTuristica;
+import logica.clases.PaqueteTuristico;
 import logica.handlers.HandlerDepartamentos;
+import logica.handlers.HandlerPaquetes;
 import logica.handlers.HandlerActividades;
 import logica.interfaces.*;
-//import java.util.GregorianCalendar;
-//import java.util.Set;
 import logica.clases.SalidaTuristica;
-//import logica.clases.Turista;
 import logica.clases.Proveedor;
-//import datatypes.DTActividad;
-//import datatypes.DTPaquete;
-//import datatypes.DTSalida;
 import logica.handlers.HandlerSalidas;
 import logica.handlers.HandlerUsuarios;
 
@@ -58,8 +53,14 @@ public class CtrlActividad implements ICtrlActividad{
 	public DTActividad getInfoActividad(String actividad) {
 		//Falta la parte de Paquetes
 		HandlerActividades hA = HandlerActividades.getInstance();
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		ActividadTuristica at = hA.obtenerActividadTuristica(actividad);
 		DTActividad res = at.getDTActividad();
+		
+		Set<PaqueteTuristico> p = hP.getPaquetes();
+		Set<String> paquetes = new HashSet<String>();
+		p.forEach((e) -> {if(e.tieneActividad(actividad)){paquetes.add(e.getNombre());}});
+		res.setPaquetes(paquetes);
 		return res;
 	}
 	
@@ -88,10 +89,6 @@ public class CtrlActividad implements ICtrlActividad{
 		return act.getSalidasNombre();
 	
 		
-	}
-	
-	public Set<String> listarActividadesDepartamentoMenosPaquete(String depto, String nombrePaquete){
-		return null;
 	}
 	
 	//Salidas
@@ -139,19 +136,48 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	//Paquetes
-	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) {
-		
+	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) throws YaExisteException {
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
+		if(hP.existePaquete(nombre))
+			throw new YaExisteException("El paquete " + nombre + " ya se encuentra registrado");
+		PaqueteTuristico newPaquete = new PaqueteTuristico(nombre, descripcion, validez, descuento, fechaDeAlta);
+		hP.addPaquete(newPaquete);
 	}
 	
 	public Set<String> listarPaquetes(){
-		return null;
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
+		Set<PaqueteTuristico> paquetes = hP.getPaquetes();
+		Set<String> res = new HashSet<String>();
+		paquetes.forEach((e) -> {res.add(e.getNombre());});
+		return res;
 	}
 	
 	public void ingresarActividadAPaquete(String nombrePaquete,String nombreActividad) {
-		
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
+		HandlerActividades hA = HandlerActividades.getInstance();
+		PaqueteTuristico pt = hP.obtenerPaqueteTuristico(nombrePaquete);
+		ActividadTuristica at = hA.obtenerActividadTuristica(nombreActividad);
+		pt.agregarActividad(at);
 	}
 	
 	public DTPaquete getInfoPaquete(String paqueteSeleccionado) {
-		return null;
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
+		PaqueteTuristico pt = hP.obtenerPaqueteTuristico(paqueteSeleccionado);
+		return pt.getDTPaquete();
+	}
+	
+	public Set<String> listarActividadesDepartamentoMenosPaquete(String depto, String nombrePaquete){
+		Set<String> resu = new HashSet<String>();
+		Set<String> depAct = this.listarActividadesDepartamento(depto);
+		
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
+		PaqueteTuristico pt = hP.obtenerPaqueteTuristico(nombrePaquete);
+		
+		depAct.forEach(e ->{
+			if(!pt.tieneActividad(e)) {
+				resu.add(e);
+			}
+		});
+		return resu;
 	}
 }

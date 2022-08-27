@@ -3,12 +3,20 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.ClassOrderer.OrderAnnotation;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Set;
 
+import logica.clases.Turista;
+import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
 import logica.interfaces.ICtrlUsuario;
 import logica.interfaces.ICtrlActividad;
@@ -16,11 +24,14 @@ import datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import datatypes.DTUsuario;
+import datatypes.DTActividad;
 import datatypes.DTSalida;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlUsuario {
 	private static ICtrlUsuario controladorUsuario;
 	private static ICtrlActividad controladorActividad;
+	
 	
 	@BeforeAll
 	public static void iniciar() {
@@ -28,6 +39,7 @@ public class ctrlUsuario {
 		controladorUsuario = fabrica.getICtrlUsuario();
 		controladorActividad = fabrica.getICtrlActividad();
 		 try {
+				controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), null, "usr_descripcion", "usr_stiioWeb");
 				controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
 				controladorUsuario.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
 				controladorUsuario.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
@@ -61,14 +73,15 @@ public class ctrlUsuario {
 			try {
 				controladorActividad.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1");
 				controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");
-				controladorActividad.altaSalidaTuristica("A Canelones", fecha, "Canelones", 10, new GregorianCalendar(), "Actividad 2");
-				controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(), "Actividad 3");
+				controladorActividad.altaSalidaTuristica("A Canelones", fecha, "Canelones", 10, new GregorianCalendar(1,1,1), "Actividad 2");
+				controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(1,1,3), "Actividad 3");
 			} catch (YaExisteException e1) {
 				e1.printStackTrace();
 			}
 			
 			try {
-				controladorUsuario.ingresarInscripcion("eze", "Al Cerro", 5, new GregorianCalendar());
+				controladorUsuario.ingresarInscripcion("eze", "Al Cerro", 5, new GregorianCalendar(1,1,4));
+				controladorUsuario.ingresarInscripcion("eze", "A Canelones", 7, new GregorianCalendar(1,1,2));
 			} catch(InscriptionFailException e) {
 				e.printStackTrace();
 			}
@@ -76,6 +89,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(1)
 	void testAltaProveedorOK() {
 		String nick = "prov_nick";
 		String em = "prov_email";
@@ -103,6 +117,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(2)
 	void testAltaTuristaOK() {
 		String nick = "tur_nick";
 		String em = "tur_email";
@@ -123,6 +138,7 @@ public class ctrlUsuario {
 			assertEquals(du.getFechaNac(), fecha);
 			assertEquals(du.getNombre(), nom);
 			assertEquals(du.getApellido(), ap);
+			assertEquals(controladorUsuario.listarTuristas().contains(nick), true);
 		} catch (YaExisteException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -130,6 +146,7 @@ public class ctrlUsuario {
 	}
 
 	@Test
+	@Order(3)
 	void testProveedorRepetido() {
 		String nick = "prov_nick";
 		String em = "prov_email";
@@ -140,17 +157,12 @@ public class ctrlUsuario {
 		String nacio = "uruguaya";
 		String desc = "un proveedor";
 		String sitioweb = "google.com";
-
-		/*try {
-			controladorUsuario.altaUsuario(nick, em, nom, ap, fecha, tipo, nacio, desc, sitioweb);
-		} catch (YaExisteException e) {
-			fail(e.getMessage());
-			e.printStackTrace();
-		};*/ // Creo que con excepciones solo hay que llamar esto:
+		
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nick, em, nom, ap, fecha, tipo, nacio, desc, sitioweb);});	
 	}
 
 	@Test
+	@Order(4)
 	void testIngresarInscripcionOK() { 
 		String nick = "agus";
 		String salida = "A Centro";
@@ -165,6 +177,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(5)
 	void testInscripcionRepetida() {
 		String nick = "eze";
 		String salida = "Al Cerro";
@@ -174,6 +187,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(6)
 	void testInscripcionPlazosExcedidos() {
 		String nick = "agus";
 		String salida = "Al Cerro";
@@ -183,6 +197,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(7)
 	void testListarTuristas() {
 		Set<String> turistas = controladorUsuario.listarTuristas();
 		
@@ -192,11 +207,97 @@ public class ctrlUsuario {
 		assertEquals(turistas.contains("manuT2"), true);
 		assertEquals(turistas.contains("cris"), false);
 		assertEquals(turistas.contains("manuP1"), false);
+		assertEquals(controladorUsuario.listarTuristas().contains("tur_nick"), true);
+		assertEquals(controladorUsuario.listarProveedores().contains("prov_nick"), true);
+	}
+	
+	@Test
+	void testListarProveedores() {
+		Set<String> proveedores = controladorUsuario.listarProveedores();
+		
+		assertEquals(proveedores.contains("agus"), false);
+		assertEquals(proveedores.contains("eze"), false);
+		assertEquals(proveedores.contains("manuT1"), false);
+		assertEquals(proveedores.contains("manuT2"), false);
+		assertEquals(proveedores.contains("cris"), true);
+		assertEquals(proveedores.contains("manuP1"), true);
 	}
 
-}
 
-//	@Test
-//	void testGetUsuarios() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	void testlistarUsuarios() {
+		Set<String> usuarios = controladorUsuario.listarUsuarios();
+		
+		assertEquals(usuarios.contains("cris"), true);
+		assertEquals(usuarios.contains("agus"), true);
+		assertEquals(usuarios.contains("eze"), true);
+		assertEquals(usuarios.contains("manuT1"), true);
+		assertEquals(usuarios.contains("manuT2"), true);
+		assertEquals(usuarios.contains("manuP1"), true);
+		assertEquals(usuarios.contains("manuP2"), true);
+		
+	}
+	
+	@Test
+	public void testactualizarUsuario() { 
+		controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), "", "usr_descripcion", "usr_stiioWeb");
+	}
+	
+	@Test
+	public void testlistarInfoSalidasTurista(){ 
+		String t = "eze";
+		Set<DTSalida> obtenido = controladorUsuario.listarInfoSalidasTurista(t);
+		
+		Map<String, DTSalida> esperado = new HashMap<String, DTSalida>();
+		
+		esperado.put("A Canelones", controladorActividad.getInfoCompletaSalida("A Canelones"));
+		esperado.put("Al Cerro", controladorActividad.getInfoCompletaSalida("Al Cerro"));
+	
+	
+	
+		for (DTSalida dts : obtenido) {
+			DTSalida sal = esperado.get(dts.getNombre());
+			assertEquals(dts.getfechaSalida(), sal.getfechaSalida());
+			assertEquals(dts.getfechaAlta(), sal.getfechaAlta());
+			assertEquals(dts.getcantidadMaximaDeTuristas(), sal.getcantidadMaximaDeTuristas());
+			assertEquals(dts.getlugarSalida(), sal.getlugarSalida());
+			
+			for (String turistas : dts.getTuristasInscriptos()) {
+				assertEquals(sal.getTuristasInscriptos().contains(turistas), true);
+			}
+		}
+		
+ 	}
+	
+	
+	@Test
+	public void listarInfoCompletaActividadesProveedor() {
+		String p = "cris";
+		Set<DTActividad> obtenido = controladorUsuario.listarInfoCompletaActividadesProveedor(p);
+		
+		Map<String, DTActividad> esperado = new HashMap<String, DTActividad>();
+		
+		esperado.put("Actividad 1", controladorActividad.getInfoActividad("Actividad 1"));
+		esperado.put("Actividad 2", controladorActividad.getInfoActividad("Actividad 2"));
+		esperado.put("Actividad 3", controladorActividad.getInfoActividad("Actividad 3"));
+		esperado.put("Actividad 4", controladorActividad.getInfoActividad("Actividad 4"));
+		
+		for (DTActividad dta : obtenido) {
+			DTActividad act = esperado.get(dta.getNombre());
+			assertEquals(dta.getDescripcion(),act.getDescripcion());
+			assertEquals(dta.getDepartamento(),act.getDepartamento());
+			assertEquals(dta.getDuracionHs(),act.getDuracionHs());
+			assertEquals(dta.getCosto(),act.getCosto());
+			
+			for (String salida : dta.getSalidas()) {
+				assertEquals(act.getSalidas().contains(salida), true);
+			}
+
+			// no hay paquetes asique no se ejecuta
+//			for (String paquete : dta.getPaquetes()) {
+//				assertEquals(act.getPaquetes().contains(paquete), true);
+//			}
+		}
+	}
+	
+}

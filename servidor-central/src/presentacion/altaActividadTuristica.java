@@ -307,7 +307,12 @@ public class altaActividadTuristica extends JInternalFrame {
 		textField_4.setText("");
 	}
 	
-	public void cargarProveedores() {
+	public void cargarDatos() {
+		cargarProveedores();
+		cargarDepartamentos();
+	}
+	
+	private void cargarProveedores() {
        	Set<String> proveedores = IUsuario.listarProveedores();
        	String[] arrProveedores = new String[proveedores.size()];
     	proveedores.toArray(arrProveedores);
@@ -317,13 +322,13 @@ public class altaActividadTuristica extends JInternalFrame {
         comboBox.setModel(model);
 	}
 	
-	public void cargarDepartamentos() {
+	private void cargarDepartamentos() {
        	Set<String> departamentos = IActividad.listarDepartamentos();
        	String[] arrDepartamentos = new String[departamentos.size()];
     	departamentos.toArray(arrDepartamentos);
        	
     	DefaultComboBoxModel<String> model;
         model = new DefaultComboBoxModel<String>(arrDepartamentos);
-        comboBox.setModel(model);
+        comboBox_1.setModel(model);
 	}
 }

@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
+import excepciones.InscriptionFailException;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 
@@ -16,17 +17,6 @@ public class CargarDatosDePrueba {
 	
 	private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
-	
-    /*
-		
-		"./src/datosDePrueba/ActividadesPaquetes.csv"
-		
-		"./src/datosDePrueba/Inscripciones.csv"
-		"./src/datosDePrueba/Paquetes.csv"
-	 	"./src/datosDePrueba/Salidas.csv"
-	 	"./src/datosDePrueba/Usuarios.csv"
-
-	 */
 	
 	public  void cargarDatos(ICtrlUsuario icu, ICtrlActividad ica) {
 		ICU = icu;
@@ -36,7 +26,7 @@ public class CargarDatosDePrueba {
 		cargarActividades();
 		cargarSalidas();
 		cargarPaquetes(); 
-		//cargarInscripciones();
+		cargarInscripciones();
 	}
 	
 	public void cargarDepartamentos() {
@@ -50,10 +40,10 @@ public class CargarDatosDePrueba {
 			for (int i = 0; i < 19; i++) {
 				  line = br.readLine();
 				  String[] values = line.split(",");
-				  ICA.altaDepartamento(values[1], values[2], values[3]);
+				  ICA.altaDepartamento(values[1].trim(), values[2].trim(), values[3].trim());
 				  	//nombre, descripcion, url
 				  
-				  //System.out.println("nombre: " + values[1] + " desc: "+ values[2]+ " url: "+ values[3]); //probando
+				  //System.out.println("nombre:" + values[1].trim() + "desc:"+ values[2].trim()+ "url:"+ values[3].trim()); //probando
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -89,8 +79,10 @@ public class CargarDatosDePrueba {
 					  String[] values = line.split(",");
 					  String[] valuesExtra = lineExtra.split(",");
 					  String[] valuesFecha = values[6].split("/");
-					  ICU.altaUsuario(values[2], values[5], values[3], values[4], new GregorianCalendar(Integer.parseInt(valuesFecha[2]), 
-					  Integer.parseInt(valuesFecha[1]), Integer.parseInt(valuesFecha[0])), tipoUsuario.turista, valuesExtra[1], "", "");
+					  //System.out.println("A continuacion vienen las fehcas:"+ valuesFecha[0]+valuesFecha[1]+valuesFecha[2]);
+					  //System.out.println("A continuacion vienen los otros datos:"+values[1]+values[2]+values[3]+values[4]);
+					  ICU.altaUsuario(values[2].trim(), values[5].trim(), values[3].trim(), values[4].trim(), new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()), 
+							  Integer.parseInt(valuesFecha[1].trim()), Integer.parseInt(valuesFecha[0].trim())), tipoUsuario.turista, valuesExtra[1].trim(), "", "");
 					  	//nick, email, nombre, apellido, fechaNac, tipoUsuario, naciona, descrip, url
 					  
 					  //System.out.println("nick: " + values[2] + " nombre: "+ values[3]+ " apellido: "+ values[4]+ " email: "+values[5]+
@@ -103,8 +95,8 @@ public class CargarDatosDePrueba {
 					  String[] values = line.split(",");
 					  String[] valuesExtra = lineExtra.split(",");
 					  String[] valuesFecha = values[6].split("/");
-					  ICU.altaUsuario(values[2], values[5], values[3], values[4], new GregorianCalendar(Integer.parseInt(valuesFecha[2]),
-					  Integer.parseInt(valuesFecha[1]), Integer.parseInt(valuesFecha[0])), tipoUsuario.proveedor, "", valuesExtra[1], valuesExtra[2]);
+					  ICU.altaUsuario(values[2].trim(), values[5].trim(), values[3].trim(), values[4].trim(), new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()),
+					  	Integer.parseInt(valuesFecha[1].trim()), Integer.parseInt(valuesFecha[0].trim())), tipoUsuario.proveedor, "", valuesExtra[1].trim(), valuesExtra[2].trim());
 					  	//nick, email, nombre, apellido, fechaNac, tipoUsuario, naciona, descrip, url
 					  
 					  //System.out.println("nick: " + values[2] + " nombre: "+ values[3]+ " apellido: "+ values[4]+ " email: "+values[5]+
@@ -136,15 +128,15 @@ public class CargarDatosDePrueba {
 			}
 			line = br.readLine();
 			String[] valuesU = line.split(",");
-			String u11 = valuesU[2];
+			String u11 = valuesU[2].trim();
 			
 			line = br.readLine();
 			valuesU = line.split(",");
-			String u12 = valuesU[2];
+			String u12 = valuesU[2].trim();
 			
 			line = br.readLine();
 			valuesU = line.split(",");
-			String u13 = valuesU[2];
+			String u13 = valuesU[2].trim();
 			
 			path = "./src/datosDePrueba/Actividades.csv"; // poner path
 			br = new BufferedReader(new FileReader(path));
@@ -161,8 +153,9 @@ public class CargarDatosDePrueba {
 				  line = br.readLine();
 				  String[] values = line.split(",");
 				  String[] valuesFecha = values[7].split("/");
-				 ICA.altaActividadTuristica(values[6], values[1], values[2] ,Integer.parseInt(values[3]), Float.parseFloat(values[4]) ,values[5] ,usu , 
-					new GregorianCalendar(Integer.parseInt(valuesFecha[2]),Integer.parseInt(valuesFecha[1]), Integer.parseInt(valuesFecha[0])));
+				 ICA.altaActividadTuristica(values[6].trim(), values[1].trim(), values[2].trim() ,Integer.parseInt(values[3].trim()), Float.parseFloat(values[4].trim()) ,
+						 values[5].trim() ,usu , new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()),Integer.parseInt(valuesFecha[1].trim()), 
+								 Integer.parseInt(valuesFecha[0].trim())));
 				  	//nombreDep, nomActi, desc, duraHs, costo, nomCIudad, nickProveed, fechaAlta
 				  
 				  //System.out.println("nombre: " + values[1] + " desc: "+ values[2]+ " durac: "+ values[3]+ " costo: "+ values[4]+ " ciudad: "+ values[5]
@@ -183,7 +176,7 @@ public class CargarDatosDePrueba {
 	}
 
 	public void cargarSalidas() {
-		String path = "./src/datosDePrueba/Departamentos.csv"; // poner path
+		String path = "./src/datosDePrueba/Salidas.csv"; // poner path
 		String pathA = "./src/datosDePrueba/Actividades.csv";
 		String line = "";
 		String nombreAct = "";
@@ -203,13 +196,14 @@ public class CargarDatosDePrueba {
 				
 				if(i % 2 == 0) {
 					line = brA.readLine();
-					String[] valuesAct = line.split(","); 
-					nombreAct = valuesAct[1];
+					String[] valuesAct = line.split(",");
+					nombreAct = valuesAct[1].trim();
 				}
-				  
-				 ICA.altaSalidaTuristica(values[2], new GregorianCalendar(Integer.parseInt(valuesFecha[2]), Integer.parseInt(valuesFecha[1]), 
-					Integer.parseInt(valuesFecha[0]), Integer.parseInt(values[4]), 0), values[6],Integer.parseInt(values[5]), new GregorianCalendar(Integer.parseInt(valuesFechaAlta[2]),
-						Integer.parseInt(valuesFechaAlta[1]), Integer.parseInt(valuesFechaAlta[0])), nombreAct);
+				
+				 ICA.altaSalidaTuristica(values[2].trim(), new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()), Integer.parseInt(valuesFecha[1].trim()), 
+					Integer.parseInt(valuesFecha[0].trim()), Integer.parseInt((String) values[4].trim().subSequence(0, values[4].trim().length() -2)), 0), values[6].trim(), 
+						 Integer.parseInt(values[5].trim()), new GregorianCalendar(Integer.parseInt(valuesFechaAlta[2].trim()), Integer.parseInt(valuesFechaAlta[1].trim()), 
+								 Integer.parseInt(valuesFechaAlta[0].trim())), nombreAct);
 				  			//Ref, RefActiv, Nombre, Fecha, Hora, TuristaMax, Lugar, FechaAlta
 			}
 		} catch (FileNotFoundException e) {
@@ -227,7 +221,7 @@ public class CargarDatosDePrueba {
 	}
 	
 	public void cargarPaquetes() {
-		String path = "./src/datosDePrueba/Departamentos.csv"; // poner path
+		String path = "./src/datosDePrueba/Paquetes.csv"; // poner path
 		String pathA = "./src/datosDePrueba/Actividades.csv";
 		String line = "";
 		
@@ -242,19 +236,16 @@ public class CargarDatosDePrueba {
 				  line = br.readLine();
 				  String[] values = line.split(",");
 				  String[] valuesFecha = values[4].split("/");
-				  ICA.crearPaquete(values[1] , values[5],Integer.parseInt(values[2]),Float.parseFloat(values[3]), new GregorianCalendar(Integer.parseInt(valuesFecha[2]),
-				  	Integer.parseInt(valuesFecha[1]), Integer.parseInt(valuesFecha[0])));
+				  ICA.crearPaquete(values[1].trim() , values[5].trim(),Integer.parseInt(values[2].trim()),Float.parseFloat(values[3].trim()), 
+						  new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()), Integer.parseInt(valuesFecha[1].trim()), Integer.parseInt(valuesFecha[0].trim())));
 				  		//Ref, Nombre, Validez, Descuento, FechaAlta, Descripción -> como recibo
 				  for(int j = 0; j < 2; j++) {
 					line = brA.readLine();
 					String[] valuesAct = line.split(",");
-					ICA.ingresarActividadAPaquete(values[1], valuesAct[1]);  
+					ICA.ingresarActividadAPaquete(values[1].trim(), valuesAct[1].trim());  
 				  }
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -77,6 +77,11 @@ public class ctrlActividad{
 	}
 	
 	@Test
+	void testAltaDepartamentoRepetido() {
+		    assertThrows(YaExisteException.class, ()->{controladorActividad.altaDepartamento("Montevideo", "Capital de Uruguay", "mvdeo.com.uy");});			
+	}
+	
+	@Test
 	void testListarDepartamentos() {
 		Set<String> deptos = controladorActividad.listarDepartamentos();
 		assertEquals(deptos.contains("Montevideo"), true);
@@ -158,7 +163,7 @@ public class ctrlActividad{
 		
 	 Set<String> salidas3 =  controladorActividad.listarNombresSalidasDeActividad("Actividad 3");
 	
-	 assertEquals(salidas3.contains("Al Cerro "),true, "La salida asociada a la Actividad 3 es Al cerro");
+	 assertEquals(salidas3.contains("Al Cerro"),true, "La salida asociada a la Actividad 3 es Al cerro");
 	}
 	
 }
