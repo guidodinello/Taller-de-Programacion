@@ -153,6 +153,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         TextTipoUsuario = new JTextField();
         TextTipoUsuario.setEditable(false);
         GridBagConstraints gbc_TextTipoUsuario = new GridBagConstraints();
+        gbc_TextTipoUsuario.gridwidth = 2;
         gbc_TextTipoUsuario.fill = GridBagConstraints.BOTH;
         gbc_TextTipoUsuario.insets = new Insets(0, 0, 5, 5);
         gbc_TextTipoUsuario.gridx = 2;
@@ -172,6 +173,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         TextNickname = new JTextField();
         TextNickname.setEditable(false);
         GridBagConstraints gbc_TextNickname = new GridBagConstraints();
+        gbc_TextNickname.gridwidth = 2;
         gbc_TextNickname.fill = GridBagConstraints.BOTH;
         gbc_TextNickname.insets = new Insets(0, 0, 5, 5);
         gbc_TextNickname.gridx = 2;
@@ -191,6 +193,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         TextEmail = new JTextField();
         TextEmail.setEditable(false);
         GridBagConstraints gbc_TextEmail = new GridBagConstraints();
+        gbc_TextEmail.gridwidth = 2;
         gbc_TextEmail.fill = GridBagConstraints.BOTH;
         gbc_TextEmail.insets = new Insets(0, 0, 5, 5);
         gbc_TextEmail.gridx = 2;
@@ -210,6 +213,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         TextNombre = new JTextField();
         TextNombre.setEditable(false);
         GridBagConstraints gbc_TextNombre = new GridBagConstraints();
+        gbc_TextNombre.gridwidth = 2;
         gbc_TextNombre.fill = GridBagConstraints.BOTH;
         gbc_TextNombre.insets = new Insets(0, 0, 5, 5);
         gbc_TextNombre.gridx = 2;
@@ -229,6 +233,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         TextApellido = new JTextField();
         TextApellido.setEditable(false);
         GridBagConstraints gbc_TextApellido = new GridBagConstraints();
+        gbc_TextApellido.gridwidth = 2;
         gbc_TextApellido.fill = GridBagConstraints.BOTH;
         gbc_TextApellido.insets = new Insets(0, 0, 5, 5);
         gbc_TextApellido.gridx = 2;
@@ -248,6 +253,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         TextFechaNac = new JTextField();
         TextFechaNac.setEditable(false);
         GridBagConstraints gbc_TextFechaNac = new GridBagConstraints();
+        gbc_TextFechaNac.gridwidth = 2;
         gbc_TextFechaNac.fill = GridBagConstraints.BOTH;
         gbc_TextFechaNac.insets = new Insets(0, 0, 5, 5);
         gbc_TextFechaNac.gridx = 2;
@@ -432,8 +438,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private void cargarEventos() {
         btnSelecUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(ComboBoxSelUsuario.getSelectedItem() == null) 
-        			return;
         		setDatosEnCampos();	
         	}
         });
@@ -453,13 +457,32 @@ public class ConsultaDeUsuario extends JInternalFrame {
         		limpiarComboBox(ComboBoxSalidasDeActividadesDelProveedor);
         		
         		DTActividad dtA = ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex());
-        		Set<String> dtAS = dtA.getSalidas();
-        		dtAS.forEach((s)->{
+        		if (dtA.getNombre() != "No tiene actividades") {
+            		Set<String> dtAS = dtA.getSalidas();
+            		if(!dtAS.isEmpty()) {
+                		dtAS.forEach((s)->{
+        					seteandoDatosIniciales = true;
+        					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: "+ s);
+        					seteandoDatosIniciales = false;
+        				});
+                		btnVerSalidaProveedor.setEnabled(true);
+            		}else {
+            			seteandoDatosIniciales = true;
+    					ComboBoxSalidasDeActividadesDelProveedor.addItem("No tiene salidas");
+    					seteandoDatosIniciales = false;
+            			btnVerSalidaProveedor.setEnabled(false);
+            		}
+
+            		DescripcionActividadProveedorTextArea.setText(dtA.getDescripcion());
+            		btnVerActividad.setEnabled(true);
+        		}else {
 					seteandoDatosIniciales = true;
-					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: "+ s);
+					ComboBoxSalidasDeActividadesDelProveedor.addItem("No tiene salidas");
 					seteandoDatosIniciales = false;
-				});
-        		DescripcionActividadProveedorTextArea.setText(dtA.getDescripcion());
+        			btnVerActividad.setEnabled(false);
+        			btnVerSalidaProveedor.setEnabled(false);
+        		}
+
         	}
         });
         
@@ -486,11 +509,19 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		ventanaConsultaActividad = consultaActividad;
 		limpiarTodosCampos();
 		Set<String> usuarios = ctrlUsuario.listarUsuarios();
-        usuarios.forEach((u)->{
-        	seteandoDatosIniciales = true;
-        	ComboBoxSelUsuario.addItem(u);
+		if(usuarios.isEmpty()) {
+			seteandoDatosIniciales = true;
+        	ComboBoxSelUsuario.addItem("No hay usuarios registrados");
         	seteandoDatosIniciales = false;
-        });
+        	btnSelecUsuario.setEnabled(false);
+		}else {
+	        usuarios.forEach((u)->{
+	        	seteandoDatosIniciales = true;
+	        	ComboBoxSelUsuario.addItem(u);
+	        	seteandoDatosIniciales = false;
+	        });
+	        btnSelecUsuario.setEnabled(true);
+		}
         //Setea inicialmente las cosas de un usuario especifico en invisible
         visibleCamposTurista(false);
         visibleCamposProveedor(false);
@@ -512,12 +543,21 @@ public class ConsultaDeUsuario extends JInternalFrame {
 			DTTurista dtT = (DTTurista)dtU;
 			TextNacionalidad.setText(dtT.getNacionalidad());
 			Set<DTSalida> dtS = ctrlUsuario.listarInfoSalidasTurista(dtT.getNickname());
-			dtS.forEach((dt)->{
+			if (!dtS.isEmpty()) {
+				dtS.forEach((dt)->{
+					seteandoDatosIniciales = true;
+					String infoSalida = "Nombre: "+ dt.getNombre() + ". Fecha salida: " + fechaStringFormato(dt.getfechaSalida(), true);
+					ComboBoxSalidasInscripto.addItem(infoSalida);
+					seteandoDatosIniciales = false;
+				});
+				btnVerSalidaTurista.setEnabled(true);
+			}else {
 				seteandoDatosIniciales = true;
-				String infoSalida = "Nombre: "+ dt.getNombre() + ". Fecha salida: " + fechaStringFormato(dt.getfechaSalida(), true);
-				ComboBoxSalidasInscripto.addItem(infoSalida);
+				ComboBoxSalidasInscripto.addItem("No tiene salidas");
 				seteandoDatosIniciales = false;
-			});
+				btnVerSalidaTurista.setEnabled(false);
+			}
+
 		}else {
 			TextTipoUsuario.setText("Proveedor");
 			visibleCamposTurista(false);
@@ -527,11 +567,26 @@ public class ConsultaDeUsuario extends JInternalFrame {
 			TextDescripcion.setText(dtP.getDescripcion());
 			TextSitioWeb.setText(dtP.getLinkSitioWeb());
 			Set<DTActividad> dtA = ctrlUsuario.listarInfoCompletaActividadesProveedor(dtP.getNickname());
-			dtA.forEach((dt)->{
+			if(!dtA.isEmpty()) {
+				dtA.forEach((dt)->{
+					seteandoDatosIniciales = true;
+					ComboBoxActividadesProveedor.addItem(dt);
+					seteandoDatosIniciales = false;
+				});
+				btnVerActividad.setEnabled(true);
+				btnVerSalidaProveedor.setEnabled(false);
+			}else {
 				seteandoDatosIniciales = true;
-				ComboBoxActividadesProveedor.addItem(dt);
+				DTActividad noTiene = new DTActividad("No tiene actividades", null, null , 0, 0, null);
+				ComboBoxActividadesProveedor.addItem(noTiene);
 				seteandoDatosIniciales = false;
-			});
+				btnVerActividad.setEnabled(false);
+				seteandoDatosIniciales = true;
+				ComboBoxSalidasDeActividadesDelProveedor.addItem("No tiene salidas");
+				seteandoDatosIniciales = false;
+				btnVerSalidaProveedor.setEnabled(false);
+			}
+
 			
 		}
 	}

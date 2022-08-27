@@ -93,10 +93,10 @@ public class Principal {
         
         consultaDeSalida= new ConsultaSalida(ICA);
         consultaDeSalida.setVisible(false);
-        frmGestionDeTurismoUy.add(consultaDeSalida);
+        frmGestionDeTurismoUy.getContentPane().add(consultaDeSalida);
         
         consultaDeUsuario = new ConsultaDeUsuario(ICU);
-        consultaDeUsuario.setBounds(30, 30, 654, 431);
+        consultaDeUsuario.setBounds(30, 30, 654, 528);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);
         
@@ -114,7 +114,7 @@ public class Principal {
         consultaActividadInternalFrame.setSize(443, 450);
         consultaActividadInternalFrame.setLocation(110, 11);
         consultaActividadInternalFrame.setVisible(false);
-        frmGestionDeTurismoUy.add(consultaActividadInternalFrame);
+        frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
         
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");

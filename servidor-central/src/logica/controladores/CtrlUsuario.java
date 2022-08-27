@@ -32,12 +32,10 @@ public class CtrlUsuario implements ICtrlUsuario{
 		if (tipo == tipoUsuario.turista) {
 			Turista t = new Turista(nickname, email, nombre, apellido, fechaNac, nacionalidad);
 			hu.agregarTurista(t);
-		} else if (tipo == tipoUsuario.proveedor) {
+		} else {
 			Proveedor p = new Proveedor(nickname, email, nombre, apellido, fechaNac, descripcion, sitioWeb);
 			hu.agregarProveedor(p);
-		} //else 
-//			throw new InvalidArgument("El tipo de usuario especificado no pertence al enumerado");
-
+		}
 	}
 	
 
