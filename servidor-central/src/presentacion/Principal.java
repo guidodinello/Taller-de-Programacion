@@ -25,6 +25,7 @@ import logica.interfaces.ICtrlUsuario;
 
 
 import datatypes.tipoUsuario;
+import datosDePrueba.CargarDatosDePrueba;
 //import excepciones.InvalidArgument;
 import excepciones.YaExisteException;
 
@@ -116,45 +117,6 @@ public class Principal {
         consultaActividadInternalFrame.setVisible(false);
         frmGestionDeTurismoUy.add(consultaActividadInternalFrame);
         
-        try {
-			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
-			ICU.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
-			ICU.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
-			ICU.altaUsuario("manuT1", "emailT1", "nombreT1", "apellidT1", new GregorianCalendar(), tipoUsuario.turista, "uru", null, null);
-			ICU.altaUsuario("manuT2", "emailT2", "nombreT2", "apellidT2", new GregorianCalendar(), tipoUsuario.turista, "uru", null, null );
-			ICU.altaUsuario("manuP1", "emailP1", "nombreP1", "apellidP1", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "descManuP1", "linkP1" );
-			ICU.altaUsuario("manuP2", "emailP2", "nombreP2", "apellidP2", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "descManuP2", "linkP2" );
-		} catch (YaExisteException e2) {
-			e2.printStackTrace();
-		}
-		
-		try {
-			ICA.altaDepartamento("Montevideo", "Capital de Uruguay", "mvdeo.com.uy");
-			ICA.altaDepartamento("Canelones", "Me gustan los canelones", "canelones.com.uy");
-			ICA.altaDepartamento("Artigas", "El procer", "artigas.com.uy");
-		} catch (YaExisteException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			ICA.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null);
-			ICA.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null);
-			ICA.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null);
-			ICA.altaActividadTuristica("Montevideo", "Actividad 4", "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
-					+ "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
-					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null);
-		} catch (YaExisteException e2) {
-			e2.printStackTrace();
-		}
-		
-		GregorianCalendar fecha = new GregorianCalendar(2022, 8, 30);
-		try {
-			ICA.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1");
-			ICA.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");
-			ICA.altaSalidaTuristica("A Canelones", fecha, "Canelones", 10, new GregorianCalendar(), "Actividad 2");
-			ICA.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(), "Actividad 3");
-		} catch (YaExisteException e1) {
-			e1.printStackTrace();
-		}
     }
 
     /**
@@ -187,6 +149,15 @@ public class Principal {
             }
         });
         menuSistema.add(menuSalir);
+        
+        JMenuItem menuCargarDatos = new JMenuItem("Cargar Datos");
+        menuCargarDatos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                CargarDatosDePrueba cdp = new CargarDatosDePrueba();
+                cdp.cargarDatos(ICU, ICA);
+            }
+        });
+        menuSistema.add(menuCargarDatos);
 
         JMenu menuUsuarios = new JMenu("Usuarios");
         menuBar.add(menuUsuarios);
