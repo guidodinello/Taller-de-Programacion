@@ -79,18 +79,14 @@ public class CtrlActividad implements ICtrlActividad{
 		hA.agregarActividad(resu);
 	}
 	
-	@SuppressWarnings("null")
+	
 	public Set<String> listarNombresSalidasDeActividad(String actividad){
-		Set<String> result = null;
-		HandlerSalidas hS = HandlerSalidas.getInstance();
-		SalidaTuristica[] salidas=  hS.getSalidas();
-		for (int i = 0; i < salidas.length; i++) {
-			String nombreSal =salidas[i].getActividad().getNombre();
-			if(nombreSal == actividad) {
-				result.add(nombreSal);
-			}
-		}
-		return result;
+
+		HandlerActividades hA= HandlerActividades.getInstance();
+	
+		ActividadTuristica act = hA.obtenerActividadTuristica(actividad);
+		return act.getSalidasNombre();
+	
 		
 	}
 	

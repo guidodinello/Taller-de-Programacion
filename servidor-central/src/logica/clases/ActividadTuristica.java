@@ -52,6 +52,10 @@ public class ActividadTuristica{
 	public GregorianCalendar getFechaAlta() {
 		return fechaAlta;
 	}
+	public Set<String>getSalidasNombre() {
+		return this.salidas.keySet();
+	}
+	
 	
 	public void agregarSalida(SalidaTuristica s) {
 		salidas.put(s.getNombre(), s);

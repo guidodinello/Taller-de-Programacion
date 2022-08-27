@@ -49,7 +49,7 @@ public class Principal {
     //frame consultas
     private ConsultaDeUsuario consultaDeUsuario;
     private ConsultaDeActividadTuristica consultaActividadInternalFrame;
-    //private ConsultaSalida consultaSalida;
+    private ConsultaSalida consultaDeSalida;
     
 
     /**
@@ -85,6 +85,10 @@ public class Principal {
         altaSalida = new altaSalida(ICA);
         altaSalida.setVisible(false);
         frmGestionDeTurismoUy.add(altaSalida);
+        
+        consultaDeSalida= new ConsultaSalida(ICA);
+        consultaDeSalida.setVisible(false);
+        frmGestionDeTurismoUy.add(consultaDeSalida);
         
         consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
         consultaDeUsuario.setVisible(false);
@@ -204,6 +208,14 @@ public class Principal {
         	};
         });
         menuUsuarios.add(menuItemConsultaUsuario);
+        JMenuItem menuItemConsultaSalida= new JMenuItem("Consultar Salida");
+        menuItemConsultaSalida.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		consultaDeSalida.cargarDatos();
+        		consultaDeSalida.setVisible(true);
+        	};
+        });
+        menuUsuarios.add(menuItemConsultaSalida);
         
         JMenu menuActividades = new JMenu("Actividades");
         menuBar.add(menuActividades);

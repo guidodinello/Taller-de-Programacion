@@ -2,12 +2,14 @@ package presentacion;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -15,326 +17,366 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-//import excepciones.IncompleteException;
-//import excepciones.YaExisteException;
+import excepciones.IncompleteException;
+import excepciones.YaExisteException;
+import logica.clases.DatePicker;
 import logica.interfaces.ICtrlActividad;
 import java.awt.Color;
-import javax.swing.JButton;
+import java.awt.Dimension;
 
-@SuppressWarnings("serial")
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JSpinner;
+import javax.swing.JRadioButton;
+import javax.swing.UIManager;
+import javax.swing.JTable;
+import javax.swing.JPanel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+
+import java.awt.BorderLayout;
+
 public class altaSalida extends JInternalFrame {
 
 	//Controlador
 	private ICtrlActividad ctrlSalida;
 	//Basicos
 	private JLabel LabelSelcDepartamento;
+	private GregorianCalendar fechaNac;
 
-
-	//Si el usuario es proveedor
-
-	private JComboBox<String> ComboBoxSelDepartamento;
-	
+	private JButton calendarBtn;
+	private GregorianCalendar fechhha;
+private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
+	private JTextField date;
+	private JInternalFrame f;
+	private JTextField selectedDate;
+	private  JComboBox<String> comboBox,comboBox_1 ;
+	private JTextField textFieldNombre;
+	private JTextField textField_4;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	
-	@SuppressWarnings("rawtypes")
+	private JSpinner spinner, spinner_1, spinner_2;
+	private boolean settear;
+
+
 	public altaSalida(ICtrlActividad iCS) {
-		getContentPane().setForeground(Color.PINK);
-		//meto la interfaz
 		this.ctrlSalida = iCS;
 		
-		//Cuestiones de configuracion del frame
+	  
+	
 		setResizable(true);
-		setIconifiable(true);
-		setMaximizable(true);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setClosable(true);
-		setTitle("Alta de Salida turistica");
-				
-		setBounds(30, 30, 453, 431);
-				
-		GridBagLayout gbl = new GridBagLayout();
-		gbl.columnWidths = new int[] { 0, 100, 120, 120, 0 };
-		gbl.rowHeights = new int[] { 0, 0, 30, 30, 30, 30, 30, 30, 0, 30, 30, 30, 30, 30, 30, 0, 0 };
-		gbl.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
-		gbl.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		getContentPane().setLayout(gbl);
-		
-		/////////////////SELECCIONAR DEPARTAMENTO////////////////////////////////////
-		LabelSelcDepartamento = new JLabel("Seleccionar departamento: ");
-		LabelSelcDepartamento.setHorizontalAlignment(SwingConstants.RIGHT);
-		GridBagConstraints gbc_labelSelcDepartamento = new GridBagConstraints();
-		gbc_labelSelcDepartamento.anchor = GridBagConstraints.EAST;
-		gbc_labelSelcDepartamento.fill = GridBagConstraints.VERTICAL;
-		gbc_labelSelcDepartamento.insets = new Insets(0, 0, 5, 5);
-		gbc_labelSelcDepartamento.gridx = 1;
-		gbc_labelSelcDepartamento.gridy = 2;
-		getContentPane().add(LabelSelcDepartamento, gbc_labelSelcDepartamento);
-		
-		//@SuppressWarnings("unchecked")
-		ComboBoxSelDepartamento = new JComboBox<String>();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.gridwidth = 2;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 2;
-		getContentPane().add(ComboBoxSelDepartamento, gbc_comboBox);
-			
-		
-		/////////////////SELECCIONAR ACTIVIDAD//////////////////////////////////////////////
-		
-		JLabel lblNewLabel = new JLabel("Seleccionar Actividad:");
-		lblNewLabel.setEnabled(false);
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 3;
-		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setEnabled(false);
-		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-		gbc_comboBox_1.gridwidth = 2;
-		gbc_comboBox_1.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_1.gridx = 2;
-		gbc_comboBox_1.gridy = 3;
-		getContentPane().add(comboBox_1, gbc_comboBox_1);
-		
-		//////////////////////////////////Habilito actividad ///////////////////////////////////////////////////////
-		
-		
-		ComboBoxSelDepartamento.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
-        		lblNewLabel.setEnabled(true);
-        		comboBox_1.setEnabled(true);
-        		comboBox_1.removeAllItems();
-        		//cargo la lista de actividades 
-        		 Set<String> actividades = iCS.listarActividadesDepartamento(ComboBoxSelDepartamento.getSelectedItem().toString() );
-        	        actividades.forEach((act)->{
-        	        	comboBox_1.addItem(act);
-        	        });
-        			
-        		
-        	}
-        	
-		});
-		
-		
-	/////////////////////////////ALTA DE LA SALIDA////////////////////////////////////////////////////////////////////////////////////
-		
-		JLabel lblNewLabel_1 = new JLabel("DATOS DEL ALTA DE LA SALIDA:");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.gridwidth = 2;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 5;
-		getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Nombre:");
-		lblNewLabel_2.setEnabled(false);
-		lblNewLabel_2.setToolTipText("El nombre debe ser unico en el sistema");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 6;
-		getContentPane().add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
-		textField = new JTextField();
-		textField.setEnabled(false);
-		
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 6;
-		getContentPane().add(textField, gbc_textField);
-		textField.setColumns(10);
-		
-		JLabel lblNewLabel_4 = new JLabel("Fecha:");
-		lblNewLabel_4.setEnabled(false);
-		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 1;
-		gbc_lblNewLabel_4.gridy = 7;
-		getContentPane().add(lblNewLabel_4, gbc_lblNewLabel_4);
-		
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 7;
-		getContentPane().add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
-		
-		JLabel lblNewLabel_3 = new JLabel("Hora:");
-		lblNewLabel_3.setEnabled(false);
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 8;
-		getContentPane().add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
-		textField_3 = new JTextField();
-		textField_3.setEnabled(false);
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 8;
-		getContentPane().add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
-		
-		JLabel lblNewLabel_5 = new JLabel("Lugar:");
-		lblNewLabel_5.setEnabled(false);
-		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_5.gridx = 1;
-		gbc_lblNewLabel_5.gridy = 9;
-		getContentPane().add(lblNewLabel_5, gbc_lblNewLabel_5);
-		
-		textField_4 = new JTextField();
-		textField_4.setEnabled(false);
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.gridx = 2;
-		gbc_textField_4.gridy = 9;
-		getContentPane().add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
-		
-		JLabel lblNewLabel_6 = new JLabel("Maxima cant. de Turistas");
-		lblNewLabel_6.setEnabled(false);
-		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
-		gbc_lblNewLabel_6.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_6.gridx = 1;
-		gbc_lblNewLabel_6.gridy = 10;
-		getContentPane().add(lblNewLabel_6, gbc_lblNewLabel_6);
-		
-		textField_5 = new JTextField();
-		textField_5.setEnabled(false);
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.gridx = 2;
-		gbc_textField_5.gridy = 10;
-		getContentPane().add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
-		
-		JLabel lblNewLabel_7 = new JLabel("Facha de alta:");
-		lblNewLabel_7.setEnabled(false);
-		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
-		gbc_lblNewLabel_7.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_7.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_7.gridx = 1;
-		gbc_lblNewLabel_7.gridy = 11;
-		getContentPane().add(lblNewLabel_7, gbc_lblNewLabel_7);
-		
-		textField_6 = new JTextField();
-		textField_6.setEnabled(false);
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.gridx = 2;
-		gbc_textField_6.gridy = 11;
-		getContentPane().add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Confirmar ");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 2;
-		gbc_btnNewButton.gridy = 13;
-		
-		getContentPane().add(btnNewButton, gbc_btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Cancelar");
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton_1.gridx = 3;
-		gbc_btnNewButton_1.gridy = 13;
-		getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
-		 btnNewButton.addActionListener(new ActionListener(){
-			 public void actionPerformed(ActionEvent e) {
-				 
-				//  altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas,GregorianCalendar fechaAlta, String actividad)throws YaExisteException;
-		String nombreSal = textField.getSelectedText();
-		String sAct = comboBox_1.getSelectedItem().toString();
-		String fechaA= textField_6.getSelectedText();
-		DateFormat df = new SimpleDateFormat("dd MM yyyy");
-		//if(fechaA != null)
-		//Date date = df.parse(fechaA);
-		Calendar cal = new GregorianCalendar();
-		String fechaS= textField_1.getSelectedText();
-		DateFormat df2 = new SimpleDateFormat("dd MM yyyy");
-		//if(fechaS != null)
-		//Date date2 = df2.parse(fechaS);
-		Calendar cal2 = new GregorianCalendar();
-		String lugarS= textField_4.getSelectedText();
-		String cantT =textField_5.getSelectedText();
+        setIconifiable(true);
+        setMaximizable(true);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setClosable(true);
+        setTitle("Registrar Salida");
+        setBounds(10, 40, 452, 341);
 	
-
-					if(nombreSal != null && sAct != null && fechaA != null && fechaS != null && lugarS != null && cantT != null) {
-						
-						int CantT = Integer.parseInt(cantT);
-						//TODO GREGORIAN CALENDAR INSTEAD OR CALENDAR
-						//GregorianCalendar fechaSalida = new GregorianCalendar(anio, mes, dia, hora);//anio mes dia y hora vienen del cliente ingresnado
-						 //iCS.altaSalidaTuristica(nombreSal,fechaSalida, lugarS,CantT, new GregorianCalendar(), sAct);	
-					}
-					
-					//else throw new IncompleteException("rellene todos los campos");
-				
-			 }
-		 });
-		
-		
-		comboBox_1.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
-        		lblNewLabel_2.setEnabled(true);
-        		lblNewLabel_3.setEnabled(true);
-        		lblNewLabel_4.setEnabled(true);
-        		lblNewLabel_5.setEnabled(true);
-        		lblNewLabel_6.setEnabled(true);
-        		lblNewLabel_7.setEnabled(true);
-        		textField.setEnabled(true);
-        		textField_1.setEnabled(true);
-        		textField_3.setEnabled(true);
-        		textField_4.setEnabled(true);
-        		textField_5.setEnabled(true);
-        		textField_6.setEnabled(true);
-        		
-        			
-        		
-        	}
-        	
-		});
 	
+   
        
-	}
+       JLabel lblNewLabel = new JLabel("Seleccionar departamento:");
+       
+       comboBox = new JComboBox<String>();
+       
+       rdbtnNewRadioButton = new JRadioButton("Confirmar Depto.");
+       
+       JLabel lblNewLabel_1 = new JLabel("Seleccionar Actividad");
+       lblNewLabel_1.setEnabled(false);
+       
+      comboBox_1 = new JComboBox<String>();
+       comboBox_1.setEnabled(false);
+       
+      rdbtnNewRadioButton_1 = new JRadioButton("Confirmar Act.");
+       rdbtnNewRadioButton_1.setEnabled(false);
+       
+       JLabel lblNewLabel_2 = new JLabel("INFORMACION DE LA SALIDA:");
+       lblNewLabel_2.setEnabled(false);
+       
+       JLabel lblNewLabel_3 = new JLabel("Nombre:");
+       lblNewLabel_3.setEnabled(false);
+       
+       JLabel lblNewLabel_4 = new JLabel("Fecha:");
+       lblNewLabel_4.setEnabled(false);
+       
+       JLabel lblNewLabel_5 = new JLabel("Hora:");
+       lblNewLabel_5.setEnabled(false);
+       
+       JButton btnNewButton = new JButton("Confirmar");
+       btnNewButton.setEnabled(false);
+       
+       JButton btnNewButton_1 = new JButton("Cancelar");
+       
+       JLabel lblNewLabel_6 = new JLabel("Lugar:");
+       lblNewLabel_6.setEnabled(false);
+       
+       JLabel lblNewLabel_7 = new JLabel("Cantidad Max. Turistas");
+       lblNewLabel_7.setEnabled(false);
+       
+       textField_1 = new JTextField();
+       textField_1.setEnabled(false);
+       textField_1.setColumns(10);
+
+       SpinnerModel sm = new SpinnerNumberModel(0, 0, 23, 1); //default value,lower bound,upper bound,increment by
+       spinner = new JSpinner(sm);
+       spinner.setEnabled(false);
+       
+      
+       
+   	calendarBtn = new JButton("...");
+	String icon_path = "src/icons/calendario.png";
+	ImageIcon icon = new ImageIcon(icon_path,"calendario");
+	Image img = icon.getImage();
+	Image scaled_img = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;  
+	calendarBtn.setIcon(new ImageIcon(scaled_img));
+	calendarBtn.setEnabled(false);
 	
-	public void cargarDatos() {
-        Set<String> departamentos = ctrlSalida.listarDepartamentos();
-        departamentos.forEach((d)->{
-        	ComboBoxSelDepartamento.addItem(d);
-        });
-	}
+       textField_2 = new JTextField();
+       textField_2.setEnabled(false);
+       textField_2.setColumns(10);
+       
+       SpinnerModel sm2 = new SpinnerNumberModel(0,0,59,1);
+       spinner_1 = new JSpinner(sm2);
+       spinner_1.setEnabled(false);
+       
+       textField_3 = new JTextField();
+       textField_3.setEnabled(false);
+       textField_3.setColumns(10);
+       
+       JLabel lblNewLabel_8 = new JLabel(":");
+       SpinnerModel sm3 = new SpinnerNumberModel(1, 1, 500, 1); //default value,lower bound,upper bound,increment by
+       spinner_2 = new JSpinner(sm3);
+       
+       GroupLayout groupLayout = new GroupLayout(getContentPane());
+       groupLayout.setHorizontalGroup(
+       	groupLayout.createParallelGroup(Alignment.LEADING)
+       		.addGroup(groupLayout.createSequentialGroup()
+       			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+       				.addGroup(groupLayout.createSequentialGroup()
+       					.addGap(15)
+       					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+       						.addGroup(groupLayout.createSequentialGroup()
+       							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+       								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)
+       								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE))
+       							.addGap(18)
+       							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+       								.addComponent(comboBox_1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+       								.addComponent(comboBox, 0, 150, Short.MAX_VALUE)
+       								.addComponent(btnNewButton_1))
+       							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+       							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+       								.addComponent(rdbtnNewRadioButton)
+       								.addComponent(rdbtnNewRadioButton_1)))
+       						.addGroup(groupLayout.createSequentialGroup()
+       							.addComponent(lblNewLabel_3)
+       							.addPreferredGap(ComponentPlacement.RELATED)
+       							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+       						.addGroup(groupLayout.createSequentialGroup()
+       							.addComponent(lblNewLabel_4)
+       							.addPreferredGap(ComponentPlacement.RELATED)
+       							.addComponent(calendarBtn, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+       							.addPreferredGap(ComponentPlacement.RELATED)
+       							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+       							.addGap(18)
+       							.addComponent(lblNewLabel_5)
+       							.addPreferredGap(ComponentPlacement.RELATED)
+       							.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+       							.addPreferredGap(ComponentPlacement.RELATED)
+       							.addComponent(lblNewLabel_8)
+       							.addPreferredGap(ComponentPlacement.RELATED)
+       							.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+       						.addComponent(lblNewLabel_2)
+       						.addGroup(groupLayout.createSequentialGroup()
+       							.addComponent(lblNewLabel_6)
+       							.addGap(18)
+       							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+       						.addGroup(groupLayout.createSequentialGroup()
+       							.addComponent(lblNewLabel_7)
+       							.addPreferredGap(ComponentPlacement.RELATED)
+       							.addComponent(spinner_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+       				.addGroup(groupLayout.createSequentialGroup()
+       					.addGap(65)
+       					.addComponent(btnNewButton)))
+       			.addContainerGap())
+       );
+       groupLayout.setVerticalGroup(
+       	groupLayout.createParallelGroup(Alignment.LEADING)
+       		.addGroup(groupLayout.createSequentialGroup()
+       			.addGap(23)
+       			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+       				.addComponent(lblNewLabel)
+       				.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+       				.addComponent(rdbtnNewRadioButton))
+       			.addPreferredGap(ComponentPlacement.RELATED)
+       			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+       				.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+       				.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+       				.addComponent(rdbtnNewRadioButton_1))
+       			.addGap(18)
+       			.addComponent(lblNewLabel_2)
+       			.addPreferredGap(ComponentPlacement.UNRELATED)
+       			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+       				.addComponent(lblNewLabel_3)
+       				.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+       			.addPreferredGap(ComponentPlacement.UNRELATED)
+       			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+       				.addComponent(lblNewLabel_4)
+       				.addComponent(calendarBtn)
+       				.addComponent(lblNewLabel_5)
+       				.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+       				.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+       				.addComponent(lblNewLabel_8)
+       				.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+       			.addPreferredGap(ComponentPlacement.UNRELATED)
+       			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+       				.addComponent(lblNewLabel_6)
+       				.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+       			.addPreferredGap(ComponentPlacement.UNRELATED)
+       			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+       				.addComponent(lblNewLabel_7)
+       				.addComponent(spinner_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+       			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+       			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+       				.addComponent(btnNewButton)
+       				.addComponent(btnNewButton_1)))
+       );
+       getContentPane().setLayout(groupLayout);
+       pack();
+       /////////////////////////////////////////////////////ACTION LISTENERSS/////////////////////////////////////
+     
+       rdbtnNewRadioButton.addActionListener(new ActionListener(){
+    	    public void actionPerformed(ActionEvent e) {
+    	    if(comboBox.getSelectedIndex() == -1) return;
+    	    comboBox_1.setEnabled(true);
+    	    rdbtnNewRadioButton_1.setEnabled(true);
+    	    lblNewLabel_1.setEnabled(true);
+    	    Set<String> actividades = iCS.listarActividadesDepartamento(comboBox.getSelectedItem().toString() );
+    	        actividades.forEach((act)->{
+    	        	settear = false;
+    	           comboBox_1.addItem(act);
+    	           settear =true;
+    	        });
+    	    }
+    });
+       
+       rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+    	  
+    	   public void actionPerformed(ActionEvent e) {
+    		   if(comboBox.getSelectedIndex() == -1 || comboBox_1.getSelectedIndex() == -1|| !settear) return;
+    		   lblNewLabel_2.setEnabled(true);
+    		   lblNewLabel_3.setEnabled(true);
+    		   lblNewLabel_4.setEnabled(true);
+    		   lblNewLabel_5.setEnabled(true);
+    		   lblNewLabel_6.setEnabled(true);
+    		   lblNewLabel_7.setEnabled(true);
+    		   
+    		   calendarBtn.setEnabled(true);
+    		   spinner.setEnabled(true);
+    		   spinner_1.setEnabled(true);
+    		   textField_1.setEnabled(true);
+    		   textField_2.setEnabled(true);
+    		  // textField_3.setEnabled(true);
+    		  spinner_2.setEnabled(true);
+    		   btnNewButton.setEnabled(true);
+    	   }
+       });
+       
+       
+       calendarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				f.setVisible(true);
+				date.setText(new DatePicker(f).setPickedDate());
+				// string en formato dd-mm-yyyy
+				if (!date.getText().isEmpty()) {
+					textField_3.setText(date.getText());
+					int dia = Integer.parseInt(date.getText().substring(0,2));
+					int mes = Integer.parseInt(date.getText().substring(4,5));
+					int anio = Integer.parseInt(date.getText().substring(6,10));
+					fechaNac = new GregorianCalendar(anio, mes, dia);
+				}
+			}
+		});
+		
+		date = new JTextField(20);
+		f = new JInternalFrame();
+		f.setVisible(false);
+		
+		 btnNewButton.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent ae) { 
+				 if(!settear) return;
+				 if(!checkForm()) {
+					 JOptionPane.showMessageDialog(getContentPane(), "Complete los campos", " Registro invalido", JOptionPane.INFORMATION_MESSAGE);
+				return;
+				 }
+				 try {
+					iCS.altaSalidaTuristica(textField_1.getText(), fechaNac, textField_2.getText(), (int)spinner_2.getValue(), new GregorianCalendar(),comboBox_1.getSelectedItem().toString() );
+					 JOptionPane.showMessageDialog(getContentPane(), "La salida se ha creado con exito", "Registrar Salida", JOptionPane.INFORMATION_MESSAGE);
+
+				 } catch (YaExisteException e) {
+					// TODO Auto-generated catch block
+					 JOptionPane.showMessageDialog(getContentPane(), "La salida ya existe", "Salida no Registrada", JOptionPane.INFORMATION_MESSAGE);
+				}
+				 limpiarForm();
+				 setVisible(false);
+		 }
+			 
+		 });
+		 btnNewButton_1.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent ae) {
+			
+				 limpiarForm();
+				 setVisible(false);
+			 }
+			
+			 
+		 });
+    	  
+
+    	
 }
+	   
+public void cargarDatos() {
+	
+	  Set<String> departamentos = ctrlSalida.listarDepartamentos();
+      departamentos.forEach((d)->{
+          comboBox.addItem(d);
+      });
+     
+}
+public boolean checkForm() {
+
+	if(textField_1.getText().isBlank() || textField_2.getText().isBlank() || textField_3.getText().isBlank()  ) return false;
+	return true;
+}
+		
+public void limpiarForm() {
+	
+	textField_1.setText("");
+	textField_2.setText("");
+	textField_3.setText("");
+	spinner.setValue(0);
+	spinner_1.setValue(0);
+	spinner_2.setValue(1);
+	 comboBox.removeAllItems();
+	 comboBox_1.removeAllItems();
+	 rdbtnNewRadioButton.setSelected(false);
+	 rdbtnNewRadioButton_1.setSelected(false);	 
+	 rdbtnNewRadioButton_1.setEnabled(false);
+
+	
+}
+}
+
+
 	
 	
