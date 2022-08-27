@@ -53,6 +53,8 @@ public class Principal {
     private ConsultaSalida consultaDeSalida;
     private CrearPaquete crearPaquete;
     
+    private boolean yaSeCargaronLosDatosDePrueba;
+    
 
     /**
      * Launch the application.
@@ -79,6 +81,8 @@ public class Principal {
         Fabrica fabrica = Fabrica.getInstance();
         ICU = fabrica.getICtrlUsuario();
         ICA = fabrica.getICtrlActividad();
+        
+        yaSeCargaronLosDatosDePrueba = false;
         
         frmGestionDeTurismoUy.getContentPane().setLayout(null);
         
@@ -160,8 +164,11 @@ public class Principal {
         JMenuItem menuCargarDatos = new JMenuItem("Cargar Datos");
         menuCargarDatos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                CargarDatosDePrueba cdp = new CargarDatosDePrueba();
-                cdp.cargarDatos(ICU, ICA);
+                if(!yaSeCargaronLosDatosDePrueba) {
+                	CargarDatosDePrueba cdp = new CargarDatosDePrueba();
+                    cdp.cargarDatos(ICU, ICA);
+                    yaSeCargaronLosDatosDePrueba = true;
+                }
             }
         });
         menuSistema.add(menuCargarDatos);
