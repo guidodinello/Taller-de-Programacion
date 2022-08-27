@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 
 import datatypes.tipoUsuario;
+import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import excepciones.InscriptionFailException;
 import logica.interfaces.ICtrlActividad;

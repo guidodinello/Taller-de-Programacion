@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -30,6 +31,8 @@ import javax.swing.JRadioButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JList;
+import javax.swing.JPanel;
 
 public class ConsultaSalida extends JInternalFrame {
 
@@ -52,7 +55,6 @@ public class ConsultaSalida extends JInternalFrame {
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private JTextField textField_10;
-	private JTextField textField_11;
 	private JComboBox<String> 	ComboBoxSelDepartamento;
 	private boolean settear;
 	
@@ -143,14 +145,12 @@ public class ConsultaSalida extends JInternalFrame {
 				
 				JLabel lblNewLabel_8 = new JLabel("Turistas Inscriptos:");
 				
-				textField_11 = new JTextField();
-				textField_11.setEnabled(false);
-				textField_11.setColumns(10);
-				
 				JButton btnNewButton = new JButton("Confirmar");
 				btnNewButton.setEnabled(false);
 				
 				JButton btnNewButton_1 = new JButton("Cancelar");
+				
+				JPanel panelAux = new JPanel();
 				GroupLayout groupLayout = new GroupLayout(getContentPane());
 				groupLayout.setHorizontalGroup(
 					groupLayout.createParallelGroup(Alignment.LEADING)
@@ -206,8 +206,8 @@ public class ConsultaSalida extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(83)
 							.addComponent(lblNewLabel_8)
-							.addGap(5)
-							.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(panelAux, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(198)
 							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
@@ -242,7 +242,7 @@ public class ConsultaSalida extends JInternalFrame {
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGap(2)
 									.addComponent(rdbtnNewRadioButton_1)))
-							.addGap(39)
+							.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
 							.addComponent(lblNewLabel_2)
 							.addGap(10)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -274,13 +274,14 @@ public class ConsultaSalida extends JInternalFrame {
 									.addGap(5)
 									.addComponent(lblNewLabel_7))
 								.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(5)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(5)
+									.addGap(10)
 									.addComponent(lblNewLabel_8))
-								.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(29)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(15)
+									.addComponent(panelAux, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(btnNewButton_1)
 								.addComponent(btnNewButton))
@@ -338,8 +339,17 @@ public class ConsultaSalida extends JInternalFrame {
 					textField_7.setText(String.valueOf(res.getcantidadMaximaDeTuristas()));
 					textField_9.setText(String.valueOf(res.getfechaAlta()));
 					textField_10.setText(String.valueOf(res.getfechaSalida()));
-					textField_11.setText(String.valueOf(res.getTuristasInscriptos()));
-					
+					Set<String > aux = res.getTuristasInscriptos();
+					  String[] arrayOfString = new String[aux.size()];
+					  
+				        // Copy elements from set to string array
+				        // using advanced for loop
+				        int index = 0;
+				        for (String str : aux)
+				            arrayOfString[index++] = str;
+				        
+					JList auxx = (JList) Arrays.asList(arrayOfString);
+					panelAux.add(auxx);
 					
 				}
 				});
