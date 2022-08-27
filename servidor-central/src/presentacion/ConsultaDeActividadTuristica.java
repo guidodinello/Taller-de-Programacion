@@ -46,15 +46,19 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		private boolean borrandoFormularios = false;
 		
 		public ConsultaDeActividadTuristica(ICtrlActividad ica) {
+			setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+			
 			setMaximizable(true);
 			controlAct = ica;
-			
+			setBounds(30, 30, 654, 501);
 			setResizable(true);
 	        setIconifiable(true);
-	        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+	        
 	        setClosable(true);
 	        setTitle("Consulta de Actividad Turistica");
+
 	        setBounds(100, 100, 445, 441);
+
 	        
 	        lblDepartamentos = new JLabel("Departamento:");
 	        lblDepartamentos.setHorizontalAlignment(SwingConstants.RIGHT);

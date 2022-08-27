@@ -27,8 +27,6 @@ import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
 //import excepciones.InvalidArgument;
 import excepciones.YaExisteException;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 //import javax.swing.BoxLayout;
 //import java.awt.BorderLayout;
@@ -112,7 +110,7 @@ public class Principal {
         consultaActividadInternalFrame.setSize(443, 450);
         consultaActividadInternalFrame.setLocation(110, 11);
         consultaActividadInternalFrame.setVisible(false);
-        frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
+        frmGestionDeTurismoUy.add(consultaActividadInternalFrame);
         
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
