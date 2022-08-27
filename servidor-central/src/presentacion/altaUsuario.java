@@ -97,7 +97,7 @@ public class altaUsuario extends JInternalFrame {
 		f = new JInternalFrame();
 		f.setVisible(false);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{593, 0};
+		gridBagLayout.columnWidths = new int[]{598, 0};
 		gridBagLayout.rowHeights = new int[]{283, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
