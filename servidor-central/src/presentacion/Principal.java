@@ -95,7 +95,7 @@ public class Principal {
         consultaDeSalida.setVisible(false);
         frmGestionDeTurismoUy.add(consultaDeSalida);
         
-        consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
+        consultaDeUsuario = new ConsultaDeUsuario(ICU, consultaActividadInternalFrame);
         consultaDeUsuario.setBounds(30, 30, 654, 431);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);

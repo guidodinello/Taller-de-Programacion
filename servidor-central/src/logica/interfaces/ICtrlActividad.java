@@ -20,7 +20,7 @@ public interface ICtrlActividad{
 	public abstract Set<String> listarDepartamentos();
 	public abstract Set<String> listarActividadesDepartamento(String depto);
 	public abstract Set<String> listarActividadesDepartamentoMenosPaquete(String depto, String nombrePaquete);
-	public abstract void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta);
+	public abstract void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) throws YaExisteException;
 	public abstract Set<String> listarPaquetes();
 	public abstract void ingresarActividadAPaquete(String nombrePaquete,String nombreActividad);
 	public abstract DTPaquete getInfoPaquete(String paqueteSeleccionado);
