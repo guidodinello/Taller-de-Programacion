@@ -40,6 +40,10 @@ import javax.swing.JTextPane;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.Rectangle;
 
 
 @SuppressWarnings("serial")
@@ -93,23 +97,23 @@ public class altaUsuario extends JInternalFrame {
 		setTitle("Registrar un Usuario");
 		setBounds(10, 40, 452, 341);
 
-		// ================ NICKNAME ================//
+		
 		lblIngreseNickName = new JLabel("Nickname:");
 		lblIngreseNickName.setHorizontalAlignment(SwingConstants.CENTER);
 
 		textFieldNickName = new JTextField();
 		//textFieldNombre.setColumns(10);
-		// ================ NICKNAME ================//
+		
 
-		// ================ NOMBRE ================//
+		
 		lblIngreseNombre = new JLabel("Nombre:");
 		lblIngreseNombre.setHorizontalAlignment(SwingConstants.CENTER);
 
 		textFieldNombre = new JTextField();
 		textFieldNombre.setColumns(10);
-		// ================ NOMBRE ================//
+		
 
-		// ================ APELLIDO ================//
+		
 		lblIngreseApellido = new JLabel("Apellido:");
 		lblIngreseApellido.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -121,31 +125,31 @@ public class altaUsuario extends JInternalFrame {
 		String tur = "Turista";
 
 		BtnGroup = new ButtonGroup();
-		// ================ RADIO BUTTONS TURISTA_PROVEEDOR ================//
+		
 
-		// ================ ACEPTAR-CANCELAR BUTTONS ================//
+		
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cmdRegistroUsuarioActionPerformed(arg0);
 			}
 		});
-		// ================ APELLIDO ================//
+		
 
-		// ================ EMAIL ================//
+		
 		lblIngreseEmail = new JLabel("Email:");
 		lblIngreseEmail.setHorizontalAlignment(SwingConstants.CENTER);
 
 		textFieldApellido = new JTextField();
 		textFieldApellido.setToolTipText("Ingrese su apellido");
 		textFieldApellido.setColumns(10);
-		// ================ EMAIL ================//
+		
 
-		// ================ FECHA DE NACIMIENTO ================//
+		
 
-		// ================ FECHA DE NACIMIENTO ================//
+		
 
-		// ================ RADIO BUTTONS TURISTA_PROVEEDOR ================//
+		
 		lblIngreseTipoUsuario = new JLabel("Tipo Usuario:");
 		lblIngreseTipoUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		provBtn = new JRadioButton(prov);
@@ -155,10 +159,6 @@ public class altaUsuario extends JInternalFrame {
 					proveedor_panel.setVisible(true);
 					turista_panel.setVisible(false);
 					blank_panel.setVisible(false);
-				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
-					proveedor_panel.setVisible(false);
-					turista_panel.setVisible(true);
-					blank_panel.setVisible(false);
 				}
 			}
 		});
@@ -167,6 +167,15 @@ public class altaUsuario extends JInternalFrame {
 		BtnGroup.add(provBtn);
 
 		turBtn = new JRadioButton(tur);
+		turBtn.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					proveedor_panel.setVisible(false);
+					turista_panel.setVisible(true);
+					blank_panel.setVisible(false);
+				}
+			}
+		});
 		turBtn.setMnemonic(KeyEvent.VK_T);
 		turBtn.setActionCommand(tur);
 		BtnGroup.add(turBtn);
@@ -190,43 +199,48 @@ public class altaUsuario extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(6)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-									.addGap(15)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(29)
-											.addComponent(provBtn)
-											.addGap(46)
-											.addComponent(turBtn))))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblIngreseEmail, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-											.addComponent(lblIngreseApellido, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(lblIngreseNickName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-										.addComponent(lblIngreseNombre, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(textFieldApellido)
-										.addComponent(textFieldEmail)
-										.addComponent(textFieldNombre)
-										.addComponent(textFieldNickName, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-									.addGap(51)))
-							.addGap(95))
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblIngreseEmail, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblIngreseApellido, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addComponent(lblIngreseNombre, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+											.addComponent(lblIngreseNickName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)))
-					.addContainerGap())
+							.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(46)
+									.addComponent(provBtn))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(34)
+									.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(89)
+									.addComponent(turBtn))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(77)
+									.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(textFieldNombre, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+								.addComponent(textFieldApellido, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+								.addComponent(textFieldNickName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+								.addComponent(textFieldEmail, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+							.addGap(49)
+							.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGap(57))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 643, GroupLayout.PREFERRED_SIZE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -247,17 +261,17 @@ public class altaUsuario extends JInternalFrame {
 								.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 							.addGap(6)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textFieldApellido, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblIngreseEmail, GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
-							.addGap(13))
+								.addComponent(lblIngreseEmail, GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+								.addComponent(textFieldApellido, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+							.addGap(13)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+								.addComponent(provBtn)
+								.addComponent(turBtn))
+							.addGap(18))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-						.addComponent(provBtn)
-						.addComponent(turBtn))
-					.addGap(18)
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -284,22 +298,26 @@ public class altaUsuario extends JInternalFrame {
 		gl_panel_fechaNac.setHorizontalGroup(
 			gl_panel_fechaNac.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_fechaNac.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(22, Short.MAX_VALUE))
-				.addGroup(gl_panel_fechaNac.createSequentialGroup()
-					.addGroup(gl_panel_fechaNac.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblFechaDeNacimiento, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addComponent(selectedDate, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(gl_panel_fechaNac.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_panel_fechaNac.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblFechaDeNacimiento, 0, 0, Short.MAX_VALUE))
+						.addGroup(gl_panel_fechaNac.createSequentialGroup()
+							.addGap(26)
+							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_fechaNac.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(selectedDate, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		gl_panel_fechaNac.setVerticalGroup(
 			gl_panel_fechaNac.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_fechaNac.createSequentialGroup()
+					.addGap(6)
 					.addComponent(lblFechaDeNacimiento, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addGap(12)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
 					.addComponent(selectedDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(6))
 		);
@@ -321,79 +339,102 @@ public class altaUsuario extends JInternalFrame {
 		
 		date = new JTextField(20);
 		f = new JInternalFrame();
-		f.pack();
 		f.setVisible(false);
 		
-		panel.setLayout(new CardLayout(0, 0));
+		panel.setLayout(new CardLayout());
 		
 		blank_panel = new JPanel();
 		blank_panel.setBackground(new Color(200,200,200));
-		blank_panel.setSize(1, 1);
 		blank_panel.setVisible(true);
-		panel.add(blank_panel, "name_32883367802349");
 
 		turista_panel = new JPanel();
-		panel.add(turista_panel, "name_32116916439377");
-
-		JLabel lblNacionalidad_1 = new JLabel("Nacionalidad");
-		lblNacionalidad_1.setHorizontalAlignment(SwingConstants.CENTER);
-
-		textFieldNacionalidad = new JTextField();
-		textFieldNacionalidad.setColumns(10);
-		GroupLayout gl_turista_panel = new GroupLayout(turista_panel);
-		gl_turista_panel.setHorizontalGroup(gl_turista_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_turista_panel.createSequentialGroup().addGap(1).addComponent(lblNacionalidad_1)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(textFieldNacionalidad, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(66, Short.MAX_VALUE)));
-		gl_turista_panel.setVerticalGroup(gl_turista_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_turista_panel.createSequentialGroup().addGap(31)
-						.addGroup(gl_turista_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textFieldNacionalidad, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNacionalidad_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE))
-						.addGap(43)));
-		turista_panel.setLayout(gl_turista_panel);
+				
+						JLabel lblNacionalidad_1 = new JLabel("Nacionalidad");
+						lblNacionalidad_1.setBounds(1, 38, 92, 15);
+						lblNacionalidad_1.setHorizontalAlignment(SwingConstants.CENTER);
+				
+						textFieldNacionalidad = new JTextField();
+						textFieldNacionalidad.setBounds(105, 31, 247, 30);
+						textFieldNacionalidad.setColumns(10);
 
 		proveedor_panel = new JPanel();
-		panel.add(proveedor_panel, "name_32131201451827");
-
-		JLabel lblSitioWeb_1 = new JLabel("Sitio Web");
-		lblSitioWeb_1.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel lblDescripcion = new JLabel("Descripcion");
-
-		textFieldSitioWeb = new JTextField();
-		textFieldSitioWeb.setColumns(10);
-
-		textFieldDescripcion = new JTextPane();
-		GroupLayout gl_proveedor_panel = new GroupLayout(proveedor_panel);
-		gl_proveedor_panel.setHorizontalGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_proveedor_panel.createSequentialGroup().addGap(21)
-						.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_proveedor_panel.createSequentialGroup().addComponent(lblDescripcion)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(textFieldDescripcion))
-								.addGroup(gl_proveedor_panel.createSequentialGroup().addComponent(lblSitioWeb_1)
-										.addGap(18).addComponent(textFieldSitioWeb, GroupLayout.PREFERRED_SIZE, 253,
-												GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap(58, Short.MAX_VALUE)));
-		gl_proveedor_panel.setVerticalGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_proveedor_panel.createSequentialGroup().addGap(23)
-						.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblSitioWeb_1)
-								.addComponent(textFieldSitioWeb, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING).addComponent(lblDescripcion)
-								.addComponent(textFieldDescripcion, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-						.addContainerGap()));
-		proveedor_panel.setLayout(gl_proveedor_panel);
+				
+						JLabel lblSitioWeb_1 = new JLabel("Sitio Web");
+						lblSitioWeb_1.setHorizontalAlignment(SwingConstants.CENTER);
+		
+				textFieldSitioWeb = new JTextField();
+				textFieldSitioWeb.setColumns(10);
+		
+				JLabel lblDescripcion = new JLabel("Descripcion");
+		
+				textFieldDescripcion = new JTextPane();
 
 		groupLayout.setAutoCreateGaps(true);
 		groupLayout.setAutoCreateContainerGaps(true);
 		getContentPane().setLayout(groupLayout);
+
+		Rectangle rp = proveedor_panel.getBounds();
+		Rectangle tp = turista_panel.getBounds();
+		blank_panel.setBounds((int)Math.max(rp.getX(), tp.getX()),
+								(int)Math.max(rp.getY(), tp.getY()),
+								(int)Math.max(rp.getWidth(), tp.getWidth()),
+								(int)Math.max(rp.getHeight(), tp.getHeight()));
+		panel.add(blank_panel, "blank_panel");
+		panel.add(proveedor_panel, "proveedor_panel");
+		GroupLayout gl_proveedor_panel = new GroupLayout(proveedor_panel);
+		gl_proveedor_panel.setHorizontalGroup(
+			gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_proveedor_panel.createSequentialGroup()
+					.addGap(30)
+					.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_proveedor_panel.createSequentialGroup()
+							.addComponent(lblSitioWeb_1)
+							.addGap(32))
+						.addGroup(gl_proveedor_panel.createSequentialGroup()
+							.addComponent(lblDescripcion)
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(textFieldDescripcion)
+						.addComponent(textFieldSitioWeb, GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
+					.addGap(218))
+		);
+		gl_proveedor_panel.setVerticalGroup(
+			gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_proveedor_panel.createSequentialGroup()
+					.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSitioWeb_1)
+						.addComponent(textFieldSitioWeb, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(5)
+					.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(textFieldDescripcion, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDescripcion))
+					.addContainerGap())
+		);
+		proveedor_panel.setLayout(gl_proveedor_panel);
+		panel.add(turista_panel, "turista_panel");
+		GroupLayout gl_turista_panel = new GroupLayout(turista_panel);
+		gl_turista_panel.setHorizontalGroup(
+			gl_turista_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_turista_panel.createSequentialGroup()
+					.addGap(22)
+					.addComponent(lblNacionalidad_1)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textFieldNacionalidad, GroupLayout.PREFERRED_SIZE, 302, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(215, Short.MAX_VALUE))
+		);
+		gl_turista_panel.setVerticalGroup(
+			gl_turista_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_turista_panel.createSequentialGroup()
+					.addGap(22)
+					.addGroup(gl_turista_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textFieldNacionalidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNacionalidad_1))
+					.addContainerGap(27, Short.MAX_VALUE))
+		);
+		turista_panel.setLayout(gl_turista_panel);
 		
 		pack();
-		// ================ ACEPTAR-CANCELAR BUTTONS ================//
+		
 	}
 
 	protected void cmdRegistroUsuarioActionPerformed(ActionEvent arg0) {
@@ -493,7 +534,6 @@ public class altaUsuario extends JInternalFrame {
 		blank_panel.setVisible(true);
 		turista_panel.setVisible(false);
 		proveedor_panel.setVisible(false);
-		
 		
 	}
 }
