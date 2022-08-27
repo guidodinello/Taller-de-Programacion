@@ -233,7 +233,7 @@ public class Principal {
         JMenuItem menuItemAltaActividadTuristica = new JMenuItem("Alta de Actividad Turistica");
         menuItemAltaActividadTuristica.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		crearActividadTuristica.cargarDepartamentos();
+        		crearActividadTuristica.cargarDatos();
         		crearActividadTuristica.setVisible(true);
         	};
         });
