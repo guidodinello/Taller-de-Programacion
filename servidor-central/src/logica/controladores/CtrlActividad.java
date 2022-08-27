@@ -85,10 +85,6 @@ public class CtrlActividad implements ICtrlActividad{
 		
 	}
 	
-	public Set<String> listarActividadesDepartamentoMenosPaquete(String depto, String nombrePaquete){
-		return null;
-	}
-	
 	//Salidas
 	public Set<DTSalida> listarInfoSalidasVigentes(String actividad,GregorianCalendar fechaSistema){
 		HandlerActividades hA = HandlerActividades.getInstance();
@@ -162,5 +158,20 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		PaqueteTuristico pt = hP.obtenerPaqueteTuristico(paqueteSeleccionado);
 		return pt.getDTPaquete();
+	}
+	
+	public Set<String> listarActividadesDepartamentoMenosPaquete(String depto, String nombrePaquete){
+		Set<String> resu = new HashSet<String>();
+		Set<String> depAct = this.listarActividadesDepartamento(depto);
+		
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
+		PaqueteTuristico pt = hP.obtenerPaqueteTuristico(nombrePaquete);
+		
+		depAct.forEach(e ->{
+			if(!pt.tieneActividad(e)) {
+				resu.add(e);
+			}
+		});
+		return resu;
 	}
 }
