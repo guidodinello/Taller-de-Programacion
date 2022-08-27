@@ -256,10 +256,7 @@ public class CargarDatosDePrueba {
 					ICA.ingresarActividadAPaquete(values[1], valuesAct[1]);  
 				  }
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

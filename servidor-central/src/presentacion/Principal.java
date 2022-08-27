@@ -94,19 +94,14 @@ public class Principal {
         
         consultaDeSalida= new ConsultaSalida(ICA);
         consultaDeSalida.setVisible(false);
-        frmGestionDeTurismoUy.add(consultaDeSalida);
+        frmGestionDeTurismoUy.getContentPane().add(consultaDeSalida);
         
 
-        consultaDeUsuario = new ConsultaDeUsuario(ICU, consultaActividadInternalFrame);
-        consultaDeUsuario.setBounds(30, 30, 654, 431);
+
+        consultaDeUsuario = new ConsultaDeUsuario(ICU);
+        consultaDeUsuario.setBounds(30, 30, 654, 528);
         consultaDeUsuario.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);
-
-       // consultaDeUsuario = new ConsultaDeUsuario(ICU/*, consultaActividad, consultaSalida*/);
-        //consultaDeUsuario.setBounds(30, 30, 654, 431);
-        //consultaDeUsuario.setVisible(false);
-        //frmGestionDeTurismoUy.getContentPane().add(consultaDeUsuario);
-
         
         creInscrInternalFrame = new InscripcionSalidaTuristica(ICA,ICU);
         creInscrInternalFrame.setBounds(30, 30, 345, 364);
@@ -122,7 +117,7 @@ public class Principal {
         consultaActividadInternalFrame.setSize(443, 450);
         consultaActividadInternalFrame.setLocation(110, 11);
         consultaActividadInternalFrame.setVisible(false);
-        frmGestionDeTurismoUy.add(consultaActividadInternalFrame);
+        frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
         
         crearPaquete = new CrearPaquete(ICA);
         crearPaquete.setVisible(false);
@@ -238,7 +233,7 @@ public class Principal {
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		consultaDeUsuario.cargarDatosVentana();
+        		consultaDeUsuario.cargarDatosVentana(consultaActividadInternalFrame);
         		consultaDeUsuario.setVisible(true);
         	};
         });

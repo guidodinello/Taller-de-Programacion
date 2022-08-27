@@ -336,4 +336,15 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			textFieldDuracion.setText("");
 			textFieldCosto.setText("");
 		}
+		
+		public void datosQueVienenDesdeConsultaDeUsuario(String nombreDepartamento ,String nombreActividad) {
+			cargarDepartamentos();
+			cargarActividades(nombreDepartamento);
+			comboBoxDepartamentos.setSelectedItem(nombreDepartamento);
+			comboBoxActividades.setSelectedItem(nombreActividad);
+			comboBoxDepartamentos.setEnabled(false);
+			comboBoxActividades.setEnabled(false);
+			setVisible(true);
+		}
+		
 }
