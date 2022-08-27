@@ -23,7 +23,6 @@ import javax.swing.SwingConstants;
 
 import excepciones.IncompleteException;
 import excepciones.YaExisteException;
-import logica.clases.DatePicker;
 import logica.interfaces.ICtrlActividad;
 import java.awt.Color;
 import java.awt.Dimension;

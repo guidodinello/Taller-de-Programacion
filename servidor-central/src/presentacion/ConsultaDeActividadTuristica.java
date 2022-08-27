@@ -30,6 +30,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		private JComboBox<String> comboBoxDepartamentos;
 		private JComboBox<String> comboBoxActividades;
 		private JComboBox<String> comboBoxSalidas;
+		private JComboBox<String> comboBoxPaquetes;
 		private JLabel lblDepartamentos;
 		private JLabel lblActividades;
 		private JLabel lblSalidas;
@@ -37,11 +38,14 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		private JLabel lblDescr;
 		private JLabel lblDuracion;
 		private JLabel lblCosto;
+		private JLabel lblPaquetes;
 		private JTextField textFieldNombre;
 		private JTextArea textAreaDescr;
 		private JTextField textFieldDuracion;
 		private JTextField textFieldCosto;
 		private JButton btnCerrar;
+		private JButton btnConsultarPaquete;
+		private JButton btnConsultarSalida;
 		
 		private boolean borrandoFormularios = false;
 		
@@ -50,7 +54,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			
 			setMaximizable(true);
 			controlAct = ica;
-			setBounds(30, 30, 654, 501);
+			setBounds(30, 30, 485, 462);
 			setResizable(true);
 	        setIconifiable(true);
 	        
@@ -74,6 +78,8 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        lblDuracion.setHorizontalAlignment(SwingConstants.RIGHT);
 	        lblCosto = new JLabel("Costo:");
 	        lblCosto.setHorizontalAlignment(SwingConstants.RIGHT);
+	        lblPaquetes = new JLabel("Paquetes:");
+	        lblPaquetes.setHorizontalAlignment(SwingConstants.RIGHT);
 	        
 	        comboBoxDepartamentos = new JComboBox<String>();
 	        comboBoxDepartamentos.setEnabled(true);
@@ -83,7 +89,8 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        comboBoxActividades.setToolTipText("Seleccione una actividad");
 	        comboBoxSalidas = new JComboBox<String>();
 	        comboBoxSalidas.setEnabled(false);
-	        comboBoxSalidas.setToolTipText("Seleccone una salida para consulta");
+	        comboBoxPaquetes = new JComboBox<String>();
+	        comboBoxPaquetes.setEnabled(false);
 	        
 	        textFieldNombre = new JTextField();
 	        textFieldNombre.setEnabled(false);
@@ -113,6 +120,10 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	            }
 	        });
 	        
+	        btnConsultarPaquete = new JButton("Consultar");
+	        
+	        btnConsultarSalida = new JButton("Consultar");
+	        
 	        comboBoxDepartamentos.addActionListener(new ActionListener( ) {
 	        	public void actionPerformed(ActionEvent arg0) {
 	        		if(!borrandoFormularios) {
@@ -120,8 +131,10 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        			comboBoxActividades.setEnabled(true);
 	        			borrandoFormularios = true;
 	        			comboBoxSalidas.removeAllItems();
+	        			comboBoxPaquetes.removeAllItems();
 	        			borrandoFormularios = false;
 	        			comboBoxSalidas.setEnabled(false);
+	        			comboBoxPaquetes.setEnabled(false);
 	        			limpiarInformacion();
 	        		}
 	        	}
@@ -132,6 +145,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        		if(!borrandoFormularios) {
 	        			cargarInformacionActividad(comboBoxActividades.getSelectedItem().toString());
 	        			comboBoxSalidas.setEnabled(true);
+	        			comboBoxPaquetes.setEnabled(true);
 	        		}
 	        	}
 	        });
@@ -144,32 +158,39 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        			.addContainerGap()
 	        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 	        				.addGroup(groupLayout.createSequentialGroup()
+	        					.addGap(6)
 	        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 	        						.addComponent(lblDepartamentos)
-	        						.addComponent(lblNombre)
 	        						.addComponent(lblActividades)
+	        						.addComponent(lblNombre)
 	        						.addComponent(lblCosto))
 	        					.addGap(18)
-	        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+	        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 	        						.addGroup(groupLayout.createSequentialGroup()
 	        							.addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
 	        							.addPreferredGap(ComponentPlacement.RELATED)
 	        							.addComponent(lblDuracion, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 	        							.addPreferredGap(ComponentPlacement.RELATED)
 	        							.addComponent(textFieldDuracion, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+	        						.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
 	        						.addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
-	        						.addComponent(comboBoxDepartamentos, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
-	        						.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)))
+	        						.addComponent(comboBoxDepartamentos, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)))
 	        				.addGroup(groupLayout.createSequentialGroup()
-	        					.addGap(14)
+	        					.addGap(22)
 	        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 	        						.addComponent(lblDescr)
-	        						.addComponent(lblSalidas))
-	        					.addGap(18)
+	        						.addComponent(lblSalidas)
+	        						.addComponent(lblPaquetes))
+	        					.addPreferredGap(ComponentPlacement.UNRELATED)
+	        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+	        						.addComponent(comboBoxSalidas, 0, 247, Short.MAX_VALUE)
+	        						.addComponent(textAreaDescr, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+	        						.addComponent(comboBoxPaquetes, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-	        						.addComponent(textAreaDescr, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-	        						.addComponent(comboBoxSalidas, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))))
-	        			.addContainerGap(82, Short.MAX_VALUE))
+	        						.addComponent(btnConsultarPaquete)
+	        						.addComponent(btnConsultarSalida))))
+	        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	        		.addGroup(groupLayout.createSequentialGroup()
 	        			.addContainerGap(321, Short.MAX_VALUE)
 	        			.addComponent(btnCerrar, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
@@ -182,29 +203,35 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 	        				.addComponent(lblDepartamentos)
 	        				.addComponent(comboBoxDepartamentos, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-	        			.addGap(33)
+	        			.addPreferredGap(ComponentPlacement.UNRELATED)
 	        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(lblActividades)
-	        				.addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-	        			.addGap(33)
-	        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(lblNombre))
+	        				.addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(lblActividades))
 	        			.addGap(18)
 	        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(lblNombre)
+	        				.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        			.addGap(17)
+	        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 	        				.addComponent(lblCosto)
+	        				.addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	        				.addComponent(lblDuracion)
 	        				.addComponent(textFieldDuracion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 	        			.addGap(18)
 	        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 	        				.addComponent(lblDescr)
-	        				.addComponent(textAreaDescr, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE))
-	        			.addPreferredGap(ComponentPlacement.RELATED)
+	        				.addComponent(textAreaDescr, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+	        			.addPreferredGap(ComponentPlacement.UNRELATED)
 	        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 	        				.addComponent(comboBoxSalidas, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(lblSalidas))
-	        			.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+	        				.addComponent(lblSalidas)
+	        				.addComponent(btnConsultarSalida))
+	        			.addGap(16)
+	        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+	        				.addComponent(comboBoxPaquetes, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(btnConsultarPaquete)
+	        				.addComponent(lblPaquetes))
+	        			.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
 	        			.addComponent(btnCerrar)
 	        			.addContainerGap())
 	        );
@@ -214,6 +241,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		public void cargarInformacionActividad(String actividad){
 			DTActividad datosActividad = controlAct.getInfoActividad(actividad);
 			cargarSalidas(datosActividad.getSalidas());
+			cargarPaquetes(datosActividad.getPaquetes());
 			textFieldNombre.setText(datosActividad.getNombre());
 			textAreaDescr.setText(datosActividad.getDescripcion());
 			textFieldDuracion.setText(String.valueOf(datosActividad.getDuracionHs()));
@@ -236,6 +264,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			comboBoxDepartamentos.setModel(model);
 			comboBoxActividades.setEnabled(false);
 			comboBoxSalidas.setEnabled(false);
+			comboBoxPaquetes.setEnabled(false);
 			borrandoFormularios = true;
 			comboBoxDepartamentos.setSelectedItem(null);
 			borrandoFormularios = false;
@@ -275,12 +304,29 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			borrandoFormularios = false;
 		}
 		
+		public void cargarPaquetes(Set<String> setPaquetes) {
+			borrandoFormularios = false;
+			comboBoxPaquetes.removeAllItems();
+			borrandoFormularios = true;
+			DefaultComboBoxModel<String> model;
+			
+			String[] arrPaquetes = new String[setPaquetes.size()];
+			setPaquetes.toArray(arrPaquetes);
+			
+			model = new DefaultComboBoxModel<String>(arrPaquetes);
+			comboBoxPaquetes.setModel(model);
+			borrandoFormularios = true;
+			comboBoxPaquetes.setSelectedItem(null);
+			borrandoFormularios = false;
+		}
+		
 		public void limpiarFormulario() {
 			borrandoFormularios = true;
 			limpiarInformacion();
 			comboBoxDepartamentos.removeAllItems();
 	        comboBoxActividades.removeAllItems();
 	        comboBoxSalidas.removeAllItems();
+	        comboBoxPaquetes.removeAllItems();
 	        borrandoFormularios = false;
 		}
 		
@@ -290,4 +336,15 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			textFieldDuracion.setText("");
 			textFieldCosto.setText("");
 		}
+		
+		public void datosQueVienenDesdeConsultaDeUsuario(String nombreDepartamento ,String nombreActividad) {
+			cargarDepartamentos();
+			cargarActividades(nombreDepartamento);
+			comboBoxDepartamentos.setSelectedItem(nombreDepartamento);
+			comboBoxActividades.setSelectedItem(nombreActividad);
+			comboBoxDepartamentos.setEnabled(false);
+			comboBoxActividades.setEnabled(false);
+			setVisible(true);
+		}
+		
 }

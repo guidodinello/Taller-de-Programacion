@@ -1,4 +1,4 @@
-package logica.clases;
+package presentacion;
 
 import java.awt.*;
 import java.awt.event.*;

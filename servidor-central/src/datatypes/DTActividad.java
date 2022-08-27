@@ -1,6 +1,7 @@
 package datatypes;
 
 import java.util.Set;
+import java.util.HashSet;
 
 public class DTActividad {
 	
@@ -20,6 +21,7 @@ public class DTActividad {
 		this.duracionHs = dura;
 		this.costo = costo;
 		this.salidas = salidas;
+		paquetes = new HashSet<String>();
 	}
 
 	public String getNombre() {
@@ -49,6 +51,10 @@ public class DTActividad {
 
 	public Set<String> getPaquetes() {
 		return paquetes;
+	}
+	
+	public void setPaquetes(Set<String> paquetes) {
+		this.paquetes = paquetes;
 	}
 
 	public String toString() {

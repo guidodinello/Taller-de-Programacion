@@ -53,8 +53,14 @@ public class CtrlActividad implements ICtrlActividad{
 	public DTActividad getInfoActividad(String actividad) {
 		//Falta la parte de Paquetes
 		HandlerActividades hA = HandlerActividades.getInstance();
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		ActividadTuristica at = hA.obtenerActividadTuristica(actividad);
 		DTActividad res = at.getDTActividad();
+		
+		Set<PaqueteTuristico> p = hP.getPaquetes();
+		Set<String> paquetes = new HashSet<String>();
+		p.forEach((e) -> {if(e.tieneActividad(actividad)){paquetes.add(e.getNombre());}});
+		res.setPaquetes(paquetes);
 		return res;
 	}
 	

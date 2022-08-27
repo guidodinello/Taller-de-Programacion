@@ -7,7 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.ClassOrderer.OrderAnnotation;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Set;
 
@@ -23,6 +27,7 @@ import datatypes.DTUsuario;
 import datatypes.DTActividad;
 import datatypes.DTSalida;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlUsuario {
 	private static ICtrlUsuario controladorUsuario;
 	private static ICtrlActividad controladorActividad;
@@ -84,6 +89,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(1)
 	void testAltaProveedorOK() {
 		String nick = "prov_nick";
 		String em = "prov_email";
@@ -111,6 +117,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(2)
 	void testAltaTuristaOK() {
 		String nick = "tur_nick";
 		String em = "tur_email";
@@ -131,6 +138,7 @@ public class ctrlUsuario {
 			assertEquals(du.getFechaNac(), fecha);
 			assertEquals(du.getNombre(), nom);
 			assertEquals(du.getApellido(), ap);
+			assertEquals(controladorUsuario.listarTuristas().contains(nick), true);
 		} catch (YaExisteException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -138,6 +146,7 @@ public class ctrlUsuario {
 	}
 
 	@Test
+	@Order(3)
 	void testProveedorRepetido() {
 		String nick = "prov_nick";
 		String em = "prov_email";
@@ -153,6 +162,7 @@ public class ctrlUsuario {
 	}
 
 	@Test
+	@Order(4)
 	void testIngresarInscripcionOK() { 
 		String nick = "agus";
 		String salida = "A Centro";
@@ -167,6 +177,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(5)
 	void testInscripcionRepetida() {
 		String nick = "eze";
 		String salida = "Al Cerro";
@@ -176,6 +187,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(6)
 	void testInscripcionPlazosExcedidos() {
 		String nick = "agus";
 		String salida = "Al Cerro";
@@ -185,6 +197,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(7)
 	void testListarTuristas() {
 		Set<String> turistas = controladorUsuario.listarTuristas();
 		
@@ -194,6 +207,8 @@ public class ctrlUsuario {
 		assertEquals(turistas.contains("manuT2"), true);
 		assertEquals(turistas.contains("cris"), false);
 		assertEquals(turistas.contains("manuP1"), false);
+		assertEquals(controladorUsuario.listarTuristas().contains("tur_nick"), true);
+		assertEquals(controladorUsuario.listarProveedores().contains("prov_nick"), true);
 	}
 	
 	@Test
@@ -237,7 +252,9 @@ public class ctrlUsuario {
 		
 		esperado.put("A Canelones", controladorActividad.getInfoCompletaSalida("A Canelones"));
 		esperado.put("Al Cerro", controladorActividad.getInfoCompletaSalida("Al Cerro"));
-
+	
+	
+	
 		for (DTSalida dts : obtenido) {
 			DTSalida sal = esperado.get(dts.getNombre());
 			assertEquals(dts.getfechaSalida(), sal.getfechaSalida());
