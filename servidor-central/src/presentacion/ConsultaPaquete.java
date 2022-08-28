@@ -204,6 +204,8 @@ public class ConsultaPaquete extends JInternalFrame {
 	
 	public void cargarDatosIniciales() {
 		cargandoDatos = true;
+		limpiarFormulario();
+		comboBoxPaquetes.setEnabled(true);
 		comboBoxPaquetes.removeAllItems();
 		comboBoxPaquetes.addItem("Elija un Paquete");
 		String[] paquetes = ctrlAct.listarPaquetes().toArray(String[]::new);
