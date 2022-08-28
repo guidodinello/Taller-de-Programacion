@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.SwingConstants;
+
+import datatypes.DTPaquete;
+
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextPane;
@@ -17,16 +20,17 @@ import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 @SuppressWarnings("serial")
 public class ConsultaPaquete extends JInternalFrame {
 	
 	private ICtrlActividad ctrlAct;
+	private boolean cargandoDatos;
 	
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textFieldPeriodoValidez;
+	private JTextField textFieldCosto;
+	private JTextField textFieldFechaAlta;
 	
 	private JComboBox<String> comboBoxPaquetes;
 	private JLabel lblPaquetesRegistrados;
@@ -37,9 +41,9 @@ public class ConsultaPaquete extends JInternalFrame {
 	private JLabel lblFechaDeAlta;
 	private JLabel lblActividadesTuristicasIncluidas;
 	
-	private JTextPane textPane; 
-	private JPanel panel;
+	private JTextPane textPaneDescripcion; 
 	private JButton btnSalir;
+	private JPanel panel;
 	
 	public ConsultaPaquete(ICtrlActividad ica) {
 		ctrlAct = ica;
@@ -63,81 +67,75 @@ public class ConsultaPaquete extends JInternalFrame {
 		lblFechaDeAlta = new JLabel("Fecha de Alta");
 		lblActividadesTuristicasIncluidas = new JLabel("Actividades Turisticas incluidas en el Paquete");
 		
-		textPane = new JTextPane();
-		textPane.setEditable(false);
+		textPaneDescripcion = new JTextPane();
+		textPaneDescripcion.setEditable(false);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setColumns(10);
+		textFieldPeriodoValidez = new JTextField();
+		textFieldPeriodoValidez.setEditable(false);
+		textFieldPeriodoValidez.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
+		textFieldCosto = new JTextField();
+		textFieldCosto.setEditable(false);
+		textFieldCosto.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
-		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setColumns(10);
-		
-		panel = new JPanel();
+		textFieldFechaAlta = new JTextField();
+		textFieldFechaAlta.setEditable(false);
+		textFieldFechaAlta.setColumns(10);
 		
 		btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
+		
+		panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addContainerGap(12, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnSalir))
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-								.addGap(36)
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(lblPaquetesRegistrados)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(comboBoxPaquetes, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
-									.addComponent(lblDatosDelPaquete)))
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-								.addGap(24)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(lblDescripcion)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(lblCosto)
-												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addComponent(textField_2, 0, 0, Short.MAX_VALUE))
-											.addComponent(lblPeriodoDeValidez, Alignment.LEADING))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(textField, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-												.addGap(18)
-												.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(lblFechaDeAlta)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
-										.addGap(2))
-									.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblPaquetesRegistrados)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(comboBoxPaquetes, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
+										.addComponent(lblDatosDelPaquete)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(24)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblActividadesTuristicasIncluidas)
-										.addPreferredGap(ComponentPlacement.RELATED))))))
-					.addGap(45))
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(lblCosto)
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+													.addComponent(lblFechaDeAlta))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addGap(12)
+														.addComponent(lblPeriodoDeValidez)
+														.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+														.addComponent(textFieldPeriodoValidez, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
+													.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(textFieldFechaAlta, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED, 141, Short.MAX_VALUE))))
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(lblDescripcion)
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addComponent(textPaneDescripcion, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE))
+											.addComponent(panel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)))))
+							.addGap(179))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(btnSalir)
+							.addGap(213))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -154,25 +152,26 @@ public class ConsultaPaquete extends JInternalFrame {
 							.addComponent(lblDescripcion))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(18)
-							.addComponent(textPane, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(textPaneDescripcion, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPeriodoDeValidez)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCosto)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblFechaDeAlta)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldFechaAlta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblFechaDeAlta))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblCosto)
+							.addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblPeriodoDeValidez)
+							.addComponent(textFieldPeriodoValidez, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(18)
 					.addComponent(lblActividadesTuristicasIncluidas)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnSalir)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(21, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
 		
@@ -180,16 +179,20 @@ public class ConsultaPaquete extends JInternalFrame {
 		
 		Listeners();
 		
-		
+		setBounds(12, 6, 489, 429);
+		//pack();
 		setVisible(true);
 	}
 	
 	public void cargarDatosIniciales() {
+		cargandoDatos = true;
 		comboBoxPaquetes.removeAllItems();
+		comboBoxPaquetes.addItem("Elija un Paquete");
 		String[] paquetes = ctrlAct.listarPaquetes().toArray(String[]::new);
 		for (String p : paquetes) {
 			comboBoxPaquetes.addItem(p);
 		}
+		cargandoDatos = false;
 	}
 	
 	private void Listeners() {
@@ -206,13 +209,43 @@ public class ConsultaPaquete extends JInternalFrame {
 			}
 		});
 		
+		comboBoxPaquetes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String p = (String) comboBoxPaquetes.getSelectedItem();
+				boolean dummyItem = p == "Elija un Paquete";
+				if (!cargandoDatos && !dummyItem) {
+					DTPaquete dtp = ctrlAct.getInfoPaquete(p);
+					textPaneDescripcion.setText(dtp.getDescripcion());
+					textFieldPeriodoValidez.setText(String.valueOf(dtp.getPeriodoValidez()) + " dias");
+					textFieldCosto.setText("$ " + String.valueOf(dtp.getCosto()));
+					textFieldFechaAlta.setText(fechaStringFormato(dtp.getFechaAlta(), true));
+					
+					for (String act : dtp.getActividades()) {
+						
+					}
+				}
+			}
+		});
 		
+	}
+	
+	private String fechaStringFormato(GregorianCalendar g, boolean conHora) {
+		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
+		String mes = String.valueOf(g.get(g.MONTH));
+		String anio = String.valueOf(g.get(g.YEAR));
+		String hora = String.valueOf(g.get(g.HOUR));
+		String resultado = (conHora)?
+				 dia + "/" + mes + "/" + anio + " " + hora + "hs": dia + "/" + mes + "/" + anio;
+		return resultado;
 	}
 
 	private boolean checkFormulario() {
 		return true;
 	}
 	private void limpiarFormulario() {
-		
+		textPaneDescripcion.setText("");
+		textFieldPeriodoValidez.setText("");
+		textFieldCosto.setText("");
+		textFieldFechaAlta.setText("");
 	}
 }
