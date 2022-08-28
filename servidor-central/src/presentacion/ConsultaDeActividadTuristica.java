@@ -384,4 +384,8 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			consultaPaquete = ventanaConsultaPaquete;
 		}
 		
+		public void datosQueVienenDesdeConsultaPaquete(String act) {
+			
+		}
+		
 }

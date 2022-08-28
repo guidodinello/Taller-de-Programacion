@@ -254,6 +254,7 @@ public class ConsultaPaquete extends JInternalFrame {
 						act_btn.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								// llamar a consulta actividad con la actividad como parametro
+								consultaActividad.datosQueVienenDesdeConsultaPaquete(act);
 							}
 						});
 					}
