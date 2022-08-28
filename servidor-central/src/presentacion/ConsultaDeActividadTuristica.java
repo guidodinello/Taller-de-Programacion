@@ -50,6 +50,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		private JButton btnConsultarPaquete;
 		private JButton btnConsultarSalida;
 		private ConsultaPaquete consultaPaquete; 
+		private ConsultaSalida consultaSalida;
 		
 		private boolean borrandoFormularios = false;
 		
@@ -369,6 +370,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 				JOptionPane.showMessageDialog(this,
 						"No hay salida para mostrar", "Consulta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
 			}
+			consultaSalida.datosQueVienenDesdeConsultaActividad(comboBoxDepartamentos.getSelectedItem().toString(),comboBoxActividades.getSelectedItem().toString(), comboBoxSalidas.getSelectedItem().toString());
 		}
 		
 		public void datosQueVienenDesdeConsultaDeUsuario(String nombreDepartamento ,String nombreActividad) {
@@ -379,8 +381,9 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			comboBoxActividades.setEnabled(false);
 			setVisible(true);
 		}
-
-		public void cargarVentanaConsultaPaquete(ConsultaPaquete ventanaConsultaPaquete) {
+		
+		public void cargarVentanasConsulta(ConsultaSalida ventanaConsultaSalida, ConsultaPaquete ventanaConsultaPaquete) {
+			consultaSalida = ventanaConsultaSalida;
 			consultaPaquete = ventanaConsultaPaquete;
 		}
 		

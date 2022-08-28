@@ -380,5 +380,9 @@ public class ConsultaSalida extends JInternalFrame {
 				 dia + "/" + mes + "/" + anio + " " + hora + "hs": dia + "/" + mes + "/" + anio;
 		return resultado;
 	}
+	
+	public void datosQueVienenDesdeConsultaActividad(String departamento, String actividad, String salida){
+		//Consultar la salida con los datos ingresados
+	}
 }
 		
