@@ -37,6 +37,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class ConsultaSalida<E> extends JInternalFrame {
 
 	//Controlador
@@ -469,11 +470,7 @@ public class ConsultaSalida<E> extends JInternalFrame {
 		return resultado;
 	}
 	
-	public boolean checkForm() {
 
-		if(textField_1.getText().isBlank() || textField_2.getText().isBlank() || textField_3.getText().isBlank()  ) return false;
-		return true;
-	}
 			
 	public void limpiarForm() {
 		
@@ -482,16 +479,12 @@ public class ConsultaSalida<E> extends JInternalFrame {
 		textField_8.setText("");
 		textField_7.setText("");
 		textField_9.setText("");
-	
-		// comboBox_1.removeAllItems();
-		// comboBoxSal.removeAllItems();
-		 //comboBoxTuristas.removeAllItems();
-		 //ComboBoxSelDepartamento.removeAllItems();
-		 //rdbtnNewRadioButton.setSelected(false);
-		 //rdbtnNewRadioButton_1.setSelected(false);	 
-		 //rdbtnNewRadioButton_1.setEnabled(false);
 
 		
+	}
+	
+	public void datosQueVienenDesdeConsultaActividad(String departamento, String actividad, String salida){
+		//Consultar la salida con los datos ingresados
 	}
 }
 		

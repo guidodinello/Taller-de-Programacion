@@ -286,11 +286,11 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 		}
 		else {
 			try {
-				@SuppressWarnings("unused")
 				Integer number = Integer.valueOf(textFieldCantTuristas.getText());
+				if(number<=1)
+					throw new NumberFormatException();
 			} catch(NumberFormatException ex){
-				ex.printStackTrace();
-				JOptionPane.showMessageDialog(this, "La cantidad de turistas a inscribir debe ser un entero", "Inscripcion a Salida Turistica", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "La cantidad de turistas a inscribir debe ser un entero positivo", "Inscripcion a Salida Turistica", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 		}

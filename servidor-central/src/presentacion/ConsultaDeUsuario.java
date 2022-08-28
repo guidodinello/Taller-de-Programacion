@@ -344,6 +344,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         gbc_TextSitioWeb.insets = new Insets(0, 0, 5, 5);
         gbc_TextSitioWeb.gridx = 2;
         gbc_TextSitioWeb.gridy = 10;
+        gbc_TextSitioWeb.gridwidth = 2;
         getContentPane().add(TextSitioWeb, gbc_TextSitioWeb);
         TextSitioWeb.setVisible(false);
         
@@ -438,7 +439,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private void cargarEventos() {
         btnSelecUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		setDatosEnCampos();	
+        		seleccionarUsuario();	
         	}
         });
         
@@ -505,7 +506,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         });
 	}
 	
-	public void cargarDatosVentana(ConsultaDeActividadTuristica consultaActividad) {
+	public void iniciarVentana(ConsultaDeActividadTuristica consultaActividad) {
 		ventanaConsultaActividad = consultaActividad;
 		limpiarTodosCampos();
 		Set<String> usuarios = ctrlUsuario.listarUsuarios();
@@ -525,10 +526,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
         //Setea inicialmente las cosas de un usuario especifico en invisible
         visibleCamposTurista(false);
         visibleCamposProveedor(false);
+        setVisible(true);
         
 	}
 	
-	public void setDatosEnCampos() {
+	public void seleccionarUsuario() {
 		dtU = ctrlUsuario.getInfoBasicaUsuario(ComboBoxSelUsuario.getSelectedItem().toString());
 		TextNickname.setText(dtU.getNickname());
 		TextEmail.setText(dtU.getEmail());
