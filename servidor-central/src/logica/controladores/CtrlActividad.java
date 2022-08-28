@@ -84,7 +84,6 @@ public class CtrlActividad implements ICtrlActividad{
 	public Set<String> listarNombresSalidasDeActividad(String actividad){
 
 		HandlerActividades hA= HandlerActividades.getInstance();
-	
 		ActividadTuristica act = hA.obtenerActividadTuristica(actividad);
 		return act.getSalidasNombre();
 	
