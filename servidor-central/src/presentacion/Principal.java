@@ -137,8 +137,9 @@ public class Principal {
         consultarPaquete = new ConsultaPaquete(ICA);
         consultarPaquete.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultarPaquete);
-
-        consultaActividadInternalFrame.cargarVentanaConsultaPaquete(consultarPaquete); // Esto tiene que ir al final de todo
+        
+     // Esto tiene que ir al final de todo
+        consultaActividadInternalFrame.cargarVentanasConsulta(consultaDeSalida, consultarPaquete);
     }
 
     /**
