@@ -35,5 +35,17 @@ public class Usuario {
 	public GregorianCalendar getFechaNac() {
 		return fechaNac;
 	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	
+	public void setFechaNac(GregorianCalendar fechaNac) {
+		this.fechaNac = fechaNac;
+	}
 
 }

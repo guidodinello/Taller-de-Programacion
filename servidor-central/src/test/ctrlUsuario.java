@@ -39,7 +39,7 @@ public class ctrlUsuario {
 		controladorUsuario = fabrica.getICtrlUsuario();
 		controladorActividad = fabrica.getICtrlActividad();
 		 try {
-				controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), tipoUsuario.turista, null, "usr_descripcion", "usr_stiioWeb");
+				controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), null, "usr_descripcion", "usr_stiioWeb");
 				controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
 				controladorUsuario.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
 				controladorUsuario.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
@@ -240,7 +240,7 @@ public class ctrlUsuario {
 	
 	@Test
 	public void testactualizarUsuario() { 
-		controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), tipoUsuario.turista, "", "usr_descripcion", "usr_stiioWeb");
+		controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), "", "usr_descripcion", "usr_stiioWeb");
 	}
 	
 	@Test

@@ -71,8 +71,20 @@ public class CtrlUsuario implements ICtrlUsuario{
 		});
 		return res;
 	}
-	public void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) { 
 	
+	public void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, String nacionalidad, String desc, String sitioWeb) { 
+		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+		Usuario usuario = hU.getUsuarioByNickname(nickname);
+		usuario.setNombre(nombre);
+		usuario.setApellido(apellido);
+		usuario.setFechaNac(fechaNac);
+		if(usuario instanceof Turista) {
+			((Turista) usuario).setNacionalidad(nacionalidad);
+		}else {
+			((Proveedor) usuario).setDescripcion(desc);
+			((Proveedor) usuario).setSitioWeb(sitioWeb);
+		}
+		
 	}
 	
 	public Set<DTSalida> listarInfoSalidasTurista(String t){ 
