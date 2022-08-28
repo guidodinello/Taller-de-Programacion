@@ -274,6 +274,7 @@ public class Principal {
         	public void actionPerformed(ActionEvent e) {
         		consultarPaquete.cargarDatosIniciales();
         		consultarPaquete.setVisible(true);
+        		consultarPaquete.cargarConsultaActividadFrame(consultaActividadInternalFrame);
         	}
         });
         menuActividades.add(menuItemConsultarPaquete);

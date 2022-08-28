@@ -21,6 +21,10 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
+import javax.swing.JScrollPane;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 @SuppressWarnings("serial")
 public class ConsultaPaquete extends JInternalFrame {
@@ -43,7 +47,12 @@ public class ConsultaPaquete extends JInternalFrame {
 	
 	private JTextPane textPaneDescripcion; 
 	private JButton btnSalir;
-	private JPanel panel;
+	private JPanel panel_actividades;
+	
+	private ConsultaDeActividadTuristica consultaActividad;
+	private JScrollPane scrollPane;
+	private JLabel lblActividad_1;
+	private JButton btnConsultarInfo_1;
 	
 	public ConsultaPaquete(ICtrlActividad ica) {
 		ctrlAct = ica;
@@ -67,9 +76,6 @@ public class ConsultaPaquete extends JInternalFrame {
 		lblFechaDeAlta = new JLabel("Fecha de Alta");
 		lblActividadesTuristicasIncluidas = new JLabel("Actividades Turisticas incluidas en el Paquete");
 		
-		textPaneDescripcion = new JTextPane();
-		textPaneDescripcion.setEditable(false);
-		
 		textFieldPeriodoValidez = new JTextField();
 		textFieldPeriodoValidez.setEditable(false);
 		textFieldPeriodoValidez.setColumns(10);
@@ -88,13 +94,15 @@ public class ConsultaPaquete extends JInternalFrame {
 			}
 		});
 		
-		panel = new JPanel();
+		panel_actividades = new JPanel();
+		
+		scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap(12, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -109,31 +117,29 @@ public class ConsultaPaquete extends JInternalFrame {
 									.addGap(24)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblActividadesTuristicasIncluidas)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-													.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(lblCosto)
-														.addPreferredGap(ComponentPlacement.UNRELATED)
-														.addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
-													.addComponent(lblFechaDeAlta))
-												.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addGroup(groupLayout.createSequentialGroup()
+													.addComponent(lblCosto)
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+												.addComponent(lblFechaDeAlta)
+												.addComponent(lblDescripcion))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 274, GroupLayout.PREFERRED_SIZE)
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 													.addGroup(groupLayout.createSequentialGroup()
 														.addGap(12)
 														.addComponent(lblPeriodoDeValidez)
-														.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+														.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
 														.addComponent(textFieldPeriodoValidez, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
 													.addGroup(groupLayout.createSequentialGroup()
 														.addComponent(textFieldFechaAlta, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(ComponentPlacement.RELATED, 141, Short.MAX_VALUE))))
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(lblDescripcion)
-												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addComponent(textPaneDescripcion, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE))
-											.addComponent(panel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)))))
-							.addGap(179))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+														.addPreferredGap(ComponentPlacement.RELATED, 152, Short.MAX_VALUE)))))
+										.addComponent(panel_actividades, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 379, GroupLayout.PREFERRED_SIZE))))
+							.addGap(177))
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnSalir)
 							.addGap(213))))
 		);
@@ -144,16 +150,16 @@ public class ConsultaPaquete extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPaquetesRegistrados)
 						.addComponent(comboBoxPaquetes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblDatosDelPaquete)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(21)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblDatosDelPaquete)
 							.addGap(24)
-							.addComponent(lblDescripcion))
+							.addComponent(lblDescripcion)
+							.addGap(18))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addComponent(textPaneDescripcion, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)))
-					.addGap(18)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textFieldFechaAlta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblFechaDeAlta))
@@ -168,11 +174,36 @@ public class ConsultaPaquete extends JInternalFrame {
 					.addGap(18)
 					.addComponent(lblActividadesTuristicasIncluidas)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel_actividades, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnSalir)
-					.addContainerGap(21, Short.MAX_VALUE))
+					.addGap(24))
 		);
+		GridBagLayout gbl_panel_actividades = new GridBagLayout();
+		gbl_panel_actividades.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_panel_actividades.rowHeights = new int[]{0, 0};
+		gbl_panel_actividades.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_actividades.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_actividades.setLayout(gbl_panel_actividades);
+		
+		lblActividad_1 = new JLabel("Actividad 1");
+		lblActividad_1.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblActividad_1 = new GridBagConstraints();
+		gbc_lblActividad_1.anchor = GridBagConstraints.WEST;
+		gbc_lblActividad_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblActividad_1.gridx = 0;
+		gbc_lblActividad_1.gridy = 0;
+		panel_actividades.add(lblActividad_1, gbc_lblActividad_1);
+		
+		btnConsultarInfo_1 = new JButton("Consultar Info");
+		GridBagConstraints gbc_btnConsultarInfo_1 = new GridBagConstraints();
+		gbc_btnConsultarInfo_1.gridx = 2;
+		gbc_btnConsultarInfo_1.gridy = 0;
+		panel_actividades.add(btnConsultarInfo_1, gbc_btnConsultarInfo_1);
+		
+		textPaneDescripcion = new JTextPane();
+		scrollPane.setViewportView(textPaneDescripcion);
+		textPaneDescripcion.setEditable(false);
 		getContentPane().setLayout(groupLayout);
 		
 		
@@ -197,11 +228,6 @@ public class ConsultaPaquete extends JInternalFrame {
 	
 	private void Listeners() {
 		
-//		Whenever you get the selected item.
-//
-//		Object item = comboBox.getSelectedItem();
-//		String value = ((ComboItem)item).getValue();
-
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				limpiarFormulario();
@@ -221,7 +247,10 @@ public class ConsultaPaquete extends JInternalFrame {
 					textFieldFechaAlta.setText(fechaStringFormato(dtp.getFechaAlta(), true));
 					
 					for (String act : dtp.getActividades()) {
-						
+						JButton act_btn = new JButton("consultar");
+						JLabel act_lbl = new JLabel(act);
+						panel_actividades.add(act_lbl);
+						panel_actividades.add(act_btn);
 					}
 				}
 			}
@@ -239,8 +268,8 @@ public class ConsultaPaquete extends JInternalFrame {
 		return resultado;
 	}
 
-	private boolean checkFormulario() {
-		return true;
+	public void cargarConsultaActividadFrame(ConsultaDeActividadTuristica frame) {
+		consultaActividad = frame;
 	}
 	private void limpiarFormulario() {
 		textPaneDescripcion.setText("");
