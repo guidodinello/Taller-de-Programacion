@@ -11,8 +11,10 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import logica.interfaces.ICtrlActividad;
@@ -41,6 +43,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		private JLabel lblPaquetes;
 		private JTextField textFieldNombre;
 		private JTextArea textAreaDescr;
+		private JScrollPane textAreaDescrScrollPane;
 		private JTextField textFieldDuracion;
 		private JTextField textFieldCosto;
 		private JButton btnCerrar;
@@ -89,8 +92,10 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        comboBoxActividades.setToolTipText("Seleccione una actividad");
 	        comboBoxSalidas = new JComboBox<String>();
 	        comboBoxSalidas.setEnabled(false);
+	        comboBoxSalidas.setToolTipText("Seleccione una salida");
 	        comboBoxPaquetes = new JComboBox<String>();
 	        comboBoxPaquetes.setEnabled(false);
+	        comboBoxPaquetes.setToolTipText("Seleccione un paquete");
 	        
 	        textFieldNombre = new JTextField();
 	        textFieldNombre.setEnabled(false);
@@ -109,6 +114,8 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        textFieldCosto.setDisabledTextColor(Color.black);
 	        textFieldCosto.setBackground(Color.LIGHT_GRAY);
 	        
+	        textAreaDescrScrollPane = new JScrollPane(textAreaDescr);
+	        
 	        textAreaDescr.setWrapStyleWord(true);
 	        textAreaDescr.setLineWrap(true);
 	        
@@ -121,8 +128,18 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        });
 	        
 	        btnConsultarPaquete = new JButton("Consultar");
+	        btnConsultarPaquete.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		consultarPaquete();
+	        	}
+	        });
 	        
 	        btnConsultarSalida = new JButton("Consultar");
+	        btnConsultarSalida.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		consultarSalida();
+	        	}
+	        });
 	        
 	        comboBoxDepartamentos.addActionListener(new ActionListener( ) {
 	        	public void actionPerformed(ActionEvent arg0) {
@@ -184,7 +201,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        					.addPreferredGap(ComponentPlacement.UNRELATED)
 	        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 	        						.addComponent(comboBoxSalidas, 0, 247, Short.MAX_VALUE)
-	        						.addComponent(textAreaDescr, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+	        						.addComponent(textAreaDescrScrollPane)
 	        						.addComponent(comboBoxPaquetes, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -220,7 +237,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 	        			.addGap(18)
 	        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 	        				.addComponent(lblDescr)
-	        				.addComponent(textAreaDescr, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+	        				.addComponent(textAreaDescrScrollPane))
 	        			.addPreferredGap(ComponentPlacement.UNRELATED)
 	        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 	        				.addComponent(comboBoxSalidas, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
@@ -262,6 +279,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			
 			model = new DefaultComboBoxModel<String>(arrDeptos);
 			comboBoxDepartamentos.setModel(model);
+			comboBoxDepartamentos.setEnabled(true);
 			comboBoxActividades.setEnabled(false);
 			comboBoxSalidas.setEnabled(false);
 			comboBoxPaquetes.setEnabled(false);
@@ -337,9 +355,22 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 			textFieldCosto.setText("");
 		}
 		
+		private void consultarPaquete() {
+			if(comboBoxPaquetes.getSelectedIndex() == -1) {
+				JOptionPane.showMessageDialog(this,
+						"No hay paquete para mostrar", "Consulta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		private void consultarSalida() {
+			if(comboBoxSalidas.getSelectedIndex() == -1) {
+				JOptionPane.showMessageDialog(this,
+						"No hay salida para mostrar", "Consulta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
 		public void datosQueVienenDesdeConsultaDeUsuario(String nombreDepartamento ,String nombreActividad) {
 			cargarDepartamentos();
-			cargarActividades(nombreDepartamento);
 			comboBoxDepartamentos.setSelectedItem(nombreDepartamento);
 			comboBoxActividades.setSelectedItem(nombreActividad);
 			comboBoxDepartamentos.setEnabled(false);

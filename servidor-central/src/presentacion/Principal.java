@@ -51,6 +51,7 @@ public class Principal {
     private ConsultaDeActividadTuristica consultaActividadInternalFrame;
     private ConsultaSalida consultaDeSalida;
     private CrearPaquete crearPaquete;
+    private AgregarActividadAPaquete agregarActividadPaquete;
     
 
     /**
@@ -114,7 +115,7 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         
         consultaActividadInternalFrame = new ConsultaDeActividadTuristica(ICA);
-        consultaActividadInternalFrame.setSize(443, 450);
+        consultaActividadInternalFrame.setSize(480, 462);
         consultaActividadInternalFrame.setLocation(110, 11);
         consultaActividadInternalFrame.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
@@ -122,6 +123,10 @@ public class Principal {
         crearPaquete = new CrearPaquete(ICA);
         crearPaquete.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearPaquete);
+        
+        agregarActividadPaquete = new AgregarActividadAPaquete(ICA);
+        agregarActividadPaquete.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(agregarActividadPaquete);
         
         try {
 			ICU.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
@@ -292,5 +297,16 @@ public class Principal {
         });
         menuActividades.add(menuItemCrearPaquete);
 
+        JMenuItem menuItemAgregarActividadAPaquete = new JMenuItem("Agregar Actividad a Paquete");
+        menuItemAgregarActividadAPaquete.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//Muestro el InternalFrame para agregar actividad a paquete
+        		agregarActividadPaquete.limpiarFormulario();
+        		agregarActividadPaquete.cargarPaquetes();
+        		agregarActividadPaquete.cargarDepartamentos();
+        		agregarActividadPaquete.setVisible(true);
+        	}
+        });
+        menuActividades.add(menuItemAgregarActividadAPaquete);
     }
 }
