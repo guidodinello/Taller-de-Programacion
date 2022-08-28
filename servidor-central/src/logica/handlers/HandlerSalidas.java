@@ -50,5 +50,10 @@ public class HandlerSalidas{
 		return this.salidasTuristicas.containsKey(nombreSalida);
 	}
 
+	public static void clear() {
+		instancia = null;
+		
+	}
+
 
 }
