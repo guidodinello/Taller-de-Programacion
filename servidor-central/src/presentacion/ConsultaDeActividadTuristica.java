@@ -339,7 +339,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		
 		public void datosQueVienenDesdeConsultaDeUsuario(String nombreDepartamento ,String nombreActividad) {
 			cargarDepartamentos();
-			cargarActividades(nombreDepartamento);
+			//cargarActividades(nombreDepartamento);
 			comboBoxDepartamentos.setSelectedItem(nombreDepartamento);
 			comboBoxActividades.setSelectedItem(nombreActividad);
 			comboBoxDepartamentos.setEnabled(false);

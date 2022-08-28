@@ -438,7 +438,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private void cargarEventos() {
         btnSelecUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		setDatosEnCampos();	
+        		seleccionarUsuario();	
         	}
         });
         
@@ -505,7 +505,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         });
 	}
 	
-	public void cargarDatosVentana(ConsultaDeActividadTuristica consultaActividad) {
+	public void iniciarVentana(ConsultaDeActividadTuristica consultaActividad) {
 		ventanaConsultaActividad = consultaActividad;
 		limpiarTodosCampos();
 		Set<String> usuarios = ctrlUsuario.listarUsuarios();
@@ -525,10 +525,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
         //Setea inicialmente las cosas de un usuario especifico en invisible
         visibleCamposTurista(false);
         visibleCamposProveedor(false);
+        setVisible(true);
         
 	}
 	
-	public void setDatosEnCampos() {
+	public void seleccionarUsuario() {
 		dtU = ctrlUsuario.getInfoBasicaUsuario(ComboBoxSelUsuario.getSelectedItem().toString());
 		TextNickname.setText(dtU.getNickname());
 		TextEmail.setText(dtU.getEmail());

@@ -47,11 +47,13 @@ public class Principal {
     private altaSalida altaSalida;
     private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
+    //modificar usuario
+    private ActualizarUsuario actualizarUsuario;
     //frame consultas
     private ConsultaDeUsuario consultaDeUsuario;
     private ConsultaDeActividadTuristica consultaActividadInternalFrame;
     private ConsultaSalida consultaDeSalida;
-    private CrearPaquete crearPaquete;
+    //private CrearPaquete crearPaquete;
     
     private boolean yaSeCargaronLosDatosDePrueba;
     
@@ -92,6 +94,12 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().setLayout(null);
         frmGestionDeTurismoUy.getContentPane().add(altaUsuario);
         
+        actualizarUsuario = new ActualizarUsuario(ICU);
+        actualizarUsuario.setBounds(10, 40, 562, 440);
+        actualizarUsuario.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().setLayout(null);
+        frmGestionDeTurismoUy.getContentPane().add(actualizarUsuario);
+        
         altaSalida = new altaSalida(ICA);
         altaSalida.setBounds(30, 30, 453, 431);
         altaSalida.setVisible(false);
@@ -124,9 +132,9 @@ public class Principal {
         consultaActividadInternalFrame.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
         
-        crearPaquete = new CrearPaquete(ICA);
+        /*crearPaquete = new CrearPaquete(ICA);
         crearPaquete.setVisible(false);
-        frmGestionDeTurismoUy.getContentPane().add(crearPaquete);
+        frmGestionDeTurismoUy.getContentPane().add(crearPaquete);*/
         
     }
 
@@ -198,11 +206,11 @@ public class Principal {
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		consultaDeUsuario.cargarDatosVentana(consultaActividadInternalFrame);
-        		consultaDeUsuario.setVisible(true);
+        		consultaDeUsuario.iniciarVentana(consultaActividadInternalFrame);
         	};
         });
         menuUsuarios.add(menuItemConsultaUsuario);
+        
         JMenuItem menuItemConsultaSalida= new JMenuItem("Consultar Salida");
         menuItemConsultaSalida.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -211,6 +219,15 @@ public class Principal {
         	};
         });
         menuUsuarios.add(menuItemConsultaSalida);
+        
+        JMenuItem menuItemActualizarUsuario= new JMenuItem("Modificar datos de usuario");
+        menuItemActualizarUsuario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		actualizarUsuario.iniciarVentana();
+        		
+        	};
+        });
+        menuUsuarios.add(menuItemActualizarUsuario);
         
         JMenu menuActividades = new JMenu("Actividades");
         menuBar.add(menuActividades);
@@ -251,8 +268,8 @@ public class Principal {
         menuItemCrearPaquete.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		//Muestro el InternalFrame para crear paquete
-        		crearPaquete.limpiarFormulario();
-        		crearPaquete.setVisible(true);
+        		//crearPaquete.limpiarFormulario();
+        		//crearPaquete.setVisible(true);
         	}
         });
         menuActividades.add(menuItemCrearPaquete);

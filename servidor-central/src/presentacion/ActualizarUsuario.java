@@ -1,10 +1,14 @@
 package presentacion;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -12,12 +16,19 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import datatypes.DTActividad;
+import datatypes.DTProveedor;
+import datatypes.DTSalida;
+import datatypes.DTTurista;
 import datatypes.DTUsuario;
 import logica.interfaces.ICtrlUsuario;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.ScrollPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
+import java.util.Set;
 
 public class ActualizarUsuario extends JInternalFrame {
 	
@@ -40,7 +51,11 @@ public class ActualizarUsuario extends JInternalFrame {
 	private JLabel LabelApellido;
 	private JTextField TextApellido;
 	private JLabel LabelFechaNac;
-	private JTextField TextFechaNac;
+	private JButton btnCalendario;
+	//fecha ancimiento
+	private JTextField textFieldCalendario;
+	private JInternalFrame f; //se muestra el calendario
+	private JTextField date;
 	//Turista
 	private JLabel LabelNacionalidad;
 	private JTextField TextNacionalidad;
@@ -50,13 +65,21 @@ public class ActualizarUsuario extends JInternalFrame {
 	private JTextArea TextAreaDescripcion;
 	private JLabel LabelSitioWeb;
 	private JTextField TextSitioWeb;
-	//borrando
-	private boolean seteandoDatosIniciales = false;
 	//Datos que interesa conservar temporalmente
-	private DTUsuario dtU = null;
+	private String newNombre;
+	private String newApellido;
+	private GregorianCalendar fechaNac; //guardo la fecha que luego uso
+	private String newNacionalidad;
+	private String newSitioWeb;
+	private String newDescripcion;
+	private DTUsuario dtU;
 	//Botones
 	private JButton btnModificarDatos;
 	private JButton btnCancelar;
+	//Modificacion de datos de combo box
+	private boolean seteandoComboBox = false;
+
+	
 
 	
 	public ActualizarUsuario(ICtrlUsuario iCU) {
@@ -69,14 +92,14 @@ public class ActualizarUsuario extends JInternalFrame {
 		setIconifiable(true);
 		setMaximizable(true);
 		setClosable(true);
-		setTitle("Consultar un Usuario");
+		setTitle("Modificar datos de usuario");
 				
 		setBounds(30, 30, 567, 454);
 				
 		GridBagLayout gbl = new GridBagLayout();
-		gbl.columnWidths = new int[] { 41, 147, 281, 104, 43 };
+		gbl.columnWidths = new int[] { 41, 147, 82, 54, 14, 93, 104, 43 };
 		gbl.rowHeights = new int[] { 0, 0, 30, 30, 30, 30, 30, 30, 30, 35, 35, 30, -27, 36, 0, 0 };
-		gbl.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		gbl.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gbl);
         
@@ -93,15 +116,17 @@ public class ActualizarUsuario extends JInternalFrame {
         ComboBoxSelUsuario = new JComboBox<String>();
         
         GridBagConstraints gbc_cBSelcUsuario = new GridBagConstraints();
+        gbc_cBSelcUsuario.gridwidth = 4;
         gbc_cBSelcUsuario.fill = GridBagConstraints.BOTH;
         gbc_cBSelcUsuario.insets = new Insets(0, 0, 5, 5);
         gbc_cBSelcUsuario.gridx = 2;
         gbc_cBSelcUsuario.gridy = 1;
         getContentPane().add(ComboBoxSelUsuario, gbc_cBSelcUsuario);
         GridBagConstraints gbc_btnSelecUsuario = new GridBagConstraints();
+        gbc_btnSelecUsuario.gridwidth = 2;
         gbc_btnSelecUsuario.anchor = GridBagConstraints.CENTER;
         gbc_btnSelecUsuario.insets = new Insets(0, 0, 5, 5);
-        gbc_btnSelecUsuario.gridx = 3;
+        gbc_btnSelecUsuario.gridx = 6;
         gbc_btnSelecUsuario.gridy = 1;
         getContentPane().add(btnSelecUsuario, gbc_btnSelecUsuario);
         	        
@@ -113,7 +138,7 @@ public class ActualizarUsuario extends JInternalFrame {
         gbc_LabelInfoUsuario.insets = new Insets(0, 0, 5, 0);
         gbc_LabelInfoUsuario.gridx = 0;
         gbc_LabelInfoUsuario.gridy = 2;
-        gbc_LabelInfoUsuario.gridwidth = 5;
+        gbc_LabelInfoUsuario.gridwidth = 8;
         getContentPane().add(LabelInfoUsuario, gbc_LabelInfoUsuario);
 			
 		        
@@ -130,7 +155,7 @@ public class ActualizarUsuario extends JInternalFrame {
         TextTipoUsuario = new JTextField();
         TextTipoUsuario.setEditable(false);
         GridBagConstraints gbc_TextTipoUsuario = new GridBagConstraints();
-        gbc_TextTipoUsuario.gridwidth = 2;
+        gbc_TextTipoUsuario.gridwidth = 5;
         gbc_TextTipoUsuario.fill = GridBagConstraints.BOTH;
         gbc_TextTipoUsuario.insets = new Insets(0, 0, 5, 5);
         gbc_TextTipoUsuario.gridx = 2;
@@ -150,7 +175,7 @@ public class ActualizarUsuario extends JInternalFrame {
         TextNickname = new JTextField();
         TextNickname.setEditable(false);
         GridBagConstraints gbc_TextNickname = new GridBagConstraints();
-        gbc_TextNickname.gridwidth = 2;
+        gbc_TextNickname.gridwidth = 5;
         gbc_TextNickname.fill = GridBagConstraints.BOTH;
         gbc_TextNickname.insets = new Insets(0, 0, 5, 5);
         gbc_TextNickname.gridx = 2;
@@ -159,8 +184,8 @@ public class ActualizarUsuario extends JInternalFrame {
         
         LabelDatosModificables = new JLabel("Datos modificables");
         GridBagConstraints gbc_LabelDatosModificables = new GridBagConstraints();
-        gbc_LabelDatosModificables.gridwidth = 5;
-        gbc_LabelDatosModificables.insets = new Insets(0, 0, 5, 5);
+        gbc_LabelDatosModificables.gridwidth = 8;
+        gbc_LabelDatosModificables.insets = new Insets(0, 0, 5, 0);
         gbc_LabelDatosModificables.gridx = 0;
         gbc_LabelDatosModificables.gridy = 5;
         getContentPane().add(LabelDatosModificables, gbc_LabelDatosModificables);
@@ -176,9 +201,9 @@ public class ActualizarUsuario extends JInternalFrame {
         getContentPane().add(LabelNombre, gbc_LabelNombre);
         //text box nombre
         TextNombre = new JTextField();
-        TextNombre.setEditable(false);
+        TextNombre.setEditable(true);
         GridBagConstraints gbc_TextNombre = new GridBagConstraints();
-        gbc_TextNombre.gridwidth = 2;
+        gbc_TextNombre.gridwidth = 5;
         gbc_TextNombre.fill = GridBagConstraints.BOTH;
         gbc_TextNombre.insets = new Insets(0, 0, 5, 5);
         gbc_TextNombre.gridx = 2;
@@ -196,9 +221,9 @@ public class ActualizarUsuario extends JInternalFrame {
         getContentPane().add(LabelApellido, gbc_LabelApellido);
         //text box apellido
         TextApellido = new JTextField();
-        TextApellido.setEditable(false);
+        TextApellido.setEditable(true);
         GridBagConstraints gbc_TextApellido = new GridBagConstraints();
-        gbc_TextApellido.gridwidth = 2;
+        gbc_TextApellido.gridwidth = 5;
         gbc_TextApellido.fill = GridBagConstraints.BOTH;
         gbc_TextApellido.insets = new Insets(0, 0, 5, 5);
         gbc_TextApellido.gridx = 2;
@@ -209,21 +234,35 @@ public class ActualizarUsuario extends JInternalFrame {
         LabelFechaNac = new JLabel("Fecha de nacimiento: ");
         LabelFechaNac.setHorizontalAlignment(SwingConstants.RIGHT);
         GridBagConstraints gbc_LabelFechaNac = new GridBagConstraints();
-        gbc_LabelFechaNac.fill = GridBagConstraints.BOTH;
+        gbc_LabelFechaNac.anchor = GridBagConstraints.EAST;
+        gbc_LabelFechaNac.fill = GridBagConstraints.VERTICAL;
         gbc_LabelFechaNac.insets = new Insets(0, 0, 5, 5);
         gbc_LabelFechaNac.gridx = 1;
         gbc_LabelFechaNac.gridy = 8;
         getContentPane().add(LabelFechaNac, gbc_LabelFechaNac);
-        //text box FechaNac
-        TextFechaNac = new JTextField();
-        TextFechaNac.setEditable(false);
-        GridBagConstraints gbc_TextFechaNac = new GridBagConstraints();
-        gbc_TextFechaNac.gridwidth = 2;
-        gbc_TextFechaNac.fill = GridBagConstraints.BOTH;
-        gbc_TextFechaNac.insets = new Insets(0, 0, 5, 5);
-        gbc_TextFechaNac.gridx = 2;
-        gbc_TextFechaNac.gridy = 8;
-        getContentPane().add(TextFechaNac, gbc_TextFechaNac);
+        
+        btnCalendario = new JButton("...");
+        String icon_path = "src/icons/calendario.png";
+        ImageIcon icon = new ImageIcon(icon_path,"calendario");
+        Image img = icon.getImage();
+    	Image scaled_img = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;  
+    	btnCalendario.setIcon(new ImageIcon(scaled_img));
+    	btnCalendario.setEnabled(true);
+        GridBagConstraints gbc_btnCalendario = new GridBagConstraints();
+        gbc_btnCalendario.insets = new Insets(0, 0, 5, 5);
+        gbc_btnCalendario.gridx = 2;
+        gbc_btnCalendario.gridy = 8;
+        getContentPane().add(btnCalendario, gbc_btnCalendario);
+        
+        textFieldCalendario = new JTextField();
+        GridBagConstraints gbc_textFieldCalendario = new GridBagConstraints();
+        gbc_textFieldCalendario.gridwidth = 2;
+        gbc_textFieldCalendario.insets = new Insets(0, 0, 5, 5);
+        gbc_textFieldCalendario.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textFieldCalendario.gridx = 4;
+        gbc_textFieldCalendario.gridy = 8;
+        getContentPane().add(textFieldCalendario, gbc_textFieldCalendario);
+        textFieldCalendario.setColumns(10);
         
         LabelNacionalidad = new JLabel("Nacionalidad: ");
         LabelNacionalidad.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -237,11 +276,11 @@ public class ActualizarUsuario extends JInternalFrame {
         TextNacionalidad = new JTextField();
         TextNacionalidad.setEditable(true);
         GridBagConstraints gbc_TextNacionalidad = new GridBagConstraints();
-        gbc_TextNacionalidad.gridwidth = 2;
         gbc_TextNacionalidad.fill = GridBagConstraints.BOTH;
         gbc_TextNacionalidad.insets = new Insets(0, 0, 5, 5);
         gbc_TextNacionalidad.gridx = 2;
         gbc_TextNacionalidad.gridy = 9;
+        gbc_TextNacionalidad.gridwidth = 5;
         getContentPane().add(TextNacionalidad, gbc_TextNacionalidad);
         
         //Label sitio web
@@ -256,9 +295,9 @@ public class ActualizarUsuario extends JInternalFrame {
 
         //text box sitio web
         TextSitioWeb = new JTextField();
-        TextSitioWeb.setEditable(false);
+        TextSitioWeb.setEditable(true);
         GridBagConstraints gbc_TextSitioWeb = new GridBagConstraints();
-        gbc_TextSitioWeb.gridwidth = 2;
+        gbc_TextSitioWeb.gridwidth = 5;
         gbc_TextSitioWeb.fill = GridBagConstraints.BOTH;
         gbc_TextSitioWeb.insets = new Insets(0, 0, 5, 5);
         gbc_TextSitioWeb.gridx = 2;
@@ -277,34 +316,192 @@ public class ActualizarUsuario extends JInternalFrame {
         ScrollPaneDescripcionProveedor = new JScrollPane(TextAreaDescripcion);
         TextAreaDescripcion.setWrapStyleWord(true);
         TextAreaDescripcion.setLineWrap(true); 
-        TextAreaDescripcion.setEditable(false);
+        TextAreaDescripcion.setEditable(true);
         GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+        gbc_scrollPane.gridwidth = 5;
         gbc_scrollPane.gridheight = 2;
+        gbc_scrollPane.fill = GridBagConstraints.BOTH;
         gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
         gbc_scrollPane.gridx = 2;
         gbc_scrollPane.gridy = 10;
         getContentPane().add(ScrollPaneDescripcionProveedor, gbc_scrollPane);
         
-        btnModificarDatos = new JButton("Modificar Datos");
+        btnModificarDatos = new JButton("Modificar");
         GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+        gbc_btnNewButton.gridwidth = 2;
         gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-        gbc_btnNewButton.gridx = 2;
+        gbc_btnNewButton.gridx = 4;
         gbc_btnNewButton.gridy = 13;
         getContentPane().add(btnModificarDatos, gbc_btnNewButton);
         
         btnCancelar = new JButton("Cancelar");
         GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
         gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-        gbc_btnNewButton_1.gridx = 3;
+        gbc_btnNewButton_1.gridx = 6;
         gbc_btnNewButton_1.gridy = 13;
         getContentPane().add(btnCancelar, gbc_btnNewButton_1);
         
-        //Eventos
+        //maneja el calendario con iconito
+		date = new JTextField(20);
+		f = new JInternalFrame();
+		f.setVisible(false);
+        
         cargarEventos();
 	}
 	
 	private void cargarEventos() {
-		return;
+		
+        ComboBoxSelUsuario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		limpiarCamposTexto();
+        		
+        	}
+        });
+		
+		btnSelecUsuario.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		seleccionarUsuario();	
+        	}
+        });
+		
+		btnModificarDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modificarDatosUsuario();
+			}
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelar();
+			}
+		});
+		
+		btnCalendario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ae) {
+					setVisible(true);
+					date.setText(new DatePicker(f).setPickedDate());
+					// string en formato dd-mm-yyyy
+					textFieldCalendario.setText(date.getText());
+					int dia = Integer.parseInt(date.getText().substring(0,2));
+					int mes = Integer.parseInt(date.getText().substring(4,5));
+					int anio = Integer.parseInt(date.getText().substring(6,10));
+					fechaNac = new GregorianCalendar(anio, mes, dia);	
+				}
+			});
+			
 	};
 	
+	public void iniciarVentana() {
+		limpiarComboBoxeUsuario();
+		limpiarCamposTexto();
+		Set<String> usuarios = ctrlUsuario.listarUsuarios();
+		if(usuarios.isEmpty()) {
+			seteandoComboBox = true;
+        	ComboBoxSelUsuario.addItem("No hay usuarios registrados");
+        	seteandoComboBox = false;
+        	btnSelecUsuario.setEnabled(false);
+		}else {
+	        usuarios.forEach((u)->{
+	        	seteandoComboBox = true;
+	        	ComboBoxSelUsuario.addItem(u);
+	        	seteandoComboBox = false;
+	        });
+	        btnSelecUsuario.setEnabled(true);
+		}
+		visibleCamposTurista(false);
+		visibleCamposProveedor(false);
+		setVisible(true);
+	}
+	
+	public void seleccionarUsuario() {
+		dtU = ctrlUsuario.getInfoBasicaUsuario(ComboBoxSelUsuario.getSelectedItem().toString());
+		newNombre = dtU.getNombre();
+		newApellido = dtU.getApellido();
+		fechaNac = dtU.getFechaNac();
+		
+		TextNickname.setText(dtU.getNickname());
+		TextNombre.setText(dtU.getNombre());
+		TextApellido.setText(dtU.getApellido());
+		textFieldCalendario.setText(fechaStringFormato(dtU.getFechaNac(), false));
+		
+		
+		if(dtU instanceof DTTurista) {
+			TextTipoUsuario.setText("Turista");
+			visibleCamposTurista(true);
+			visibleCamposProveedor(false);
+			DTTurista dtT = (DTTurista)dtU;
+			TextNacionalidad.setText(dtT.getNacionalidad());
+			newNacionalidad = dtT.getNacionalidad();
+
+		}else {
+			TextTipoUsuario.setText("Proveedor");
+			visibleCamposTurista(false);
+			visibleCamposProveedor(true);
+			DTProveedor dtP = (DTProveedor)dtU;
+			TextSitioWeb.setText(dtP.getLinkSitioWeb());
+			TextAreaDescripcion.setText(dtP.getDescripcion());
+			newSitioWeb = dtP.getLinkSitioWeb();
+			newDescripcion = dtP.getDescripcion();
+		
+		}
+	}
+	
+	public void modificarDatosUsuario(){
+		return;
+	}
+	
+	public void cancelar() {
+		limpiarComboBoxeUsuario();
+		limpiarCamposTexto();
+		setVisible(false);
+	}
+	
+	public void limpiarComboBoxeUsuario(){
+		seteandoComboBox = true;
+		ComboBoxSelUsuario.removeAllItems();
+		seteandoComboBox = false;
+	}
+	
+	public void limpiarCamposTexto() {
+    	TextTipoUsuario.setText("");
+    	TextNickname.setText("");
+    	TextNombre.setText("");
+    	TextApellido.setText("");
+    	textFieldCalendario.setText("");
+    	TextNacionalidad.setText("");
+    	TextAreaDescripcion.setText("");
+    	TextSitioWeb.setText("");
+    	
+    	newNombre = null;
+    	newApellido = null;
+    	fechaNac = null;
+    	newNacionalidad = null;
+    	newDescripcion = null;
+    	newSitioWeb = null;
+	}
+	
+	private String fechaStringFormato(GregorianCalendar g, boolean conHora) {
+		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
+		String mes = String.valueOf(g.get(g.MONTH));
+		String anio = String.valueOf(g.get(g.YEAR));
+		String hora = String.valueOf(g.get(g.HOUR));
+		String resultado = (conHora)?
+				 dia + "-" + mes + "-" + anio + " " + hora + "hs": dia + "-" + mes + "-" + anio;
+		return resultado;
+	}
+	
+	private void visibleCamposTurista(boolean b){
+		LabelNacionalidad.setVisible(b);
+		TextNacionalidad.setVisible(b);
+	}
+	
+	private void visibleCamposProveedor(boolean b) {
+		LabelDescripcionProveedor.setVisible(b);
+		TextAreaDescripcion.setVisible(b);
+		LabelSitioWeb.setVisible(b);
+		TextSitioWeb.setVisible(b);
+		ScrollPaneDescripcionProveedor.setVisible(b);
+	}
+	
+
 }
