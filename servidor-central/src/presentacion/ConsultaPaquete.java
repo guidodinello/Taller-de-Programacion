@@ -53,6 +53,8 @@ public class ConsultaPaquete extends JInternalFrame {
 	private JScrollPane scrollPane;
 	private JLabel lblActividad_1;
 	private JButton btnConsultarInfo_1;
+	private JLabel lblActividad;
+	private JButton btnConsultarInfo;
 	
 	public ConsultaPaquete(ICtrlActividad ica) {
 		ctrlAct = ica;
@@ -181,25 +183,10 @@ public class ConsultaPaquete extends JInternalFrame {
 		);
 		GridBagLayout gbl_panel_actividades = new GridBagLayout();
 		gbl_panel_actividades.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_panel_actividades.rowHeights = new int[]{0, 0};
+		gbl_panel_actividades.rowHeights = new int[]{0, 0, 0};
 		gbl_panel_actividades.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_actividades.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_actividades.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_actividades.setLayout(gbl_panel_actividades);
-		
-		lblActividad_1 = new JLabel("Actividad 1");
-		lblActividad_1.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_lblActividad_1 = new GridBagConstraints();
-		gbc_lblActividad_1.anchor = GridBagConstraints.WEST;
-		gbc_lblActividad_1.insets = new Insets(0, 0, 0, 5);
-		gbc_lblActividad_1.gridx = 0;
-		gbc_lblActividad_1.gridy = 0;
-		panel_actividades.add(lblActividad_1, gbc_lblActividad_1);
-		
-		btnConsultarInfo_1 = new JButton("Consultar Info");
-		GridBagConstraints gbc_btnConsultarInfo_1 = new GridBagConstraints();
-		gbc_btnConsultarInfo_1.gridx = 2;
-		gbc_btnConsultarInfo_1.gridy = 0;
-		panel_actividades.add(btnConsultarInfo_1, gbc_btnConsultarInfo_1);
 		
 		textPaneDescripcion = new JTextPane();
 		scrollPane.setViewportView(textPaneDescripcion);
@@ -246,12 +233,32 @@ public class ConsultaPaquete extends JInternalFrame {
 					textFieldCosto.setText("$ " + String.valueOf(dtp.getCosto()));
 					textFieldFechaAlta.setText(fechaStringFormato(dtp.getFechaAlta(), true));
 					
+					panel_actividades.removeAll();
+					int y = 0;
 					for (String act : dtp.getActividades()) {
 						JButton act_btn = new JButton("consultar");
 						JLabel act_lbl = new JLabel(act);
-						panel_actividades.add(act_lbl);
-						panel_actividades.add(act_btn);
+
+						GridBagConstraints gbc_actLbl = new GridBagConstraints();
+						gbc_actLbl.gridx = 0;
+						gbc_actLbl.gridy = y;
+						panel_actividades.add(act_lbl, gbc_actLbl);
+						
+						GridBagConstraints gbc_btnConsultarInfo = new GridBagConstraints();
+						gbc_btnConsultarInfo.gridx = 2;
+						gbc_btnConsultarInfo.gridy = y;
+						panel_actividades.add(act_btn, gbc_btnConsultarInfo);
+						
+						y+=1;
+						
+						act_btn.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								// llamar a consulta actividad con la actividad como parametro
+							}
+						});
 					}
+					panel_actividades.validate();
+					panel_actividades.repaint();
 				}
 			}
 		});
@@ -276,9 +283,20 @@ public class ConsultaPaquete extends JInternalFrame {
 		textFieldPeriodoValidez.setText("");
 		textFieldCosto.setText("");
 		textFieldFechaAlta.setText("");
+		
+		panel_actividades.removeAll();
 	}
 	
 	public void datosQueVienenDesdeConsultaActividad(String paquete) {
-		//Consultar con el paquete de nombre "Paquete"
+		setVisible(true);
+		comboBoxPaquetes.addItem(paquete);
+		comboBoxPaquetes.setEnabled(false);
+		DTPaquete dtp = ctrlAct.getInfoPaquete(paquete);
+		textPaneDescripcion.setText(dtp.getDescripcion());
+		textFieldPeriodoValidez.setText(String.valueOf(dtp.getPeriodoValidez()) + " dias");
+		textFieldCosto.setText("$ " + String.valueOf(dtp.getCosto()));
+		textFieldFechaAlta.setText(fechaStringFormato(dtp.getFechaAlta(), true));
+		
+		
 	}
 }
