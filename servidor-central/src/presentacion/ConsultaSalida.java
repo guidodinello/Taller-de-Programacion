@@ -35,6 +35,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class ConsultaSalida extends JInternalFrame {
 
 	//Controlador

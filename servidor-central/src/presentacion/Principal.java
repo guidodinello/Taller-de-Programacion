@@ -138,6 +138,7 @@ public class Principal {
         consultarPaquete.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultarPaquete);
 
+        consultaActividadInternalFrame.cargarVentanaConsultaPaquete(consultarPaquete); // Esto tiene que ir al final de todo
     }
 
     /**
@@ -253,6 +254,7 @@ public class Principal {
         		consultaActividadInternalFrame.limpiarFormulario();
         		consultaActividadInternalFrame.cargarDepartamentos();
         		consultaActividadInternalFrame.setVisible(true);
+        		
         	}
         });
         menuActividades.add(menuItemConsultaActividadTuristica);

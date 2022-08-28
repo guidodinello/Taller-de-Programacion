@@ -248,4 +248,8 @@ public class ConsultaPaquete extends JInternalFrame {
 		textFieldCosto.setText("");
 		textFieldFechaAlta.setText("");
 	}
+	
+	public void datosQueVienenDesdeConsultaActividad(String paquete) {
+		//Consultar con el paquete de nombre "Paquete"
+	}
 }

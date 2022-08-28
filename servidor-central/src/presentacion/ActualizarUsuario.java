@@ -19,6 +19,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.ScrollPane;
 
+@SuppressWarnings("serial")
 public class ActualizarUsuario extends JInternalFrame {
 	
 	//Controlador
