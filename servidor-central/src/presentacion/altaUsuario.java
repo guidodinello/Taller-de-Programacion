@@ -29,7 +29,6 @@ import java.awt.event.ItemEvent;
 import javax.swing.JTextPane;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;

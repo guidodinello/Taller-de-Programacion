@@ -24,7 +24,6 @@ import java.util.GregorianCalendar;
 import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 @SuppressWarnings("serial")
 public class ConsultaPaquete extends JInternalFrame {
