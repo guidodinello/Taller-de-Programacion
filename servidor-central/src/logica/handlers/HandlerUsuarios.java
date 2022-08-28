@@ -100,4 +100,8 @@ public class HandlerUsuarios {
 		Set<Usuario> res = new HashSet<Usuario>(usuarios.values());
 		return res;
 	}
+	
+	public static void clear() {
+		instance = null;
+	}
 }

@@ -11,9 +11,6 @@ import logica.clases.SalidaTuristica;
 public class HandlerSalidas{
     private Map<String,SalidaTuristica > salidasTuristicas;
     private static HandlerSalidas instancia = null;
-    public static void clear() {
-    	instancia = null;
-    }
 
     private HandlerSalidas() {
         salidasTuristicas = new HashMap<String, SalidaTuristica>();
@@ -52,5 +49,6 @@ public class HandlerSalidas{
     public boolean existeSalida(String nombreSalida) {
 		return this.salidasTuristicas.containsKey(nombreSalida);
 	}
-    
+
+
 }
