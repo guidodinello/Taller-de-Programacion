@@ -259,7 +259,30 @@ public class ConsultaSalida<E> extends JInternalFrame {
 				}
 			}
 
-		}); /// muestro salidas de esa actividad
+		});
+		
+		ComboBoxSelDepartamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(depto.isSelected()) {
+					depto.setSelected(false);
+					limpiarForm();
+					comboBox_1.removeAllItems();
+					comboBox_1.setEnabled(false);
+					comboBoxSal.removeAllItems();
+					comboBoxSal.setEnabled(false);
+					rdbtnNewRadioButton_1.setSelected(false);
+					rdbtnNewRadioButton_1.setEnabled(false);
+					rdbtnNewRadioButton.setEnabled(false);
+					rdbtnNewRadioButton.setSelected(false);
+					comboBoxTuristas.removeAllItems();
+				}
+				
+			}
+			
+		});
+		
+		
+		/// muestro salidas de esa actividad
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -297,7 +320,34 @@ public class ConsultaSalida<E> extends JInternalFrame {
 					});
 					settear = true;
 				}
+			} 
+		});
+		comboBox_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnNewRadioButton.isSelected()) {
+					rdbtnNewRadioButton.setSelected(false);
+					rdbtnNewRadioButton_1.setSelected(false);
+					settear = false;
+					limpiarForm();
+					comboBoxTuristas.removeAllItems();
+					comboBoxSal.removeAllItems();
+					comboBoxSal.setEnabled(false);
+					settear = true;
+				}
+				
 			}
+			
+		});
+		comboBoxSal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnNewRadioButton_1.isSelected()) {
+					rdbtnNewRadioButton_1.setSelected(false);
+					limpiarForm();
+					
+				}
+				
+			}
+			
 		});
 		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
 

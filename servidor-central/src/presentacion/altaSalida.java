@@ -257,23 +257,126 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
        rdbtnNewRadioButton.addActionListener(new ActionListener(){
     	    public void actionPerformed(ActionEvent e) {
     	    if(comboBox.getSelectedIndex() == -1) return;
+    	    else  if (!rdbtnNewRadioButton.isSelected()) {
+    	    	settear = false;
+				limpiarForm();
+				
+			
+				settear = true;
+				
+				rdbtnNewRadioButton_1.setEnabled(false);
+				comboBox_1.removeAllItems();
+				comboBox_1.setEnabled(false);
+				rdbtnNewRadioButton_1.setSelected(false);
+	    		   lblNewLabel_2.setEnabled(false);
+	    		   lblNewLabel_3.setEnabled(false);
+	    		   lblNewLabel_4.setEnabled(false);
+	    		   lblNewLabel_5.setEnabled(false);
+	    		   lblNewLabel_6.setEnabled(false);
+	    		   lblNewLabel_7.setEnabled(false);
+	    		   
+	    		   calendarBtn.setEnabled(false);
+	    		   spinner.setEnabled(false);
+	    		   spinner_1.setEnabled(false);
+	    		   textField_1.setEnabled(false);
+	    		   textField_2.setEnabled(false);
+	    		  // textField_3.setEnabled(true);
+	    		  spinner_2.setEnabled(false);
+	    		   btnNewButton.setEnabled(false);
+
+			}
+    	    else {
     	    comboBox_1.setEnabled(true);
     	    rdbtnNewRadioButton_1.setEnabled(true);
     	    lblNewLabel_1.setEnabled(true);
+    	    settear = false;
+    	    comboBox_1.removeAllItems();
     	    Set<String> actividades = iCS.listarActividadesDepartamento(comboBox.getSelectedItem().toString() );
     	        actividades.forEach((act)->{
-    	        	settear = false;
+    	        	
     	           comboBox_1.addItem(act);
-    	           settear =true;
+    	           
     	        });
+    	        settear =true;
+    	    }
     	    }
     });
+       comboBox.addActionListener(new ActionListener() {
+    	   public void actionPerformed(ActionEvent e) {
+    		   if (rdbtnNewRadioButton.isSelected()) {
+    			   rdbtnNewRadioButton.setSelected(false);
+    			   rdbtnNewRadioButton_1.setSelected(false);
+    			   rdbtnNewRadioButton_1.setEnabled(false);
+    			   settear = false;
+    			   comboBox_1.removeAllItems();
+    			   comboBox_1.setEnabled(false);
+    			   settear = true;
+    			   lblNewLabel_2.setEnabled(false);
+	    		   lblNewLabel_3.setEnabled(false);
+	    		   lblNewLabel_4.setEnabled(false);
+	    		   lblNewLabel_5.setEnabled(false);
+	    		   lblNewLabel_6.setEnabled(false);
+	    		   lblNewLabel_7.setEnabled(false);
+	    		   
+	    		   calendarBtn.setEnabled(false);
+	    		   spinner.setEnabled(false);
+	    		   spinner_1.setEnabled(false);
+	    		   textField_1.setEnabled(false);
+	    		   textField_2.setEnabled(false);
+	    		  // textField_3.setEnabled(true);
+	    		  spinner_2.setEnabled(false);
+	    		   btnNewButton.setEnabled(false);
+    		   }
+    	   }
+       });
+       comboBox_1.addActionListener(new ActionListener() {
+    	   public void actionPerformed(ActionEvent e) {
+    		   if (rdbtnNewRadioButton_1.isSelected()) {
+    			   
+    			   rdbtnNewRadioButton_1.setSelected(false);
+    			   lblNewLabel_2.setEnabled(false);
+	    		   lblNewLabel_3.setEnabled(false);
+	    		   lblNewLabel_4.setEnabled(false);
+	    		   lblNewLabel_5.setEnabled(false);
+	    		   lblNewLabel_6.setEnabled(false);
+	    		   lblNewLabel_7.setEnabled(false);
+	    		   
+	    		   calendarBtn.setEnabled(false);
+	    		   spinner.setEnabled(false);
+	    		   spinner_1.setEnabled(false);
+	    		   textField_1.setEnabled(false);
+	    		   textField_2.setEnabled(false);
+	    		  // textField_3.setEnabled(true);
+	    		  spinner_2.setEnabled(false);
+	    		   btnNewButton.setEnabled(false);
+    			   
+    		   }
+    	   }
+       });
        
        rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
     	  
     	   public void actionPerformed(ActionEvent e) {
+    		   if(!rdbtnNewRadioButton_1.isSelected()) {
+	    		   lblNewLabel_2.setEnabled(false);
+	    		   lblNewLabel_3.setEnabled(false);
+	    		   lblNewLabel_4.setEnabled(false);
+	    		   lblNewLabel_5.setEnabled(false);
+	    		   lblNewLabel_6.setEnabled(false);
+	    		   lblNewLabel_7.setEnabled(false);
+	    		   
+	    		   calendarBtn.setEnabled(false);
+	    		   spinner.setEnabled(false);
+	    		   spinner_1.setEnabled(false);
+	    		   textField_1.setEnabled(false);
+	    		   textField_2.setEnabled(false);
+	    		  // textField_3.setEnabled(true);
+	    		  spinner_2.setEnabled(false);
+	    		   btnNewButton.setEnabled(false);
+    		   }
     		   if(comboBox.getSelectedIndex() == -1 || comboBox_1.getSelectedIndex() == -1|| !settear) return;
-    		   lblNewLabel_2.setEnabled(true);
+    		   
+    		   else {lblNewLabel_2.setEnabled(true);
     		   lblNewLabel_3.setEnabled(true);
     		   lblNewLabel_4.setEnabled(true);
     		   lblNewLabel_5.setEnabled(true);
@@ -288,10 +391,11 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
     		  // textField_3.setEnabled(true);
     		  spinner_2.setEnabled(true);
     		   btnNewButton.setEnabled(true);
+    		   }
     	   }
        });
        
-       
+         
        calendarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				f.setVisible(true);
@@ -367,8 +471,10 @@ public void limpiarForm() {
 	spinner.setValue(0);
 	spinner_1.setValue(0);
 	spinner_2.setValue(1);
+	if(settear) {
 	 comboBox.removeAllItems();
 	 comboBox_1.removeAllItems();
+	}
 	 rdbtnNewRadioButton.setSelected(false);
 	 rdbtnNewRadioButton_1.setSelected(false);	 
 	 rdbtnNewRadioButton_1.setEnabled(false);

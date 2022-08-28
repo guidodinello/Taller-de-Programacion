@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,9 @@ import java.util.Set;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
@@ -19,7 +21,8 @@ import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.DTActividad;
 import datatypes.DTSalida;
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+		
 public class ctrlActividad{
 	private static ICtrlActividad controladorActividad;
 	private static ICtrlUsuario controladorUsuario;
@@ -179,11 +182,11 @@ public class ctrlActividad{
 		
 		DTSalida nueva =  controladorActividad.getInfoCompletaSalida("A Canelones");
 		assertEquals("A Canelones", nueva.getNombre());
-		assertEquals("Centro", nueva.getlugarSalida());
+		assertEquals("Canelones", nueva.getlugarSalida());
 		assertEquals(10, nueva.getcantidadMaximaDeTuristas());
 		assertEquals(nueva.getTuristasInscriptos().contains("agus"),false,"No hay turistas inscirptos");
 		
 	}
-}
+} */
 
 
