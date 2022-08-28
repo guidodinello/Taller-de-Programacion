@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -256,6 +257,7 @@ public class ActualizarUsuario extends JInternalFrame {
         
         textFieldCalendario = new JTextField();
         GridBagConstraints gbc_textFieldCalendario = new GridBagConstraints();
+        textFieldCalendario.setEditable(false);
         gbc_textFieldCalendario.gridwidth = 2;
         gbc_textFieldCalendario.insets = new Insets(0, 0, 5, 5);
         gbc_textFieldCalendario.fill = GridBagConstraints.HORIZONTAL;
@@ -354,7 +356,7 @@ public class ActualizarUsuario extends JInternalFrame {
         ComboBoxSelUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		limpiarCamposTexto();
-        		
+        		btnModificarDatos.setEnabled(false);
         	}
         });
 		
@@ -394,6 +396,7 @@ public class ActualizarUsuario extends JInternalFrame {
 	public void iniciarVentana() {
 		limpiarComboBoxeUsuario();
 		limpiarCamposTexto();
+		btnModificarDatos.setEnabled(false);
 		Set<String> usuarios = ctrlUsuario.listarUsuarios();
 		if(usuarios.isEmpty()) {
 			seteandoComboBox = true;
@@ -414,6 +417,7 @@ public class ActualizarUsuario extends JInternalFrame {
 	}
 	
 	public void seleccionarUsuario() {
+		btnModificarDatos.setEnabled(true);
 		dtU = ctrlUsuario.getInfoBasicaUsuario(ComboBoxSelUsuario.getSelectedItem().toString());
 		newNombre = dtU.getNombre();
 		newApellido = dtU.getApellido();
@@ -447,7 +451,40 @@ public class ActualizarUsuario extends JInternalFrame {
 	}
 	
 	public void modificarDatosUsuario(){
-		return;
+		if(ComboBoxSelUsuario.getSelectedItem() == "No hay usuarios registrados") {
+			JOptionPane.showMessageDialog(this,
+					"No hay usuarios registrados", "No hay usuarios", JOptionPane.ERROR_MESSAGE);
+			return;
+		};
+		newNombre = TextNombre.getText();
+		newApellido = TextApellido.getText();
+		if(newNombre.isEmpty() || newApellido.isEmpty() || fechaNac == null) {
+			JOptionPane.showMessageDialog(this,
+					"Los campos nombre, apellido y fecha de nacimiento no puede estar vacio", "Hay campos vacios", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		if(TextTipoUsuario.getText().equals("Turista")) {
+			newNacionalidad = TextNacionalidad.getText();
+			if(newNacionalidad.isEmpty()) {
+				JOptionPane.showMessageDialog(this,
+						"El campo nacionalidad no puede ser vacio", "Hay campos vacios", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+		}else {
+			newDescripcion = TextAreaDescripcion.getText();
+			newSitioWeb = TextSitioWeb.getText();
+			if(newDescripcion.isEmpty()) {
+				JOptionPane.showMessageDialog(this,
+						"El campo descripcion no puede ser vacio", "Hay campos vacios", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+		}
+		ctrlUsuario.actualizarUsuario(dtU.getNickname(), newNombre, newApellido, fechaNac, newNacionalidad, newDescripcion, newSitioWeb);
+		JOptionPane.showMessageDialog(this,
+				"Usuario actualizado con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+		cancelar();
 	}
 	
 	public void cancelar() {

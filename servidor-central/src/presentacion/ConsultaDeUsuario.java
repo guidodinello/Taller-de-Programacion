@@ -344,6 +344,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         gbc_TextSitioWeb.insets = new Insets(0, 0, 5, 5);
         gbc_TextSitioWeb.gridx = 2;
         gbc_TextSitioWeb.gridy = 10;
+        gbc_TextSitioWeb.gridwidth = 2;
         getContentPane().add(TextSitioWeb, gbc_TextSitioWeb);
         TextSitioWeb.setVisible(false);
         
