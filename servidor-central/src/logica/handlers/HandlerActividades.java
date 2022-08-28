@@ -33,4 +33,9 @@ public class HandlerActividades{
 	public ActividadTuristica obtenerActividadTuristica(String actividad) {
 		return actividadesTuristicas.get(actividad);
 	}
+	
+	public static void clear() {
+		instancia = null;
+	}
+	
 }

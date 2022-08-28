@@ -55,5 +55,9 @@ public class HandlerDepartamentos{
 			.filter(depto -> depto.getValue().getActividades().containsValue(n))
 			.findFirst().get().getValue().getNombre();
 	}
+	
+	public static void clear() {
+		instancia = null;
+	}
 
 }

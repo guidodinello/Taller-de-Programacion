@@ -38,6 +38,7 @@ public class ctrlUsuario {
 		Fabrica fabrica = Fabrica.getInstance();
 		controladorUsuario = fabrica.getICtrlUsuario();
 		controladorActividad = fabrica.getICtrlActividad();
+		
 		 try {
 				controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), null, "usr_descripcion", "usr_stiioWeb");
 				controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
@@ -212,6 +213,7 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(8)
 	void testListarProveedores() {
 		Set<String> proveedores = controladorUsuario.listarProveedores();
 		
@@ -225,6 +227,7 @@ public class ctrlUsuario {
 
 
 	@Test
+	@Order(9)
 	void testlistarUsuarios() {
 		Set<String> usuarios = controladorUsuario.listarUsuarios();
 		
@@ -239,11 +242,13 @@ public class ctrlUsuario {
 	}
 	
 	@Test
+	@Order(10)
 	public void testactualizarUsuario() { 
 		controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), "", "usr_descripcion", "usr_stiioWeb");
 	}
 	
 	@Test
+	@Order(11)
 	public void testlistarInfoSalidasTurista(){ 
 		String t = "eze";
 		Set<DTSalida> obtenido = controladorUsuario.listarInfoSalidasTurista(t);
@@ -271,6 +276,7 @@ public class ctrlUsuario {
 	
 	
 	@Test
+	@Order(12)
 	public void listarInfoCompletaActividadesProveedor() {
 		String p = "cris";
 		Set<DTActividad> obtenido = controladorUsuario.listarInfoCompletaActividadesProveedor(p);

@@ -39,4 +39,8 @@ public class HandlerPaquetes {
 	public Set<PaqueteTuristico> getPaquetes(){
 		return new HashSet<PaqueteTuristico>(paquetes.values());
 	}
+	
+	public static void clear() {
+		instancia = null;
+	}
 }
