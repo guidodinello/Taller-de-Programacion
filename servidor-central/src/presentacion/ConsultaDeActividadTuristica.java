@@ -374,6 +374,9 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		}
 		
 		public void datosQueVienenDesdeConsultaDeUsuario(String nombreDepartamento ,String nombreActividad) {
+			borrandoFormularios = true;
+			limpiarFormulario();
+			borrandoFormularios = false;
 			cargarDepartamentos();
 			comboBoxDepartamentos.setSelectedItem(nombreDepartamento);
 			comboBoxActividades.setSelectedItem(nombreActividad);
@@ -388,7 +391,16 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 		}
 		
 		public void datosQueVienenDesdeConsultaPaquete(String act) {
-			
+			borrandoFormularios = true;
+			limpiarFormulario();
+			borrandoFormularios = false;
+			DTActividad actividad = controlAct.getInfoActividad(act);
+			cargarDepartamentos();
+			comboBoxDepartamentos.setSelectedItem(actividad.getDepartamento());
+			comboBoxActividades.setSelectedItem(act);
+			comboBoxDepartamentos.setEnabled(false);
+			comboBoxActividades.setEnabled(false);
+			setVisible(true);
 		}
 		
 }

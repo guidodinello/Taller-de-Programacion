@@ -140,6 +140,7 @@ public class Principal {
         
      // Esto tiene que ir al final de todo
         consultaActividadInternalFrame.cargarVentanasConsulta(consultaDeSalida, consultarPaquete);
+        consultarPaquete.cargarConsultaActividadFrame(consultaActividadInternalFrame);
     }
 
     /**
@@ -275,7 +276,6 @@ public class Principal {
         	public void actionPerformed(ActionEvent e) {
         		consultarPaquete.cargarDatosIniciales();
         		consultarPaquete.setVisible(true);
-        		consultarPaquete.cargarConsultaActividadFrame(consultaActividadInternalFrame);
         	}
         });
         menuActividades.add(menuItemConsultarPaquete);
