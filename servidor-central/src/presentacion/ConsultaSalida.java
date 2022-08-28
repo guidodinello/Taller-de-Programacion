@@ -35,6 +35,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class ConsultaSalida extends JInternalFrame {
 
 	//Controlador
@@ -378,6 +379,10 @@ public class ConsultaSalida extends JInternalFrame {
 		String resultado = (conHora)?
 				 dia + "/" + mes + "/" + anio + " " + hora + "hs": dia + "/" + mes + "/" + anio;
 		return resultado;
+	}
+	
+	public void datosQueVienenDesdeConsultaActividad(String departamento, String actividad, String salida){
+		//Consultar la salida con los datos ingresados
 	}
 }
 		

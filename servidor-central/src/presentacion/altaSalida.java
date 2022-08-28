@@ -42,6 +42,7 @@ import javax.swing.SpinnerNumberModel;
 
 import java.awt.BorderLayout;
 
+@SuppressWarnings("serial")
 public class altaSalida extends JInternalFrame {
 
 	//Controlador

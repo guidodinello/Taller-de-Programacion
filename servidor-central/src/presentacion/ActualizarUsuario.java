@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
+@SuppressWarnings("serial")
 public class ActualizarUsuario extends JInternalFrame {
 	
 	//Controlador

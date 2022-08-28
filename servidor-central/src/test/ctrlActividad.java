@@ -77,6 +77,11 @@ public class ctrlActividad{
 	}
 	
 	@Test
+	void testAltaDepartamentoRepetido() {
+		    assertThrows(YaExisteException.class, ()->{controladorActividad.altaDepartamento("Montevideo", "Capital de Uruguay", "mvdeo.com.uy");});			
+	}
+	
+	@Test
 	void testListarDepartamentos() {
 		Set<String> deptos = controladorActividad.listarDepartamentos();
 		assertEquals(deptos.contains("Montevideo"), true);
