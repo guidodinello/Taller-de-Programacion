@@ -372,7 +372,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 						"No hay salida para mostrar", "Consulta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
 			}
 			else
-				consultaSalida.datosQueVienenDesdeConsultaActividad(comboBoxDepartamentos.getSelectedItem().toString(),comboBoxActividades.getSelectedItem().toString(), comboBoxSalidas.getSelectedItem().toString());
+				consultaSalida.datosQueVienenDesdeOtroCasoDeUso(comboBoxDepartamentos.getSelectedItem().toString(),comboBoxActividades.getSelectedItem().toString(), comboBoxSalidas.getSelectedItem().toString());
 		}
 		
 		public void datosQueVienenDesdeConsultaDeUsuario(String nombreDepartamento ,String nombreActividad) {
