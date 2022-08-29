@@ -4,13 +4,14 @@ package logica.handlers;
 //import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.HashSet;
+//import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
+//import java.util.HashSet;
 
+import logica.clases.ActividadTuristica;
 import logica.clases.Departamento;
-import logica.controladores.hD;
+//import logica.controladores.hD;
 
 
 public class HandlerDepartamentos{
@@ -47,11 +48,16 @@ public class HandlerDepartamentos{
 		return departamentos.get(depto);
 	}
 	
-	public Set<String> listarDepartamentos(){
-		Set<String> resu = new HashSet<>();
-		for(Map.Entry<String, Departamento> entry : this.departamentos.entrySet()) {
-			resu.add(entry.getValue().getNombre());
-		}
-		return resu;
+	//Pre: la actividad tiene que estar en un departamento
+	//Pre: la actividad solo esta en un depto
+	public String getDeptoContains(ActividadTuristica n) {
+		return departamentos.entrySet().stream()
+			.filter(depto -> depto.getValue().getActividades().containsValue(n))
+			.findFirst().get().getValue().getNombre();
 	}
+	
+	public static void clear() {
+		instancia = null;
+	}
+
 }

@@ -1,33 +1,40 @@
 package logica.clases;
-import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
+
+//import datatypes.DTSalida;
+import logica.handlers.HandlerUsuarios;
 
 public class SalidaTuristica{
 	
 	 private String nombre;
-	    private Date fechaSalida;
-	    private Date fechaAlta;
+	    private GregorianCalendar fechaSalida;
+	    private GregorianCalendar fechaAlta;
 	    private int cantidadMaximaDeTuristas;
 	    private String lugarSalida;
-	    private ActividadTuristica actividadSalida;
+	    private ActividadTuristica actividad;
+	    private int plazosDisponibles;
 		   
-	    public SalidaTuristica(String Sn, Date Ds,String SlugarSal, int CmaxT,Date Da,ActividadTuristica actividad) {
+	    public SalidaTuristica(String Sn, GregorianCalendar Ds,String SlugarSal, int CmaxT,GregorianCalendar Da,ActividadTuristica actividad) {
 	        this.nombre = Sn;
 	        this.fechaSalida = Ds;
 	        this.fechaAlta= Da;
 	        this.cantidadMaximaDeTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.actividad = actividad;
+	        this.plazosDisponibles = cantidadMaximaDeTuristas;
 	    }
 
 	    public String getNombre() {
 	        return nombre;
 	    }
 
-	    public Date getfechaSalida() {
+	    public GregorianCalendar getfechaSalida() {
 	        return fechaSalida;
 	    }
 
-	    public Date getfechaAlta() {
+	    public GregorianCalendar getfechaAlta() {
 	        return fechaAlta;
 	    }
 	    public int getcantidadMaximaDeTuristas() {
@@ -40,30 +47,29 @@ public class SalidaTuristica{
 	    public ActividadTuristica getActividad() {
 	    	return actividad;
 	    }
-
-	    public void setNombre(String Sn) {
-	        nombre = Sn;
-	    }
-
-	    public void setfechaSalida(Date Dsalida ) {
-	        fechaSalida = Dsalida;
-	    }
-	    public void setfechaAlta(Date Dalta ) {
-	        fechaAlta = Dalta;
-	    }
-
-
-	    public void setCantidadMaximaDeTuristas(int IcmTurista) {
-	        cantidadMaximaDeTuristas = IcmTurista;
-	    }
-	    public void setLugarSalida(String SlugarSal) {
-	        lugarSalida = SlugarSal;
-	    }
-
-		public float calcularCosto(int cant) {
-			
-			return 0;
-		}
 	    
-
+	    public int getPlazosDisponibles() {
+	    	return plazosDisponibles;
+	    }
+	    
+	    public float calcularCosto(int cant) {
+			return cant*actividad.getCostoPorTurista();
+		}
+		
+		public void reducirPlazos(int cantidad) {
+			plazosDisponibles = plazosDisponibles - cantidad;
+		}
+		
+		public Set<String> getTuristasInscriptos(){
+			HandlerUsuarios hU = HandlerUsuarios.getInstance();
+			Set<String> resultado = new HashSet<String>();
+			Set<Turista> turistas = hU.listarTuristas();
+			turistas.forEach((t)->{
+				if(t.inscriptoSalida(this)) {
+					resultado.add(t.getNombre());
+				}
+			});
+			return resultado;
+		}
+		
 }

@@ -5,7 +5,9 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.GregorianCalendar;
 
+import datatypes.DTActividad;
 import datatypes.DTSalida;
+import logica.handlers.HandlerDepartamentos;
 
 import java.util.HashMap;
 
@@ -24,6 +26,8 @@ public class ActividadTuristica{
 		this.nombreCiudad = nombreCiudad;
 		this.fechaAlta = fechaAlta;
 		salidas = new HashMap<String, SalidaTuristica>();
+
+		
 	}
 	
 	public String getNombre() {
@@ -49,9 +53,13 @@ public class ActividadTuristica{
 	public GregorianCalendar getFechaAlta() {
 		return fechaAlta;
 	}
+	public Set<String>getSalidasNombre() {
+		return this.salidas.keySet();
+	}
 	
-	public void agregarSalida() {
-		//to-do
+	
+	public void agregarSalida(SalidaTuristica s) {
+		salidas.put(s.getNombre(), s);
 	}
 
 	public Set<DTSalida> getInfoBasicaSalidasVigentes(GregorianCalendar fechaSistema) {
@@ -65,4 +73,19 @@ public class ActividadTuristica{
 		});
 		return res;
 	}
+	
+	public DTActividad getDTActividad() {
+		String n = this.nombre;
+		String des =this.descripcion;
+		int dura = this.duracionHs;
+		float costo = this.costoPorTurista;
+		Set<String> salidas = new HashSet<String>();
+		this.salidas.forEach((key,value)->{
+			salidas.add(value.getNombre());
+		});
+		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
+		String nombreDepto = hD.getDeptoContains(this);
+		return new DTActividad(n, des, nombreDepto, dura, costo, salidas);
+	}
+
 }

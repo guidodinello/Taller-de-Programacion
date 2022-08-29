@@ -4,7 +4,10 @@
 # compiled java 
 servidor-central/bin/
 
+
 *.class
+*.jar
+*.zip
 
 # Maven
 log/
