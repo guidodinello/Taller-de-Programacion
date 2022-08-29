@@ -18,8 +18,6 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
 
-//import excepciones.InvalidArgument;
-//import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 import excepciones.InscriptionFailException;
 

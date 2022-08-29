@@ -26,7 +26,6 @@ import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
 import datatypes.DTUsuario;
-import excepciones.InvalidArgument;
 import logica.interfaces.ICtrlUsuario;
 import javax.swing.JButton;
 
