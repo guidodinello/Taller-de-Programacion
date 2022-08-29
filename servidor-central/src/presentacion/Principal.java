@@ -22,17 +22,7 @@ import logica.interfaces.ICtrlUsuario;
 //import java.awt.Insets;
 //import javax.swing.JTextField;
 
-
-import datatypes.tipoUsuario;
 import datosDePrueba.CargarDatosDePrueba;
-//import excepciones.InvalidArgument;
-import excepciones.YaExisteException;
-
-//import javax.swing.BoxLayout;
-//import java.awt.BorderLayout;
-//import java.awt.GridBagLayout;
-
-//import presentacion.altaUsuario;
 
 public class Principal {
 

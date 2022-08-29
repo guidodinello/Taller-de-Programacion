@@ -38,14 +38,6 @@ public class Proveedor extends Usuario {
 		this.actividades.put(actividad.getNombre(), actividad);
 	}
 	
-	public Map<String, ActividadTuristica> getActividadesTuristicas(){
-		Map<String, ActividadTuristica> resu = new HashMap<>();
-		for(Map.Entry<String, ActividadTuristica> entry : actividades.entrySet()) {
-			resu.put(entry.getKey(), entry.getValue());
-		}
-		return resu;
-	}
-	
 	public Set<DTActividad> getDTActividades(){
 		Set<DTActividad> resultado = new HashSet<DTActividad>();
 		this.actividades.forEach((key, value)->{

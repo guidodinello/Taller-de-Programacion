@@ -54,7 +54,7 @@ public class HandlerUsuarios {
 		proveedores.put(p.getEmail(), p);
 	}
 	
-
+//  siempre sabemos de antemano el tipo de usuario
 	public void agregarUsuario(Usuario u) throws YaExisteException {
 		if (u instanceof Proveedor) {
 			Proveedor p = (Proveedor) u;
@@ -79,6 +79,7 @@ public class HandlerUsuarios {
 		return (Turista)usuarios.get(n);
 	}
 
+//	siempre los pedimos por nickname
 	public Usuario getUsuarioByEmail(String n){
 		if(proveedores.get(n) != null) {
 			return proveedores.get(n);

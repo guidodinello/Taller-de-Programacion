@@ -8,13 +8,8 @@ import datatypes.DTSalida;
 import datatypes.DTUsuario;
 import datatypes.tipoUsuario;
 
-//import excepciones.InvalidArgument;
 import excepciones.YaExisteException;
 import excepciones.InscriptionFailException;
-
-//import logica.clases.Proveedor;
-//import logica.clases.Turista;
-//import logica.clases.Usuario;
 
 public interface ICtrlUsuario {
 
