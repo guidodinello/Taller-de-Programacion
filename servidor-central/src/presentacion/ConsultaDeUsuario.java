@@ -487,13 +487,13 @@ public class ConsultaDeUsuario extends JInternalFrame {
         
         btnVerSalidaTurista.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		pasarDatosConsultaSalida(e);	
+        		pasarDatosConsultaSalidaTurista(e);	
         	}
         });
         
         btnVerSalidaProveedor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		pasarDatosConsultaSalida(e);	
+        		pasarDatosConsultaSalidaProveedor(e);	
         	}
         });
         
@@ -675,18 +675,22 @@ public class ConsultaDeUsuario extends JInternalFrame {
     	seteandoDatosIniciales = false;
 	}
 	
-	public void pasarDatosConsultaSalida(ActionEvent e){
-		if(ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombre() == "No tiene salidas") {
-			JOptionPane.showMessageDialog(this,
-					"No hay salida para mostrar", "No hay salidas", JOptionPane.ERROR_MESSAGE);
-		}else {
-			String nombreActividad = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreActividad();
-			String nombreDepartamento = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreDepartamentoActividad();
-			String nombreSalida = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombre();
+	public void pasarDatosConsultaSalidaTurista(ActionEvent e){
+		String nombreActividad = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreActividad();
+		String nombreDepartamento = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreDepartamentoActividad();
+		String nombreSalida = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombre();
 			
-			ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
-		}
+		ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
 		
+	}
+	
+	public void pasarDatosConsultaSalidaProveedor(ActionEvent e) {
+		String nombreActividad = ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex()).getNombre();
+		String nombreDepartamento = ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex()).getDepartamento();
+		String nombreSalida = (String) ComboBoxSalidasDeActividadesDelProveedor.getSelectedItem();
+			
+		ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
+
 	}
 	
 	public void pasarDatosConsultaActividad() {

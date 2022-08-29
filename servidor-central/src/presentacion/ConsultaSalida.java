@@ -461,7 +461,7 @@ public class ConsultaSalida<E> extends JInternalFrame {
 	public void datosQueVienenDesdeOtroCasoDeUso(String departamento, String actividad, String salida) {
 		cargarDatos();
 		ComboBoxSelDepartamento.setSelectedItem(departamento);
-		rdbtnDepto.setSelected(true);
+		rdbtnDepto.doClick();
 		comboBox_1.setSelectedItem(actividad);
 		rdbtnNewRadioButton.setSelected(true);
 		comboBoxSal.setSelectedItem(salida);
