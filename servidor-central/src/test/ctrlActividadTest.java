@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
 
-import org.junit.BeforeClass;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import datatypes.tipoUsuario;
-import excepciones.InscriptionFailException;
+
 import excepciones.YaExisteException;
-import logica.clases.SalidaTuristica;
+
 import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
@@ -440,7 +440,6 @@ public class ctrlActividadTest{
 	@Test
 	@Order(17)
 	void testCrearPaqueteOk() {
-		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		String nombreP1 = "Paquete 1";
 		String nombreP2 = "Paquete 2";
 		String nombreP3 = "Paquete 3";
@@ -717,6 +716,11 @@ public class ctrlActividadTest{
 		assertEquals(dtP2.getPeriodoValidez(), validezP2);
 		assertEquals(dtP3.getPeriodoValidez(), validezP3);
 		assertEquals(dtP4.getPeriodoValidez(), validezP4);
+		
+		assertEquals(dtP1.getFechaAlta(), fechaAltaP1);
+		assertEquals(dtP2.getFechaAlta(), fechaAltaP2);
+		assertEquals(dtP3.getFechaAlta(), fechaAltaP3);
+		assertEquals(dtP4.getFechaAlta(), fechaAltaP4);
 		
 		assertEquals(dtP1.getActividades().contains(nombActividad1), true);
 		assertEquals(dtP1.getActividades().contains(nombActividad2), true);

@@ -414,7 +414,6 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida se ha creado con exito", "Registrar Salida", JOptionPane.INFORMATION_MESSAGE);
 
 				 } catch (YaExisteException e) {
-					// TODO Auto-generated catch block
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida ya existe", "Salida no Registrada", JOptionPane.INFORMATION_MESSAGE);
 				}
 				 limpiarForm();

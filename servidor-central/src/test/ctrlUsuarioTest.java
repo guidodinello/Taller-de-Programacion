@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.ClassOrderer.OrderAnnotation;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Set;
 
-import logica.clases.Turista;
 import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
@@ -27,7 +25,6 @@ import logica.interfaces.ICtrlActividad;
 import datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
-import datatypes.DTUsuario;
 import datatypes.DTActividad;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;

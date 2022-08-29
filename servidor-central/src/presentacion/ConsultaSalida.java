@@ -26,7 +26,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 @SuppressWarnings("serial")
-public class ConsultaSalida<E> extends JInternalFrame {
+public class ConsultaSalida extends JInternalFrame {
 
 	// Controlador
 	private ICtrlActividad ctrlSalida;
