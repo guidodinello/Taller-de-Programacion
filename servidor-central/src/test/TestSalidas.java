@@ -37,15 +37,17 @@ public class TestSalidas {
 		controladorActividad = fabrica.getICtrlActividad();
 		HandlerSalidas.clear();
 		//TODO
-		//new DepartamentosTest().testAltaDepartamentosOK();
-		//new TestActividades().testAltaActividadesOK();
+		DepartamentosTest testDepartamentos = DepartamentosTest.getInstance();
+		testDepartamentos.testAltaDepartamentosOk();
+		ctrlActividadTest testAct = new ctrlActividadTest();
+		testAct.testAltaActividadesOK();
 	} 
 ///verifico que no hay salidas
 	@Test
 	@Order(1)
 	void testListaSinSalidas() {
 		HandlerSalidas hs = HandlerSalidas.getInstance();
-		 assertEquals(hs.getSalidas().length == 0,true, "No hay salidas");
+		 assertEquals(hs.getSalidas().equals(null),true, "No hay salidas");
 	}
 	
 	///verifico que se de de alta bien una salida

@@ -87,7 +87,6 @@ public class CtrlActividad implements ICtrlActividad{
 		ActividadTuristica act = hA.obtenerActividadTuristica(actividad);
 		return act.getSalidasNombre();
 	
-		
 	}
 	
 	//Salidas
