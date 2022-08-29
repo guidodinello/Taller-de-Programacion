@@ -21,6 +21,7 @@ import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
 import logica.handlers.HandlerSalidas;
+import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
@@ -38,13 +39,15 @@ public class ctrlActividadTest{
 	@BeforeAll
 	public static void iniciar() {
 		Fabrica fabrica = Fabrica.getInstance();
-		//HandlerActividades.clear();
+		//clear a los handler
+		HandlerActividades.clear();
+		HandlerSalidas.clear();
+		HandlerDepartamentos.clear();
+		HandlerUsuarios.clear();
+		HandlerPaquetes.clear();
 		hA = HandlerActividades.getInstance();
 		controladorActividad = fabrica.getICtrlActividad();
 		controladorUsuario = fabrica.getICtrlUsuario();
-		//HandlerDepartamentos.clear();
-		//DepartamentosTest testDepartamentos = DepartamentosTest.getInstance();
-		//testDepartamentos.testAltaDepartamentosOk();
 		try {
 			controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
 			controladorUsuario.altaUsuario("agus", "agus@", "Agustin", "Franco", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);

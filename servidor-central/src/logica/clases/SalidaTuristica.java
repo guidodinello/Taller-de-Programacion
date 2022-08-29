@@ -76,7 +76,7 @@ public class SalidaTuristica{
 		}
 		
 		public void reducirPlazos(int cantidad) {
-			plazosDisponibles -= cantidad;
+			plazosDisponibles = plazosDisponibles - cantidad;
 		}
 		
 		public Set<String> getTuristasInscriptos(){
