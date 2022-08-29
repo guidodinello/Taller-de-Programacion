@@ -6,16 +6,16 @@ import java.util.Set;
 public class DTPaquete {
 	private String nombre, descripcion;
 	private int periodoValidez;
-	private float costo;
+	private float descuento;
 	private GregorianCalendar fechaAlta;
 	private Set<String> actividades;
 
-	public DTPaquete(String nombre, String descripcion, int periodoValidez, float costo, GregorianCalendar fechaAlta,
+	public DTPaquete(String nombre, String descripcion, int periodoValidez, float descuento, GregorianCalendar fechaAlta,
 			Set<String> actividades) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.periodoValidez = periodoValidez;
-		this.costo = costo;
+		this.descuento = descuento;
 		this.fechaAlta = fechaAlta;
 		this.actividades = actividades;
 	}
@@ -32,8 +32,8 @@ public class DTPaquete {
 		return periodoValidez;
 	}
 
-	public float getCosto() {
-		return costo;
+	public float getDescuento() {
+		return descuento;
 	}
 
 	public GregorianCalendar getFechaAlta() {

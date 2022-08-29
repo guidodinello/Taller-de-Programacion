@@ -86,7 +86,7 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().add(altaUsuario);
         
         altaSalida = new altaSalida(ICA);
-        altaSalida.setBounds(30, 30, 453, 431);
+        altaSalida.setBounds(30, 30, 515, 431);
         altaSalida.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(altaSalida);
         
@@ -107,21 +107,23 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().add(creInscrInternalFrame);
         
         crearActividadTuristica = new altaActividadTuristica(ICA, ICU);
-        crearActividadTuristica.setBounds(100, 100, 450, 260);
+        crearActividadTuristica.setBounds(45, 71, 536, 272);
         crearActividadTuristica.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         
         consultaActividadInternalFrame = new ConsultaDeActividadTuristica(ICA);
-        consultaActividadInternalFrame.setSize(480, 462);
+        consultaActividadInternalFrame.setSize(510, 462);
         consultaActividadInternalFrame.setLocation(110, 11);
         consultaActividadInternalFrame.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
         
         crearPaquete = new CrearPaquete(ICA);
+        crearPaquete.setBounds(30, 30, 368, 341);
         crearPaquete.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearPaquete);
         
         agregarActividadPaquete = new AgregarActividadAPaquete(ICA);
+        agregarActividadPaquete.setBounds(100, 100, 401, 300);
         agregarActividadPaquete.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(agregarActividadPaquete);
 

@@ -94,7 +94,7 @@ public class ActualizarUsuario extends JInternalFrame {
 		setBounds(30, 30, 567, 454);
 				
 		GridBagLayout gbl = new GridBagLayout();
-		gbl.columnWidths = new int[] { 41, 147, 82, 54, 14, 93, 104, 43 };
+		gbl.columnWidths = new int[] { 41, 147, 110, 54, 14, 93, 104, 43 };
 		gbl.rowHeights = new int[] { 0, 0, 30, 30, 30, 30, 30, 30, 30, 35, 35, 30, -27, 36, 0, 0 };
 		gbl.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		gbl.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE };
@@ -122,7 +122,7 @@ public class ActualizarUsuario extends JInternalFrame {
         GridBagConstraints gbc_btnSelecUsuario = new GridBagConstraints();
         gbc_btnSelecUsuario.gridwidth = 2;
         gbc_btnSelecUsuario.anchor = GridBagConstraints.CENTER;
-        gbc_btnSelecUsuario.insets = new Insets(0, 0, 5, 5);
+        gbc_btnSelecUsuario.insets = new Insets(0, 0, 5, 0);
         gbc_btnSelecUsuario.gridx = 6;
         gbc_btnSelecUsuario.gridy = 1;
         getContentPane().add(btnSelecUsuario, gbc_btnSelecUsuario);
@@ -328,14 +328,15 @@ public class ActualizarUsuario extends JInternalFrame {
         GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
         gbc_btnNewButton.gridwidth = 2;
         gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-        gbc_btnNewButton.gridx = 4;
+        gbc_btnNewButton.gridx = 2;
         gbc_btnNewButton.gridy = 13;
         getContentPane().add(btnModificarDatos, gbc_btnNewButton);
         
         btnCancelar = new JButton("Cancelar");
         GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
+        gbc_btnNewButton_1.gridwidth = 2;
         gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-        gbc_btnNewButton_1.gridx = 6;
+        gbc_btnNewButton_1.gridx = 5;
         gbc_btnNewButton_1.gridy = 13;
         getContentPane().add(btnCancelar, gbc_btnNewButton_1);
         
@@ -379,11 +380,13 @@ public class ActualizarUsuario extends JInternalFrame {
 					setVisible(true);
 					date.setText(new DatePicker(f).setPickedDate());
 					// string en formato dd-mm-yyyy
-					textFieldCalendario.setText(date.getText());
-					int dia = Integer.parseInt(date.getText().substring(0,2));
-					int mes = Integer.parseInt(date.getText().substring(4,5));
-					int anio = Integer.parseInt(date.getText().substring(6,10));
-					fechaNac = new GregorianCalendar(anio, mes, dia);	
+					if(!date.getText().isEmpty()) {
+						textFieldCalendario.setText(date.getText());
+						int dia = Integer.parseInt(date.getText().substring(0,2));
+						int mes = Integer.parseInt(date.getText().substring(4,5));
+						int anio = Integer.parseInt(date.getText().substring(6,10));
+						fechaNac = new GregorianCalendar(anio, mes, dia);
+					}
 				}
 			});
 			

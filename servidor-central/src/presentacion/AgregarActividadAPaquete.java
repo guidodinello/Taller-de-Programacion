@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 import logica.interfaces.ICtrlActividad;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 @SuppressWarnings("serial")
 public class AgregarActividadAPaquete extends JInternalFrame{
@@ -40,7 +39,7 @@ public class AgregarActividadAPaquete extends JInternalFrame{
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setMaximizable(true);
-		setBounds(30, 30, 279, 262);
+		setBounds(30, 30, 435, 300);
 		setResizable(true);
         setIconifiable(true);
         setClosable(true);
@@ -64,7 +63,7 @@ public class AgregarActividadAPaquete extends JInternalFrame{
         comboBoxActividades.setEnabled(false);
         comboBoxActividades.setToolTipText("Seleccione una actividad");
         
-        btnCerrar = new JButton("Cerrar");
+        btnCerrar = new JButton("Cancelar");
         btnCerrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	limpiarFormulario();
@@ -98,30 +97,28 @@ public class AgregarActividadAPaquete extends JInternalFrame{
         //Layout
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
-        	groupLayout.createParallelGroup(Alignment.LEADING)
+        	groupLayout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addGroup(groupLayout.createSequentialGroup()
         					.addContainerGap()
         					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
         						.addComponent(lblDepartamentos)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addComponent(lblPaquetes)
-        							.addPreferredGap(ComponentPlacement.RELATED))))
+        						.addComponent(lblPaquetes)))
         				.addGroup(groupLayout.createSequentialGroup()
         					.addGap(32)
         					.addComponent(lblActividades)))
-        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGap(7)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
         				.addComponent(comboBoxDepartamentos, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(comboBoxPaquetes, 0, 234, Short.MAX_VALUE)
         				.addComponent(comboBoxActividades, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        			.addContainerGap(67, Short.MAX_VALUE))
-        		.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-        			.addContainerGap(213, Short.MAX_VALUE)
+        			.addContainerGap(29, Short.MAX_VALUE))
+        		.addGroup(groupLayout.createSequentialGroup()
+        			.addContainerGap(165, Short.MAX_VALUE)
         			.addComponent(btnAceptar)
-        			.addGap(18)
-        			.addComponent(btnCerrar, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+        			.addGap(28)
+        			.addComponent(btnCerrar)
         			.addContainerGap())
         );
         groupLayout.setVerticalGroup(

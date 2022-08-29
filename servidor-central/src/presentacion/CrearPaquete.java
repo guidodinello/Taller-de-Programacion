@@ -65,7 +65,7 @@ public class CrearPaquete extends JInternalFrame{
         textFieldPeriodoValidez = new JTextField();
         textFieldPeriodoValidez.setToolTipText("Ingrese el periodo de validez del paquete en dias");
         textFieldDescuento = new JTextField();
-        textFieldDescuento.setToolTipText("Ingrese el costo del paquete");
+        textFieldDescuento.setToolTipText("Ingrese el descuento del paquete");
         
         textAreaDescripcion.setWrapStyleWord(true);
         textAreaDescripcion.setLineWrap(true);

@@ -130,96 +130,140 @@ public class ConsultaSalida extends JInternalFrame {
 
 		JLabel lblNewLabel_8 = new JLabel("Turistas Inscriptos:");
 
-		JButton btnNewButton = new JButton("Confirmar");
-		btnNewButton.setEnabled(false);
-
-		JButton btnNewButton_1 = new JButton("Cancelar");
+		JButton btnNewButton_1 = new JButton("Cerrar");
 
 		comboBoxTuristas = new JComboBox<String>();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addGap(35).addComponent(LabelSelcDepartamento).addGap(5)
-						.addComponent(ComboBoxSelDepartamento, GroupLayout.PREFERRED_SIZE, 205,
-								GroupLayout.PREFERRED_SIZE)
-						.addGap(5).addComponent(depto))
-				.addGroup(groupLayout.createSequentialGroup().addGap(67).addComponent(lblNewLabel).addGap(5)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-						.addGap(13).addComponent(rdbtnNewRadioButton))
-				.addGroup(groupLayout.createSequentialGroup().addGap(30).addComponent(lblNewLabel_1).addGap(5)
-						.addComponent(comboBoxSal, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-						.addGap(7).addComponent(rdbtnNewRadioButton_1))
-				.addGroup(groupLayout.createSequentialGroup().addGap(129).addComponent(lblNewLabel_2))
-				.addGroup(groupLayout.createSequentialGroup().addGap(151).addComponent(lblNewLabel_3).addGap(5)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup().addGap(166).addComponent(lblNewLabel_4).addGap(5)
-						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup().addGap(55).addComponent(lblNewLabel_5).addGap(5)
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup().addGap(136).addComponent(lblNewLabel_6).addGap(5)
-						.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup().addGap(124).addComponent(lblNewLabel_7).addGap(5)
-						.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
-				.addGroup(groupLayout.createSequentialGroup().addGap(83).addComponent(lblNewLabel_8)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup().addGap(70)
-										.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 97,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnNewButton_1))
-								.addGroup(groupLayout.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(comboBoxTuristas,
-												GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)))));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addGap(15)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(35)
+					.addComponent(LabelSelcDepartamento)
+					.addGap(5)
+					.addComponent(ComboBoxSelDepartamento, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+					.addGap(5)
+					.addComponent(depto))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(67)
+					.addComponent(lblNewLabel)
+					.addGap(5)
+					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+					.addGap(13)
+					.addComponent(rdbtnNewRadioButton))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(30)
+					.addComponent(lblNewLabel_1)
+					.addGap(5)
+					.addComponent(comboBoxSal, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+					.addGap(7)
+					.addComponent(rdbtnNewRadioButton_1))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(129)
+					.addComponent(lblNewLabel_2))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(151)
+					.addComponent(lblNewLabel_3)
+					.addGap(5)
+					.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(166)
+					.addComponent(lblNewLabel_4)
+					.addGap(5)
+					.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(55)
+					.addComponent(lblNewLabel_5)
+					.addGap(5)
+					.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(136)
+					.addComponent(lblNewLabel_6)
+					.addGap(5)
+					.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(124)
+					.addComponent(lblNewLabel_7)
+					.addGap(5)
+					.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(83)
+					.addComponent(lblNewLabel_8)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(179)
+							.addComponent(btnNewButton_1))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(comboBoxTuristas, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(LabelSelcDepartamento, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-						.addComponent(ComboBoxSelDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup().addGap(2).addComponent(depto)))
-				.addGap(5)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(lblNewLabel))
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup().addGap(2).addComponent(rdbtnNewRadioButton)))
-				.addGap(5)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(lblNewLabel_1))
-						.addComponent(comboBoxSal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup().addGap(2).addComponent(rdbtnNewRadioButton_1)))
-				.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE).addComponent(lblNewLabel_2).addGap(10)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(lblNewLabel_3))
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(5)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(lblNewLabel_4))
-						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(5)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(lblNewLabel_5))
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(5)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(lblNewLabel_6))
-						.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(5)
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(lblNewLabel_7))
-						.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(10)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel_8).addComponent(
-						comboBoxTuristas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(btnNewButton_1)
-						.addComponent(btnNewButton))
-				.addContainerGap()));
+						.addComponent(ComboBoxSelDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(2)
+							.addComponent(depto)))
+					.addGap(5)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblNewLabel))
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(2)
+							.addComponent(rdbtnNewRadioButton)))
+					.addGap(5)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblNewLabel_1))
+						.addComponent(comboBoxSal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(2)
+							.addComponent(rdbtnNewRadioButton_1)))
+					.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_2)
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblNewLabel_3))
+						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(5)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblNewLabel_4))
+						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(5)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblNewLabel_5))
+						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(5)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblNewLabel_6))
+						.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(5)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblNewLabel_7))
+						.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_8)
+						.addComponent(comboBoxTuristas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnNewButton_1)
+					.addContainerGap())
+		);
 		getContentPane().setLayout(groupLayout);
 		pack();
 
@@ -376,7 +420,6 @@ public class ConsultaSalida extends JInternalFrame {
 				textField_9.setText(String.valueOf(fechaStringFormato(res.getfechaAlta(), true)));
 				textField_10.setText(String.valueOf(fechaStringFormato(res.getfechaSalida(), false)));
 				Set<String> aux = res.getTuristasInscriptos();
-				btnNewButton.setEnabled(true);
 				DefaultComboBoxModel<String> model;
 				String[] arrT = new String[aux.size()];
 				aux.toArray(arrT);
@@ -384,29 +427,6 @@ public class ConsultaSalida extends JInternalFrame {
 				comboBoxTuristas.setModel(model);
 				comboBoxTuristas.setEnabled(true);
 			}
-		});
-
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				if (!settear)
-					return;
-
-				limpiarForm();
-				setVisible(false);
-				ComboBoxSelDepartamento.removeAllItems();
-				comboBox_1.removeAllItems();
-				comboBox_1.setEnabled(false);
-				comboBoxSal.removeAllItems();
-				comboBoxSal.setEnabled(false);
-				rdbtnNewRadioButton_1.setSelected(false);
-
-				rdbtnNewRadioButton.setSelected(false);
-				depto.setSelected(false);
-				comboBoxTuristas.removeAllItems();
-				comboBoxTuristas.setEnabled(false);
-
-			}
-
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {

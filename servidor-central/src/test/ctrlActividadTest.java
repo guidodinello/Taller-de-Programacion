@@ -682,6 +682,11 @@ public class ctrlActividadTest{
 		String descP3 = "Descripcion 3";
 		String descP4 = "Descripcion 4";
 		
+		float descuentoP1 = (float) 0.1;
+		float descuentoP2 = (float) 0.2;
+		float descuentoP3 = (float) 0.3;
+		float descuentoP4 = (float) 0.4;
+		
 		int validezP1 = 1;
 		int validezP2 = 2;
 		int validezP3 = 2;
@@ -711,6 +716,11 @@ public class ctrlActividadTest{
 		assertEquals(dtP2.getDescripcion(), descP2);
 		assertEquals(dtP3.getDescripcion(), descP3);
 		assertEquals(dtP4.getDescripcion(), descP4);
+		
+		assertEquals(dtP1.getDescuento(), descuentoP1);
+		assertEquals(dtP2.getDescuento(), descuentoP2);
+		assertEquals(dtP3.getDescuento(), descuentoP3);
+		assertEquals(dtP4.getDescuento(), descuentoP4);
 		
 		assertEquals(dtP1.getPeriodoValidez(), validezP1);
 		assertEquals(dtP2.getPeriodoValidez(), validezP2);

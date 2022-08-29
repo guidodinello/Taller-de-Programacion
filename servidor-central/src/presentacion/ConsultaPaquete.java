@@ -69,7 +69,7 @@ public class ConsultaPaquete extends JInternalFrame {
 		lblDatosDelPaquete = new JLabel("Datos del Paquete");
 		lblDescripcion = new JLabel("Descripcion");
 		lblPeriodoDeValidez = new JLabel("Periodo de Validez");
-		lblCosto = new JLabel("Costo");
+		lblCosto = new JLabel("Descuento");
 		lblFechaDeAlta = new JLabel("Fecha de Alta");
 		lblActividadesTuristicasIncluidas = new JLabel("Actividades Turisticas incluidas en el Paquete");
 		
@@ -85,7 +85,7 @@ public class ConsultaPaquete extends JInternalFrame {
 		textFieldFechaAlta.setEditable(false);
 		textFieldFechaAlta.setColumns(10);
 		
-		btnSalir = new JButton("Salir");
+		btnSalir = new JButton("Cerrar");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -227,7 +227,7 @@ public class ConsultaPaquete extends JInternalFrame {
 					DTPaquete dtp = ctrlAct.getInfoPaquete(p);
 					textPaneDescripcion.setText(dtp.getDescripcion());
 					textFieldPeriodoValidez.setText(String.valueOf(dtp.getPeriodoValidez()) + " dias");
-					textFieldCosto.setText("$ " + String.valueOf(dtp.getCosto()));
+					textFieldCosto.setText(String.valueOf(dtp.getDescuento()) + " %");
 					textFieldFechaAlta.setText(fechaStringFormato(dtp.getFechaAlta(), true));
 					
 					panel_actividades.removeAll();
@@ -293,7 +293,7 @@ public class ConsultaPaquete extends JInternalFrame {
 		DTPaquete dtp = ctrlAct.getInfoPaquete(paquete);
 		textPaneDescripcion.setText(dtp.getDescripcion());
 		textFieldPeriodoValidez.setText(String.valueOf(dtp.getPeriodoValidez()) + " dias");
-		textFieldCosto.setText("$ " + String.valueOf(dtp.getCosto()));
+		textFieldCosto.setText(String.valueOf(dtp.getDescuento()) + " %");
 		textFieldFechaAlta.setText(fechaStringFormato(dtp.getFechaAlta(), true));
 		
 		

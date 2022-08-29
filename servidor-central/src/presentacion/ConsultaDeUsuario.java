@@ -77,6 +77,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	//Ventanas que abre
 	private ConsultaDeActividadTuristica ventanaConsultaActividad;
 	private ConsultaSalida ventanaConsultaSalida;
+	private JButton btnCerrar;
 	
 
 	
@@ -427,6 +428,13 @@ public class ConsultaDeUsuario extends JInternalFrame {
         gbc_btnNewButton_2.gridx = 4;
         gbc_btnNewButton_2.gridy = 13;
         getContentPane().add(btnVerSalidaProveedor, gbc_btnNewButton_2);
+        
+        btnCerrar = new JButton("Cerrar");
+        GridBagConstraints gbc_btnCerrar = new GridBagConstraints();
+        gbc_btnCerrar.insets = new Insets(0, 0, 5, 5);
+        gbc_btnCerrar.gridx = 3;
+        gbc_btnCerrar.gridy = 14;
+        getContentPane().add(btnCerrar, gbc_btnCerrar);
         ComboBoxSalidasDeActividadesDelProveedor.setVisible(false);
         LabelSalidasDeActividadesDelProveedor.setVisible(false);
         
@@ -500,6 +508,13 @@ public class ConsultaDeUsuario extends JInternalFrame {
         btnVerActividad.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		pasarDatosConsultaActividad();	
+        	}
+        });
+        
+        btnCerrar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		limpiarTodosCampos();
+        		setVisible(false);
         	}
         });
 	}
