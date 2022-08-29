@@ -10,7 +10,6 @@ import java.util.HashMap;
 import logica.clases.Usuario;
 import logica.clases.Turista;
 import logica.clases.Proveedor;
-//import excepciones.NoExisteUsuario;
 import excepciones.YaExisteException;
 
 public class HandlerUsuarios {
@@ -63,7 +62,6 @@ public class HandlerUsuarios {
 			Turista t = (Turista) u;
 			this.agregarTurista((Turista)t);
 		}
-
 	}
 
 	//tira null si no existe
