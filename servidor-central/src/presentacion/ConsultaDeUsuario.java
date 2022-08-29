@@ -57,7 +57,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private JLabel LabelNacionalidad;
 	private JTextField TextNacionalidad;
 	private JLabel LabelSalidasInscripto;
-	private JComboBox<String> ComboBoxSalidasInscripto;
+	private JComboBox<DTSalida> ComboBoxSalidasInscripto;
 	private JButton btnVerSalidaTurista;
 	//Si el usuario es proveedor
 	private JLabel LabelDescripcion;
@@ -79,6 +79,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private DTUsuario dtU = null;
 	//Ventanas que abre
 	private ConsultaDeActividadTuristica ventanaConsultaActividad;
+	private ConsultaSalida ventanaConsultaSalida;
 	
 
 	
@@ -292,7 +293,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
         getContentPane().add(LabelSalidasInscripto, gbc_LabelSalidasInscripto);
         LabelSalidasInscripto.setVisible(false);
         //combo box salidas
-        ComboBoxSalidasInscripto = new JComboBox<String>();
+        ComboBoxSalidasInscripto = new JComboBox<DTSalida>();
         GridBagConstraints gbc_ComboBoxSalidasInscripto = new GridBagConstraints();
         gbc_ComboBoxSalidasInscripto.gridwidth = 2;
         gbc_ComboBoxSalidasInscripto.fill = GridBagConstraints.BOTH;
@@ -506,8 +507,10 @@ public class ConsultaDeUsuario extends JInternalFrame {
         });
 	}
 	
-	public void iniciarVentana(ConsultaDeActividadTuristica consultaActividad) {
+	public void iniciarVentana(ConsultaDeActividadTuristica consultaActividad, ConsultaSalida consultaSalida) {
 		ventanaConsultaActividad = consultaActividad;
+		ventanaConsultaSalida = consultaSalida;
+		
 		limpiarTodosCampos();
 		Set<String> usuarios = ctrlUsuario.listarUsuarios();
 		if(usuarios.isEmpty()) {
@@ -548,14 +551,14 @@ public class ConsultaDeUsuario extends JInternalFrame {
 			if (!dtS.isEmpty()) {
 				dtS.forEach((dt)->{
 					seteandoDatosIniciales = true;
-					String infoSalida = "Nombre: "+ dt.getNombre() + ". Fecha salida: " + fechaStringFormato(dt.getfechaSalida(), true);
-					ComboBoxSalidasInscripto.addItem(infoSalida);
+					ComboBoxSalidasInscripto.addItem(dt);
 					seteandoDatosIniciales = false;
 				});
 				btnVerSalidaTurista.setEnabled(true);
 			}else {
 				seteandoDatosIniciales = true;
-				ComboBoxSalidasInscripto.addItem("No tiene salidas");
+				DTSalida dt = new  DTSalida("No tiene salidas", null, null, 0, null, null);
+				ComboBoxSalidasInscripto.addItem(dt);
 				seteandoDatosIniciales = false;
 				btnVerSalidaTurista.setEnabled(false);
 			}
@@ -675,11 +678,15 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	}
 	
 	public void pasarDatosConsultaSalida(ActionEvent e){
-		if(ComboBoxSalidasInscripto.getSelectedItem() == null) {
+		if(ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombre() == "No tiene salidas") {
 			JOptionPane.showMessageDialog(this,
 					"No hay salida para mostrar", "No hay salidas", JOptionPane.ERROR_MESSAGE);
 		}else {
-			return;
+			String nombreActividad = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreActividad();
+			String nombreDepartamento = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreDepartamentoActividad();
+			String nombreSalida = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombre();
+			
+			ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
 		}
 		
 	}

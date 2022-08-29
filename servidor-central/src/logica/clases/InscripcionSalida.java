@@ -3,6 +3,7 @@ package logica.clases;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
+import datatypes.DTActividad;
 import datatypes.DTSalida;
 
 public class InscripcionSalida{
@@ -42,6 +43,7 @@ public class InscripcionSalida{
 		int CmaxT  = this.salida.getcantidadMaximaDeTuristas();
 		String SlugarSal = this.salida.getlugarSalida();
 		Set<String> SSturistas = this.salida.getTuristasInscriptos();
-		return new DTSalida(Sn, Ds, Da, CmaxT, SlugarSal, SSturistas);
+		DTActividad actSalida = salida.getActividad().getDTActividad();
+		return new DTSalida(Sn,actSalida.getNombre(), actSalida.getDepartamento(), Ds, Da, CmaxT, SlugarSal, SSturistas);
 	}
 }

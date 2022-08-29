@@ -7,11 +7,13 @@ import java.util.GregorianCalendar;
 
 public class DTSalida {
 	private String nombre;
+	private String nombreActividad;
+	private String nombreDepartamentoActividad;
 	private GregorianCalendar fechaSalida;
 	private GregorianCalendar fechaAlta;
 	private int maxTuristas;
 	private String lugarSalida;
-	private Set<String> turistasInscriptos; //va a ser set??? // resp: Creo que es suficiente con poner los nicks nomas
+	private Set<String> turistasInscriptos;
 	
 	 public DTSalida() {
 		this.setNombre(new String());
@@ -26,6 +28,17 @@ public class DTSalida {
 
 	 public DTSalida(String Sn, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas) {
 	        this.nombre = Sn;
+	        this.fechaSalida = Ds;
+	        this.fechaAlta= Da;
+	        this.maxTuristas = CmaxT;
+	        this.lugarSalida = SlugarSal;
+	        this.turistasInscriptos = SSturistas;
+	    }
+	 
+	 public DTSalida(String Sn,String actividad, String deptoAct, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas) {
+	        this.nombre = Sn;
+	        this.nombreActividad = actividad;
+	        this.nombreDepartamentoActividad = deptoAct;
 	        this.fechaSalida = Ds;
 	        this.fechaAlta= Da;
 	        this.maxTuristas = CmaxT;
@@ -60,6 +73,14 @@ public class DTSalida {
         return nombre;
     }
 
+	public String getNombreActividad() {
+		return nombreActividad;
+	}
+
+	public String getNombreDepartamentoActividad() {
+		return nombreDepartamentoActividad;
+	}
+    
     public GregorianCalendar getfechaSalida() {
         return fechaSalida;
     }
@@ -81,6 +102,8 @@ public class DTSalida {
 	public String toString() {
 		return nombre + " - " + lugarSalida;
 	}
+
+
     
 ////////////////////////////////////////////////////////////////////////////
     /* Sirve para mostrar textualmente la información del usuario, por ejemplo en un ComboBox

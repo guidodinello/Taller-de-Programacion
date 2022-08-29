@@ -40,7 +40,7 @@ public class ConsultaSalida<E> extends JInternalFrame {
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private JTextField textField_10;
-	private JRadioButton rdbtnNewRadioButton_1, rdbtnNewRadioButton;
+	private JRadioButton rdbtnNewRadioButton_1, rdbtnNewRadioButton, rdbtnDepto;
 	private JComboBox<String> ComboBoxSelDepartamento, comboBox_1, comboBoxSal, comboBoxTuristas;
 	private boolean settear;
 
@@ -72,6 +72,7 @@ public class ConsultaSalida<E> extends JInternalFrame {
 		});
 
 		JRadioButton depto = new JRadioButton("Confirmar Depto.");
+		rdbtnDepto = depto;
 
 		///////////////// SELECCIONAR
 		///////////////// ACTIVIDAD//////////////////////////////////////////////
@@ -456,7 +457,14 @@ public class ConsultaSalida<E> extends JInternalFrame {
 
 	}
 
-	public void datosQueVienenDesdeConsultaActividad(String departamento, String actividad, String salida) {
-		// Consultar la salida con los datos ingresados
+	public void datosQueVienenDesdeOtroCasoDeUso(String departamento, String actividad, String salida) {
+		cargarDatos();
+		ComboBoxSelDepartamento.setSelectedItem(departamento);
+		rdbtnDepto.setSelected(true);
+		comboBox_1.setSelectedItem(actividad);
+		rdbtnNewRadioButton.setSelected(true);
+		comboBoxSal.setSelectedItem(salida);
+		rdbtnNewRadioButton_1.setSelected(true);
+		setVisible(true);
 	}
 }

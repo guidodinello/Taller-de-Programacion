@@ -212,7 +212,7 @@ public class Principal {
         JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
         menuItemConsultaUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		consultaDeUsuario.iniciarVentana(consultaActividadInternalFrame);
+        		consultaDeUsuario.iniciarVentana(consultaActividadInternalFrame, consultaDeSalida);
         	};
         });
         menuUsuarios.add(menuItemConsultaUsuario);
