@@ -676,18 +676,14 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	}
 	
 	public void pasarDatosConsultaSalida(ActionEvent e){
-		if(ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombre() == "No tiene salidas") {
-			JOptionPane.showMessageDialog(this,
-					"No hay salida para mostrar", "No hay salidas", JOptionPane.ERROR_MESSAGE);
-		}else {
-			String nombreActividad = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreActividad();
-			String nombreDepartamento = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreDepartamentoActividad();
-			String nombreSalida = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombre();
-			
-			ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
-		}
 		
-	}
+		String nombreActividad = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreActividad();
+		String nombreDepartamento = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombreDepartamentoActividad();
+		String nombreSalida = ComboBoxSalidasInscripto.getItemAt(ComboBoxSalidasInscripto.getSelectedIndex()).getNombre();
+			
+		ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
+		
+		}
 	
 	public void pasarDatosConsultaActividad() {
 		if(ComboBoxActividadesProveedor.getSelectedItem() == null) {

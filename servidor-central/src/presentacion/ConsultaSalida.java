@@ -430,7 +430,12 @@ public class ConsultaSalida<E> extends JInternalFrame {
 	}
 
 	public void cargarDatos() {
-
+		ComboBoxSelDepartamento.setEnabled(true);
+		rdbtnDepto.setEnabled(true);
+		comboBox_1.setEnabled(true);
+		rdbtnNewRadioButton.setEnabled(true);
+		comboBoxSal.setEnabled(true);
+		rdbtnNewRadioButton_1.setEnabled(true);
 		Set<String> departamentos = ctrlSalida.listarDepartamentos();
 		departamentos.forEach((d) -> {
 			ComboBoxSelDepartamento.addItem(d);
@@ -461,11 +466,17 @@ public class ConsultaSalida<E> extends JInternalFrame {
 	public void datosQueVienenDesdeOtroCasoDeUso(String departamento, String actividad, String salida) {
 		cargarDatos();
 		ComboBoxSelDepartamento.setSelectedItem(departamento);
-		rdbtnDepto.setSelected(true);
+		rdbtnDepto.doClick();
+		ComboBoxSelDepartamento.setEnabled(false);
+		rdbtnDepto.setEnabled(false);
 		comboBox_1.setSelectedItem(actividad);
-		rdbtnNewRadioButton.setSelected(true);
+		rdbtnNewRadioButton.doClick();
+		comboBox_1.setEnabled(false);
+		rdbtnNewRadioButton.setEnabled(false);
 		comboBoxSal.setSelectedItem(salida);
-		rdbtnNewRadioButton_1.setSelected(true);
+		rdbtnNewRadioButton_1.doClick();
+		comboBoxSal.setEnabled(false);
+		rdbtnNewRadioButton_1.setEnabled(false);
 		setVisible(true);
 	}
 }
