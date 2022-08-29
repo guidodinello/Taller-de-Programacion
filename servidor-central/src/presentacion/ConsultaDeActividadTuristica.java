@@ -362,7 +362,8 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 				JOptionPane.showMessageDialog(this,
 						"No hay paquete para mostrar", "Consulta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
 			}
-			consultaPaquete.datosQueVienenDesdeConsultaActividad(comboBoxPaquetes.getSelectedItem().toString());
+			else
+				consultaPaquete.datosQueVienenDesdeConsultaActividad(comboBoxPaquetes.getSelectedItem().toString());
 		}
 		
 		private void consultarSalida() {
@@ -370,7 +371,8 @@ public class ConsultaDeActividadTuristica extends JInternalFrame{
 				JOptionPane.showMessageDialog(this,
 						"No hay salida para mostrar", "Consulta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
 			}
-			consultaSalida.datosQueVienenDesdeConsultaActividad(comboBoxDepartamentos.getSelectedItem().toString(),comboBoxActividades.getSelectedItem().toString(), comboBoxSalidas.getSelectedItem().toString());
+			else
+				consultaSalida.datosQueVienenDesdeConsultaActividad(comboBoxDepartamentos.getSelectedItem().toString(),comboBoxActividades.getSelectedItem().toString(), comboBoxSalidas.getSelectedItem().toString());
 		}
 		
 		public void datosQueVienenDesdeConsultaDeUsuario(String nombreDepartamento ,String nombreActividad) {

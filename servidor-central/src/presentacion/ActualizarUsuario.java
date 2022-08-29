@@ -1,6 +1,5 @@
 package presentacion;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,16 +15,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import datatypes.DTActividad;
 import datatypes.DTProveedor;
-import datatypes.DTSalida;
 import datatypes.DTTurista;
 import datatypes.DTUsuario;
 import logica.interfaces.ICtrlUsuario;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
@@ -79,7 +75,6 @@ public class ActualizarUsuario extends JInternalFrame {
 	private JButton btnModificarDatos;
 	private JButton btnCancelar;
 	//Modificacion de datos de combo box
-	private boolean seteandoComboBox = false;
 
 	
 
@@ -400,15 +395,11 @@ public class ActualizarUsuario extends JInternalFrame {
 		btnModificarDatos.setEnabled(false);
 		Set<String> usuarios = ctrlUsuario.listarUsuarios();
 		if(usuarios.isEmpty()) {
-			seteandoComboBox = true;
         	ComboBoxSelUsuario.addItem("No hay usuarios registrados");
-        	seteandoComboBox = false;
         	btnSelecUsuario.setEnabled(false);
 		}else {
 	        usuarios.forEach((u)->{
-	        	seteandoComboBox = true;
 	        	ComboBoxSelUsuario.addItem(u);
-	        	seteandoComboBox = false;
 	        });
 	        btnSelecUsuario.setEnabled(true);
 		}
@@ -495,9 +486,7 @@ public class ActualizarUsuario extends JInternalFrame {
 	}
 	
 	public void limpiarComboBoxeUsuario(){
-		seteandoComboBox = true;
 		ComboBoxSelUsuario.removeAllItems();
-		seteandoComboBox = false;
 	}
 	
 	public void limpiarCamposTexto() {
@@ -518,6 +507,7 @@ public class ActualizarUsuario extends JInternalFrame {
     	newSitioWeb = null;
 	}
 	
+	@SuppressWarnings("static-access")
 	private String fechaStringFormato(GregorianCalendar g, boolean conHora) {
 		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
 		String mes = String.valueOf(g.get(g.MONTH));

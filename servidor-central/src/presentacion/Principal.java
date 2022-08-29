@@ -129,6 +129,10 @@ public class Principal {
         consultarPaquete.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultarPaquete);
         
+        actualizarUsuario = new ActualizarUsuario(ICU);
+        actualizarUsuario.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(actualizarUsuario);
+        
      // Esto tiene que ir al final de todo
         consultaActividadInternalFrame.cargarVentanasConsulta(consultaDeSalida, consultarPaquete);
         consultarPaquete.cargarConsultaActividadFrame(consultaActividadInternalFrame);

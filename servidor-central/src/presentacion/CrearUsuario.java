@@ -7,12 +7,11 @@ import javax.swing.SwingConstants;
 
 import logica.interfaces.ICtrlUsuario;
 
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import java.awt.CardLayout;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;

@@ -437,6 +437,7 @@ public class ConsultaSalida<E> extends JInternalFrame {
 
 	}
 
+	@SuppressWarnings("static-access")
 	public String fechaStringFormato(GregorianCalendar g, boolean conHora) {
 		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
 		String mes = String.valueOf(g.get(g.MONTH));

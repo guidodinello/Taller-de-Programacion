@@ -1,15 +1,13 @@
 package presentacion;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+
+
 import java.awt.Image;
-import java.awt.Insets;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+
+
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -19,28 +17,23 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
-import excepciones.IncompleteException;
+
+
 import excepciones.YaExisteException;
 import logica.interfaces.ICtrlActividad;
-import java.awt.Color;
-import java.awt.Dimension;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
 import javax.swing.JRadioButton;
-import javax.swing.UIManager;
-import javax.swing.JTable;
-import javax.swing.JPanel;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-
-import java.awt.BorderLayout;
 
 @SuppressWarnings("serial")
 public class altaSalida extends JInternalFrame {
@@ -48,19 +41,13 @@ public class altaSalida extends JInternalFrame {
 	//Controlador
 	private ICtrlActividad ctrlSalida;
 	//Basicos
-	private JLabel LabelSelcDepartamento;
 	private GregorianCalendar fechaNac;
 
 	private JButton calendarBtn;
-	private GregorianCalendar fechhha;
 private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
 	private JTextField date;
 	private JInternalFrame f;
-	private JTextField selectedDate;
 	private  JComboBox<String> comboBox,comboBox_1 ;
-	private JTextField textFieldNombre;
-	private JTextField textField_4;
-	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;

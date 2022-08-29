@@ -1,6 +1,6 @@
 package presentacion;
 
-import java.awt.Dimension;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -14,12 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.event.PopupMenuListener;
 
 import datatypes.DTActividad;
 import datatypes.DTProveedor;
@@ -592,6 +590,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		}
 	}
 	
+	@SuppressWarnings("static-access")
 	private String fechaStringFormato(GregorianCalendar g, boolean conHora) {
 		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
 		String mes = String.valueOf(g.get(g.MONTH));

@@ -9,7 +9,6 @@ import java.util.GregorianCalendar;
 import datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
-import excepciones.InscriptionFailException;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 
@@ -45,13 +44,12 @@ public class CargarDatosDePrueba {
 				  
 				  //System.out.println("nombre:" + values[1].trim() + "desc:"+ values[2].trim()+ "url:"+ values[3].trim()); //probando
 			}
+			br.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (YaExisteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -103,16 +101,16 @@ public class CargarDatosDePrueba {
 						//	  " fechaNac: "+ values[6]+" dia: "+valuesFecha[0]+" mes: "+valuesFecha[1]+" anio: "+valuesFecha[2]+ " desc: "
 							//  + valuesExtra[1]+" url: "+ valuesExtra[2]); //probando
 				}
+				br.close();
+				brP.close();
+				brT.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (YaExisteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -138,6 +136,8 @@ public class CargarDatosDePrueba {
 			valuesU = line.split(",");
 			String u13 = valuesU[2].trim();
 			
+			br.close();
+			
 			path = "./src/datosDePrueba/Actividades.csv"; // poner path
 			br = new BufferedReader(new FileReader(path));
 			line = br.readLine();
@@ -161,16 +161,14 @@ public class CargarDatosDePrueba {
 				  //System.out.println("nombre: " + values[1] + " desc: "+ values[2]+ " durac: "+ values[3]+ " costo: "+ values[4]+ " ciudad: "+ values[5]
 						 // + " depart: "+ values[6]+ " fechaAlta: "+ values[7]+ " refProveedor: "+ values[8]+" nick: "+ usu); //probando
 			}
+			br.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (YaExisteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 	}
@@ -206,16 +204,15 @@ public class CargarDatosDePrueba {
 								 Integer.parseInt(valuesFechaAlta[0].trim())), nombreAct);
 				  			//Ref, RefActiv, Nombre, Fecha, Hora, TuristaMax, Lugar, FechaAlta
 			}
+			br.close();
+			brA.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (YaExisteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -245,6 +242,8 @@ public class CargarDatosDePrueba {
 					ICA.ingresarActividadAPaquete(values[1].trim(), valuesAct[1].trim());  
 				  }
 			}
+			br.close();
+			brA.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -264,7 +263,6 @@ public class CargarDatosDePrueba {
 			ICU.ingresarInscripcion("tony", "Degusta Setiembre", 11, new GregorianCalendar(2022, 8, 21));
 			//Ref, RefSal, RefTur, CantTur, Costo, FechaInscrip
 		} catch(InscriptionFailException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -51,27 +51,8 @@ public class SalidaTuristica{
 	    public int getPlazosDisponibles() {
 	    	return plazosDisponibles;
 	    }
-
-	    public void setNombre(String Sn) {
-	        nombre = Sn;
-	    }
-
-	    public void setfechaSalida(GregorianCalendar Dsalida ) {
-	        fechaSalida = Dsalida;
-	    }
-	    public void setfechaAlta(GregorianCalendar Dalta ) {
-	        fechaAlta = Dalta;
-	    }
-
-	    public void setCantidadMaximaDeTuristas(int IcmTurista) {
-	        cantidadMaximaDeTuristas = IcmTurista;
-	    }
-	    public void setLugarSalida(String SlugarSal) {
-	        lugarSalida = SlugarSal;
-	    }
 	    
-		public float calcularCosto(int cant) {
-			
+	    public float calcularCosto(int cant) {
 			return cant*actividad.getCostoPorTurista();
 		}
 		
