@@ -419,12 +419,6 @@ public class altaUsuario extends JInternalFrame {
 				JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
 						JOptionPane.INFORMATION_MESSAGE);
 
-				if (tipo == tipoUsuario.proveedor) {
-					textFieldSitioWeb.setText("");
-					textFieldDescripcion.setText("");
-				} else {
-					textFieldNacionalidad.setText("");
-				}
 				limpiarFormulario();
 				setVisible(false);
 			} catch (YaExisteException e) {
@@ -481,11 +475,16 @@ public class altaUsuario extends JInternalFrame {
 		textFieldEmail.setText("");
 		selectedDate.setText("");
 
+		if (BtnGroup.getSelection().getActionCommand() == "Proveedor") {
+			textFieldSitioWeb.setText("");
+			textFieldDescripcion.setText("");
+		} else {
+			textFieldNacionalidad.setText("");
+		}
 		BtnGroup.clearSelection();
 
 		blank_panel.setVisible(true);
 		turista_panel.setVisible(false);
 		proveedor_panel.setVisible(false);
-
 	}
 }
