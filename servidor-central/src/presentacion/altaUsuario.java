@@ -32,6 +32,9 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
 public class altaUsuario extends JInternalFrame {
@@ -49,7 +52,6 @@ public class altaUsuario extends JInternalFrame {
 
 	private JTextField textFieldNacionalidad;
 	private JTextField textFieldSitioWeb;
-	private JTextPane textFieldDescripcion;
 
 	private JLabel lblIngreseNickName;
 	private JLabel lblIngreseNombre;
@@ -72,6 +74,8 @@ public class altaUsuario extends JInternalFrame {
 	private JInternalFrame f;
 	private JTextField selectedDate;
 	private JPanel container;
+	private JScrollPane scrollPane;
+	private JTextArea textFieldDescripcion;
 
 	public altaUsuario(ICtrlUsuario icu) {
 
@@ -95,12 +99,11 @@ public class altaUsuario extends JInternalFrame {
 		f = new JInternalFrame();
 		f.setVisible(false);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 598, 0 };
+		gridBagLayout.columnWidths = new int[] { 614, 0 };
 		gridBagLayout.rowHeights = new int[] { 283, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		// setBounds(10, 40, 605, 329);
 
 		lblIngreseNickName = new JLabel("Nickname:");
 		lblIngreseNickName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -228,36 +231,53 @@ public class altaUsuario extends JInternalFrame {
 		lblSitioWeb_1.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldSitioWeb = new JTextField();
 		JLabel lblDescripcion = new JLabel("Descripcion");
-		textFieldDescripcion = new JTextPane();
 		GroupLayout gl_blank_panel = new GroupLayout(blank_panel);
 		gl_blank_panel.setHorizontalGroup(
 				gl_blank_panel.createParallelGroup(Alignment.LEADING).addGap(0, 643, Short.MAX_VALUE));
 		gl_blank_panel
 				.setVerticalGroup(gl_blank_panel.createParallelGroup(Alignment.LEADING).addGap(0, 68, Short.MAX_VALUE));
 		blank_panel.setLayout(gl_blank_panel);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		GroupLayout gl_proveedor_panel = new GroupLayout(proveedor_panel);
-		gl_proveedor_panel.setHorizontalGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_proveedor_panel.createSequentialGroup().addGap(30).addGroup(gl_proveedor_panel
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_proveedor_panel.createSequentialGroup().addComponent(lblSitioWeb_1).addGap(32))
-						.addGroup(gl_proveedor_panel.createSequentialGroup().addComponent(lblDescripcion)
-								.addPreferredGap(ComponentPlacement.UNRELATED)))
-						.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(textFieldDescripcion)
-								.addComponent(textFieldSitioWeb, GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
-						.addGap(218)));
-		gl_proveedor_panel.setVerticalGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
+		gl_proveedor_panel.setHorizontalGroup(
+			gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_proveedor_panel.createSequentialGroup()
-						.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblSitioWeb_1)
-								.addComponent(textFieldSitioWeb, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(5)
-						.addGroup(
-								gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(textFieldDescripcion, GroupLayout.PREFERRED_SIZE, 32,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblDescripcion))
-						.addContainerGap()));
+					.addGap(30)
+					.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_proveedor_panel.createSequentialGroup()
+							.addComponent(lblSitioWeb_1)
+							.addGap(32))
+						.addGroup(gl_proveedor_panel.createSequentialGroup()
+							.addComponent(lblDescripcion)
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(textFieldSitioWeb, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE))
+					.addGap(146))
+		);
+		gl_proveedor_panel.setVerticalGroup(
+			gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_proveedor_panel.createSequentialGroup()
+					.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSitioWeb_1)
+						.addComponent(textFieldSitioWeb, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_proveedor_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_proveedor_panel.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblDescripcion))
+						.addGroup(gl_proveedor_panel.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+		);
+		
+		textFieldDescripcion = new JTextArea();
+		textFieldDescripcion.setLineWrap(true);
+		textFieldDescripcion.setWrapStyleWord(true);
+
+		scrollPane.setViewportView(textFieldDescripcion);
 		proveedor_panel.setLayout(gl_proveedor_panel);
 		GroupLayout gl_turista_panel = new GroupLayout(turista_panel);
 		gl_turista_panel.setHorizontalGroup(gl_turista_panel.createParallelGroup(Alignment.LEADING)
@@ -279,7 +299,7 @@ public class altaUsuario extends JInternalFrame {
 		panel.add(turista_panel, "name_11119793380911");
 
 		container = new JPanel();
-		container.setBounds(12, 6, 571, 282);
+		//container.setBounds(12, 6, 571, 282);
 		GridBagConstraints gbc_container = new GridBagConstraints();
 		gbc_container.anchor = GridBagConstraints.NORTH;
 		gbc_container.gridx = 0;
@@ -362,7 +382,6 @@ public class altaUsuario extends JInternalFrame {
 						.addComponent(btnCancelar))));
 		container.setLayout(gl_container);
 
-		setBounds(12, 6, 603, 315);
 		pack();
 		validate();
 		repaint();
