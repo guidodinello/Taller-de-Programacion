@@ -26,7 +26,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JPanel;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
-import javax.swing.JTextPane;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Image;
@@ -208,9 +207,9 @@ public class altaUsuario extends JInternalFrame {
 				if (!date.getText().isEmpty()) {
 					selectedDate.setText(date.getText());
 					int dia = Integer.parseInt(date.getText().substring(0, 2));
-					int mes = Integer.parseInt(date.getText().substring(4, 5));
+					int mes = Integer.parseInt(date.getText().substring(3, 5))%12;
 					int anio = Integer.parseInt(date.getText().substring(6, 10));
-					fechaNac = new GregorianCalendar(anio, mes, dia);
+					GregorianCalendar fechaNac = new GregorianCalendar(anio, mes, dia);
 				}
 			}
 		});
