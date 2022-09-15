@@ -29,8 +29,6 @@ import java.awt.event.ItemEvent;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -75,6 +73,10 @@ public class altaUsuario extends JInternalFrame {
 	private JPanel container;
 	private JScrollPane scrollPane;
 	private JTextArea textFieldDescripcion;
+	private JLabel lblConfirmarContrasea;
+	private JLabel lblContrasea;
+	private JTextField textFieldContrasena;
+	private JTextField textFieldConfirmacionContrasena;
 
 	public altaUsuario(ICtrlUsuario icu) {
 
@@ -97,12 +99,6 @@ public class altaUsuario extends JInternalFrame {
 		date = new JTextField(20);
 		f = new JInternalFrame();
 		f.setVisible(false);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 614, 0 };
-		gridBagLayout.rowHeights = new int[] { 283, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
-		getContentPane().setLayout(gridBagLayout);
 
 		lblIngreseNickName = new JLabel("Nickname:");
 		lblIngreseNickName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -298,88 +294,127 @@ public class altaUsuario extends JInternalFrame {
 		panel.add(turista_panel, "name_11119793380911");
 
 		container = new JPanel();
-		//container.setBounds(12, 6, 571, 282);
-		GridBagConstraints gbc_container = new GridBagConstraints();
-		gbc_container.anchor = GridBagConstraints.NORTH;
-		gbc_container.gridx = 0;
-		gbc_container.gridy = 0;
-		getContentPane().add(container, gbc_container);
+		
+		lblContrasea = new JLabel("Contraseña");
+		
+		lblConfirmarContrasea = new JLabel("<html>Confirmar <br> Contraseña<html>");
+		
+		textFieldContrasena = new JTextField();
+		
+		textFieldConfirmacionContrasena = new JTextField();
+		
+		JPanel panel_1 = new JPanel();
 		GroupLayout gl_container = new GroupLayout(container);
-		gl_container.setHorizontalGroup(gl_container.createParallelGroup(Alignment.LEADING).addGroup(gl_container
-				.createSequentialGroup()
-				.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_container.createSequentialGroup().addGap(18)
-								.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblIngreseNickName, GroupLayout.PREFERRED_SIZE, 110,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblIngreseNombre, GroupLayout.PREFERRED_SIZE, 110,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblIngreseApellido, GroupLayout.PREFERRED_SIZE, 110,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblIngreseEmail, GroupLayout.PREFERRED_SIZE, 110,
-												GroupLayout.PREFERRED_SIZE))
-								.addGap(12)
-								.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
-										.addComponent(textFieldNickName, GroupLayout.PREFERRED_SIZE, 300,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 300,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 300,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(textFieldApellido, GroupLayout.PREFERRED_SIZE, 300,
-												GroupLayout.PREFERRED_SIZE))
-								.addGap(18).addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_container.createSequentialGroup().addGap(33)
-								.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 95,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(58).addComponent(provBtn).addGap(94).addComponent(turBtn))
-						.addGroup(gl_container.createSequentialGroup().addGap(12).addComponent(panel,
-								GroupLayout.PREFERRED_SIZE, 571, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_container.createSequentialGroup().addGap(141)
-								.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-								.addGap(79).addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 115,
-										GroupLayout.PREFERRED_SIZE)))
-				.addGap(294)));
-		gl_container.setVerticalGroup(gl_container.createParallelGroup(Alignment.LEADING).addGroup(gl_container
-				.createSequentialGroup().addGap(6)
-				.addGroup(gl_container.createParallelGroup(Alignment.LEADING).addGroup(gl_container
-						.createSequentialGroup()
-						.addGroup(gl_container.createParallelGroup(Alignment.LEADING).addGroup(gl_container
-								.createSequentialGroup()
-								.addComponent(lblIngreseNickName, GroupLayout.PREFERRED_SIZE, 25,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(6)
-								.addComponent(
-										lblIngreseNombre, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addGap(6)
-								.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblIngreseApellido, GroupLayout.PREFERRED_SIZE, 25,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(textFieldApellido, GroupLayout.PREFERRED_SIZE, 27,
-												GroupLayout.PREFERRED_SIZE)))
+		gl_container.setHorizontalGroup(
+			gl_container.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_container.createSequentialGroup()
+					.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_container.createSequentialGroup()
+							.addGap(108)
+							.addComponent(btnAceptar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+							.addGap(80)
+							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_container.createSequentialGroup()
+							.addGap(18)
+							.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_container.createSequentialGroup()
-										.addComponent(textFieldNickName, GroupLayout.PREFERRED_SIZE, 25,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(6).addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 25,
-												GroupLayout.PREFERRED_SIZE)))
-						.addGap(8)
-						.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblIngreseEmail, GroupLayout.PREFERRED_SIZE, 21,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 25,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(11)
-						.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(provBtn).addComponent(turBtn)))
+									.addGroup(gl_container.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblIngreseNickName, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblIngreseNombre, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblIngreseApellido, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblIngreseEmail, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+									.addGap(12)
+									.addGroup(gl_container.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(textFieldNickName, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+										.addComponent(textFieldNombre, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+										.addComponent(textFieldEmail, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+										.addComponent(textFieldApellido, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+										.addComponent(textFieldConfirmacionContrasena, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
+										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 472, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_container.createSequentialGroup()
+							.addGap(39)
+							.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_container.createSequentialGroup()
+									.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+									.addGap(35)
+									.addComponent(provBtn)
+									.addGap(75)
+									.addComponent(turBtn))
+								.addComponent(lblConfirmarContrasea, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_container.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblContrasea)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(textFieldContrasena, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)))))
+					.addContainerGap(33, Short.MAX_VALUE))
+		);
+		gl_container.setVerticalGroup(
+			gl_container.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_container.createSequentialGroup()
+					.addGap(6)
+					.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_container.createSequentialGroup()
+							.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_container.createSequentialGroup()
+									.addComponent(lblIngreseNickName, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addGap(6)
+									.addComponent(lblIngreseNombre, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_container.createSequentialGroup()
+									.addComponent(textFieldNickName, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addGap(6)
+									.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIngreseApellido, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textFieldApellido, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+							.addGap(8)
+							.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIngreseEmail, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addGap(6).addGroup(gl_container.createParallelGroup(Alignment.LEADING).addComponent(btnAceptar)
-						.addComponent(btnCancelar))));
+					.addGap(28)
+					.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_container.createSequentialGroup()
+							.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textFieldContrasena, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblContrasea))
+							.addGap(18)
+							.addGroup(gl_container.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblConfirmarContrasea, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textFieldConfirmacionContrasena, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+							.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+								.addComponent(provBtn)
+								.addComponent(turBtn))
+							.addGap(18))
+						.addGroup(gl_container.createSequentialGroup()
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAceptar)
+						.addComponent(btnCancelar))
+					.addContainerGap())
+		);
 		container.setLayout(gl_container);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(container, GroupLayout.PREFERRED_SIZE, 597, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(280, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(container, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+		);
+		getContentPane().setLayout(groupLayout);
 
 		pack();
 		validate();
@@ -394,6 +429,7 @@ public class altaUsuario extends JInternalFrame {
 		String nombre = this.textFieldNombre.getText();
 		String apellido = this.textFieldApellido.getText();
 		String email = this.textFieldEmail.getText();
+		String pass = this.textFieldContrasena.getText();
 
 		String descripcion = "";
 		String sitioWeb = "";
@@ -412,7 +448,8 @@ public class altaUsuario extends JInternalFrame {
 					nacionalidad = this.textFieldNacionalidad.getText();
 				}
 
-				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, fechaNac, tipo, nacionalidad, descripcion,
+				// agregar foto?
+				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, tipo, nacionalidad, descripcion,
 						sitioWeb);
 
 				JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
@@ -433,9 +470,17 @@ public class altaUsuario extends JInternalFrame {
 		String apellido = this.textFieldApellido.getText();
 		String email = this.textFieldEmail.getText();
 		String fechaNac = this.selectedDate.getText();
+		String pass = this.textFieldContrasena.getText();
+		String passConf = this.textFieldConfirmacionContrasena.getText();
 
-		if (nickname.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || fechaNac.isEmpty()) {
+		if (nickname.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || 
+				email.isEmpty() || fechaNac.isEmpty() || pass.isEmpty() || passConf.isEmpty() ) {
 			JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
+					JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if (!pass.equals(passConf)) {
+			JOptionPane.showMessageDialog(this, "Las contrasenas no coinciden", "Registrar Usuario",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -472,14 +517,13 @@ public class altaUsuario extends JInternalFrame {
 		textFieldNombre.setText("");
 		textFieldApellido.setText("");
 		textFieldEmail.setText("");
+		textFieldContrasena.setText("");
+		textFieldConfirmacionContrasena.setText("");
 		selectedDate.setText("");
-
-		if (BtnGroup.getSelection().getActionCommand() == "Proveedor") {
-			textFieldSitioWeb.setText("");
-			textFieldDescripcion.setText("");
-		} else {
-			textFieldNacionalidad.setText("");
-		}
+		
+		textFieldSitioWeb.setText("");
+		textFieldDescripcion.setText("");
+		textFieldNacionalidad.setText("");
 		BtnGroup.clearSelection();
 
 		blank_panel.setVisible(true);
