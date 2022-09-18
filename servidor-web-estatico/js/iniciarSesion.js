@@ -28,8 +28,8 @@ verificarCamposMostrarError("Contrasenia");
 
 /*Comportamiento de boton sumbit cuando no tiene todo lo requerido*/
 $("#btnIniciarSecion").on("click", function(e){
-    if(($("#NicknameOEmailIniciarSesionText").val() != "lachiqui" || $("#NicknameOEmailIniciarSesionText").val() != "mirtha.legrand.ok@hotmail.com.ar") && $("#ContraseniaIniciarSesionText").val() != "awdrg543"){
-        e.preventDefault();
+    if(($("#NicknameOEmailIniciarSesionText").val() == "lachiqui" || $("#NicknameOEmailIniciarSesionText").val() == "mirtha.legrand.ok@hotmail.com.ar") && $("#ContraseniaIniciarSesionText").val() == "awdrg543"){
+        $("#FormularioIniciarSesion").attr("action","./homeLogueado.html")
     }
     marcarObligatorios("NicknameOEmail");
     marcarObligatorios("Contrasenia");

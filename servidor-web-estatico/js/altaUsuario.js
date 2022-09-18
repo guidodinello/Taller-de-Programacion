@@ -105,11 +105,22 @@ $("#ConfirmarContraseniaRegistroText").on("keyup", function(){
     }
 })
 
+/*Registrar a la chiqui*/
+const registarLachiqui = () => {
+    let nick = $("#NicknameRegistroText").val() == "lachiqui";
+    let nomb = $("#NombreRegistroText").val() == "Rosa María";
+    let apel = $("#ApellidoRegistroText").val() == "Martínez";
+    let email =  $("#EmailRegistroText").val() == "mirtha.legrand.ok@hotmail.com.ar"
+    let contra = $("#ContraseniaRegistroText").val() == "awdrg543"
+    let tipoUsuario = $("#TipoUsuarioRegistroOption").val() == "Turista"
+    return nick && nomb && apel && email && contra && tipoUsuario;
+}
+
 /*Comportamiento de boton sumbit cuando no tiene todo lo requerido*/
 $("#btnRgistrarse").on("click", function(e){
-    if($("#TipoUsuarioRegsitroOption").val()=="Seleccionar"){
+    if($("#TipoUsuarioRegistroOption").val()=="Seleccionar"){
         e.preventDefault();
-        $("#TipoUsuarioRegsitroOption").addClass("is-invalid");
+        $("#TipoUsuarioRegistroOption").addClass("is-invalid");
     }
     if($("#ConfirmarContraseniaRegistroText").val() != $("#ContraseniaRegistroText").val()){
         e.preventDefault();
@@ -120,8 +131,12 @@ $("#btnRgistrarse").on("click", function(e){
     marcarObligatorios("Email");
     marcarObligatorios("FechaNacimiento")
     marcarObligatorios("Contrasenia");
-    if($("#TipoUsuarioRegsitroOption").val()=="Turista")
+    if($("#TipoUsuarioRegistroOption").val()=="Turista")
         marcarObligatorios("Nacionalidad");
-    if($("#TipoUsuarioRegsitroOption").val()=="Proveedor")
+    if($("#TipoUsuarioRegistroOption").val()=="Proveedor")
         marcarObligatorios("Descripcion");
+
+    if(registarLachiqui()){
+        $("#FormularioRegistro").attr("action","./homeLogueado.html");
+    }
 })
