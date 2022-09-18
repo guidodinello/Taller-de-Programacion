@@ -5,12 +5,13 @@ import java.util.GregorianCalendar;
 
 public class Usuario {
 
-	protected String nickname, email, nombre, apellido;
+	protected String nickname, email, nombre, apellido, contrasena;
 	protected GregorianCalendar fechaNac;
 	
-	public Usuario(String nickname, String email, String nombre, String apellido, GregorianCalendar fechaNac) {
+	public Usuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac) {
 		this.nickname = nickname;
 		this.email = email;
+		this.contrasena = contrasena;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNac = fechaNac;
@@ -30,6 +31,10 @@ public class Usuario {
 
 	public String getApellido() {
 		return apellido;
+	}
+	
+	public String getContrasena() {
+		return contrasena;
 	}
 	
 	public GregorianCalendar getFechaNac() {
