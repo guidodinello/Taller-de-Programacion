@@ -47,3 +47,11 @@
 .links a:hover {
   color: rgb(254, 253, 254);
 }
+
+.hover {
+  transition: transform ease-in-out .3s;
+}
+
+.hover:hover {
+  transform: scale(1.03);
+}
