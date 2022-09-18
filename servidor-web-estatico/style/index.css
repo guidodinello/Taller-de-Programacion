@@ -1,7 +1,9 @@
 .nav-link {
   color: white;
 }
-
+.nav-link-usr{
+  color: rgb(64, 64, 64);
+}
 .navbar {
   background-color: #53b5ce;
   color: #ffff;
