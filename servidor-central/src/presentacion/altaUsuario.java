@@ -430,6 +430,7 @@ public class altaUsuario extends JInternalFrame {
 		String apellido = this.textFieldApellido.getText();
 		String email = this.textFieldEmail.getText();
 		String pass = this.textFieldContrasena.getText();
+		String img = this.textFieldImg.getText();
 
 		String descripcion = "";
 		String sitioWeb = "";
@@ -448,8 +449,8 @@ public class altaUsuario extends JInternalFrame {
 					nacionalidad = this.textFieldNacionalidad.getText();
 				}
 
-				// agregar foto?
-				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, tipo, nacionalidad, descripcion,
+				// agregar foto? ver que hacer con a fecha de nacimiento
+				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, img, tipo, nacionalidad, descripcion,
 						sitioWeb);
 
 				JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
