@@ -6,6 +6,8 @@ servidor-central/bin/
 
 # .settings
 servidor-central/.settings
+# .project
+servidor-central/.project
 
 # vscode
 */.vscode
