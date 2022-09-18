@@ -197,8 +197,7 @@ public class CargarDatosDePrueba {
 					String[] valuesAct = line.split(",");
 					nombreAct = valuesAct[1].trim();
 				}
-				
-				 ICA.altaSalidaTuristica(values[2].trim(), new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()), Integer.parseInt(valuesFecha[1].trim()), 
+				 ICA.altaSalidaTuristica(values[2].trim(), new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()), Integer.parseInt(valuesFecha[1].trim()) - 1, 
 					Integer.parseInt(valuesFecha[0].trim()), Integer.parseInt((String) values[4].trim().subSequence(0, values[4].trim().length() -2)), 0), values[6].trim(), 
 						 Integer.parseInt(values[5].trim()), new GregorianCalendar(Integer.parseInt(valuesFechaAlta[2].trim()), Integer.parseInt(valuesFechaAlta[1].trim()), 
 								 Integer.parseInt(valuesFechaAlta[0].trim())), nombreAct);
@@ -251,16 +250,16 @@ public class CargarDatosDePrueba {
 	
 	public void cargarInscripciones() {
 		try {
-			ICU.ingresarInscripcion("lachiqui", "Degusta Agosto", 3, new GregorianCalendar(2022, 8, 15));
-			ICU.ingresarInscripcion("elelvis", "Degusta Agosto", 5, new GregorianCalendar(16, 8, 2022));
-			ICU.ingresarInscripcion("lachiqui", "Tour Colonia del Sacramento 18-09", 3, new GregorianCalendar(2022, 8, 18));
-			ICU.ingresarInscripcion("isabelita", "Tour Colonia del Sacramento 18-09", 1, new GregorianCalendar(2022, 8, 19));
-			ICU.ingresarInscripcion("mastropiero", "Almuerzo 2", 2, new GregorianCalendar(2022, 8, 19));
-			ICU.ingresarInscripcion("chino", "Teatro con Sabores 1", 1, new GregorianCalendar(2022, 8, 19));
-			ICU.ingresarInscripcion("chino", "Teatro con Sabores 2", 10, new GregorianCalendar(2022, 8, 20));
-			ICU.ingresarInscripcion("bobesponja", "Teatro con Sabores 2", 2, new GregorianCalendar(2022, 8, 20));
-			ICU.ingresarInscripcion("anibal", "Teatro con Sabores 2", 1, new GregorianCalendar(2022, 8, 21));
-			ICU.ingresarInscripcion("tony", "Degusta Setiembre", 11, new GregorianCalendar(2022, 8, 21));
+			ICU.ingresarInscripcion("lachiqui", "Degusta Agosto", 3, new GregorianCalendar(2022, 8 - 1, 15));
+			ICU.ingresarInscripcion("elelvis", "Degusta Agosto", 5, new GregorianCalendar(16, 8 - 1, 2022));
+			ICU.ingresarInscripcion("lachiqui", "Tour Colonia del Sacramento 18-09", 3, new GregorianCalendar(2022, 8 - 1, 18));
+			ICU.ingresarInscripcion("isabelita", "Tour Colonia del Sacramento 18-09", 1, new GregorianCalendar(2022, 8 - 1, 19));
+			ICU.ingresarInscripcion("mastropiero", "Almuerzo 2", 2, new GregorianCalendar(2022, 8 - 1, 19));
+			ICU.ingresarInscripcion("chino", "Teatro con Sabores 1", 1, new GregorianCalendar(2022, 8 - 1, 19));
+			ICU.ingresarInscripcion("chino", "Teatro con Sabores 2", 10, new GregorianCalendar(2022, 8 - 1, 20));
+			ICU.ingresarInscripcion("bobesponja", "Teatro con Sabores 2", 2, new GregorianCalendar(2022, 8 - 1, 20));
+			ICU.ingresarInscripcion("anibal", "Teatro con Sabores 2", 1, new GregorianCalendar(2022, 8 - 1, 21));
+			ICU.ingresarInscripcion("tony", "Degusta Setiembre", 11, new GregorianCalendar(2022, 8 - 1, 21));
 			//Ref, RefSal, RefTur, CantTur, Costo, FechaInscrip
 		} catch(InscriptionFailException e) {
 			e.printStackTrace();
