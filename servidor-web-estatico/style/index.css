@@ -8,7 +8,9 @@
   background-color: #53b5ce;
   color: #ffff;
 }
-
+.card-header{
+  background-color: rgba(83, 181, 206, 0.2);
+}
 .footer {
   background-color: #53b5ce;
   height: 50px;

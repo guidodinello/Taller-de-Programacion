@@ -55,10 +55,10 @@
         <div class="card-header">DEPARTAMENTOS</div>
         <div class="card-body">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Colonia</li>
-            <li class="list-group-item">Maldonado</li>
-            <li class="list-group-item">Montevideo</li>
-            <li class="list-group-item">Rocha</li>
+            <a href="#" class="list-group-item list-group-item-action">Colonia</a>
+            <a href="#" class="list-group-item list-group-item-action">Maldonado</a>
+            <a href="#" class="list-group-item list-group-item-action">Montevideo</a>
+            <a href="./listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Rocha</a>
           </ul>
         </div>
       </div>
@@ -66,11 +66,11 @@
           <div class="card-header">CATEGORIAS</div>
           <div class="card-body">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Aventura y Deporte</li>
-              <li class="list-group-item">Campo y Naturaleza</li>
-              <li class="list-group-item">Cultura y Patrimonio</li>
-              <li class="list-group-item">Gastronomia</li>
-              <li class="list-group-item">Turismo y Playas</li>
+              <a href="#" class="list-group-item list-group-item-action">Aventura y Deporte</a>
+              <a href="#" class="list-group-item list-group-item-action">Campo y Naturaleza</a>
+              <a href="#" class="list-group-item list-group-item-action">Cultura y Patrimonio</a>
+              <a href="./listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Gastronomia</a>
+              <a href="#" class="list-group-item list-group-item-action">Turismo y Playas</a>
             </ul>
           </div>
     </div>
@@ -102,7 +102,7 @@
             <div class="card-header">
               <ul class="nav nav-tabs card-header-tabs" id="bologna-list" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link nav-link active" href="#perfil" role="tab" aria-controls="description" aria-selected="true">Perfil</a>
+                  <a class="nav-link nav-link active" style="color: black;" href="#perfil" role="tab" aria-controls="description" aria-selected="true">Perfil</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link nav-link-usr"  href="#salidas" role="tab" aria-controls="history" aria-selected="false">Salidas</a>
@@ -123,7 +123,7 @@
                 <div class="tab-pane active" id="perfil" role="tabpanel">
                   <div class="card-body">
                     <form>
-                      <h2 class=" font-up font-bold py-4 white-text">Datos del usuario</h2>
+                      <h4 class=" font-up font-bold py-2 white-text">Datos del usuario</h4>
                       <fieldset disabled>
                         <div class="row g-3 align-items-center pt-3">
                           <div class="col-auto">
@@ -131,7 +131,7 @@
                             <label for="inputPassword6" class="col-form-label disabled'">Nickname:</label>
                           </div>
                           <div class="col-auto">
-                            <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="lachiqui">
+                            <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="lachiqui">
                           </div>
                           <div class="col-auto">
                             <span id="passwordHelpInline" class="form-text">
@@ -146,7 +146,7 @@
                           <label for="inputPassword6" class="col-form-label">Nombre:</label>
                         </div>
                         <div class="col-auto">
-                          <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="Rosa Maria">
+                          <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="Rosa Maria">
                         </div>
             
                       </div>
@@ -157,7 +157,7 @@
                           <label for="inputPassword6" class="col-form-label">Apellido:</label>
                         </div>
                         <div class="col-auto">
-                          <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="Martinez">
+                          <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="Martinez">
                         </div>
             
                       </div>
@@ -168,8 +168,8 @@
                           <i class="fa fa-envelope prefix white-text"></i>
                           <label for="inputPassword6" class="col-form-label disabled'">Email:</label>
                         </div>
-                        <div class="col-auto">
-                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="mirtha.legrand.ok@hotmail.com.ar">
+                        <div class="col">
+                          <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" value="mirtha.legrand.ok@hotmail.com.ar">
                         </div>
                         <div class="col-auto">
                           <span id="passwordHelpInline" class="form-text">
@@ -186,7 +186,7 @@
                         </label>
                       </div>
                       <div class="col-auto">
-                        <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="23/2/1927">
+                        <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="23/2/1927">
                       </div>
              
                     </div>
@@ -199,7 +199,7 @@
                 <div class="tab-pane" id="inscripciones" role="tabpanel" aria-labelledby="history-tab">  
                   <div class="card-body">
                     <form>
-                      <h4 class=" font-up font-bold py-4 white-text">Datos Degusta Agosto</h4>
+                      <h4 class=" font-up font-bold py-2 white-text">Datos Degusta Agosto</h4>
                       <fieldset disabled>
                         <div class="row g-3 align-items-center pt-3">
                           <div class="col-auto">
@@ -299,7 +299,7 @@
                         <label for="inputPassword6" class="col-form-label disabled'">Tipo:</label>
                       </div>
                       <div class="col-auto">
-                        <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="General">
+                        <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" value="General">
                       </div>
                 
                     </div>
@@ -314,14 +314,14 @@
                   <div class="card-body">
                     
 
-                <h4> <a style="list-style: none;" href="#">Degusta Agosto</a></h4><br>
+                  <a style="text-decoration:none; font-size: larger;" href="./consultaSalida.html">Degusta Agosto</a><br>
                 <h4><a style="list-style: none;" href="#">S6?</a></h4>
                   </div>
                 </div>
                  <!--///////////////////////////////////////////////////////PAQUETES////////////////////////-->
                 <div class="tab-pane" id="deals" role="tabpanel" aria-labelledby="deals-tab">
                   <form>
-                    <h2 class=" font-up font-bold py-4 white-text">Disfrutar Rocha</h2>
+                    <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html">Disfrutar Rocha</a>
                     <fieldset disabled>
                       <div class="row g-3 align-items-center pt-3">
                         <div class="col-auto">
@@ -337,7 +337,7 @@
                     <fieldset disabled>
                       <div class="row g-3 align-items-center pt-3">
                         <div class="col-auto">
-    
+                          <i class="fa fa-clock-o prefix white-text"></i>
                           <label for="inputPassword6" class="col-form-label disabled'">Validez:</label>
                         </div>
                         <div class="col-auto">
@@ -349,7 +349,7 @@
                     <fieldset disabled>
                       <div class="row g-3 align-items-center pt-3">
                         <div class="col-auto">
-    
+                          <i class="fa fa-ticket prefix white-text"></i>
                           <label for="inputPassword6" class="col-form-label disabled'">Descuento:</label>
                         </div>
                         <div class="col-auto">
@@ -375,8 +375,8 @@
 
                 </form>
 
-                <form>
-                  <h2 class=" font-up font-bold py-4 white-text">Un dia en Colonia</h2>
+                <form style="margin-top: 6%;">
+                  <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html">Un dia en Colonia</a>
                   <fieldset disabled>
                     <div class="row g-3 align-items-center pt-3">
                       <div class="col-auto">
@@ -392,7 +392,7 @@
                   <fieldset disabled>
                     <div class="row g-3 align-items-center pt-3">
                       <div class="col-auto">
-  
+                        <i class="fa fa-clock-o prefix white-text"></i>
                         <label for="inputPassword6" class="col-form-label disabled'">Validez:</label>
                       </div>
                       <div class="col-auto">
@@ -404,7 +404,7 @@
                   <fieldset disabled>
                     <div class="row g-3 align-items-center pt-3">
                       <div class="col-auto">
-  
+                        <i class="fa fa-ticket prefix white-text"></i>
                         <label for="inputPassword6" class="col-form-label disabled'">Descuento:</label>
                       </div>
                       <div class="col-auto">
