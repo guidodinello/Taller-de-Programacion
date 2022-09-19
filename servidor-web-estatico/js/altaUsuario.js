@@ -61,7 +61,7 @@ verificarCamposMostrarError("Contrasenia");
 verificarCamposMostrarError("Nacionalidad");
 verificarCamposMostrarError("Descripcion");
 
-/*Mostrar obligatorios cuando le da sumbit sin tenerlos todos llenos*/
+/*Mostrar obligatorios cuando le da sumbit sin tenerlos todos llenos tira false si estan vacios*/
 const marcarObligatorios = (campo) => {
     if($(`#${campo}RegistroText`).val() == ""){
         $(`#${campo}RegistroText`).addClass("is-invalid");
@@ -72,7 +72,9 @@ const marcarObligatorios = (campo) => {
             $("#FechaNacimientoRegistroText").addClass("is-invalid");
             $("#FechaNacimientoRegistroTextNullValidate").show();
         }
+        return false;
     }
+    return true;
 
 }
 
@@ -116,36 +118,43 @@ const registarLachiqui = () => {
     return nick && nomb && apel && email && contra && tipoUsuario;
 }
 
-/*Comportamiento de boton sumbit cuando no tiene todo lo requerido*/
-$("#btnRgistrarse").on("click", async function(e){
+const formularioValidado = () => {
     if($("#TipoUsuarioRegistroOption").val()=="Seleccionar"){
-        e.preventDefault();
         $("#TipoUsuarioRegistroOption").addClass("is-invalid");
+        return false;
     }
     if($("#ConfirmarContraseniaRegistroText").val() != $("#ContraseniaRegistroText").val()){
-        e.preventDefault();
+        return false
     }
-    e.preventDefault();
-    marcarObligatorios("Nickname");
-    marcarObligatorios("Nombre");
-    marcarObligatorios("Apellido");
-    marcarObligatorios("Email");
-    marcarObligatorios("FechaNacimiento")
-    marcarObligatorios("Contrasenia");
+    let campoExtra;
     if($("#TipoUsuarioRegistroOption").val()=="Turista")
-        marcarObligatorios("Nacionalidad");
+        campoExtra = marcarObligatorios("Nacionalidad");
     if($("#TipoUsuarioRegistroOption").val()=="Proveedor")
-        marcarObligatorios("Descripcion");
+        campoExtra = marcarObligatorios("Descripcion");
+    let nick = marcarObligatorios("Nickname");
+    let nomb = marcarObligatorios("Nombre");
+    let apel = marcarObligatorios("Apellido");
+    let fNac = marcarObligatorios("FechaNacimiento")
+    let email =marcarObligatorios("Email")
+    let contrasenia = marcarObligatorios("Contrasenia")
+    return  nick && nomb && apel && email && fNac && contrasenia && campoExtra;
+    
+}
 
-    if(registarLachiqui()){
-        $("#FormularioRegistro").attr("action","./homeLogueado.html");
+/*Comportamiento de boton sumbit cuando no tiene todo lo requerido*/
+$("#btnRgistrarse").on("click", async function(e){
+    e.preventDefault();
+    if(formularioValidado()){
+        if(registarLachiqui()){
+            $("#FormularioRegistro").attr("action","./homeLogueado.html");
+        }
+        await Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Registrado con exito',
+            showConfirmButton: false,
+            timer: 1700,
+        })
+        $("#FormularioRegistro").submit();
     }
-    await Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Registrado con exito',
-        showConfirmButton: false,
-        timer: 1700,
-    })
-    $("#FormularioRegistro").submit();
 })

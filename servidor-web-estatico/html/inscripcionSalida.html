@@ -88,12 +88,12 @@
         <div class="col-sm-9 text-center">
             <div class="card mb-3 formularioIncripcionSalida shadow">
                 <div class="card-body">
-                  <h5 class="card-title">Incripcion a salida</h5>
+                  <h5 class="card-title">Incripción a salida</h5>
                   <form action="./homeLogueado.html" id="FormularioInscripcionSalida">
                       <div class="mb-4 text-start" id="Departamento">
                           <label for="Departamento" class = "form-label" id="DepartamentoInscripcionSalidaLabel">Seleccionar un departamento</label>
                           <select name="DepartamentoSeleccionado" id="DepartamentoSeleccionado" class="form-control" defaultOptions="Seleccionar">
-                            <option value="Seleccionar">Seleccionar departamento</option>
+                            <option value="Seleccionar" selected disabled>Seleccionar departamento</option>
                             <option value="Colonia">Colonia</option>
                             <option value="Maldonado">Maldonado</option>
                             <option value="Montevideo">Montevideo</option>
@@ -105,7 +105,7 @@
                         <div id="ActividadesDepartamentoRochaSelector">
                             <label for="ActividadesDepartamentoRocha" class = "form-label" id="ActividadesDepartamentoRochaInscripcionSalidaLabel">Seleccionar una Actividad</label>
                             <select name="ActividadesDepartamentoRocha" id="ActividadesDepartamentoRochaOption" class="mb-4 form-control" defaultOptions="">
-                                <option value="Seleccionar" class="hayActividad">Seleccionar actividad</option>
+                                <option value="Seleccionar" selected disabled class="hayActividad">Seleccionar actividad</option>
                                 <option value="NoDisponible" class="noHayActividad">No hay actividades</option>
                                 <option value="DeGusta" class="hayActividad">De Gusta</option>
                                 <option value="Teatro con Sabores" class="hayActividad">Teatro con Sabores</option>
@@ -122,7 +122,6 @@
                                         <div class="card-body text-white">
                                             <h5 class="card-title">De Gusta</h5>
                                             <p class="card-text">Festival gastronómico de productos locales en Rocha.</p>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +137,6 @@
                                         <div class="card-body text-white">
                                             <h5 class="card-title">Teatro con Sabores</h5>
                                             <p class="card-text">En el mes aniversario del Club Deportivo Unión de Rocha te invitamos a una merienda deliciosa.</p>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +149,7 @@
                         <div id="SalidasActividadSelector">
                             <label for="SalidasActividadRocha" class = "form-label" id="SalidasActividadRochaInscripcionSalidaLabel">Seleccionar una Salida</label>
                             <select name="SalidasActividadRocha" id="SalidasActividadRochaOption" class="mb-4 form-control" defaultOptions="">
-                                <option id="SeleccionarSalidasActividadRocha" value="Seleccionar">Seleccionar Salida</option>
+                                <option id="SeleccionarSalidasActividadRocha" value="Seleccionar" selected disabled>Seleccionar Salida</option>
                                 <option id="NoHaySalidasActividadRocha" value="NoHaySalidas">No hay salidas</option>
                                 <option id="DeGustaAgostoSalidasActividadRocha" value="DeGusta Agosto">DeGusta Agosto</option>
                                 <option id="DeGustaSetiembreSalidasActividadRocha" value="DeGusta Setiembre">DeGusta Setiembre</option>
@@ -167,8 +165,7 @@
                                     <div class="col-md-8">
                                         <div class="card-body text-white">
                                             <h5 class="card-title">DeGusta Agosto</h5>
-                                            <p class="card-text">Festival gastronómico de productos locales en Rocha.</p>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                            <p class="card-text">Fecha y hora de salida: 20/08/2022 17hs, Cantidad maxima de turistas: 20</p>
                                         </div>
                                     </div>
                                 </div>
@@ -183,8 +180,7 @@
                                     <div class="col-md-8">
                                         <div class="card-body text-white">
                                             <h5 class="card-title">DeGusta Setiembre</h5>
-                                            <p class="card-text">En el mes aniversario del Club Deportivo Unión de Rocha te invitamos a una merienda deliciosa.</p>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                            <p class="card-text">Fecha y hora de salida: 03/09/2022 17hs, Cantidad maxima de turistas: 20</p>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +195,7 @@
                       <div class="mb-4 text-start" id="TipoDeIncripcionDiv">
                         <label for="TipoDeIncripcion" class = "form-label" id="TipoDeIncripcionInscripcionSalidaLabel">Seleccionar un tipo de inscripción</label>
                         <select name="TipoDeIncripcion" id="TipoDeIncripcionOption" class="mb-4 form-control" defaultOptions="Seleccionar">
-                            <option value="Seleccionar">Seleccionar tipo de inscripción</option>
+                            <option value="Seleccionar" selected disabled>Seleccionar tipo de inscripción</option>
                             <option value="InscripcionGeneral">General</option>
                             <option value="InscripcionPorPaquete">Por paquete</option>
                         </select>
@@ -208,7 +204,7 @@
                       <div class="mb-4 text-start" id="PorPaqueteDiv">
                         <label for="PorPaquete" class = "form-label" id="PorPaqueteInscripcionSalidaLabel">Paquete disponibles para la salida</label>
                         <select name="PorPaquete" id="PorPaqueteOption" class="mb-4 form-control" defaultOptions="Seleccionar">
-                            <option value="Seleccionar">Seleccionar paquete</option>
+                            <option value="Seleccionar" selected disabled>Seleccionar paquete</option>
                             <option value="DisfrutarRocha">Disfrutar Rocha</option>
                         </select>
                       </div>

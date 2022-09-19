@@ -12,7 +12,7 @@ $("#btnInicribirseASalida").attr("disabled", "disabled");
 
 /*Seleccionar el departamento, si no es Rocha no tiene actividades*/
 $("#DepartamentoSeleccionado").on("mouseup", function(){
-    if($(this).val()!="Seleccionar"){
+    if($(this).val()!=null){
         $("#ActividadesDepartamentoRochaSelector").show("slow");
             if($(this).val()=="Colonia" || $(this).val()=="Maldonado" || $(this).val()=="Montevideo"){
                 $(".noHayActividad").show();
@@ -21,8 +21,6 @@ $("#DepartamentoSeleccionado").on("mouseup", function(){
                 $(".noHayActividad").hide();
                 $(".hayActividad").show();
             }
-    } else{
-        $("#ActividadesDepartamentoRochaSelector").hide("slow");
     }
 })
 
@@ -94,7 +92,7 @@ $("#PorPaqueteOption").on("mouseup", function(){
 })
 
 $("#btnInicribirseASalida").on("click", async function(e) {
-    if(parseInt($("#CantidadTuristasText").val()) < 0 || $("#CantidadTuristasText").val()==null) {
+    if(parseInt($("#CantidadTuristasText").val()) <= 0 || $("#CantidadTuristasText").val()=="") {
         e.preventDefault();
         $("#CantidadTuristasText").addClass("is-invalid");
     }else{
