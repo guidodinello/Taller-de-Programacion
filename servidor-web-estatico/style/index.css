@@ -1,6 +1,27 @@
-.nav-link {
+.card-container {
+  max-width: 18rem; 
+  margin-bottom: 2%;
+}
+
+.container-principal {
+  padding-top: 10%;
+  max-width: 1600px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.usr-pic {
+  height: 35px; 
+  width: 40px;
+}
+
+.white {
   color: white;
 }
+.flex-grow-0 {
+  flex-grow: 0;
+}
+
 .nav-link-usr {
   color: rgb(64, 64, 64);
 }
