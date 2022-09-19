@@ -8,10 +8,21 @@ function validateForm(elements) {
     return true;
 }
 
-const form = document.querySelector("#form");
+const form = document.querySelector("#formAltaActividad");
 
-document.querySelector("#submitBtn").addEventListener("click", (event)=> {
+document.querySelector("#submitBtn").addEventListener("click", async (event)=> {
     event.preventDefault();
-    form.classList.add("was-validated");
-    if (validateForm(tocheck)) window.location.replace("homeLogueado.html");
+    if (!validateForm(tocheck)){
+        form.classList.add("was-validated");
+    }else{
+        await Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Actividad registrada con exito',
+            showConfirmButton: false,
+            timer: 1700,
+        })
+        $("#formAltaActividad").submit();
+    }
+   
 })

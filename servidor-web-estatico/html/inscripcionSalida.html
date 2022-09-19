@@ -90,21 +90,32 @@
                 <div class="card-body">
                   <h5 class="card-title">Incripción a salida</h5>
                   <form action="./homeLogueado.html" id="FormularioInscripcionSalida">
-                      <div class="mb-4 text-start" id="Departamento">
-                          <label for="Departamento" class = "form-label" id="DepartamentoInscripcionSalidaLabel">Seleccionar un departamento</label>
-                          <select name="DepartamentoSeleccionado" id="DepartamentoSeleccionado" class="form-control" defaultOptions="Seleccionar">
-                            <option value="Seleccionar" selected disabled>Seleccionar departamento</option>
-                            <option value="Colonia">Colonia</option>
-                            <option value="Maldonado">Maldonado</option>
-                            <option value="Montevideo">Montevideo</option>
-                            <option value="Rocha">Rocha</option>
-                        </select>
-                      </div>
+                    <div class="mb-4 text-start row ">
+                        <div class="col mb-4 text-start" id="Departamento">
+                            <label for="Departamento" class = "form-label" id="DepartamentoInscripcionSalidaLabel">Seleccionar un departamento</label>
+                            <select name="DepartamentoSeleccionado" id="DepartamentoSeleccionado" class="form-control" defaultOptions="Seleccionar">
+                              <option value="Seleccionar" selected disabled>Seleccionar departamento</option>
+                              <option value="Colonia">Colonia</option>
+                              <option value="Maldonado">Maldonado</option>
+                              <option value="Montevideo">Montevideo</option>
+                              <option value="Rocha">Rocha</option>
+                          </select>
+                        </div>
+
+                        <div class="col mb-4 text-start" id="Categoria">
+                            <label for="Categoria" class = "form-label" id="CategoriaInscripcionSalidaLabel">Seleccionar una Categoria</label>
+                            <select name="CategoriaSeleccionado" id="CategoriaSeleccionado" class="form-control" defaultOptions="Seleccionar">
+                              <option value="Seleccionar" selected disabled>Seleccionar Categoria</option>
+                              <option value="Gastronomia">Gastronomía</option>
+                          </select>
+                        </div>
+                    </div>
+ 
                       
-                      <div class="mb-4 text-start" id="ActividadesDepartamentoRochaDiv">
-                        <div id="ActividadesDepartamentoRochaSelector">
-                            <label for="ActividadesDepartamentoRocha" class = "form-label" id="ActividadesDepartamentoRochaInscripcionSalidaLabel">Seleccionar una Actividad</label>
-                            <select name="ActividadesDepartamentoRocha" id="ActividadesDepartamentoRochaOption" class="mb-4 form-control" defaultOptions="">
+                      <div class="mb-4 text-start" id="ActividadesDiv">
+                        <div id="ActividadesSelector">
+                            <label for="Actividades" class = "form-label" id="ActividadesInscripcionSalidaLabel">Seleccionar una Actividad</label>
+                            <select name="Actividades" id="ActividadesOption" class="mb-4 form-control" defaultOptions="">
                                 <option value="Seleccionar" selected disabled class="hayActividad">Seleccionar actividad</option>
                                 <option value="NoDisponible" class="noHayActividad">No hay actividades</option>
                                 <option value="DeGusta" class="hayActividad">De Gusta</option>
@@ -263,7 +274,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../js/inscripcionSalida.js"></script>
+    <!-- <script src="../js/inscripcionSalida.js"></script> -->
 </body>
 
 </html>
