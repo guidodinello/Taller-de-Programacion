@@ -21,8 +21,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top">
         <div class="container justify-content-center justify-content-lg-between"> 
-            <a class="navbar-brand d-flex ml-3" href="homeLogueado.html">
-                <h4 class="mb-2 mb-lg-0" style="color: white;">TURISMO.UY</h4>
+            <a class="navbar-brand d-flex ml-3" href="#">
+                <h4 class="mb-2 mb-lg-0 white">TURISMO.UY</h4>
             </a>
 
             <div class="bg-light rounded rounded-pill shadow-sm mb-1 mb-lg-0">
@@ -35,12 +35,11 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse navbar-collapse" id="navbar4" style="flex-grow:0;">
+            <div class="collapse navbar-collapse flex-grow-0">
                 <ul class="navbar-nav mr-0 mt-3 mt-lg-0">
                     <li class="nav-item"> 
-                        <a class="nav-link" href="miPerfilTurista.html">
-                            <img class="me-2" style="border-radius: 50%;
-                            height: 35px; width: 40px;" src="../img/lachiqui.jpg">
+                        <a class="white text-decoration-none" href="miPerfilTurista.html">
+                            <img class="me-2 rounded-circle usr-pic" src="../img/lachiqui.jpg">
                             Rosa María Martínez
                         </a>
                     </li>
@@ -48,44 +47,54 @@
             </div>
         </div>
     </nav>
-    
-
-    <div class="row mt-5 mt-lg-0" style="padding-top: 10%; max-width: 1600px; padding-left: 5%; padding-right: 5%;">
+    <div class="row mt-5 mt-lg-0 container-principal">
         <div class="col-sm-3 mt-5 mt-lg-0">
-            <div class="card border-light mb-5 mx-auto text-center text-lg-start" style="max-width: 18rem; margin-bottom: 2%; ">
-                <div class="card-header">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i></div>
-                <div class="card-body">
-                  <a href="inscripcionSalida.html" class="card-title list-group-item list-group-item-action">Inscripcion a Salida</a>
-                 
-                </div>
-              </div>
-
-            <div class="card border-light mb-5 mx-auto text-center text-lg-start" style="max-width: 18rem; ">
-                <div class="card-header">DEPARTAMENTOS</div>
+            <div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
+                <div class="card-header ">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i></div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <a href="listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Colonia</a>
-                        <a href="listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Maldonado</a>
-                        <a href="listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Montevideo</a>
-                        <a href="listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Rocha</a>
+                        <a href="./inscripcionSalida.html" class="list-group-item list-group-item-action">Inscripción a Salida</a>
+                        <a href="./compraPaquete.html" class="list-group-item list-group-item-action">Compra de Paquete</a>
                     </ul>
                 </div>
             </div>
-            <div class="card border-light mb-5 mx-auto text-center text-lg-start" style="max-width: 18rem; ">
-                <div class="card-header">CATEGORIAS</div>
+
+            <div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
+                <div class="card-header ">USUARIOS</div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <a href="listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Aventura y Deporte</a>
-                        <a href="listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Campo y Naturaleza</a>
-                        <a href="listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Cultura y Patrimonio</a>
-                        <a href="listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Gastronomia</a>
-                        <a href="listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Turismo y Playas</a>
+                        <a href="./consultaUsuario.html" class="list-group-item list-group-item-action">Consulta Usuarios</a>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
+                <div class="card-header ">DEPARTAMENTOS</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <a href="./listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Colonia</a>
+                        <a href="./listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Maldonado</a>
+                        <a href="./listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Montevideo</a>
+                        <a href="./listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Rocha</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
+                <div class="card-header ">CATEGORIAS</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <a href="./listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Aventura y Deporte</a>
+                        <a href="./listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Campo y Naturaleza</a>
+                        <a href="./listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Cultura y Patrimonio</a>
+                        <a href="./listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Gastronomia</a>
+                        <a href="./listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Turismo y Playas</a>
                     </ul>
                 </div>
             </div>
 
 
         </div>
+
 
         <!-- contenido individual -->
         
