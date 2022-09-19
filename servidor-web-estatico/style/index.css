@@ -56,3 +56,11 @@
 .hover:hover {
   transform: scale(1.03);
 }
+
+.card-color {
+  background-color: rgba(83, 181, 206, 0.5);
+}
+
+.card-backgroundImg {
+  overflow: hidden; border: white;
+}
