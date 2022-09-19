@@ -12,42 +12,15 @@
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
 
-    <title>Tursimo uy</title>
+    <title>Turismo uy</title>
 
     <link rel="stylesheet" href="../style/index.css">
 
 </head>
 
-<!-- 
-CHANGES
-    GENERAL
-        Se cambio en cada carta los ul por a para que aparezca la manito when hover
-        Se agrego la clase list-group-item-action para que se pinte el sombreado when hover
-        Se cambio el h6 en Inscripcion Salida por                         
-            <ul class="list-group list-group-flush">
-                <a href="#" class="card-title text-decoration-none list-group-item list-group-item-action">Inscripcion a Salida</a>
-            </ul>
-        Se saco el div con style = padding-top: 10%; max-width: 1600px; padding-left: 5%; y se agrego 
-        ese estilo al div row inmediatamente inferior, ademas se le agrego padding-right: 5%; para hacerlo simetrico
-        Se agrego en el h4 del nav-bar brand la clase mb-0 para que este todo alineado en el navbar
-        En los card-header se agrego fw-semibold
-        Se cambio el h6 en Inscripcion a Salida por un a con varias clases para que aparezca la mano
-
-        ! Se hicieron cambios varios al footer en homeLogueado para agregar el cerrarSesion
-
-    RESPONSIVE
-        Se agregaron las clases justify-content-center justify-content-lg-between al container del navbar para centrar
-        los componentes en pantallas chicas 
-        Se agregaron las clases text-center, text-lg-start y mx-auto en cada carta para centrarlas cuando se achica la pantalla 
-        Se agregaron las clases mb-2 y mb-lg-0 en el h4 del navbar brand
-        Se agregaron las clases mb-1 y mb-lg-0 en el div del buscador
-
-        Se agrego mt-5, mt-lg-0 en el div row y mt-5 mt-lg-0 en la primera col para que el navbar no se superponga sobre el la primera carta (mi perfil) cuando la pantalla es chica. Es feo pero si no habria que hacer una media-query o sacarle el fixed-top al navbar 
--->
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top">
-        <div class="container justify-content-center justify-content-lg-between"> 
+        <div class="container justify-content-center justify-content-lg-between">
             <a class="navbar-brand d-flex ml-3" href="#">
                 <h4 class="mb-2 mb-lg-0" style="color: white;">TURISMO.UY</h4>
             </a>
@@ -64,11 +37,11 @@ CHANGES
             </div>
             <div class="collapse navbar-collapse" id="navbar4" style="flex-grow:0;">
                 <ul class="navbar-nav mr-0 mt-3 mt-lg-0">
-                    <li class="nav-item"> 
+                    <li class="nav-item">
                         <a class="nav-link" href="miPerfilTurista.html">
                             <img class="me-2" style="border-radius: 50%;
-                            height: 35px; width: 40px;" src="../img/lachiqui.jpg">
-                            Rosa Marı́a Martínez
+                            height: 35px; width: 40px;" src="../img/washington.jpg">
+                            Washington Rocha
                         </a>
                     </li>
                 </ul>
@@ -77,13 +50,19 @@ CHANGES
     </nav>
     <div class="row mt-5 mt-lg-0" style="padding-top: 10%; max-width: 1600px; padding-left: 5%; padding-right: 5%;">
         <div class="col-sm-3 mt-5 mt-lg-0">
-            <div class="card border-light mb-5 mx-auto text-center text-lg-start" style="max-width: 18rem; margin-bottom: 2%; ">
-                <div class="card-header fw-semibold">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i></div>
-                <div class="card-body">
-                  <a href="inscripcionSalida.html" class="card-title list-group-item list-group-item-action">Inscripcion a Salida</a>
-                 
+            <div class="card border-light mb-5 mx-auto text-center text-lg-start"
+                style="max-width: 18rem; margin-bottom: 2%; ">
+                <div class="card-header fw-semibold">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i>
                 </div>
-              </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <a href="altaActividad.html" class="card-title list-group-item list-group-item-action">Alta de
+                            Actividad</a>
+                        <a href="altaSalida.html" class="card-title list-group-item list-group-item-action">Alta de
+                            Salida</a>
+                    </ul>
+                </div>
+            </div>
 
             <div class="card border-light mb-5 mx-auto text-center text-lg-start" style="max-width: 18rem; ">
                 <div class="card-header fw-semibold">DEPARTAMENTOS</div>
@@ -92,7 +71,8 @@ CHANGES
                         <a href="#" class="list-group-item list-group-item-action">Colonia</a>
                         <a href="#" class="list-group-item list-group-item-action">Maldonado</a>
                         <a href="#" class="list-group-item list-group-item-action">Montevideo</a>
-                        <a href="html/listarActividadesPorDepto.html" class="list-group-item list-group-item-action">Rocha</a>
+                        <a href="html/listarActividadesPorDepto.html"
+                            class="list-group-item list-group-item-action">Rocha</a>
                     </ul>
                 </div>
             </div>
@@ -103,7 +83,8 @@ CHANGES
                         <a href="#" class="list-group-item list-group-item-action">Aventura y Deporte</a>
                         <a href="#" class="list-group-item list-group-item-action">Campo y Naturaleza</a>
                         <a href="#" class="list-group-item list-group-item-action">Cultura y Patrimonio</a>
-                        <a href="html/listarPaquetesPorCategoria.html" class="list-group-item list-group-item-action">Gastronomia</a>
+                        <a href="html/listarPaquetesPorCategoria.html"
+                            class="list-group-item list-group-item-action">Gastronomia</a>
                         <a href="#" class="list-group-item list-group-item-action">Turismo y Playas</a>
                     </ul>
                 </div>
@@ -115,10 +96,12 @@ CHANGES
         <!-- contenido individual -->
         <div class="col-sm-6 text-center">
             <a class="text-decoration-none" href="consultaActividad.html">
-                <div class="card mb-3 rounded-3 bg-image shadow-1-strong hover" style="background-image: url('../img/act-degusta.jpg');overflow: hidden; border: white;">
-                    <div class="row g-0 mask" style="background-color: rgba(83, 181, 206, 0.4);  ">
+                <div class="card mb-3 rounded-3 bg-image shadow-1-strong hover"
+                    style="background-image: url('../img/act-degusta.jpg');">
+                    <div class="row g-0 mask" style="background-color: rgba(0, 0, 0, 0.8);">
                         <div class="col-md-4 align-self-center">
-                            <img src="../img/act-degusta.jpg" class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"  alt="...">
+                            <img src="../img/act-degusta.jpg" class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
+                                alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body text-white">
@@ -131,15 +114,18 @@ CHANGES
                 </div>
             </a>
             <a class="text-decoration-none" href="consultaActividad.html">
-                <div class="card mb-3 rounded-3 bg-image shadow-1-strong hover" style="background-image: url('../img/act-teatroconsabores.jpg') ;overflow: hidden; border: white;">
-                    <div class="row g-0 mask" style="background-color: rgba(83, 181, 206, 0.5); ">
+                <div class="card mb-3 rounded-3 bg-image shadow-1-strong hover"
+                    style="background-image: url('../img/act-teatroconsabores.jpg');">
+                    <div class="row g-0 mask" style="background-color: rgba(0, 0, 0, 0.8);">
                         <div class="col-md-4 align-self-center">
-                            <img src="../img/act-teatroconsabores.jpg" class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3  rounded-3" alt="...">
+                            <img src="../img/act-teatroconsabores.jpg"
+                                class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3  rounded-3" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body text-white">
                                 <h5 class="card-title">Teatro con Sabores</h5>
-                                <p class="card-text">En el mes aniversario del Club Deportivo Unión de Rocha te invitamos a una merienda deliciosa.</p>
+                                <p class="card-text">En el mes aniversario del Club Deportivo Unión de Rocha te
+                                    invitamos a una merienda deliciosa.</p>
                                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                             </div>
                         </div>
@@ -157,7 +143,8 @@ CHANGES
                             <a class="text-decoration-none" href="consultaSalida.html">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="../img/sal-degusta-agosto.jpg" class="img-fluid rounded-start" alt="...">
+                                        <img src="../img/sal-degusta-agosto.jpg" class="img-fluid rounded-start"
+                                            alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
@@ -171,7 +158,8 @@ CHANGES
                             <a class="text-decoration-none" href="consultaSalida.html">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="../img/sal-degusta-septiembre.jpg" class="img-fluid rounded-start" alt="...">
+                                        <img src="../img/sal-degusta-septiembre.jpg" class="img-fluid rounded-start"
+                                            alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
@@ -192,7 +180,8 @@ CHANGES
                             <a class="text-decoration-none" href="consultaPaquete.html">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="../img/paq-disfrutarrocha.jpg" class="img-fluid rounded-start" alt="...">
+                                        <img src="../img/paq-disfrutarrocha.jpg" class="img-fluid rounded-start"
+                                            alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
@@ -206,7 +195,8 @@ CHANGES
                             <a class="text-decoration-none" href="consultaPaquete.html">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="../img/paq-undiaencolonia.jpg" class="img-fluid rounded-start" alt="...">
+                                        <img src="../img/paq-undiaencolonia.jpg" class="img-fluid rounded-start"
+                                            alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
@@ -220,7 +210,8 @@ CHANGES
                             <a class="text-decoration-none" href="consultaPaquete.html">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="../img/paq-valledellunarejo.jpg" class="img-fluid rounded-start" alt="...">
+                                        <img src="../img/paq-valledellunarejo.jpg" class="img-fluid rounded-start"
+                                            alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
@@ -246,7 +237,8 @@ CHANGES
                     Cerrar Sesion
                 </a>
             </p>
-            <p class="col text-end my-auto" style="color: rgba(177, 174, 174, 0.801);">© All rights reserved to Turismo.uy 2022 </p>
+            <p class="col text-end my-auto" style="color: rgba(177, 174, 174, 0.801);">© All rights reserved to
+                Turismo.uy 2022 </p>
         </div>
         <div class="row pt-3 pb-4 mb-4">
             <div class="col links">
