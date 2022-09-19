@@ -1,3 +1,7 @@
+.copyright-color {
+  color: rgba(177, 174, 174, 0.801);
+}
+
 .card-container {
   max-width: 18rem; 
   margin-bottom: 2%;
