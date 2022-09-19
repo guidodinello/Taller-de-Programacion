@@ -5,7 +5,7 @@ $("#DescripcionRegistroDiv").hide();
 $("#SitioWebRegistroDiv").hide();
 
 /*Cuando selecciona un tipo de usuario*/
-$("#TipoUsuarioRegsitroOption").on("mouseup", function(){
+$("#TipoUsuarioRegistroOption").on("mouseup", function(){
     if($(this).val() == "Turista"){
         $(this).removeClass("is-invalid");
         $("#NacionalidadRegistroDiv").show();
@@ -105,7 +105,7 @@ $("#ConfirmarContraseniaRegistroText").on("keyup", function(){
     }
 })
 
-/*Registrar a la chiqui*/
+/*Registrar a lachiqui*/
 const registarLachiqui = () => {
     let nick = $("#NicknameRegistroText").val() == "lachiqui";
     let nomb = $("#NombreRegistroText").val() == "Rosa María";
@@ -117,7 +117,7 @@ const registarLachiqui = () => {
 }
 
 /*Comportamiento de boton sumbit cuando no tiene todo lo requerido*/
-$("#btnRgistrarse").on("click", function(e){
+$("#btnRgistrarse").on("click", async function(e){
     if($("#TipoUsuarioRegistroOption").val()=="Seleccionar"){
         e.preventDefault();
         $("#TipoUsuarioRegistroOption").addClass("is-invalid");
@@ -125,6 +125,7 @@ $("#btnRgistrarse").on("click", function(e){
     if($("#ConfirmarContraseniaRegistroText").val() != $("#ContraseniaRegistroText").val()){
         e.preventDefault();
     }
+    e.preventDefault();
     marcarObligatorios("Nickname");
     marcarObligatorios("Nombre");
     marcarObligatorios("Apellido");
@@ -139,4 +140,12 @@ $("#btnRgistrarse").on("click", function(e){
     if(registarLachiqui()){
         $("#FormularioRegistro").attr("action","./homeLogueado.html");
     }
+    await Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registrado con exito',
+        showConfirmButton: false,
+        timer: 1700,
+    })
+    $("#FormularioRegistro").submit();
 })
