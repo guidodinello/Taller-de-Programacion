@@ -1,66 +1,70 @@
 /*Inicialmente*/
-$("#ActividadesDepartamentoRochaSelector").hide();
-$("#InformacionActividadDegusta").hide();
-$("#InformacionActividadTeatroConSabores").hide();
-$("#SalidasActividadSelector").hide();
 $("#InformacionSalidasDegustaAgosto").hide();
 $("#InformacionSalidasDegustaSetiembre").hide();
-$("#TipoDeIncripcionDiv").hide();
 $("#PorPaqueteDiv").hide();
 $("#CantidadTuristasDiv").hide();
 $("#btnInicribirseASalida").attr("disabled", "disabled");
 
+
+
 /*Seleccionar el departamento, si no es Rocha no tiene actividades*/
 $("#DepartamentoSeleccionado").on("mouseup", function(){
     if($(this).val()!=null){
-        $("#ActividadesDepartamentoRochaSelector").show("slow");
-            if($(this).val()=="Colonia" || $(this).val()=="Maldonado" || $(this).val()=="Montevideo"){
-                $(".noHayActividad").show();
-                $(".hayActividad").hide();
-            }else{
+        $("#ActividadesOption").attr("disabled", false);
+            if(($(this).val()!="Colonia" || $(this).val()!="Maldonado" || $(this).val()!="Montevideo") && ($("#CategoriaSeleccionado").val()=="Gastronomia" || $("#CategoriaSeleccionado").val()==null)){
                 $(".noHayActividad").hide();
                 $(".hayActividad").show();
+            }else{
+                $(".noHayActividad").show();
+                $(".hayActividad").hide();
             }
     }
 })
 
-$("#ActividadesDepartamentoRochaOption").on("mouseup", function(){
-    if ($(this).val() == "DeGusta") {
-        $("#InformacionActividadDegusta").show("slow");
-        $("#InformacionActividadTeatroConSabores").hide("slow");
-        $("#SalidasActividadSelector").show("slow");
-        $("#SeleccionarSalidasActividadRocha").show("slow");
-        $("#NoHaySalidasActividadRocha").hide("slow");
-        $("#DeGustaAgostoSalidasActividadRocha").show("slow");
-        $("#DeGustaSetiembreSalidasActividadRocha").show("slow");
-    }else if ($(this).val() == "Teatro con Sabores"){
-        $("#InformacionActividadDegusta").hide("slow");
-        $("#InformacionActividadTeatroConSabores").show("slow");
-        $("#SalidasActividadSelector").show("slow");
-        $("#SeleccionarSalidasActividadRocha").hide("slow");
-        $("#NoHaySalidasActividadRocha").show("slow");
-        $("#DeGustaAgostoSalidasActividadRocha").hide("slow");
-        $("#DeGustaSetiembreSalidasActividadRocha").hide("slow");
-    }else{
-        $("#InformacionActividadDegusta").hide("slow");
-        $("#InformacionActividadTeatroConSabores").hide("slow");
-        $("#SalidasActividadSelector").hide("slow");
+$("#CategoriaSeleccionado").on("mouseup", function(){
+    if($(this).val()!=null){
+        $("#ActividadesOption").attr("disabled", false);
+            if($(this).val() == "Gastronomia" && (($("#DepartamentoSeleccionado").val()=="Rocha") ||$("#DepartamentoSeleccionado").val()==null)){
+                $(".noHayActividad").hide();
+                $(".hayActividad").show();
+            }else{
+                $(".noHayActividad").show();
+                $(".hayActividad").hide();
+            }
     }
 })
 
-$("#SalidasActividadRochaOption").on("mouseup", function(){
+$("#ActividadesOption").on("mouseup", function(){
+    if ($(this).val() == "DeGusta") {
+        $("#SalidasActividadOption").attr("disabled", false);
+        $("#DeGustaAgostoSalidasActividad").show();
+        $("#DeGustaSetiembreSalidasActividad").show();
+        $("#NoHaySalidasActividad").hide();
+    }else if ($(this).val() == "Teatro con Sabores"){
+        $("#SalidasActividadOption").attr("disabled", false);
+        $("#DeGustaAgostoSalidasActividad").hide();
+        $("#DeGustaSetiembreSalidasActividad").hide();
+        $("#NoHaySalidasActividad").show();
+    }else{
+        $("#DeGustaAgostoSalidasActividad").hide();
+        $("#DeGustaSetiembreSalidasActividad").hide();
+        $("#NoHaySalidasActividad").hide();
+    }
+})
+
+$("#SalidasActividadOption").on("mouseup", function(){
     if ($(this).val() == "DeGusta Agosto") {
         $("#InformacionSalidasDegustaAgosto").show("slow");
         $("#InformacionSalidasDegustaSetiembre").hide("slow");
-        $("#TipoDeIncripcionDiv").show("slow");
+        $("#TipoDeIncripcionOption").attr("disabled", false);
     }else if ($(this).val() == "DeGusta Setiembre"){
         $("#InformacionSalidasDegustaAgosto").hide("slow");
         $("#InformacionSalidasDegustaSetiembre").show("slow");
-        $("#TipoDeIncripcionDiv").show("slow");
+        $("#TipoDeIncripcionOption").attr("disabled", false);
     }else{
         $("#InformacionSalidasDegustaAgosto").hide("slow");
         $("#InformacionSalidasDegustaSetiembre").hide("slow");
-        $("#TipoDeIncripcionDiv").hide("slow");
+        $("#TipoDeIncripcionOption").attr("disabled", true);
     }
 })
 
@@ -68,14 +72,17 @@ $("#TipoDeIncripcionOption").on("mouseup", function(){
     if ($(this).val() == "InscripcionGeneral") {
         $("#CantidadTuristasDiv").show("slow");
         $("#PorPaqueteDiv").hide("slow");
+        $("#PorPaqueteOption").attr("disabled",true)
         $("#btnInicribirseASalida").attr("disabled", false);
     }else if ($(this).val() == "InscripcionPorPaquete"){
         $("#CantidadTuristasDiv").hide("slow");
         $("#PorPaqueteDiv").show("slow");
+        $("#PorPaqueteOption").attr("disabled",false)
         $("#btnInicribirseASalida").attr("disabled", true);
     }else{
         $("#CantidadTuristasDiv").hide("slow");
         $("#PorPaqueteDiv").hide("slow");
+        $("#PorPaqueteOption").attr("disabled",true)
         $("#btnInicribirseASalida").attr("disabled", true);
     }
 })
