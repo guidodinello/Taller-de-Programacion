@@ -94,7 +94,7 @@ $("#PorPaqueteOption").on("mouseup", function(){
 })
 
 $("#btnInicribirseASalida").on("click", async function(e) {
-    if(parseInt($("#CantidadTuristasText").val()) < 0) {
+    if(parseInt($("#CantidadTuristasText").val()) < 0 || $("#CantidadTuristasText").val()==null) {
         e.preventDefault();
         $("#CantidadTuristasText").addClass("is-invalid");
     }else{
