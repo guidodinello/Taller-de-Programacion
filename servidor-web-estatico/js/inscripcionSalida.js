@@ -11,13 +11,12 @@ $("#btnInicribirseASalida").attr("disabled", "disabled");
 $("#DepartamentoSeleccionado").on("mouseup", function(){
     if($(this).val()!=null){
         $("#ActividadesOption").attr("disabled", false);
-            if(($(this).val()!="Colonia" || $(this).val()!="Maldonado" || $(this).val()!="Montevideo") && ($("#CategoriaSeleccionado").val()=="Gastronomia" || $("#CategoriaSeleccionado").val()==null)){
-                $(".noHayActividad").show();
-                $(".hayActividad").hide();
-                
-            }else{
+            if($(this).val() == "Rocha" && (($("#CategoriaSeleccionado").val()=="Gastronomia") ||$("#CategoriaSeleccionado").val()==null)){
                 $(".noHayActividad").hide();
                 $(".hayActividad").show();
+            }else{
+                $(".noHayActividad").show();
+                $(".hayActividad").hide();
             }
     }
 })
