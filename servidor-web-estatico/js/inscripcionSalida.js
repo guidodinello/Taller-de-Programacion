@@ -12,11 +12,12 @@ $("#DepartamentoSeleccionado").on("mouseup", function(){
     if($(this).val()!=null){
         $("#ActividadesOption").attr("disabled", false);
             if(($(this).val()!="Colonia" || $(this).val()!="Maldonado" || $(this).val()!="Montevideo") && ($("#CategoriaSeleccionado").val()=="Gastronomia" || $("#CategoriaSeleccionado").val()==null)){
-                $(".noHayActividad").hide();
-                $(".hayActividad").show();
-            }else{
                 $(".noHayActividad").show();
                 $(".hayActividad").hide();
+                
+            }else{
+                $(".noHayActividad").hide();
+                $(".hayActividad").show();
             }
     }
 })
