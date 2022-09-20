@@ -140,14 +140,14 @@ public class ctrlUsuarioTest {
 			String linkP3 = "cris.com";
 			String linkP4 = "google.com";
 			
-			controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);
-			controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);
-			controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);
-			controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );
-			controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);
-			controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);
-			controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);
-			controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);
+			controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, "", fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);
+			controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, "", fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);
+			controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, "", fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);
+			controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, "", fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );
+			controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, "", fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);
+			controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, "", fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);
+			controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, "", fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);
+			controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, "", fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);
 			
 			assertEquals(controladorUsuario.listarUsuarios().isEmpty(), false);
 			assertEquals(controladorUsuario.listarTuristas().isEmpty(), false);
@@ -277,14 +277,14 @@ public class ctrlUsuarioTest {
 		String linkP3 = "cris.com";
 		String linkP4 = "google.com";
 		
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);});
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, "", fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, "", fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, "", fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, "", fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, "", fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, "", fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, "", fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, "", fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);});	
 		
 		
 		
@@ -356,14 +356,14 @@ public class ctrlUsuarioTest {
 		String linkP3 = "cris.com";
 		String linkP4 = "google.com";
 		
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);});
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, "", fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, "", fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, "", fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, "", fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, "", fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, "", fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, "", fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, "", fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);});	
 		
 	}
 	

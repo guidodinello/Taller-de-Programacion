@@ -4,6 +4,14 @@
 # compiled java 
 servidor-central/bin/
 
+# .settings
+servidor-central/.settings
+# .project
+servidor-central/.project
+
+# vscode
+*/.vscode
+
 
 *.class
 *.jar

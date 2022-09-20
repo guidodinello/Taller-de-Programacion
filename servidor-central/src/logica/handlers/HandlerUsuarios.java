@@ -38,6 +38,9 @@ public class HandlerUsuarios {
 		if(turistas.containsKey(t.getEmail())) {
 			throw new YaExisteException("El usuario con el email " +t.getEmail() + " ya se encuentra registrado.");
 		}
+		if(proveedores.containsKey(t.getEmail())) {
+			throw new YaExisteException("El usuario con el email " +t.getEmail() + " ya se encuentra registrado.");
+		}
 		usuarios.put(t.getNickname(), t);
 		turistas.put(t.getEmail(), t);
 	}
@@ -47,6 +50,9 @@ public class HandlerUsuarios {
 			throw new YaExisteException("El usuario con el nickname " +p.getNickname() + " ya se encuentra registrado.");
 		}
 		if(proveedores.containsKey(p.getEmail())) {
+			throw new YaExisteException("El usuario con el email " +p.getEmail() + " ya se encuentra registrado.");
+		}
+		if(turistas.containsKey(p.getEmail())) {
 			throw new YaExisteException("El usuario con el email " +p.getEmail() + " ya se encuentra registrado.");
 		}
 		usuarios.put(p.getNickname(), p);

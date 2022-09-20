@@ -1,6 +1,7 @@
 package datatypes;
 
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Set;
 
 public class DTPaquete {
@@ -34,6 +35,11 @@ public class DTPaquete {
 
 	public float getDescuento() {
 		return descuento;
+	}
+	
+	public Set<String> getCategorias() {
+		// sin implementar
+		return new HashSet<String>();
 	}
 
 	public GregorianCalendar getFechaAlta() {

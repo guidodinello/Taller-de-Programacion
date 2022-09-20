@@ -80,7 +80,7 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().setLayout(null);
         
         altaUsuario = new altaUsuario(ICU);
-        //altaUsuario.setBounds(10, 40, 452, 341);
+        altaUsuario.setBounds(30, 30, 597, 452);
         altaUsuario.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().setLayout(null);
         frmGestionDeTurismoUy.getContentPane().add(altaUsuario);
