@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import model.logica.clases.Turista;
+import model.logica.clases.Usuario;
 
 @WebServlet("/altaUsuario")
 public class altaUsuario extends HttpServlet {
@@ -25,8 +29,9 @@ public class altaUsuario extends HttpServlet {
 	 */
 	public static void initSession(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if (session.getAttribute("paginas_navegadas") == null) {
-			session.setAttribute("paginas_navegadas", 0);
+		if (session.getAttribute("usuario_logueado") == null) {
+			Usuario test = new Turista("agus", "agus@", "Agustin", "Franco","pass", new GregorianCalendar(2000, 2, 2), "uruguayo");
+			session.setAttribute("usuario_logueado", test);
 		}
 		if (session.getAttribute("estado_sesion") == null) {
 			session.setAttribute("estado_sesion", "noLogueado");
