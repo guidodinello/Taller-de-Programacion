@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.logica.clases.Turista;
+import model.logica.clases.Proveedor;
 import model.logica.clases.Usuario;
 
 @WebServlet("/altaUsuario")
@@ -31,7 +32,8 @@ public class altaUsuario extends HttpServlet {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("usuario_logueado") == null) {
 			Usuario test = new Turista("agus", "agus@", "Agustin", "Franco","pass", new GregorianCalendar(2000, 2, 2), "uruguayo");
-			session.setAttribute("usuario_logueado", test);
+			Usuario test2 = new Proveedor("agus", "agus@", "Agustin", "Franco","pass", new GregorianCalendar(2000, 2, 2), "uruguayo", "sitio");
+			session.setAttribute("usuario_logueado", test2);
 		}
 		if (session.getAttribute("estado_sesion") == null) {
 			session.setAttribute("estado_sesion", "noLogueado");
@@ -48,7 +50,7 @@ public class altaUsuario extends HttpServlet {
 	 * @throws IOException      if an I/O error occurs
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
-		//initSession(request);
+		initSession(request);
 		//HttpSession session = request.getSession();
 		request.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(request, response);
 	}
@@ -60,4 +62,13 @@ public class altaUsuario extends HttpServlet {
 		processRequest(req, resp);
 
 	}
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest req, HttpServletResponse resp)
+	 */
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
+		resp.sendRedirect("/WEB-INF/templates/Navbar.jsp");
+
+	}
+	
 }
