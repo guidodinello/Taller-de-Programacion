@@ -34,7 +34,7 @@ public class Principal {
     private ICtrlActividad ICA;
     //frame altas
     private altaUsuario altaUsuario;
-    private altaCategoria altaCategoria;
+    //private altaCategoria altaCategoria;
     private altaSalida altaSalida;
     private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
@@ -92,10 +92,10 @@ public class Principal {
         altaSalida.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(altaSalida);
         
-        altaCategoria = new altaCategoria(ICA);
-        altaCategoria.setBounds(30, 30, 425, 174);
-        altaCategoria.setVisible(false);
-        frmGestionDeTurismoUy.getContentPane().add(altaCategoria);
+        //altaCategoria = new altaCategoria(ICA);
+        //altaCategoria.setBounds(30, 30, 425, 174);
+        //altaCategoria.setVisible(false);
+        //frmGestionDeTurismoUy.getContentPane().add(altaCategoria);
         
         consultaDeSalida= new ConsultaSalida(ICA);
         consultaDeSalida.setVisible(false);
