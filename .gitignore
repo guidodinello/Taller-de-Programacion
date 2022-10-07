@@ -9,6 +9,10 @@ servidor-central/.settings
 # .project
 servidor-central/.project
 
+turismo.uy/.settings
+turismo.uy/.project
+turismo.uy/build/
+
 # vscode
 */.vscode
 
