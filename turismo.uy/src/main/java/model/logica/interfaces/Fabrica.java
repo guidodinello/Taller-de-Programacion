@@ -1,5 +1,5 @@
-package logica.interfaces;
-import logica.controladores.*;
+package model.logica.interfaces;
+import model.logica.controladores.*;
 
 public class Fabrica {
 	private static Fabrica instancia = null;

@@ -1,12 +1,12 @@
-package logica.interfaces;
+package model.logica.interfaces;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-import datatypes.DTActividad;
-import datatypes.DTSalida;
-import datatypes.DTUsuario;
-import datatypes.tipoUsuario;
+import model.datatypes.DTActividad;
+import model.datatypes.DTSalida;
+import model.datatypes.DTUsuario;
+import model.datatypes.tipoUsuario;
 
 import excepciones.YaExisteException;
 import excepciones.InscriptionFailException;

@@ -134,9 +134,6 @@ const formularioValidado = () => {
 $("#btnRgistrarse").on("click", async function(e){
     e.preventDefault();
     if(formularioValidado()){
-        if(registarLachiqui()){
-            $("#FormularioRegistro").attr("action","./homeLogueado.html");
-        }
         await Swal.fire({
             position: 'center',
             icon: 'success',
