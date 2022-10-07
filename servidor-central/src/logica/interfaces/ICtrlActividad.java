@@ -11,6 +11,7 @@ import datatypes.DTActividad;
 public interface ICtrlActividad{
 
 	public abstract void altaDepartamento(String nombreDepartamento, String descripcion,String URL) throws YaExisteException;
+	public abstract void altaCategoria(String nombre) throws YaExisteException;
 	public abstract DTActividad getInfoActividad(String actividad);
 	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta) throws YaExisteException;
 	public abstract Set<String> listarNombresSalidasDeActividad(String actividad);

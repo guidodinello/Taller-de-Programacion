@@ -4,6 +4,7 @@ package presentacion;
 import logica.interfaces.Fabrica;
 
 import java.awt.EventQueue;
+import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -33,6 +34,7 @@ public class Principal {
     private ICtrlActividad ICA;
     //frame altas
     private altaUsuario altaUsuario;
+    //private altaCategoria altaCategoria;
     private altaSalida altaSalida;
     private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
@@ -89,6 +91,11 @@ public class Principal {
         altaSalida.setBounds(30, 30, 515, 431);
         altaSalida.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(altaSalida);
+        
+        //altaCategoria = new altaCategoria(ICA);
+        //altaCategoria.setBounds(30, 30, 425, 174);
+        //altaCategoria.setVisible(false);
+        //frmGestionDeTurismoUy.getContentPane().add(altaCategoria);
         
         consultaDeSalida= new ConsultaSalida(ICA);
         consultaDeSalida.setVisible(false);
@@ -219,6 +226,14 @@ public class Principal {
         
         JMenu menuActividades = new JMenu("Actividades");
         menuBar.add(menuActividades);
+        
+        JMenuItem menuItemAltaCategoria = new JMenuItem("Alta de Categoria");
+        menuItemAltaCategoria.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		altaCategoria.setVisible(true);
+        	};
+        });
+        menuActividades.add(menuItemAltaCategoria);
         
         JMenuItem menuItemAltaActividadTuristica = new JMenuItem("Alta de Actividad Turistica");
         menuItemAltaActividadTuristica.addActionListener(new ActionListener() {

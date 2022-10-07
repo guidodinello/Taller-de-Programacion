@@ -219,7 +219,6 @@ public class altaActividadTuristica extends JInternalFrame {
 		JButton btnNewButton_1 = new JButton("Cancelar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpiarFormulario();
 				setVisible(false);
 			}
 		});
@@ -243,11 +242,12 @@ public class altaActividadTuristica extends JInternalFrame {
 				
 				IActividad.altaActividadTuristica(comboBox_1.getSelectedItem().toString(), nomActividad, desc, Integer.parseInt(duraHs), Float.parseFloat(costo), 
 						nombCiudad, comboBox.getSelectedItem().toString(), new GregorianCalendar());
+				limpiarFormulario();
 			
 			} catch(YaExisteException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
 			}
-			limpiarFormulario();
+			
 			
 			setVisible(false);
 		}

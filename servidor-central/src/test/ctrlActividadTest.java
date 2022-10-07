@@ -48,14 +48,17 @@ public class ctrlActividadTest{
 		hA = HandlerActividades.getInstance();
 		controladorActividad = fabrica.getICtrlActividad();
 		controladorUsuario = fabrica.getICtrlUsuario();
+
+		String imgPerfil = "imagen";
+
 		try {
-			controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", "", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
-			controladorUsuario.altaUsuario("agus", "agus@", "Agustin", "Franco", "", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
-			controladorUsuario.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", "", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
-			controladorUsuario.altaUsuario("manuT1", "emailT1", "nombreT1", "apellidT1", "", new GregorianCalendar(), tipoUsuario.turista, "uru", null, null);
-			controladorUsuario.altaUsuario("manuT2", "emailT2", "nombreT2", "apellidT2", "", new GregorianCalendar(), tipoUsuario.turista, "uru", null, null );
-			controladorUsuario.altaUsuario("manuP1", "emailP1", "nombreP1", "apellidP1", "", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "descManuP1", "linkP1" );
-			controladorUsuario.altaUsuario("manuP2", "emailP2", "nombreP2", "apellidP2", "", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "descManuP2", "linkP2" );
+			controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
+			controladorUsuario.altaUsuario("agus", "agus@", "Agustin", "Franco", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.turista, "uruguayo", null, null);
+			controladorUsuario.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.turista, "uruguayo", null, null);
+			controladorUsuario.altaUsuario("manuT1", "emailT1", "nombreT1", "apellidT1", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.turista, "uru", null, null);
+			controladorUsuario.altaUsuario("manuT2", "emailT2", "nombreT2", "apellidT2", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.turista, "uru", null, null );
+			controladorUsuario.altaUsuario("manuP1", "emailP1", "nombreP1", "apellidP1", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.proveedor, "uruguayo", "descManuP1", "linkP1" );
+			controladorUsuario.altaUsuario("manuP2", "emailP2", "nombreP2", "apellidP2", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.proveedor, "uruguayo", "descManuP2", "linkP2" );
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}

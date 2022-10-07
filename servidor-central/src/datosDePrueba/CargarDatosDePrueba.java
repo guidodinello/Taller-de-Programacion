@@ -79,8 +79,8 @@ public class CargarDatosDePrueba {
 					  String[] valuesFecha = values[6].split("/");
 					  //System.out.println("A continuacion vienen las fehcas:"+ valuesFecha[0]+valuesFecha[1]+valuesFecha[2]);
 					  //System.out.println("A continuacion vienen los otros datos:"+values[1]+values[2]+values[3]+values[4]);
-					  ICU.altaUsuario(values[2].trim(), values[5].trim(), values[3].trim(), values[4].trim(), "", new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()), 
-							  Integer.parseInt(valuesFecha[1].trim()), Integer.parseInt(valuesFecha[0].trim())), tipoUsuario.turista, valuesExtra[1].trim(), "", "");
+					  ICU.altaUsuario(values[2].trim(), values[5].trim(), values[3].trim(), values[4].trim(), "passowrd", new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()), 
+							  Integer.parseInt(valuesFecha[1].trim()), Integer.parseInt(valuesFecha[0].trim())), "imagenPerfil", tipoUsuario.turista, valuesExtra[1].trim(), "", "");
 					  	//nick, email, nombre, apellido, fechaNac, tipoUsuario, naciona, descrip, url
 					  
 					  //System.out.println("nick: " + values[2] + " nombre: "+ values[3]+ " apellido: "+ values[4]+ " email: "+values[5]+
@@ -93,8 +93,8 @@ public class CargarDatosDePrueba {
 					  String[] values = line.split(",");
 					  String[] valuesExtra = lineExtra.split(",");
 					  String[] valuesFecha = values[6].split("/");
-					  ICU.altaUsuario(values[2].trim(), values[5].trim(), values[3].trim(), values[4].trim(), "", new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()),
-					  	Integer.parseInt(valuesFecha[1].trim()), Integer.parseInt(valuesFecha[0].trim())), tipoUsuario.proveedor, "", valuesExtra[1].trim(), valuesExtra[2].trim());
+					  ICU.altaUsuario(values[2].trim(), values[5].trim(), values[3].trim(), values[4].trim(), "password", new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()),
+					  	Integer.parseInt(valuesFecha[1].trim()), Integer.parseInt(valuesFecha[0].trim())), "imagenPerfil", tipoUsuario.proveedor, "", valuesExtra[1].trim(), valuesExtra[2].trim());
 					  	//nick, email, nombre, apellido, fechaNac, tipoUsuario, naciona, descrip, url
 					  
 					  //System.out.println("nick: " + values[2] + " nombre: "+ values[3]+ " apellido: "+ values[4]+ " email: "+values[5]+

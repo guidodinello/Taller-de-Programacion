@@ -11,10 +11,12 @@ import java.util.HashSet;
 import excepciones.YaExisteException;
 import logica.clases.Departamento;
 import logica.clases.ActividadTuristica;
+import logica.clases.Categoria;
 import logica.clases.PaqueteTuristico;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
 import logica.handlers.HandlerActividades;
+import logica.handlers.HandlerCategorias;
 import logica.interfaces.*;
 import logica.clases.SalidaTuristica;
 import logica.clases.Proveedor;
@@ -34,6 +36,14 @@ public class CtrlActividad implements ICtrlActividad{
 		
 	}
 	
+	public void altaCategoria(String nombre) throws YaExisteException{
+		HandlerCategorias hC = HandlerCategorias.getInstance();
+		if(hC.existeCategoria(nombre)){
+			throw new YaExisteException("La Categoria " + nombre + "ya se encuentra registrada.");
+		}
+		Categoria nuevaCat = new Categoria(nombre);
+		hC.add(nuevaCat);
+	}
 	
 	public Set<String> listarDepartamentos(){
 		Set<String> departamentos = new HashSet<String>();
