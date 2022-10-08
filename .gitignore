@@ -11,7 +11,11 @@ servidor-central/.project
 
 turismo.uy/.settings
 turismo.uy/.project
+turismo.uy/.classpath
 turismo.uy/build/
+.pmd
+.classpath
+.checkstyle
 
 # vscode
 */.vscode
