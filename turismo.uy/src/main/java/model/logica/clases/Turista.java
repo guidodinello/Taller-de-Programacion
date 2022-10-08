@@ -4,6 +4,9 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+
+import model.logica.clases.InscripcionSalida;
+
 import java.util.HashSet;
 import model.datatypes.DTSalida;
 
@@ -11,8 +14,8 @@ public class Turista extends Usuario {
 	private Map<String, InscripcionSalida> inscripciones;
 	private String nacionalidad;
 
-	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String nacionalidad) {
-		super(nickname, email, nombre, apellido, contrasena, fechaNac);
+	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String img, String nacionalidad) {
+		super(nickname, email, nombre, apellido, contrasena, fechaNac, img);
 		this.nacionalidad = nacionalidad;
 		this.inscripciones = new HashMap<String, InscripcionSalida>();
 	}

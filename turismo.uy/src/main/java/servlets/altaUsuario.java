@@ -93,11 +93,11 @@ public class altaUsuario extends HttpServlet {
 		try {
 			if(tipoUsu == "Turista") {
 				String nacionalidad = request.getParameter("Nacionalidad");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), tipoUsuario.turista, nacionalidad, "", "");
+				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, fotoDireccion, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), tipoUsuario.turista, nacionalidad, "", "");
 			}else {
 				String desc = request.getParameter("Descripcion");
 				String sitio = request.getParameter("LinkSitioWeb");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), tipoUsuario.proveedor, "", desc, sitio);
+				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass,fotoDireccion, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), tipoUsuario.proveedor, "", desc, sitio);
 			}
 			response.sendRedirect("/home");
 			
