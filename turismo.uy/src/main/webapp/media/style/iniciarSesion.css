@@ -75,7 +75,6 @@ form {
     position: relative;
     display: grid;
     grid-template-columns: 7% 93%;
-    margin: 25px 0;
     padding: 5px 0;
     border-bottom: 2px solid #d9d9d9;
 }
@@ -158,9 +157,6 @@ form {
     font-family: 'poppins', sans-serif;
 }
 
-.input-div.pass {
-    margin-bottom: 4px;
-}
 .btn-login {
     display: block;
     width: 100%;
@@ -174,7 +170,6 @@ form {
     color: #fff;
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
-    margin: 1rem 0;
     cursor: pointer;
     transition: .5s;
 }
