@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.datatypes.DTActividad;
+import model.datatypes.DTPaquete;
+import model.datatypes.DTSalida;
 import model.datatypes.tipoUsuario;
 import model.logica.clases.ActividadTuristica;
 import model.logica.handlers.HandlerActividades;
@@ -37,14 +41,25 @@ public class consultaActividad extends HttpServlet {
 		try {
 			ctrlUsuario.altaUsuario("testProv", "testEmail", "testNomb", "testAp", "testPass", new GregorianCalendar(),"", tipoUsuario.proveedor, "", "testdesc", "testSitio");
 			ctrlActividad.altaDepartamento("deptotest","deptotest" ,"deptotest");
-			ctrlActividad.altaActividadTuristica("deptotest", "test", "test", 0, 0, "test", "testProv", new GregorianCalendar());
+			ctrlActividad.altaActividadTuristica("deptotest", "testNombre", "testDesc", 10, 110, "test", "testProv", new GregorianCalendar());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		ActividadTuristica actividad = hA.obtenerActividadTuristica(request.getParameter("nombreAct"));
+		Set<DTSalida> salidasActividad = ctrlActividad.listarInfoSalidasVigentes(actividad.getNombre(), new GregorianCalendar());
+		
 		DTActividad datosActividad = ctrlActividad.getInfoActividad(actividad.getNombre());
+		
+		Set<String> nombPaquetesActividad = datosActividad.getPaquetes();
+		Set<DTPaquete> paquetesActvidad = new HashSet<DTPaquete>(); 
+		nombPaquetesActividad.forEach((e)->{
+			paquetesActvidad.add(ctrlActividad.getInfoPaquete(e));
+		});
+		
+		request.setAttribute("datosPaqueteActividad", paquetesActvidad);
 		request.setAttribute("datosActividad", datosActividad);
+		request.setAttribute("datosSalidaActividad", salidasActividad);
 		request.getRequestDispatcher("/WEB-INF/actividad/consultaActividad.jsp").forward(request, response);
 	}
 	

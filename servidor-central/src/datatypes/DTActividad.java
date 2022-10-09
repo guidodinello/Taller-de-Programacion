@@ -69,6 +69,15 @@ public class DTActividad {
 		return fechaAlta;
 	}
 	
+	public String getFechaAltaString() {
+		String dia = String.valueOf(fechaAlta.get(fechaAlta.DAY_OF_MONTH));
+		String mes = String.valueOf(fechaAlta.get(fechaAlta.MONTH) + 1);
+		String anio = String.valueOf(fechaAlta.get(fechaAlta.YEAR));
+		String hora = String.valueOf(fechaAlta.get(fechaAlta.HOUR));
+		String resultado =	dia + "/" + mes + "/" + anio;
+		return resultado;
+	}
+	
 	public String getImg(){
 		return img;
 	}

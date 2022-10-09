@@ -1,5 +1,8 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
 <%@page import="model.datatypes.DTActividad" %>
+<%@page import="model.datatypes.DTSalida" %>
+<%@page import="model.datatypes.DTPaquete" %>
+<%@page import="java.util.Set"%>
 
 
 <!doctype html>
@@ -29,7 +32,7 @@
 						<div class="card-body">
 							<h5 class="card-title"><%= actividad.getNombre() %></h5>
 							<p class="card-text"><%= actividad.getDescripcion() %></p>
-							<p class="card-text"><small class="text-muted">Fecha alta:<%= actividad.getFechaAlta().toString()%> </small></p>
+							<p class="card-text"><small class="text-muted">Fecha alta: <%= actividad.getFechaAltaString()%> </small></p>
 						</div>
 					</div>
 				</div>
@@ -106,34 +109,27 @@
                 <div class="card-header fw-semibold">SALIDAS DE ACTIVIDAD</div>
                 <div class="card-body p-0">
                     <ul class="list-group list-group-flush">
+                    
+                    <%
+                    	Set<DTSalida> salidasActividad = (Set<DTSalida>) request.getAttribute("datosSalidaActividad");
+						for(DTSalida salida: salidasActividad){
+					%>
                         <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="consultaSalida.html">
+                            <a class="text-decoration-none" href="/consultaSalida?nombreSalida=<%= salida.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="../img/sal-degusta-agosto.jpg" class="img-fluid rounded-start" alt="...">
+                                        <img src="<%= salida.getImg() %>" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
-                                            <p class="list-group-item list-group-item-action">Degusta Agosto</p>
+                                            <p class="list-group-item list-group-item-action"><%= salida.getNombre() %></p>
                                         </ul>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="consultaSalida.html">
-                                <div class="row g-0 align-middle">
-                                    <div class="col-md-4">
-                                        <img src="../img/sal-degusta-septiembre.jpg" class="img-fluid rounded-start" alt="...">
-                                    </div>
-                                    <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
-                                        <ul class="list-group list-group-flush">
-                                            <p class="list-group-item list-group-item-action">Degusta Septiembre</p>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+ 					<% } %>
+ 
                     </ul>
                 </div>
             </div>
@@ -141,20 +137,28 @@
                 <div class="card-header fw-semibold">PAQUETES ASOCIADOS</div>
                 <div class="card-body p-0">
                     <ul class="list-group list-group-flush">
+                    
+                   <%
+                    	Set<DTPaquete> paquetesActividad = (Set<DTPaquete>) request.getAttribute("datosPaqueteActividad");
+						for(DTPaquete paquete: paquetesActividad){
+					%>
+                    
                         <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="consultaPaquete.html">
+                            <a class="text-decoration-none" href="/paquete?nombrePaquete=<%= paquete.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="../img/paq-disfrutarrocha.jpg" class="img-fluid rounded-start" alt="...">
+                                        <img src="<%= paquete.getImg() %>" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
-                                            <p class="list-group-item list-group-item-action">Disfrutar Rocha</p>
+                                            <p class="list-group-item list-group-item-action"><%= paquete.getNombre() %></p>
                                         </ul>
                                     </div>
                                 </div>
                             </a>
                         </div>
+                        <% } %>
+                        
                     </ul>
                 </div>
             </div>
