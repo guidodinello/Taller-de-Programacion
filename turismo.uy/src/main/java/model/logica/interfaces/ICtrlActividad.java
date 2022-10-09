@@ -1,10 +1,10 @@
-package logica.interfaces;
+package model.logica.interfaces;
 import excepciones.YaExisteException;
 import java.util.Set;
-import datatypes.DTSalida;
-import datatypes.DTPaquete;
+import model.datatypes.DTSalida;
+import model.datatypes.DTPaquete;
 import java.util.GregorianCalendar;
-import datatypes.DTActividad;
+import model.datatypes.DTActividad;
 
 
 

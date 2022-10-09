@@ -8,7 +8,7 @@ import model.datatypes.DTSalida;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
-import model.excepciones.YaExisteException;
+import excepciones.YaExisteException;
 import model.logica.clases.Departamento;
 import model.logica.clases.ActividadTuristica;
 import model.logica.clases.PaqueteTuristico;

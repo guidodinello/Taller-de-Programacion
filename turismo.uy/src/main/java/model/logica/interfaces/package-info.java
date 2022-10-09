@@ -1,1 +1,1 @@
-package logica.interfaces;
+package model.logica.interfaces;

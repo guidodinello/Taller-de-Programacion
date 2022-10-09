@@ -18,8 +18,8 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
 
-import model.excepciones.YaExisteException;
-import model.excepciones.InscriptionFailException;
+import excepciones.YaExisteException;
+import excepciones.InscriptionFailException;
 
 public class CtrlUsuario implements ICtrlUsuario{
 	
