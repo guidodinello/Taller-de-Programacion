@@ -13,6 +13,12 @@ turismo.uy/.settings
 turismo.uy/.project
 turismo.uy/.classpath
 turismo.uy/build/
+turismo.uy/.pmd
+turismo.uy/.classpath
+turismo.uy/.checkstyle
+turismo.uy/.metadata/
+
+
 .pmd
 .classpath
 .checkstyle
