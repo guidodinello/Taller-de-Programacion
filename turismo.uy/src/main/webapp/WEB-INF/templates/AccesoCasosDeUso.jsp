@@ -6,22 +6,19 @@
 
 
 <div class="col-sm-3 mt-5 mt-lg-0">
-<%
+	<div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
+		<div class="card-header ">USUARIOS</div>
+		<div class="card-body">
+			 <ul class="list-group list-group-flush">
+				<a href="usuario" class="list-group-item list-group-item-action">Consulta Usuarios</a>
+			</ul>
+		</div>
+	</div>
+	<%
 	Usuario usr = (Usuario) session.getAttribute("usuario_logueado");
-	if (usr == null) {
+	if (usr instanceof Turista) {
 	%>
 		<div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
-			<div class="card-header ">USUARIOS</div>
-		    <div class="card-body">
-		     	<ul class="list-group list-group-flush">
-		         	<a href="./consultaUsuario.html" class="list-group-item list-group-item-action">Consulta Usuarios</a>
-		        </ul>
-			</div>
-		</div>	
-	<%
-	}else if (usr instanceof Turista){
-	%>
-            <div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
                 <div class="card-header ">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i></div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
@@ -39,7 +36,6 @@
                     </ul>
                 </div>
             </div>
-
 	<%
 	}else if (usr instanceof Proveedor){
 	%>

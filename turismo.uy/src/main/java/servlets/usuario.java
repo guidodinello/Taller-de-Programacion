@@ -21,44 +21,23 @@ import model.logica.interfaces.Fabrica;
 import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.ICtrlUsuario;
 
-@WebServlet("/consultaActividad")
-public class consultaActividad extends HttpServlet {
+@WebServlet("/usuario")
+public class usuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
 	private ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
 	private HandlerActividades hA = HandlerActividades.getInstance();
 	
-	public consultaActividad() {
+	public usuario() {
 		super();
 	}
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
-		ActividadTuristica actividad = hA.obtenerActividadTuristica(request.getParameter("nombreAct"));
-		Set<DTSalida> salidasActividad = ctrlActividad.listarInfoSalidasVigentes(actividad.getNombre(), new GregorianCalendar());
-		
-		DTActividad datosActividad = ctrlActividad.getInfoActividad(actividad.getNombre());
-		
-		Set<String> nombPaquetesActividad = datosActividad.getPaquetes();
-		Set<DTPaquete> paquetesActvidad = new HashSet<DTPaquete>(); 
-		nombPaquetesActividad.forEach((e)->{
-			paquetesActvidad.add(ctrlActividad.getInfoPaquete(e));
-		});
-		
-		request.setAttribute("datosPaqueteActividad", paquetesActvidad);
-		request.setAttribute("datosActividad", datosActividad);
-		request.setAttribute("datosSalidaActividad", salidasActividad);
-		request.getRequestDispatcher("/WEB-INF/actividad/consultaActividad.jsp").forward(request, response);
+
 	}
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
-		try {
-			ctrlUsuario.altaUsuario("testProv", "testEmail", "testNomb", "testAp", "testPass", new GregorianCalendar(),"", tipoUsuario.proveedor, "", "testdesc", "testSitio");
-			ctrlActividad.altaDepartamento("deptotest","deptotest" ,"deptotest");
-			ctrlActividad.altaActividadTuristica("deptotest", "testNombre", "testDesc", 10, 110, "test", "testProv", new GregorianCalendar());
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
 		processRequest(request, response);
 
 	}
@@ -67,5 +46,4 @@ public class consultaActividad extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
 		processRequest(request, response);
 	}
-	
 }
