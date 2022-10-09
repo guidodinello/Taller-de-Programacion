@@ -29,6 +29,7 @@ public class DTActividad {
 		this.costo = costo;
 		this.nombCategorias = nombCat;
 		this.salidas = salidas;
+		this.img = "";
 		paquetes = new HashSet<String>();
 	}
 

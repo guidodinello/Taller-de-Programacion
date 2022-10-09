@@ -17,13 +17,13 @@
 			<div class="col-sm-6 text-center">
 			
 			<%
-				DTActividad actividad = (DTActividad) request.getAttribute("datosActvididad");
+				DTActividad actividad = (DTActividad) request.getAttribute("datosActividad");
 			%>
 			
 			<div class="card mb-3" style="max-width: 800px;">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src=<%= actividad.getImg() %> class="img-fluid rounded-start" alt="...">
+						<img src="<%= actividad.getImg() %>" class="img-fluid rounded-start" alt="...">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">

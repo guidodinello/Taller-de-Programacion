@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.datatypes.DTActividad;
+import model.datatypes.tipoUsuario;
 import model.logica.clases.ActividadTuristica;
 import model.logica.handlers.HandlerActividades;
 import model.logica.interfaces.Fabrica;
@@ -32,6 +34,14 @@ public class consultaActividad extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
+		try {
+			ctrlUsuario.altaUsuario("testProv", "testEmail", "testNomb", "testAp", "testPass", new GregorianCalendar(),"", tipoUsuario.proveedor, "", "testdesc", "testSitio");
+			ctrlActividad.altaDepartamento("deptotest","deptotest" ,"deptotest");
+			ctrlActividad.altaActividadTuristica("deptotest", "test", "test", 0, 0, "test", "testProv", new GregorianCalendar());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		ActividadTuristica actividad = hA.obtenerActividadTuristica(request.getParameter("nombreAct"));
 		DTActividad datosActividad = ctrlActividad.getInfoActividad(actividad.getNombre());
 		request.setAttribute("datosActividad", datosActividad);
