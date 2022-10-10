@@ -1,8 +1,8 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
-<%@page import="model.logica.clases.Usuario"%>
+<%@page import="model.datatypes.DTUsuario"%>
 
 <%
-	Usuario usr = (Usuario) session.getAttribute("usuario_logueado");
+	DTUsuario usr = (DTUsuario) session.getAttribute("usuario_logueado");
 	if (usr == null) {
 	%>
 		<div class="footer row">

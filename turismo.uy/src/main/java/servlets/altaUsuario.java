@@ -115,7 +115,6 @@ public class altaUsuario extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
 		processRequest(req, resp);
-		resp.sendRedirect("/WEB-INF/templates/Navbar.jsp");
 
 	}
 	

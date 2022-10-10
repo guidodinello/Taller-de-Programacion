@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.salida"%>
-<%@page import="model.logica.datatypes.DTSalida"%>
+<%@page import="model.datatypes.DTSalida"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html lang="es">

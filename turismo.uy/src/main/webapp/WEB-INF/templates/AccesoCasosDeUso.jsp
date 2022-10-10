@@ -1,17 +1,17 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
 <%@page import="servlets.altaUsuario" %>
 <%@page import="java.util.Set"%>
-<%@page import="model.logica.clases.Usuario"%>
-<%@page import="model.logica.clases.Turista"%>
-<%@page import="model.logica.clases.Proveedor"%>
+<%@page import="model.datatypes.DTUsuario"%>
+<%@page import="model.datatypes.DTProveedor"%>
+<%@page import="model.datatypes.DTTurista"%>
 <%@page import="model.logica.interfaces.Fabrica"%>
 <%@page import="model.logica.interfaces.ICtrlActividad"%>
 
 
 <div class="col-sm-3 mt-5 mt-lg-0">
 	<%
-	Usuario usr = (Usuario) session.getAttribute("usuario_logueado");
-	if (usr instanceof Turista) {
+	DTUsuario usr = (DTUsuario) session.getAttribute("usuario_logueado");
+	if (usr instanceof DTTurista) {
 	%>
 		<div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
                 <div class="card-header ">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i></div>
@@ -23,7 +23,7 @@
                 </div>
           </div>
 	<%
-	}else if (usr instanceof Proveedor){
+	}else if (usr instanceof DTProveedor){
 	%>
             <div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
                 <div class="card-header fw-semibold">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i>

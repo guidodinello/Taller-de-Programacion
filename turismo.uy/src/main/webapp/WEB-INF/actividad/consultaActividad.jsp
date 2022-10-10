@@ -115,7 +115,7 @@
 						for(DTSalida salida: salidasActividad){
 					%>
                         <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="/consultaSalida?nombreSalida=<%= salida.getNombre() %>">
+                            <a class="text-decoration-none" href="consultaSalida?nombreSalida=<%= salida.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
                                         <img src="<%= salida.getImg() %>" class="img-fluid rounded-start" alt="...">
