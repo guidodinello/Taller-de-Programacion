@@ -24,4 +24,5 @@ public interface ICtrlActividad{
 	public abstract Set<String> listarPaquetes();
 	public abstract void ingresarActividadAPaquete(String nombrePaquete,String nombreActividad);
 	public abstract DTPaquete getInfoPaquete(String paqueteSeleccionado);
+	public abstract Set<String> listarCategorias();
 }
