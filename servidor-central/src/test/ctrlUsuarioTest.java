@@ -30,6 +30,7 @@ import datatypes.DTActividad;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
+import datatypes.estadoActividad;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlUsuarioTest {
@@ -377,19 +378,19 @@ public class ctrlUsuarioTest {
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, pass, fechaNac4, perfilImg, tipoUsuario.proveedor, null, descP4, linkP4);});	
 		
 	}
-	
+	estadoActividad estado = estadoActividad.agregada;
 	@Test
 	@Order(4)
 	void testIngresarInscripcionOK() {
 		//seteo actividades y salidas
 		try {
 			Set<String> setString = new HashSet<String>();
-			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null, "", setString);
-			controladorActividad.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null, "", setString );
-			controladorActividad.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null, "", setString);
+			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null, "", setString, estado);
+			controladorActividad.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null, "", setString, estado);
+			controladorActividad.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null, "", setString, estado);
 			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 4", "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
 					+ "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
-					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null, "", setString);
+					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null, "", setString, estado);
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}
