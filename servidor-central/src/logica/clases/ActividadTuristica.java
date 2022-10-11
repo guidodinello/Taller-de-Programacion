@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import datatypes.DTActividad;
 import datatypes.DTSalida;
+import datatypes.estadoActividad;
 import logica.handlers.HandlerDepartamentos;
 
 import java.util.HashMap;
@@ -16,15 +17,17 @@ public class ActividadTuristica{
 	private int duracionHs;
 	private float costoPorTurista;
 	private GregorianCalendar fechaAlta;
+	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta,estadoActividad estado) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
 		this.costoPorTurista = costoPorTurista;
 		this.nombreCiudad = nombreCiudad;
 		this.fechaAlta = fechaAlta;
+		this.estado = estado;
 		salidas = new HashMap<String, SalidaTuristica>();
 
 		
@@ -32,6 +35,9 @@ public class ActividadTuristica{
 	
 	public String getNombre() {
 		return nombre;
+	}
+	public estadoActividad getEstado() {
+		return this.estado;
 	}
 	
 	public String getDescripcion() {
@@ -85,7 +91,7 @@ public class ActividadTuristica{
 		});
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, dura, costo, salidas);
+		return new DTActividad(n, des, nombreDepto, dura, costo, salidas,estadoActividad.agregada);
 	}
 
 }

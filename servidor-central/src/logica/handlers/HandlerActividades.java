@@ -3,6 +3,7 @@ package logica.handlers;
 //import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import logica.clases.ActividadTuristica;
 
@@ -32,6 +33,9 @@ public class HandlerActividades{
     
 	public ActividadTuristica obtenerActividadTuristica(String actividad) {
 		return actividadesTuristicas.get(actividad);
+	}
+	public Set<ActividadTuristica> obtenerActividadesTuristicas() {
+		return (Set<ActividadTuristica>) actividadesTuristicas.values();
 	}
 	
 	public static void clear() {

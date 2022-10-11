@@ -29,6 +29,7 @@ import datatypes.DTActividad;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
+import datatypes.estadoActividad;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlUsuarioTest {
@@ -366,18 +367,18 @@ public class ctrlUsuarioTest {
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, "", fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);});	
 		
 	}
-	
+	estadoActividad estado = estadoActividad.agregada;
 	@Test
 	@Order(4)
 	void testIngresarInscripcionOK() {
 		//seteo actividades y salidas
 		try {
-			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null);
-			controladorActividad.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null);
-			controladorActividad.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null);
+			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null,estado);
+			controladorActividad.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null,estado);
+			controladorActividad.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null,estado);
 			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 4", "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
 					+ "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
-					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null);
+					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null,estado);
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}

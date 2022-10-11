@@ -47,6 +47,7 @@ public class Principal {
     private CrearPaquete crearPaquete;
     private AgregarActividadAPaquete agregarActividadPaquete;
     private ConsultaPaquete consultarPaquete;
+    private aceptarRechazarActividad aceptarRechazarActividad;
     
     private boolean yaSeCargaronLosDatosDePrueba;
     
@@ -80,6 +81,12 @@ public class Principal {
         yaSeCargaronLosDatosDePrueba = false;
         
         frmGestionDeTurismoUy.getContentPane().setLayout(null);
+        
+        aceptarRechazarActividad = new aceptarRechazarActividad(ICA);
+        aceptarRechazarActividad .setBounds(30, 30, 597, 452);
+        aceptarRechazarActividad .setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().setLayout(null);
+        frmGestionDeTurismoUy.getContentPane().add(aceptarRechazarActividad );
         
         altaUsuario = new altaUsuario(ICU);
         altaUsuario.setBounds(30, 30, 597, 452);
@@ -226,6 +233,14 @@ public class Principal {
         
         JMenu menuActividades = new JMenu("Actividades");
         menuBar.add(menuActividades);
+        
+        JMenuItem menuItemAceptarRechazarActividad = new JMenuItem("Aceptar o Rechazar Actividad");
+        menuItemAceptarRechazarActividad.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		aceptarRechazarActividad.setVisible(true);
+        	};
+        });
+        menuActividades.add(menuItemAceptarRechazarActividad);
         
         JMenuItem menuItemAltaCategoria = new JMenuItem("Alta de Categoria");
         menuItemAltaCategoria.addActionListener(new ActionListener() {

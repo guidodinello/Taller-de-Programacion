@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
 
+import logica.clases.Compra;
 import logica.clases.PaqueteTuristico;
+import logica.clases.Turista;
 
 /*
  * Clase que contiene la coleccion global de Paquetes
@@ -37,7 +39,21 @@ public class HandlerPaquetes {
 	}
 	
 	public Set<PaqueteTuristico> getPaquetes(){
-		return new HashSet<PaqueteTuristico>(paquetes.values());
+		Set<PaqueteTuristico> paq = (Set<PaqueteTuristico>) paquetes.values();
+		HandlerUsuarios hu = HandlerUsuarios.getInstance();
+		 Set<Turista> turistas = hu.listarTuristas();
+		 for (Turista t : turistas){
+			 Map<String, Compra> compra =  t.getCompras();
+				 for (Compra i : compra.values()) {
+				 	PaqueteTuristico p =  i.getPaquete();
+				 	if(paq.contains(p)) {
+				 		paq.remove(p);
+				 	}
+				 }
+			 
+		 }
+		 return paq;
+		
 	}
 	
 	public static void clear() {

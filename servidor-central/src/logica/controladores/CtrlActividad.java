@@ -4,6 +4,7 @@ import java.util.Set;
 import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
+import datatypes.estadoActividad;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -59,6 +60,7 @@ public class CtrlActividad implements ICtrlActividad{
 		Set<String> actividades = d.listarActividades();
 		return actividades;
 	}
+
 	//Actividades
 	public DTActividad getInfoActividad(String actividad) {
 		//Falta la parte de Paquetes
@@ -74,13 +76,13 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta) throws YaExisteException {
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, estadoActividad estado) throws YaExisteException {
 		HandlerActividades hA = HandlerActividades.getInstance();
 		if(hA.existeActividad(nomActividad)){
 			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
 		}
 
-		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta);
+		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta,estado);
 		
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		hD.getDepto(nomDep).agregarActividad(resu);
@@ -177,13 +179,19 @@ public class CtrlActividad implements ICtrlActividad{
 	public Set<String> listarActividadesDepartamentoMenosPaquete(String depto, String nombrePaquete){
 		Set<String> resu = new HashSet<String>();
 		Set<String> depAct = this.listarActividadesDepartamento(depto);
+		HandlerActividades hA = HandlerActividades.getInstance();
+		Set<ActividadTuristica> actividades = new HashSet<ActividadTuristica>();
+		for(String s: depAct) {
+			ActividadTuristica act = hA.obtenerActividadTuristica(s);
+			actividades.add(act);
+		}
 		
 		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		PaqueteTuristico pt = hP.obtenerPaqueteTuristico(nombrePaquete);
 		
-		depAct.forEach(e ->{
-			if(!pt.tieneActividad(e)) {
-				resu.add(e);
+		actividades.forEach(e ->{
+			if(!pt.tieneActividad(e.getNombre()) & e.getEstado() == estadoActividad.confirmada  ) {
+				resu.add(e.getNombre());
 			}
 		});
 		return resu;

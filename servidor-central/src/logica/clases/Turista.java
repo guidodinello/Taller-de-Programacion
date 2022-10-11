@@ -10,11 +10,13 @@ import datatypes.DTSalida;
 public class Turista extends Usuario {
 	private Map<String, InscripcionSalida> inscripciones;
 	private String nacionalidad;
+	private Map<String ,Compra> compras;
 
 	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String nacionalidad) {
 		super(nickname, email, nombre, apellido, contrasena, fechaNac);
 		this.nacionalidad = nacionalidad;
 		this.inscripciones = new HashMap<String, InscripcionSalida>();
+		//this.compras = vacio;
 	}
 
 	public String getNacionalidad() {
@@ -32,7 +34,14 @@ public class Turista extends Usuario {
 		});
 		return resultado;
 	}
-
+	public Map<String, Compra> getCompras() {
+		if(compras!= null) {
+			return this.compras;
+		}
+		else {
+			return null;
+		}
+	}
 	public void agregarInscripcion(InscripcionSalida insc) {
 		inscripciones.put(insc.getSalida().getNombre(), insc);
 	}

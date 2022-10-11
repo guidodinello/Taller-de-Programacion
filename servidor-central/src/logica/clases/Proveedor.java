@@ -11,6 +11,7 @@ public class Proveedor extends Usuario {
 	private Map<String, ActividadTuristica> actividades;
 	private String descripcion, sitioWeb;
 	
+	
 	public Proveedor(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String descripcion, String sitioWeb) {
 		super(nickname, email, nombre, apellido, contrasena, fechaNac);
 		this.descripcion = descripcion;

@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import datatypes.estadoActividad;
 //import excepciones.UsuarioNoExisteException;
 import excepciones.YaExisteException;
 //import logica.DataUsuario;
@@ -241,7 +242,7 @@ public class altaActividadTuristica extends JInternalFrame {
 			try {
 				
 				IActividad.altaActividadTuristica(comboBox_1.getSelectedItem().toString(), nomActividad, desc, Integer.parseInt(duraHs), Float.parseFloat(costo), 
-						nombCiudad, comboBox.getSelectedItem().toString(), new GregorianCalendar());
+						nombCiudad, comboBox.getSelectedItem().toString(), new GregorianCalendar(),estadoActividad.agregada);
 				limpiarFormulario();
 			
 			} catch(YaExisteException e) {
