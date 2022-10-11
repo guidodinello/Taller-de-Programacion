@@ -21,7 +21,7 @@ public class DTActividad {
 	
 
 	
-	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat,estadoActividad estado) {
+	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String img, estadoActividad estado) {
 		this.nombre = n;
 		this.descripcion = des;
 		this.departamento = departamento;
@@ -33,6 +33,7 @@ public class DTActividad {
 		this.salidas = salidas;
 		this.estado = estado;
 		paquetes = new HashSet<String>();
+		this.img = img;
 	}
 
 	public String getNombre() {

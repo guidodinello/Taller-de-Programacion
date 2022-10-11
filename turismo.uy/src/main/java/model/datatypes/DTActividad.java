@@ -19,7 +19,7 @@ public class DTActividad {
 	private Set<String> paquetes;
 	
 	
-	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat) {
+	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String img) {
 		this.nombre = n;
 		this.descripcion = des;
 		this.departamento = departamento;
@@ -29,7 +29,7 @@ public class DTActividad {
 		this.costo = costo;
 		this.nombCategorias = nombCat;
 		this.salidas = salidas;
-		this.img = "";
+		this.img = img;
 		paquetes = new HashSet<String>();
 	}
 

@@ -18,6 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Set;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
@@ -241,9 +242,9 @@ public class altaActividadTuristica extends JInternalFrame {
 		
 		if(checkFormulario()) {
 			try {
-				
+				Set<String> setString = new HashSet<String>();
 				IActividad.altaActividadTuristica(comboBox_1.getSelectedItem().toString(), nomActividad, desc, Integer.parseInt(duraHs), Float.parseFloat(costo), 
-						nombCiudad, comboBox.getSelectedItem().toString(), new GregorianCalendar(),estadoActividad.agregada);
+						nombCiudad, comboBox.getSelectedItem().toString(), new GregorianCalendar(), "", setString, estadoActividad.agregada);
 				limpiarFormulario();
 			
 			} catch(YaExisteException e) {
