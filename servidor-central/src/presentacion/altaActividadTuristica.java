@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JList;
 
 @SuppressWarnings("serial")
 public class altaActividadTuristica extends JInternalFrame {
@@ -67,9 +68,9 @@ public class altaActividadTuristica extends JInternalFrame {
 		setBounds(100, 100, 450, 260);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{101, 222, 75, 0};
-		gridBagLayout.rowHeights = new int[]{22, 22, 20, 20, 20, 20, 20, 23, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{22, 22, 20, 20, 20, 20, 20, 23, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel lblNewLabel = new JLabel("Proveedor:");
@@ -107,6 +108,20 @@ public class altaActividadTuristica extends JInternalFrame {
 		gbc_comboBox_1.gridx = 1;
 		gbc_comboBox_1.gridy = 1;
 		getContentPane().add(comboBox_1, gbc_comboBox_1);
+		
+		JButton btnNewButton_1 = new JButton("Cancelar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
+		
+		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cmdAltaActividadTuristicaActionPerformed(e);
+			}
+		});
 		
 		JLabel lblNewLabel_2 = new JLabel("Nombre de Actvidad:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -146,13 +161,6 @@ public class altaActividadTuristica extends JInternalFrame {
 		gbc_textField_1.gridx = 1;
 		gbc_textField_1.gridy = 3;
 		getContentPane().add(textField_1, gbc_textField_1);
-		
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cmdAltaActividadTuristicaActionPerformed(e);
-			}
-		});
 		
 		JLabel lblNewLabel_3_1 = new JLabel("Duraci\u00F3n en horas:");
 		GridBagConstraints gbc_lblNewLabel_3_1 = new GridBagConstraints();
@@ -214,19 +222,12 @@ public class altaActividadTuristica extends JInternalFrame {
 		gbc_btnNewButton.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 7;
+		gbc_btnNewButton.gridy = 8;
 		getContentPane().add(btnNewButton, gbc_btnNewButton);
-				
-		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnNewButton_1.gridx = 2;
-		gbc_btnNewButton_1.gridy = 7;
+		gbc_btnNewButton_1.gridy = 8;
 		getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
 
 	}

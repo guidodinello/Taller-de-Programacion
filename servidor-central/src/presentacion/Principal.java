@@ -245,7 +245,7 @@ public class Principal {
         JMenuItem menuItemAltaCategoria = new JMenuItem("Alta de Categoria");
         menuItemAltaCategoria.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		altaCategoria.setVisible(true);
+        		//altaCategoria.setVisible(true);
         	};
         });
         menuActividades.add(menuItemAltaCategoria);

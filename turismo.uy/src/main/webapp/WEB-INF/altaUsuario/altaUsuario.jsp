@@ -18,7 +18,7 @@
 	          <div class="card mb-3 formularioRegistro shadow">
 	            <div class="card-body">
 	              <h5 class="card-title">Registrarse</h5>
-	              <form method="POST" action="altaUsuario" id="FormularioRegistro">
+	              <form method="POST" action="altaUsuario" id="FormularioRegistro" enctype="multipart/form-data">
 	                  <div class="mb-4 text-start" id="NicknameRegistroDiv">
 	                      <label for="Nickname" class = "form-label" id="NicknameRegistroLabel">Nickname</label>
 	                      <input type="text" name="Nickname" id="NicknameRegistroText" placeholder="Ingrese un nickname" class ="form-control" aria-describedby="NicknameRegistroTextNullValidate" required>
@@ -87,7 +87,7 @@
 	                          <label for="FotoPerfil" class ="form-label">Subir foto de perfil</label>
 	                      </div>
 	                      <div class="col-auto">
-	                          <input type="file" class="form-control">
+	                          <input type="file" class="form-control" name="FotoPerfil">
 	                      </div>
 	                      
 	                  </div>

@@ -8,7 +8,9 @@ import model.datatypes.DTSalida;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
-import model.excepciones.YaExisteException;
+import excepciones.YaExisteException;
+import model.logica.clases.Categoria;
+import model.logica.handlers.HandlerCategorias;
 import model.logica.clases.Departamento;
 import model.logica.clases.ActividadTuristica;
 import model.logica.clases.PaqueteTuristico;
@@ -32,6 +34,15 @@ public class CtrlActividad implements ICtrlActividad{
 		Departamento newD = new Departamento(nombreDepartamento, descripcion,URL);
 		hD.add(newD);
 		
+	}
+	
+	public void altaCategoria(String nombre) throws YaExisteException{
+		HandlerCategorias hC = HandlerCategorias.getInstance();
+		if(hC.existeCategoria(nombre)){
+			throw new YaExisteException("La Categoria " + nombre + "ya se encuentra registrada.");
+		}
+		Categoria nuevaCat = new Categoria(nombre);
+		hC.add(nuevaCat);
 	}
 	
 	
@@ -177,5 +188,15 @@ public class CtrlActividad implements ICtrlActividad{
 			}
 		});
 		return resu;
+	}
+	
+	public Set<String> listarCategorias(){
+		Set<String> resultado = new HashSet<String>();
+		HandlerCategorias hC = HandlerCategorias.getInstance();
+		Set<Categoria> categorias = hC.obtenerCategorias();
+		categorias.forEach((e)->{
+			resultado.add(e.getNombre());
+		});
+		return resultado;
 	}
 }

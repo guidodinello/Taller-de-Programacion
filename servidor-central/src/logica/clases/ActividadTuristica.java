@@ -83,15 +83,24 @@ public class ActividadTuristica{
 	public DTActividad getDTActividad() {
 		String n = this.nombre;
 		String des =this.descripcion;
+		String nombreCiudad = this.nombreCiudad;
+		GregorianCalendar fechaAlta = this.fechaAlta;
 		int dura = this.duracionHs;
 		float costo = this.costoPorTurista;
 		Set<String> salidas = new HashSet<String>();
-		this.salidas.forEach((key,value)->{
+		Set<String> categorias = new HashSet<String>();
+ 		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
+		/*
+		 * this.categorias.forEach((key,value)->{
+		 * 	categorias.add(value.getNombre())});
+		 */
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, dura, costo, salidas,estadoActividad.agregada);
+
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias,estadoActividad.agregada);
+
 	}
 
 }

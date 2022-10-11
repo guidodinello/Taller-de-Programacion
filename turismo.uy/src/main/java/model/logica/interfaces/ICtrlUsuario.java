@@ -1,12 +1,12 @@
-package logica.interfaces;
+package model.logica.interfaces;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-import datatypes.DTActividad;
-import datatypes.DTSalida;
-import datatypes.DTUsuario;
-import datatypes.tipoUsuario;
+import model.datatypes.DTActividad;
+import model.datatypes.DTSalida;
+import model.datatypes.DTUsuario;
+import model.datatypes.tipoUsuario;
 
 import excepciones.YaExisteException;
 import excepciones.InscriptionFailException;
@@ -14,7 +14,7 @@ import excepciones.InscriptionFailException;
 public interface ICtrlUsuario {
 
 	public abstract void altaUsuario(String nickname,String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac,
-			tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
+			String img, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
 	public abstract void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) throws InscriptionFailException;
 	public abstract Set<String> listarTuristas();
 	public abstract Set<String> listarProveedores();

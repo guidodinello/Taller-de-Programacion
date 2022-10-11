@@ -21,7 +21,7 @@
 		<div class="collapse navbar-collapse" id="navbar4" style="flex-grow:0;">
         	<ul class="navbar-nav mr-0 mt-3 mt-lg-0">
             	<li class="nav-item"> 
-                	<a class="nav-link" href="./html/inicioSesion.html"> 
+                	<a class="nav-link" href="iniciarSesion"> 
                      	Iniciar Sesión
                         <i class="fa fa-sign-in"></i>
                     </a> 
@@ -29,7 +29,7 @@
             </ul>
             <ul class="navbar-nav mr-0 mt-3 mt-lg-0">
             	<li class="nav-item"> 
-                	<a class="nav-link" href="./html/altaUsuario.html"> 
+                	<a class="nav-link" href="altaUsuario"> 
                      	Registrarse
                         <i class="fa fa-user-plus"></i>
                     </a> 

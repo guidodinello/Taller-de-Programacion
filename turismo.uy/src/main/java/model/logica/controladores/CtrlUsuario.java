@@ -18,20 +18,20 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
 
-import model.excepciones.YaExisteException;
-import model.excepciones.InscriptionFailException;
+import excepciones.YaExisteException;
+import excepciones.InscriptionFailException;
 
 public class CtrlUsuario implements ICtrlUsuario{
 	
 	public CtrlUsuario() {}
 	
-	public void altaUsuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
+	public void altaUsuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String img, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		if (tipo == tipoUsuario.turista) {
-			Turista t = new Turista(nickname, email, nombre, apellido, contrasena, fechaNac, nacionalidad);
+			Turista t = new Turista(nickname, email, nombre, apellido, contrasena, fechaNac, img, nacionalidad);
 			hu.agregarTurista(t);
 		} else {
-			Proveedor p = new Proveedor(nickname, email, nombre, apellido, contrasena, fechaNac, descripcion, sitioWeb);
+			Proveedor p = new Proveedor(nickname, email, nombre, apellido, contrasena, fechaNac, img, descripcion, sitioWeb);
 			hu.agregarProveedor(p);
 		}
 	}
