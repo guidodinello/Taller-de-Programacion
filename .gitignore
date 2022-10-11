@@ -1,26 +1,21 @@
 # Mac
 .DS_Store
 
-# compiled java 
-servidor-central/bin/
+# folders
+bin/
+#.settings/
+.metadata/ 
+build/
+.vscode/
 
-# .settings
-servidor-central/.settings
-# .project
-servidor-central/.project
-
-turismo.uy/.settings
-turismo.uy/.project
-turismo.uy/.classpath
-turismo.uy/build/
-.pmd
+# files
+.project
 .classpath
+.pmd
 .checkstyle
+.vscode
 
-# vscode
-*/.vscode
-
-
+# extensions
 *.class
 *.jar
 *.zip
@@ -30,4 +25,3 @@ log/
 target/ 
 
 # https://stackoverflow.com/questions/26160644/indecision-on-which-files-to-upload-on-github
-/bin/

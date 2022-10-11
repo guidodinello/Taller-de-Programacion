@@ -188,4 +188,14 @@ public class CtrlActividad implements ICtrlActividad{
 		});
 		return resu;
 	}
+	
+	public Set<String> listarCategorias(){
+		Set<String> resultado = new HashSet<String>();
+		HandlerCategorias hC = HandlerCategorias.getInstance();
+		Set<Categoria> categorias = hC.obtenerCategorias();
+		categorias.forEach((e)->{
+			resultado.add(e.getNombre());
+		});
+		return resultado;
+	}
 }

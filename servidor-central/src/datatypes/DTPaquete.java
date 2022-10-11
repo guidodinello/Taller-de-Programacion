@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DTPaquete {
-	private String nombre, descripcion;
+	private String nombre, descripcion, img;
 	private int periodoValidez;
 	private float descuento;
 	private GregorianCalendar fechaAlta;
@@ -19,6 +19,7 @@ public class DTPaquete {
 		this.descuento = descuento;
 		this.fechaAlta = fechaAlta;
 		this.actividades = actividades;
+		this.img = "";
 	}
 
 	public String getNombre() {
@@ -27,6 +28,10 @@ public class DTPaquete {
 	
 	public String getDescripcion() {
 		return descripcion;
+	}
+	
+	public String getImg() {
+		return img;
 	}
 
 	public int getPeriodoValidez() {

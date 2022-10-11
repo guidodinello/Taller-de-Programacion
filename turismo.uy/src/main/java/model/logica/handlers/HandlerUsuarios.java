@@ -10,7 +10,7 @@ import java.util.HashMap;
 import model.logica.clases.Usuario;
 import model.logica.clases.Turista;
 import model.logica.clases.Proveedor;
-import model.excepciones.YaExisteException;
+import excepciones.YaExisteException;
 
 public class HandlerUsuarios {
 	private static HandlerUsuarios instance = null;
