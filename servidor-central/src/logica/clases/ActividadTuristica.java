@@ -39,7 +39,9 @@ public class ActividadTuristica{
 	public estadoActividad getEstado() {
 		return this.estado;
 	}
-	
+	public void setEstado(estadoActividad estado) {
+		 this.estado = estado;
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}

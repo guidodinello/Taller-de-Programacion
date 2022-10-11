@@ -1,5 +1,9 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
 <%@page import="servlets.consultaUsuario" %>
+<%@page import="model.logica.clases.Usuario" %>
+<%@page import="model.logica.clases.Turista" %>
+<%@page import="model.logica.clases.Proveedor" %>
+<%@page import="java.util.Set" %>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -26,7 +30,7 @@
     <%
     switch((String) request.getAttribute("STATE")) {
         case "LISTAR":
-        Set<Usuario> listaUsuarios =  request.getAttribute("USUARIOS");
+        Set<Usuario> listaUsuarios =  (Set<Usuario>)request.getAttribute("USUARIOS");
             if(listaUsuarios.isEmpty()){%>
                 <h1>No hay usuarios.</h1>
             <%}
@@ -43,8 +47,8 @@
             break;
             case "INFO":%>
 
-            Usuario usr =  request.getAttribute("PERFIL_USUARIO");
-            Usuario miUsr =  request.getAttribute("MI_PERFIL_USUARIO");
+            Usuario usr =  (Usuario)request.getAttribute("PERFIL_USUARIO");
+            Usuario miUsr =  (Usuario) request.getAttribute("MI_PERFIL_USUARIO");
             /** estoy viendo mi perfil*/
             if (usr == null) { %>
                 <div class="col-sm" style="margin-right: 12%;">

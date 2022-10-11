@@ -1,3 +1,7 @@
+<%@page import="model.logica.clases.Usuario" %>
+<%@page import="model.logica.clases.Turista" %>
+<%@page import="model.logica.clases.Proveedor" %>
+<%@page import="java.util.Set" %>
 <form>
     <h4 class=" font-up font-bold py-2 white-text">Datos del usuario</h4>
     <fieldset disabled>

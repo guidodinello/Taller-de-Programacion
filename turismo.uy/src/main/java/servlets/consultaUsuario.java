@@ -49,7 +49,7 @@ public class consultaUsuario extends HttpServlet{
 		        request.setAttribute("STATE", "LISTAR");
 		        request.setAttribute("USUARIOS", usuarios);
 
-		        request.getRequestDispatcher("/WEB-INF/pages/consulta_usuario.jsp").forward(request,
+		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);
 		        break;
 		      case "INFO":
@@ -66,7 +66,7 @@ public class consultaUsuario extends HttpServlet{
 				            hu.getUsuarioByNickname(nombreUsuario));
 
 		        }
-		        request.getRequestDispatcher("/WEB-INF/pages/consulta_usuario.jsp").forward(request,
+		        request.getRequestDispatcher("/WEB-INF/pages/consultaUsuario.jsp").forward(request,
 		            response);
 		        break;
 		      default:

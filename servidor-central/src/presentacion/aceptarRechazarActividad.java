@@ -50,8 +50,21 @@ public class aceptarRechazarActividad extends JInternalFrame  {
 	        });
 		
 		JButton btnConfirmar = new JButton("Confirmar");
-		
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e ) {
+				HandlerActividades ha = HandlerActividades.getInstance();
+			ActividadTuristica act = ha.obtenerActividadTuristica(comboBoxActividades.getSelectedItem().toString());
+			act.setEstado(estadoActividad.confirmada);
+			}
+		});
 		JButton btnRechazar = new JButton("Rechazar");
+		btnRechazar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e ) {
+				HandlerActividades ha = HandlerActividades.getInstance();
+			ActividadTuristica act = ha.obtenerActividadTuristica(comboBoxActividades.getSelectedItem().toString());
+			act.setEstado(estadoActividad.rechazada);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
