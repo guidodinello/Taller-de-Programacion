@@ -26,6 +26,7 @@ public class altaCategoria extends JInternalFrame {
 	
 	private JTextField textField;
 	public altaCategoria(ICtrlActividad ica) {
+		setTitle("Alta de categoria");
 		setClosable(true);
 		setIconifiable(true);
 		setMaximizable(true);
