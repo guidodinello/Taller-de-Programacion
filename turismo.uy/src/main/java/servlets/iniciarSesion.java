@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import model.logica.handlers.HandlerUsuarios;
 import model.logica.clases.Usuario;
+import model.datatypes.DTUsuario;
 
 
 /**
@@ -53,7 +53,7 @@ public class iniciarSesion extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/altaUsuario/inicioDeSesion.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
-			session.setAttribute("usuario_loggueado", usr);
+			session.setAttribute("usuario_loggueado", new DTUsuario(usr));
 			request.getRequestDispatcher("/WEB-INF/altaUsuario/home.jsp").forward(request, response);
 		}
 
