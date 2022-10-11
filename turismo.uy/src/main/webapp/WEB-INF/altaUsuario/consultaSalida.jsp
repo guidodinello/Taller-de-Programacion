@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.salida"%>
 <%@page import="model.datatypes.DTSalida"%>
+<%@page import="model.datatypes.DTActividad"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,13 +26,16 @@
 			<div class="card mb-3" style="max-width: 800px;">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="../img/sal-degusta-septiembre.jpg" class="img-fluid rounded-start" alt="...">
+						<img src="<%= salida.getImg() %>" class="img-fluid rounded-start" alt="...">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
 							<h5 class="card-title"><%= salida.getNombre() %></h5>
-							<div><a href="consultaActividad.html">Consulta de Actividad Turistica</a></div>
-							<div><a href="inscripcionSalida.html">Inscripcion a Salida Turistica</a></div>
+							
+							<% DTActividad actividad = (DTActividad) request.getAttribute("datosActividadSalida"); %>
+							
+							<div><a href="/consultaActividad?nombreActividad=<%= actividad.getNombre() %>">Consulta de Actividad Turistica</a></div>
+							<div><a href="/inscripcionSalida?nombreSalida=<%= salida.getNombre() %>">Inscripcion a Salida Turistica</a></div>
 							<p class="card-text"><small class="text-muted">Fecha de alta: 
 								<%= 
 									new SimpleDateFormat("dd/MM/yyyy").format(salida.getfechaAlta().getTime())

@@ -23,7 +23,7 @@ public class salida extends HttpServlet {
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 		ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
-		String name = request.getParameter("name");
+		String name = request.getParameter("nombreSalida");
 		DTSalida salidaT = ctrlActividad.getInfoCompletaSalida(name);
 		
 		request.setAttribute("salida", salidaT);
