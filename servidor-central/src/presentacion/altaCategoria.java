@@ -61,6 +61,7 @@ public class altaCategoria extends JInternalFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				limpiarFormulario();
 			}
 		});
 		
