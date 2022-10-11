@@ -75,20 +75,26 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta) throws YaExisteException {
-		HandlerActividades hA = HandlerActividades.getInstance();
-		if(hA.existeActividad(nomActividad)){
-			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
-		}
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String img, Set<String> categorias) throws YaExisteException {
+        HandlerActividades hA = HandlerActividades.getInstance();
+        if(hA.existeActividad(nomActividad)){
+            throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
+        }
 
-		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta);
-		
-		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
-		hD.getDepto(nomDep).agregarActividad(resu);
-		HandlerUsuarios hU = HandlerUsuarios.getInstance();
-		Proveedor p = (Proveedor) hU.getProveedorByNickname(nickProv);
-		p.agregarActividad(resu);
-		hA.agregarActividad(resu);
+        ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, img);
+        
+        HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
+        hD.getDepto(nomDep).agregarActividad(resu);
+        
+        HandlerCategorias hC = HandlerCategorias.getInstance();
+        categorias.forEach(cat ->{
+            hC.getCategoria(cat).agregarActividad(resu);
+        });
+        
+        HandlerUsuarios hU = HandlerUsuarios.getInstance();
+        Proveedor p = (Proveedor) hU.getProveedorByNickname(nickProv);
+        p.agregarActividad(resu);
+        hA.agregarActividad(resu);
 	}
 	
 	
