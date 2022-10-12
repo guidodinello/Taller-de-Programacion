@@ -17,9 +17,11 @@ public class DTActividad {
 	private Set<String> nombCategorias;
 	private Set<String> salidas;
 	private Set<String> paquetes;
+	private estadoActividad estado;
 	
+
 	
-	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String img) {
+	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String img, estadoActividad estado) {
 		this.nombre = n;
 		this.descripcion = des;
 		this.departamento = departamento;
@@ -29,8 +31,9 @@ public class DTActividad {
 		this.costo = costo;
 		this.nombCategorias = nombCat;
 		this.salidas = salidas;
-		this.img = img;
+		this.estado = estado;
 		paquetes = new HashSet<String>();
+		this.img = img;
 	}
 
 	public String getNombre() {
@@ -56,26 +59,23 @@ public class DTActividad {
 	public Set<String> getSalidas() {
 		return salidas;
 	}
+	
+	public estadoActividad getestado() {
+		return this.estado;
+	}
+
 
 
 	public Set<String> getPaquetes() {
 		return paquetes;
 	}
-
+	
 	public Set<String> getCategorias(){
 		return nombCategorias;
 	}
-
+	
 	public GregorianCalendar getFechaAlta() {
 		return fechaAlta;
-	}
-
-	public String getImg(){
-		return img;
-	}
-
-	public String getNombreCiudad(){
-		return nombreCiudad;
 	}
 	
 	public String getFechaAltaString() {
@@ -85,6 +85,14 @@ public class DTActividad {
 		String hora = String.valueOf(fechaAlta.get(fechaAlta.HOUR));
 		String resultado =	dia + "/" + mes + "/" + anio;
 		return resultado;
+	}
+	
+	public String getImg(){
+		return img;
+	}
+	
+	public String getNombreCiudad(){
+		return nombreCiudad;
 	}
 	
 	public void setPaquetes(Set<String> paquetes) {
