@@ -91,7 +91,7 @@ public class altaUsuario extends HttpServlet {
 			}
 		}
 		try {
-			if(tipoUsu == "Turista") {
+			if(tipoUsu.contains("Turista")) {
 				String nacionalidad = request.getParameter("Nacionalidad");
 				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion,tipoUsuario.turista, nacionalidad, "", "");
 			}else {

@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -43,12 +44,19 @@ public class consultaUsuario extends HttpServlet{
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		      throws ServletException, IOException {
 		        HandlerUsuarios hu = HandlerUsuarios.getInstance();
-		        Set<Usuario> usuarios =   hu.listarUsuarios();
-		    switch (request.getParameter("STATE")) {
+		        Set<DTUsuario> usuarios = new HashSet<DTUsuario>();
+				for(Usuario u : hu.listarUsuarios()) {
+					usuarios.add(new DTUsuario(u));
+				};
+		        String estado;
+		        if(request.getParameter("STATE") == null)
+		            estado = "";
+		        else
+		            estado = request.getParameter("STATE");
+		    switch (estado) {
 		      case "LISTAR":
 		        request.setAttribute("STATE", "LISTAR");
 		        request.setAttribute("USUARIOS", usuarios);
-
 		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);
 		        break;
@@ -70,7 +78,7 @@ public class consultaUsuario extends HttpServlet{
 		            response);
 		        break;
 		      default:
-		        request.setAttribute("STATE", null);
+		        request.setAttribute("STATE", "");
 		        request.getRequestDispatcher("/WEB-INF/error/error500.jsp").forward(request, response);
 		    }
 		  }
