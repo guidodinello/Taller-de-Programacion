@@ -91,7 +91,7 @@ public class altaUsuario extends HttpServlet {
 			}
 		}
 		try {
-			if(tipoUsu.contains("Turista")) {
+			if(tipoUsu.equals("Turista")) {
 				String nacionalidad = request.getParameter("Nacionalidad");
 				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion,tipoUsuario.turista, nacionalidad, "", "");
 			}else {
@@ -99,7 +99,7 @@ public class altaUsuario extends HttpServlet {
 				String sitio = request.getParameter("LinkSitioWeb");
 				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion, tipoUsuario.proveedor, "", desc, sitio);
 			}
-			response.sendRedirect("/home");
+			response.sendRedirect("home");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

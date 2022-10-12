@@ -1,7 +1,13 @@
 package model.logica.interfaces;
 import excepciones.YaExisteException;
+import model.logica.clases.ActividadTuristica;
+
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import model.datatypes.DTSalida;
+import model.datatypes.estadoActividad;
 import model.datatypes.DTPaquete;
 import java.util.GregorianCalendar;
 import model.datatypes.DTActividad;
@@ -11,8 +17,9 @@ import model.datatypes.DTActividad;
 public interface ICtrlActividad{
 
 	public abstract void altaDepartamento(String nombreDepartamento, String descripcion,String URL) throws YaExisteException;
+	public abstract void altaCategoria(String nombre) throws YaExisteException;
 	public abstract DTActividad getInfoActividad(String actividad);
-	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String img, Set<String> categorias) throws YaExisteException;
+	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String img,  Set<String> categorias, estadoActividad estado) throws YaExisteException;
 	public abstract Set<String> listarNombresSalidasDeActividad(String actividad);
 	public abstract Set<DTSalida> listarInfoSalidasVigentes(String actividad,GregorianCalendar fechaSistema);
 	public abstract void  altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas,GregorianCalendar fechaAlta, String actividad)throws YaExisteException;
@@ -25,4 +32,7 @@ public interface ICtrlActividad{
 	public abstract void ingresarActividadAPaquete(String nombrePaquete,String nombreActividad);
 	public abstract DTPaquete getInfoPaquete(String paqueteSeleccionado);
 	public abstract Set<String> listarCategorias();
+	
+	public abstract <T> Set<T> filter(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition);
+	public abstract Set<DTActividad> getDTActividadesConfirmadas();
 }

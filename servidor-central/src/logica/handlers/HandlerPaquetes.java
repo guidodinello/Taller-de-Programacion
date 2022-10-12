@@ -39,7 +39,7 @@ public class HandlerPaquetes {
 	}
 	
 	public Set<PaqueteTuristico> getPaquetes(){
-		Set<PaqueteTuristico> paq = (Set<PaqueteTuristico>) paquetes.values();
+		Set<PaqueteTuristico> paq = new HashSet<PaqueteTuristico> (paquetes.values());
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		 Set<Turista> turistas = hu.listarTuristas();
 		 for (Turista t : turistas){

@@ -50,11 +50,11 @@ public class iniciarSesion extends HttpServlet {
 		
 		if (usr == null || !(usr.getContrasena().equals(pass))) {
 			request.setAttribute("invalid_attempt", true);
-			request.getRequestDispatcher("/WEB-INF/altaUsuario/inicioDeSesion.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/sesion/iniciarSesion.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("usuario_loggueado", new DTUsuario(usr));
-			request.getRequestDispatcher("/WEB-INF/altaUsuario/home.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
 		}
 
 	}
@@ -63,7 +63,7 @@ public class iniciarSesion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("invalid_attempt", false);
-		request.getRequestDispatcher("/WEB-INF/altaUsuario/inicioDeSesion.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/sesion/iniciarSesion.jsp").forward(request, response);
 	}
 
 	/**
