@@ -34,7 +34,7 @@ public class Principal {
     private ICtrlActividad ICA;
     //frame altas
     private altaUsuario altaUsuario;
-    //private altaCategoria altaCategoria;
+    private altaCategoria altaCategoria;
     private altaSalida altaSalida;
     private altaActividadTuristica crearActividadTuristica;
     private InscripcionSalidaTuristica creInscrInternalFrame;
@@ -47,6 +47,7 @@ public class Principal {
     private CrearPaquete crearPaquete;
     private AgregarActividadAPaquete agregarActividadPaquete;
     private ConsultaPaquete consultarPaquete;
+    private aceptarRechazarActividad aceptarRechazarActividad;
     
     private boolean yaSeCargaronLosDatosDePrueba;
     
@@ -81,6 +82,12 @@ public class Principal {
         
         frmGestionDeTurismoUy.getContentPane().setLayout(null);
         
+        aceptarRechazarActividad = new aceptarRechazarActividad(ICA);
+        aceptarRechazarActividad .setBounds(30, 30, 597, 452);
+        aceptarRechazarActividad .setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().setLayout(null);
+        frmGestionDeTurismoUy.getContentPane().add(aceptarRechazarActividad );
+        
         altaUsuario = new altaUsuario(ICU);
         altaUsuario.setBounds(30, 30, 597, 452);
         altaUsuario.setVisible(false);
@@ -92,10 +99,10 @@ public class Principal {
         altaSalida.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(altaSalida);
         
-        //altaCategoria = new altaCategoria(ICA);
-        //altaCategoria.setBounds(30, 30, 425, 174);
-        //altaCategoria.setVisible(false);
-        //frmGestionDeTurismoUy.getContentPane().add(altaCategoria);
+        altaCategoria = new altaCategoria(ICA);
+        altaCategoria.setBounds(30, 30, 425, 174);
+        altaCategoria.setVisible(false);
+        frmGestionDeTurismoUy.getContentPane().add(altaCategoria);
         
         consultaDeSalida= new ConsultaSalida(ICA);
         consultaDeSalida.setVisible(false);
@@ -227,10 +234,18 @@ public class Principal {
         JMenu menuActividades = new JMenu("Actividades");
         menuBar.add(menuActividades);
         
+        JMenuItem menuItemAceptarRechazarActividad = new JMenuItem("Aceptar o Rechazar Actividad");
+        menuItemAceptarRechazarActividad.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		aceptarRechazarActividad.setVisible(true);
+        	};
+        });
+        menuActividades.add(menuItemAceptarRechazarActividad);
+        
         JMenuItem menuItemAltaCategoria = new JMenuItem("Alta de Categoria");
         menuItemAltaCategoria.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		//altaCategoria.setVisible(true);
+        		altaCategoria.setVisible(true);
         	};
         });
         menuActividades.add(menuItemAltaCategoria);

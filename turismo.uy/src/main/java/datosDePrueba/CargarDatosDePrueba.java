@@ -1,6 +1,7 @@
 package datosDePrueba;
 
 import java.io.BufferedReader;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,12 +9,12 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import datatypes.estadoActividad;
-import datatypes.tipoUsuario;
+import model.datatypes.estadoActividad;
+import model.datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
-import logica.interfaces.ICtrlActividad;
-import logica.interfaces.ICtrlUsuario;
+import model.logica.interfaces.ICtrlActividad;
+import model.logica.interfaces.ICtrlUsuario;
 
 public class CargarDatosDePrueba {
 	

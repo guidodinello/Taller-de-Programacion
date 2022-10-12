@@ -44,7 +44,7 @@
 		<div class="card-header ">USUARIOS</div>
 		<div class="card-body">
 			 <ul class="list-group list-group-flush">
-				<a href="usuario" class="list-group-item list-group-item-action">Consulta Usuarios</a>
+				<a href="consultaUsuario?STATE=LISTAR" class="list-group-item list-group-item-action">Consulta Usuarios</a>
 			</ul>
 		</div>
 	</div>

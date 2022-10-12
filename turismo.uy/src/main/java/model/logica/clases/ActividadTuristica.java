@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 
 import model.datatypes.DTActividad;
 import model.datatypes.DTSalida;
+import model.datatypes.estadoActividad;
 import model.logica.handlers.HandlerDepartamentos;
 
 import java.util.HashMap;
@@ -16,24 +17,31 @@ public class ActividadTuristica{
 	private int duracionHs;
 	private float costoPorTurista;
 	private GregorianCalendar fechaAlta;
+	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
+	private String img;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String img, estadoActividad estado) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
 		this.costoPorTurista = costoPorTurista;
 		this.nombreCiudad = nombreCiudad;
 		this.fechaAlta = fechaAlta;
+		this.estado = estado;
 		salidas = new HashMap<String, SalidaTuristica>();
-
-		
+		this.img = img;
 	}
 	
 	public String getNombre() {
 		return nombre;
 	}
-	
+	public estadoActividad getEstado() {
+		return this.estado;
+	}
+	public void setEstado(estadoActividad estado) {
+		 this.estado = estado;
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -57,6 +65,9 @@ public class ActividadTuristica{
 		return this.salidas.keySet();
 	}
 	
+	public String getImg() {
+		return this.img;
+	}
 	
 	public void agregarSalida(SalidaTuristica s) {
 		salidas.put(s.getNombre(), s);
@@ -86,13 +97,14 @@ public class ActividadTuristica{
  		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
+ 		String img = this.img;
 		/*
 		 * this.categorias.forEach((key,value)->{
 		 * 	categorias.add(value.getNombre())});
 		 */
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias);
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, img, estadoActividad.agregada);
 	}
 
 }

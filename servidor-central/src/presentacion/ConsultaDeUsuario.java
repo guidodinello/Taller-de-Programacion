@@ -24,6 +24,7 @@ import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
 import datatypes.DTUsuario;
+import datatypes.estadoActividad;
 import logica.interfaces.ICtrlUsuario;
 import javax.swing.JButton;
 
@@ -594,7 +595,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 				btnVerSalidaProveedor.setEnabled(false);
 			}else {
 				seteandoDatosIniciales = true;
-				DTActividad noTiene = new DTActividad("No tiene actividades", null, null , 0, 0, null);
+				DTActividad noTiene = new DTActividad("No tiene actividades", "", "" , "", null, 0, 0, null, null, "", estadoActividad.agregada);
 				ComboBoxActividadesProveedor.addItem(noTiene);
 				seteandoDatosIniciales = false;
 				btnVerActividad.setEnabled(false);

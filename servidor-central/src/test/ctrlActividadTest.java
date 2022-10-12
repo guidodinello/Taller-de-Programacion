@@ -28,6 +28,7 @@ import logica.interfaces.ICtrlUsuario;
 import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
+import datatypes.estadoActividad;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlActividadTest{
 	private static ICtrlActividad controladorActividad;
@@ -173,11 +174,14 @@ public class ctrlActividadTest{
 			GregorianCalendar fechaAct3 = new GregorianCalendar(2001, 3, 2);
 			GregorianCalendar fechaAct4 = new GregorianCalendar(2001, 3, 3);;
 			
+			String img = "";
+			Set<String> setString = new HashSet<String>();
+			estadoActividad estado = estadoActividad.agregada;
 			
-			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1);
-			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2);
-			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3);
-			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4);
+			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString, estado);
+			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString, estado);
+			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString, estado);
+			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString, estado);
 			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getNombre(),nombActividad1);
 			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getNombre(),nombActividad2);
 			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getNombre(),nombActividad3);
@@ -256,11 +260,15 @@ public class ctrlActividadTest{
 		GregorianCalendar fechaAct2 = new GregorianCalendar(2000, 3, 2);
 		GregorianCalendar fechaAct3 = new GregorianCalendar(2001, 3, 2);
 		GregorianCalendar fechaAct4 = new GregorianCalendar(2001, 3, 3);
+		estadoActividad estado = estadoActividad.agregada;
 		
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4);});
+		String img = "";
+		Set<String> setString = new HashSet<String>();
+		
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString, estado);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString, estado);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString, estado);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString, estado);});
 		
 	}
 	
