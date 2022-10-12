@@ -1,6 +1,11 @@
 package logica.interfaces;
 import excepciones.YaExisteException;
+import logica.clases.ActividadTuristica;
+
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import datatypes.DTSalida;
 import datatypes.estadoActividad;
 import datatypes.DTPaquete;
@@ -27,4 +32,7 @@ public interface ICtrlActividad{
 	public abstract void ingresarActividadAPaquete(String nombrePaquete,String nombreActividad);
 	public abstract DTPaquete getInfoPaquete(String paqueteSeleccionado);
 	public abstract Set<String> listarCategorias();
+	
+	public abstract <T> Set<T> filter(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition);
+	public abstract Set<DTActividad> getDTActividadesConfirmadas();
 }

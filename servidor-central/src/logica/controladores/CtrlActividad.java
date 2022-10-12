@@ -1,5 +1,7 @@
 package logica.controladores;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import datatypes.DTActividad;
 import datatypes.DTPaquete;
@@ -211,5 +213,20 @@ public class CtrlActividad implements ICtrlActividad{
 			resultado.add(e.getNombre());
 		});
 		return resultado;
+	}
+	
+	public <T> Set<T> filter(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition) {
+	    Set<T> res = new HashSet<T>();
+	    Set<ActividadTuristica> actividades = HandlerActividades.getInstance().obtenerActividadesTuristicas();
+		for (ActividadTuristica act : actividades) {
+			if (condition.test(act))
+				res.add(returnFunction.apply(act));
+		}
+		return res;
+	}
+	public Set<DTActividad> getDTActividadesConfirmadas() {
+		Function<ActividadTuristica, DTActividad> dts = (a) -> { return a.getDTActividad(); };
+		Predicate<ActividadTuristica> confirmada = (a) -> { return a.getEstado().equals(estadoActividad.confirmada);  };                                                          
+		return filter(dts, confirmada);
 	}
 }
