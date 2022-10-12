@@ -114,6 +114,7 @@ public class altaActividadTuristica extends JInternalFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				limpiarFormulario();
 			}
 		});
 		
@@ -244,7 +245,7 @@ public class altaActividadTuristica extends JInternalFrame {
 			try {
 				Set<String> setString = new HashSet<String>();
 				IActividad.altaActividadTuristica(comboBox_1.getSelectedItem().toString(), nomActividad, desc, Integer.parseInt(duraHs), Float.parseFloat(costo), 
-						nombCiudad, comboBox.getSelectedItem().toString(), new GregorianCalendar(), "", setString, estadoActividad.agregada);
+						nombCiudad, comboBox.getSelectedItem().toString(), new GregorianCalendar(), "", setString);
 				limpiarFormulario();
 			
 			} catch(YaExisteException e) {

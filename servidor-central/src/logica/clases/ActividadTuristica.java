@@ -21,14 +21,14 @@ public class ActividadTuristica{
 	private Map<String, SalidaTuristica> salidas;
 	private String img;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String img, estadoActividad estado) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String img) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
 		this.costoPorTurista = costoPorTurista;
 		this.nombreCiudad = nombreCiudad;
 		this.fechaAlta = fechaAlta;
-		this.estado = estado;
+		this.estado = estadoActividad.agregada;
 		salidas = new HashMap<String, SalidaTuristica>();
 		this.img = img;
 	}
@@ -98,13 +98,14 @@ public class ActividadTuristica{
 			salidas.add(value.getNombre());
 		});
  		String img = this.img;
+ 		estadoActividad estado = this.estado;
 		/*
 		 * this.categorias.forEach((key,value)->{
 		 * 	categorias.add(value.getNombre())});
 		 */
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, img, estadoActividad.agregada);
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, img, estado);
 	}
 
 }

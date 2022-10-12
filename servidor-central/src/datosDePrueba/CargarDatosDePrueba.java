@@ -157,9 +157,11 @@ public class CargarDatosDePrueba {
 				  String[] values = line.split(",");
 				  String[] valuesFecha = values[7].split("/");
 				
+				Set<String> setString = new HashSet<String>();
+				  
 				 ICA.altaActividadTuristica(values[6].trim(), values[1].trim(), values[2].trim() ,Integer.parseInt(values[3].trim()), Float.parseFloat(values[4].trim()) ,
 						 values[5].trim() ,usu , new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()),Integer.parseInt(valuesFecha[1].trim()), 
-								 Integer.parseInt(valuesFecha[0].trim())), "", null, estadoActividad.agregada);
+								 Integer.parseInt(valuesFecha[0].trim())), "", setString);
 				  	//nombreDep, nomActi, desc, duraHs, costo, nomCIudad, nickProveed, fechaAlta
 				  
 				  //System.out.println("nombre: " + values[1] + " desc: "+ values[2]+ " durac: "+ values[3]+ " costo: "+ values[4]+ " ciudad: "+ values[5]
