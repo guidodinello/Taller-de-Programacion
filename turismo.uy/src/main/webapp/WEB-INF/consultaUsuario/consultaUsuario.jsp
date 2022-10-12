@@ -24,13 +24,17 @@
 </head>
 
 <body> 
-  <jsp:include page="/WEB-INF/templates/Navbar.jsp"/>
-<div class="row mt-5 mt-lg-0 container-principal">
+
+	<jsp:include page="/WEB-INF/templates/Navbar.jsp"/>
+	
+	<div class="row mt-5 mt-lg-0 container-principal">
+	
     <jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp" />
+    
     <%
     switch((String) request.getAttribute("STATE")) {
         case "LISTAR":
-        Set<Usuario> listaUsuarios =  (Set<Usuario>)request.getAttribute("USUARIOS");
+        	Set<Usuario> listaUsuarios =  (Set<Usuario>)request.getAttribute("USUARIOS");
             if(listaUsuarios.isEmpty()){%>
                 <h1>No hay usuarios.</h1>
             <%}
@@ -45,7 +49,7 @@
                 <%}%>
          <% }
             break;
-            case "INFO":%>
+            case "INFO":
 
             Usuario usr =  (Usuario)request.getAttribute("PERFIL_USUARIO");
             Usuario miUsr =  (Usuario) request.getAttribute("MI_PERFIL_USUARIO");
@@ -109,7 +113,7 @@
                     inscripciones.forEach((key, value)->{ %>
                         <jsp:include page="/WEB-INF/templates/inscripciones.jsp"/>
 
-                    <%}%>
+                    <%});%>
                     </div>
                   </div>
                   <!--///////////////////////////S A L I D A S//////////////////////-->
