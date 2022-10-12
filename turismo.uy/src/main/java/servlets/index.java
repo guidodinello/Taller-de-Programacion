@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import datosDePrueba.CargarDatosDePrueba;
 import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.ICtrlUsuario;
+import model.logica.clases.ActividadTuristica;
+import model.logica.handlers.HandlerActividades;
 import model.logica.interfaces.Fabrica;
 
 /**
@@ -37,6 +39,8 @@ public class index extends HttpServlet {
         ICtrlActividad ICA = fabrica.getICtrlActividad();
         cdp.cargarDatos(ICU, ICA);
         // algo para generar la vista de adecuada de home.jsp
+        request.setAttribute("act_confirmadas", ICA.getDTActividadesConfirmadas());
+        //
         request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
 	}
 

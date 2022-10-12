@@ -67,7 +67,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
 	<!-- Grid row -->
 
 	<jsp:include page="/WEB-INF/templates/Footer.jsp" />
