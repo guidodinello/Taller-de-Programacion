@@ -13,7 +13,6 @@
 <head>
 <jsp:include page="/WEB-INF/templates/Head.jsp" />
 <title>Tursimo.uy</title>
-<link rel="stylesheet" href="../style/index.css">
 
 </head>
 
@@ -208,7 +207,7 @@
 	%>
 
 	<jsp:include page="/WEB-INF/templates/Footer.jsp" />
-	<script>
+	<script
 		src = "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
 	</script>
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"

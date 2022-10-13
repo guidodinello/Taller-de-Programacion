@@ -18,7 +18,7 @@ import model.logica.interfaces.Fabrica;
 /**
  * Servlet implementation class index
  */
-@WebServlet("/")
+@WebServlet("/index")
 public class index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,13 +33,13 @@ public class index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    CargarDatosDePrueba cdp = new CargarDatosDePrueba();
+	    //CargarDatosDePrueba cdp = new CargarDatosDePrueba();
         Fabrica fabrica = Fabrica.getInstance();
         ICtrlUsuario ICU = fabrica.getICtrlUsuario();
         ICtrlActividad ICA = fabrica.getICtrlActividad();
-        cdp.cargarDatos(ICU, ICA);
+        //cdp.cargarDatos(ICU, ICA);
         // algo para generar la vista de adecuada de home.jsp
-        request.setAttribute("act_confirmadas", ICA.getDTActividadesConfirmadas());
+        //request.setAttribute("act_confirmadas", ICA.getDTActividadesConfirmadas());
         //
         request.getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
 	}
