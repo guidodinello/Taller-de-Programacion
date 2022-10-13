@@ -198,7 +198,7 @@ public class CtrlActividad implements ICtrlActividad{
 		PaqueteTuristico pt = hP.obtenerPaqueteTuristico(nombrePaquete);
 		
 		actividades.forEach(e ->{
-			if(!pt.tieneActividad(e.getNombre()) & e.getEstado() == estadoActividad.confirmada  ) {
+			if(!pt.tieneActividad(e.getNombre()) ) {
 				resu.add(e.getNombre());
 			}
 		});

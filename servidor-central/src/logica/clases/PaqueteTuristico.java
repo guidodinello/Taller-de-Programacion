@@ -53,24 +53,9 @@ public class PaqueteTuristico {
 	}
 	
 	public void agregarActividad(ActividadTuristica act) {
-		 boolean tiene = false;
-		HandlerUsuarios hu = HandlerUsuarios.getInstance();
-		 Set<Turista> turistas = hu.listarTuristas();
-		 for (Turista t : turistas){
-			 if (tiene) break;
-			 while(!tiene) {
-				 Map<String, Compra> compra =  t.getCompras();
-				 if(compra != null) {
-				 	for (Compra i : compra.values()) {
-				 		String nombre =  i.getPaquete().getNombre();
-				 		tiene = nombre == act.getNombre();
-				 	}
-			 }
-			 }
-		 }
-		 if(!tiene) {
+	
 		actividades.put(act.getNombre(), act);
-		 }
+		 
 	}
 	
 	public DTPaquete getDTPaquete() {

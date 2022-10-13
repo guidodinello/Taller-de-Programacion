@@ -2,6 +2,8 @@ package presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
@@ -13,9 +15,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import logica.clases.ActividadTuristica;
+import logica.clases.Compra;
+import logica.clases.PaqueteTuristico;
+import logica.clases.Turista;
+import logica.handlers.HandlerActividades;
+import logica.handlers.HandlerPaquetes;
+import logica.handlers.HandlerUsuarios;
 import logica.interfaces.ICtrlActividad;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
+import datatypes.DTActividad;
+import datatypes.estadoActividad;
 
 @SuppressWarnings("serial")
 public class AgregarActividadAPaquete extends JInternalFrame{
@@ -145,6 +157,7 @@ public class AgregarActividadAPaquete extends JInternalFrame{
         			.addContainerGap())
         );
         getContentPane().setLayout(groupLayout);
+        pack();
 	}
 	
 	protected void cmdAgregarActividadPaqueteActionPerformed(ActionEvent arg0) {
@@ -163,9 +176,24 @@ public class AgregarActividadAPaquete extends JInternalFrame{
 		DefaultComboBoxModel<String> model;
 		//El ComboBox no soporta Sets, hay que decidir que hacer
 		Set<String> setPaquetes = controlAct.listarPaquetes();
+			HandlerUsuarios hu = HandlerUsuarios.getInstance();
+			 Set<Turista> turistas = hu.listarTuristas();
+			 for (Turista t : turistas){
+				Map<String, Compra> compras =  t.getCompras();
+					if(compras != null) {
+					 	for (Compra i : compras.values()) {
+					 		setPaquetes.remove(i.getPaquete().getNombre());
+					 	}
+					 }
+					 else {
+						 break;
+					 }
+				 }
+			 
+			
 		String[] arrPaquetes = new String[setPaquetes.size()];
 		setPaquetes.toArray(arrPaquetes);
-		
+			 
 		model = new DefaultComboBoxModel<String>(arrPaquetes);
 		comboBoxPaquetes.setModel(model);
 		comboBoxActividades.setEnabled(false);
@@ -200,6 +228,13 @@ public class AgregarActividadAPaquete extends JInternalFrame{
 			DefaultComboBoxModel<String> model;
 			//El ComboBox no soporta Sets, hay que decidir que hacer
 			Set<String> setActs = controlAct.listarActividadesDepartamentoMenosPaquete(comboBoxDepartamentos.getSelectedItem().toString(), comboBoxPaquetes.getSelectedItem().toString());
+			
+			for(String act: setActs) {
+				DTActividad actividad = controlAct.getInfoActividad(act);
+				if( actividad.getestado() != estadoActividad.confirmada  ) {
+					setActs.remove(actividad.getNombre());
+				}
+			}
 			String[] arrActs = new String[setActs.size()];
 			setActs.toArray(arrActs);
 			

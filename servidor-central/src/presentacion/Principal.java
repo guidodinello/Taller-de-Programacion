@@ -237,6 +237,7 @@ public class Principal {
         JMenuItem menuItemAceptarRechazarActividad = new JMenuItem("Aceptar o Rechazar Actividad");
         menuItemAceptarRechazarActividad.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		aceptarRechazarActividad.cargarDatos();
         		aceptarRechazarActividad.setVisible(true);
         	};
         });

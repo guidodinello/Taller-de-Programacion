@@ -44,6 +44,7 @@ public class HandlerPaquetes {
 		 Set<Turista> turistas = hu.listarTuristas();
 		 for (Turista t : turistas){
 			 Map<String, Compra> compra =  t.getCompras();
+			 if(compra != null)
 				 for (Compra i : compra.values()) {
 				 	PaqueteTuristico p =  i.getPaquete();
 				 	if(paq.contains(p)) {
