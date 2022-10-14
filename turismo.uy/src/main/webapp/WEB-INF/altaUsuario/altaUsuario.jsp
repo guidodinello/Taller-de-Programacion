@@ -18,6 +18,17 @@
 	          <div class="card mb-3 formularioRegistro shadow">
 	            <div class="card-body">
 	              <h5 class="card-title">Registrarse</h5>
+	              
+	              <%
+	              	boolean fail = (boolean) request.getAttribute("fail");
+	              	if(fail){
+	              %>
+	              	<p id="failAltaUsuario">Ya existe un usuario registrado con estas credenciales por favor intentelo nuevamente</p>
+	              
+	              <%
+	              	}
+	              %>
+	              
 	              <form method="POST" action="altaUsuario" id="FormularioRegistro" enctype="multipart/form-data">
 	                  <div class="mb-4 text-start" id="NicknameRegistroDiv">
 	                      <label for="Nickname" class = "form-label" id="NicknameRegistroLabel">Nickname</label>

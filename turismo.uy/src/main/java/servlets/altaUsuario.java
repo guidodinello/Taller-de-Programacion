@@ -42,7 +42,7 @@ public class altaUsuario extends HttpServlet {
 		try {
 			
 			String direccionArchivos = request.getServletContext().getRealPath("/assests/imgPerfilUsuario/");
-			System.out.print(direccionArchivos);
+			System.out.println(direccionArchivos);
 			File uploads = new File(direccionArchivos);
 			
 			String nombreArchivo = request.getParameter("Nickname") + ".PNG";
@@ -59,20 +59,22 @@ public class altaUsuario extends HttpServlet {
 		return direccionImagen;
 	}
 	
-	private boolean extencionValida(String fileName) {
+	private String extencionValida(String fileName) {
+	    String resultado = "";
 		for(String es : extencionesValidas) {
 			if(fileName.toLowerCase().endsWith(es)) {
-				return true;
+			    resultado = es;
+				return resultado;
 			}
 		}
-		return false;
+		return resultado;
 	}
 	
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("usuario_logueado") != null) {
-			response.sendRedirect("/home");
+			response.sendRedirect("/index");
 			return;
 		}
 		String nick     = request.getParameter("Nickname");
@@ -83,10 +85,11 @@ public class altaUsuario extends HttpServlet {
 		String tipoUsu  = request.getParameter("TipoUsuario");
 		String pass     = request.getParameter("Contrasenia");
 		Part foto     = request.getPart("FotoPerfil");
-		String fotoDireccion = "";
+		String fotoDireccion = request.getServletContext().getRealPath("/assests/imgPerfilUsuario/usuarioDefault.png");
+		System.out.println(fotoDireccion);
 		
 		if(foto != null) {
-			if(extencionValida(foto.getSubmittedFileName())) {
+			if(!extencionValida(foto.getSubmittedFileName()).isEmpty()) {
 				fotoDireccion = guardarImg(foto, request);
 			}
 		}
@@ -103,12 +106,15 @@ public class altaUsuario extends HttpServlet {
 			
 		}catch(Exception e) {
 			e.printStackTrace();
+			request.setAttribute("fail", true);
+			request.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(request, response);
 		}
 	
 	}
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
+	        request.setAttribute("fail", false);
 			request.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(request, response);
 	}
 	

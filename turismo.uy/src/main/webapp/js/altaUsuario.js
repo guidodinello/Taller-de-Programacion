@@ -134,13 +134,13 @@ const formularioValidado = () => {
 $("#btnRgistrarse").on("click", async function(e){
     e.preventDefault();
     if(formularioValidado()){
-        await Swal.fire({
+        /*await Swal.fire({
             position: 'center',
             icon: 'success',
             title: 'Registrado con exito',
             showConfirmButton: false,
             timer: 1700,
-        })
+        })*/
         $("#FormularioRegistro").submit();
     }
 })
