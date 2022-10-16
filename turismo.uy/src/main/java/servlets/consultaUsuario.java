@@ -62,23 +62,29 @@ public class consultaUsuario extends HttpServlet{
 		        break;
 		      case "INFO":
 		        DTUsuario usuarioLogueado =
-		            (DTUsuario) request.getSession().getAttribute("USUARIO_LOGEADO");
-		        String nombreUsuario = (String) request.getParameter("usuario");
+		            (DTUsuario) request.getSession().getAttribute("usuario_logueado");
+		        String nombreUsuario = (String) request.getParameter("Nickname");
 		        request.setAttribute("STATE", "INFO");
-		        if(usuarioLogueado.getNombre() != nombreUsuario){
+		        if(usuarioLogueado == null) {
+		            request.setAttribute("PERFIL_USUARIO", (Usuario)
+		                    hu.getUsuarioByNickname(nombreUsuario));
+		        }
+		        
+		        else if(usuarioLogueado.getNickname() != nombreUsuario){
 		        request.setAttribute("PERFIL_USUARIO", (Usuario)
 		            hu.getUsuarioByNickname(nombreUsuario));
+		      
 		        }
 		        else{
 		            request.setAttribute("MI_PERFIL_USUARIO", (Usuario)
 				            hu.getUsuarioByNickname(nombreUsuario));
 
 		        }
-		        request.getRequestDispatcher("/WEB-INF/pages/consultaUsuario.jsp").forward(request,
+		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);
 		        break;
 		      default:
-		        request.setAttribute("STATE", "");
+		        request.setAttribute("STATE", "DEFAULT");
 		        request.getRequestDispatcher("/WEB-INF/error/error500.jsp").forward(request, response);
 		    }
 		  }
