@@ -27,7 +27,7 @@
 			Set<DTActividad> actividadesConfirmadas = (Set<DTActividad>) request.getAttribute("act_confirmadas");
 			for (DTActividad act : actividadesConfirmadas) {
 			%>
-			<a class="text-decoration-none" href="act?=<%=act.getNombre()%>">
+			<a class="text-decoration-none" href="consultaActividad?nombreAct=<%=act.getNombre()%>">
 				<div
 					class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
 					style="background-image: url('<%=act.getImg()%>');">
