@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top">
 	<div class="container justify-content-center justify-content-lg-between"> 
-    	<a class="navbar-brand d-flex ml-3" href="#">
+    	<a class="navbar-brand d-flex ml-3" href="index">
        		<h4 class="mb-2 mb-lg-0 white">TURISMO.UY</h4>
         </a>
 
