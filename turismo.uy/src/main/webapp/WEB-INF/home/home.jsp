@@ -23,6 +23,7 @@
 		<div class="col-sm-8 text-center">
 
 			<%
+			@SuppressWarnings("unchecked")
 			Set<DTActividad> actividadesConfirmadas = (Set<DTActividad>) request.getAttribute("act_confirmadas");
 			for (DTActividad act : actividadesConfirmadas) {
 			%>

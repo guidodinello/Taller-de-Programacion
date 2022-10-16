@@ -2,6 +2,11 @@
   color: white;
 }
 
+.primary-color {
+  background-color: #53b5ce;
+  color: #ffff;
+}
+
 .card-container {
   max-width: 18rem; 
   margin-bottom: 2%;
@@ -29,6 +34,7 @@
 .nav-link-usr {
   color: rgb(64, 64, 64);
 }
+
 .navbar {
   background-color: #53b5ce;
   color: #ffff;

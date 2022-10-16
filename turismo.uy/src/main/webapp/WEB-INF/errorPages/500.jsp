@@ -16,7 +16,10 @@
 				<span class="text-danger">Ups!</span> Error Inesperado.
 			</p>
 			<p class="lead">Parece que ha ocurrido un error interno.</p>
-			<a href="index.html" class="btn btn-primary">Volver al Inicio</a>
+			<!-- Fijarse porque no esta andando la clase primary-color
+			Por eso se agrega el atributo style
+			 -->
+			<a href="index.html" class="btn primary-color text-white" style="background-color: #53b5ce;">Volver a Home</a>
 		</div>
 	</div>
 </body>
