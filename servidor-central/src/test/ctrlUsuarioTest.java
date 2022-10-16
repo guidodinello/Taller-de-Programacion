@@ -30,7 +30,6 @@ import datatypes.DTActividad;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
-import datatypes.estadoActividad;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlUsuarioTest {

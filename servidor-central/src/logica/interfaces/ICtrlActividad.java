@@ -7,7 +7,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import datatypes.DTSalida;
-import datatypes.estadoActividad;
 import datatypes.DTPaquete;
 import java.util.GregorianCalendar;
 import datatypes.DTActividad;

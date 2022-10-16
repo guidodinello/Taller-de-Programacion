@@ -4,8 +4,6 @@ package presentacion;
 import logica.interfaces.Fabrica;
 
 import java.awt.EventQueue;
-import java.awt.Window;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;

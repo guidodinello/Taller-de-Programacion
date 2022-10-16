@@ -28,7 +28,6 @@ import logica.interfaces.ICtrlUsuario;
 import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
-import datatypes.estadoActividad;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlActividadTest{
 	private static ICtrlActividad controladorActividad;

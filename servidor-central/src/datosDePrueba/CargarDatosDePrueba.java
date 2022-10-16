@@ -8,7 +8,6 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import datatypes.estadoActividad;
 import datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
@@ -16,11 +15,14 @@ import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 
 public class CargarDatosDePrueba {
+	private String curr_dir;
 	
 	private ICtrlUsuario ICU;
     private ICtrlActividad ICA;
 	
 	public  void cargarDatos(ICtrlUsuario icu, ICtrlActividad ica) {
+		curr_dir = "./src/datosDePrueba/";
+
 		ICU = icu;
 	    ICA = ica;
 		cargarDepartamentos();
@@ -32,7 +34,7 @@ public class CargarDatosDePrueba {
 	}
 	
 	public void cargarDepartamentos() {
-		String path = "./src/datosDePrueba/Departamentos.csv"; // poner path
+		String path = curr_dir + "Departamentos.csv"; // poner path
 		String line = "";
 		
 		try {
@@ -58,9 +60,9 @@ public class CargarDatosDePrueba {
 	}
 	
 	public void cargarUsuarios() {
-		String path = "./src/datosDePrueba/Usuarios.csv"; // poner path
-	 	String pathP = "./src/datosDePrueba/Usuarios-Proveedores.csv";
-	 	String pathT = "./src/datosDePrueba/Usuarios-Turistas.csv";
+		String path = curr_dir + "Usuarios.csv"; // poner path
+	 	String pathP = curr_dir + "Usuarios-Proveedores.csv";
+	 	String pathT = curr_dir + "Usuarios-Turistas.csv";
 		String line = "";
 		String lineExtra = "";
 		
@@ -120,7 +122,7 @@ public class CargarDatosDePrueba {
 
 	public void cargarActividades() {
 		String line = "";
-		String path = "./src/datosDePrueba/Usuarios.csv"; 
+		String path = curr_dir + "Usuarios.csv"; 
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(path));
@@ -141,7 +143,7 @@ public class CargarDatosDePrueba {
 			
 			br.close();
 			
-			path = "./src/datosDePrueba/Actividades.csv"; // poner path
+			path = curr_dir + "Actividades.csv"; // poner path
 			br = new BufferedReader(new FileReader(path));
 			line = br.readLine();
 			String usu = u11;
@@ -180,8 +182,8 @@ public class CargarDatosDePrueba {
 	}
 
 	public void cargarSalidas() {
-		String path = "./src/datosDePrueba/Salidas.csv"; // poner path
-		String pathA = "./src/datosDePrueba/Actividades.csv";
+		String path = curr_dir + "Salidas.csv"; // poner path
+		String pathA = curr_dir + "Actividades.csv";
 		String line = "";
 		String nombreAct = "";
 		
@@ -223,8 +225,8 @@ public class CargarDatosDePrueba {
 	}
 	
 	public void cargarPaquetes() {
-		String path = "./src/datosDePrueba/Paquetes.csv"; // poner path
-		String pathA = "./src/datosDePrueba/Actividades.csv";
+		String path = curr_dir + "Paquetes.csv"; // poner path
+		String pathA = curr_dir + "Actividades.csv";
 		String line = "";
 		
 		try {

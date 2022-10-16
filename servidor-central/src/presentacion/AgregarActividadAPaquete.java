@@ -2,7 +2,6 @@ package presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,12 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-import logica.clases.ActividadTuristica;
 import logica.clases.Compra;
-import logica.clases.PaqueteTuristico;
 import logica.clases.Turista;
-import logica.handlers.HandlerActividades;
-import logica.handlers.HandlerPaquetes;
 import logica.handlers.HandlerUsuarios;
 import logica.interfaces.ICtrlActividad;
 import javax.swing.GroupLayout;
