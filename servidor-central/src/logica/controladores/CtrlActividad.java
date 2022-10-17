@@ -132,25 +132,15 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	public DTSalida getInfoCompletaSalida(String salida) {
-	
 		HandlerSalidas hS = HandlerSalidas.getInstance();
+		SalidaTuristica s =  hS.obtenerSalidaTuristica(salida);
+		//GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas
+		ActividadTuristica a = s.getActividad();
 		
-		DTSalida nueva =   new DTSalida();
-		SalidaTuristica[] salidas=  hS.getSalidas();
-		for (int i = 0; i < salidas.length; i++) {
-			String nombreSal =salidas[i].getNombre();
-			if(nombreSal == salida) {
-				nueva.setNombre(nombreSal);
-				nueva.setfechaAlta(salidas[i].getfechaAlta());
-				nueva.setfechaSalida(salidas[i].getfechaSalida());
-				nueva.setlugarSalida(salidas[i].getlugarSalida());
-				nueva.setmaxTuristas(salidas[i].getcantidadMaximaDeTuristas());
-				nueva.setTuristas(salidas[i].getTuristasInscriptos());
-			}
-		}
-		
-		
-		return nueva;
+		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
+		String d = hD.getDeptoContains(a);
+		return new DTSalida(s.getNombre(), a.getNombre(), d, s.getfechaSalida(), a.getFechaAlta(), 
+				s.getcantidadMaximaDeTuristas(), s.getlugarSalida(), s.getTuristasInscriptos());
 	}
 	
 	//Paquetes

@@ -174,9 +174,9 @@ public class AgregarActividadAPaquete extends JInternalFrame{
 			HandlerUsuarios hu = HandlerUsuarios.getInstance();
 			 Set<Turista> turistas = hu.listarTuristas();
 			 for (Turista t : turistas){
-				Map<String, Compra> compras =  t.getCompras();
+				Set<Compra> compras =  t.getCompras();
 					if(compras != null) {
-					 	for (Compra i : compras.values()) {
+					 	for (Compra i : compras) {
 					 		setPaquetes.remove(i.getPaquete().getNombre());
 					 	}
 					 }

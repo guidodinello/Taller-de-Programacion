@@ -34,9 +34,9 @@ public class Turista extends Usuario {
 		});
 		return resultado;
 	}
-	public Map<String, Compra> getCompras() {
+	public Set<Compra> getCompras() {
 		if(compras!= null) {
-			return this.compras;
+			return new HashSet<Compra>(this.compras.values());
 		}
 		else {
 			return null;
