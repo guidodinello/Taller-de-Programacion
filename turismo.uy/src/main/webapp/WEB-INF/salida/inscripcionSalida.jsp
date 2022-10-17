@@ -3,6 +3,11 @@
 <%@page import="datatypes.DTSalida"%>
 <%@page import="datatypes.DTPaquete"%>
 <%@page import="java.util.Set"%>
+<%@page import="java.util.HashSet"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Set"%>
 <%@page import="servlets.inscripcionSalida"%>
 
 <!DOCTYPE html>
@@ -20,6 +25,16 @@
 		<jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp" />
 
 		<!-- contenido individual -->
+		<%
+		String error_msg = (String)request.getAttribute("InscriptionFailedError");
+		if (error_msg != null) {
+		%>
+		<script> alert(<%=error_msg%>) </script>
+		<%
+		}
+		%>
+		
+		
 		<div class="col-sm-9 text-center">
 			<div class="card mb-3 formularioIncripcionSalida shadow">
 				<div class="card-body">
@@ -29,9 +44,13 @@
 
 						<%
 						DTSalida sal = (DTSalida) request.getAttribute("salida");
+						
+					   	SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy hh:mm");
+					    fmt.setCalendar(sal.getfechaSalida());
+					    String fechaSalida = fmt.format(sal.getfechaSalida().getTime());
 						%>
 
-						<div class="mb-4 text-start" id="SalidasActividadDiv">
+						<div class="mb-4 text-start">
 							<div class="mb-4" id="InformacionSalida">
 								<div
 									class="card mb-3 rounded-3 bg-image shadow-1-strong card-color"
@@ -48,7 +67,8 @@
 												<div class="card-text">
 													<p>
 														Fecha y Hora:
-														<%=sal.getfechaSalida()%></p>
+														<%=fechaSalida%>
+													</p>
 													<p>
 														Cantidad máxima de turistas:
 														<%=sal.getcantidadMaximaDeTuristas()%>
@@ -67,24 +87,25 @@
 
 						</div>
 						<%
-						@SuppressWarnings("unchecked")
-						Set<DTPaquete> paquetes = (Set<DTPaquete>)request.getAttribute("paquetes");
+						Set<DTPaquete> paquetes = new HashSet<DTPaquete>();
+						if (request.getAttribute("paquetes") != null) {
+							paquetes = (Set<DTPaquete>)request.getAttribute("paquetes");
+						}
 						%>
 						<div class="mb-4 text-start" id="TipoDeInscripcionDiv">
-							<label for="TipoDeInscripcion" class="form-label"
-								id="TipoDeIncripcionInscripcionSalidaLabel">Seleccionar
-								un tipo de inscripción
+							<label for="tipoDeInscripcion" class="form-label"
+								id="TipoDeIncripcionInscripcionSalidaLabel">Forma de Pago
 							</label> 
-							<select name="TipoDeInscripcion"
+							<select name="tipoDeInscripcion"
 								id="TipoDeInscripcionOption" class="mb-4 form-control"
-								defaultOptions="Seleccionar" disabled>
+								defaultOptions="Seleccionar">
 								<option value="Seleccionar" selected disabled>Seleccionar
 									tipo de inscripción</option>
-								<option value="InscripcionGeneral">General</option>
+								<option value="general">General</option>
 								<%
 								if (!paquetes.isEmpty()){
 								%>
-									<option value="InscripcionPorPaquete">Por paquete</option>
+									<option value="porPaquete">Por paquete</option>
 								<%
 								}
 								%>
@@ -121,7 +142,7 @@
 								id="CantidadTuristasInscripcionSalidaLabel">Cantidad de
 								turistas que se van a inscribir</label> <input type="number" min="1"
 								class="form-control" id="CantidadTuristasText" name="cantTuristas"
-								aria-describedby="CantidadTuristasValidate" required>
+								aria-describedby="CantidadTuristasValidate" value="1" required>
 							<div id="CantidadTuristasValidate" class="invalid-feedback">
 								El numero debe ser mayor a 0.</div>
 						</div>

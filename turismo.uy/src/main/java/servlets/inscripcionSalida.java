@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -11,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import datatypes.DTCompra;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
+import datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
+import excepciones.YaExisteException;
 import logica.interfaces.Fabrica;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
@@ -35,6 +40,55 @@ public class inscripcionSalida extends HttpServlet {
     public inscripcionSalida() {
         super();
     }
+    
+    private void hardCodeoParaTesting(HttpServletRequest request) {
+        Fabrica f = Fabrica.getInstance();
+        ICtrlActividad cAct = f.getICtrlActividad();
+        ICtrlUsuario cUsr = f.getICtrlUsuario();
+        
+        String deptoActividad1 = "Montevideo";
+        String nombActividad1 = "Actividad 1";
+        String desActividad1 = "act1 d";
+        int duraHsActividad1 = 2;
+        float costoActividad1 = 11;
+        String ciudadActividad1 = "Centro";
+        String nickProvAct1 = "cris";
+        GregorianCalendar fechaAct1 = new GregorianCalendar(2000, 2, 2);
+        String img = "";
+        Set<String> setString = new HashSet<String>();
+        
+        GregorianCalendar fecha = new GregorianCalendar(2022,8,30);
+        String nomSal = "A Centro";
+        
+        String imgPerfil = "";
+        try {
+            // TODO
+            // compraPaquete para testear turistas con paquetes comprados
+            cUsr.altaUsuario(nickProvAct1, "cris@", "Cristian", "Gonzalez", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
+            cAct.altaDepartamento(deptoActividad1, "Capital de Uruguay", "mvdeo.com.uy");
+            cAct.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString);
+            cAct.altaSalidaTuristica(nomSal, fecha, "Centro", 10, new GregorianCalendar(), nombActividad1);
+        } catch (YaExisteException e) {
+            e.printStackTrace();
+        }
+        
+        //turistas
+        String nickT1 = "agus";
+        String emailT1 = "agus@";
+        String nombT1 = "Agustin";
+        String apT1 = "Franco";
+        GregorianCalendar fechaNac1 = new GregorianCalendar(2000, 2, 2);
+        String nacionalidadT1 = "uruguayo";
+        String pass = "password";
+        String perfilImg = "imagen";
+        try {
+            cUsr.altaUsuario(nickT1, emailT1, nombT1, apT1, pass, fechaNac1, perfilImg, tipoUsuario.turista, nacionalidadT1, null, null);
+        } catch (YaExisteException e) {
+            e.printStackTrace();
+        }
+        
+        request.setAttribute("nombreSalida", nomSal);
+    }
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,12 +98,17 @@ public class inscripcionSalida extends HttpServlet {
 		 El turista indico la salida a la que se quiere inscribir.
 		 RENDERIZADO DEL FORMULARIO DE INSCRIPCION
 		*/
+	    
+	    hardCodeoParaTesting(request);
+	    
 	    if (request.getAttribute("nombreSalida") != null){
 	        
 	        // obtener info de la salida seleccionada
 	        Fabrica fabrica = Fabrica.getInstance();
 	        ICtrlActividad ICA = fabrica.getICtrlActividad();
-	        request.setAttribute("salida", ICA.getInfoCompletaSalida((String)request.getAttribute("nombreSalida")));
+	        DTSalida dts = ICA.getInfoCompletaSalida((String)request.getAttribute("nombreSalida"));
+	        
+	        request.setAttribute("salida", dts);
 	        
 	        /*
                 En caso de que el turista haya comprado paquetes que aún estén vigentes y
@@ -59,19 +118,18 @@ public class inscripcionSalida extends HttpServlet {
             deberán descontar la cantidad de inscripciones indicada del paquete
             seleccionado y la actividad turística correspondiente
             */
-            ICtrlUsuario ICU = fabrica.getICtrlUsuario();
             HttpSession session = request.getSession();
             DTTurista dttur = (DTTurista)session.getAttribute("usuario_loggueado");
-            /* TODO
-            act = salida.getNombreActividad()
-            paq = turista.getPaquetesCompradosVigentes()
-            paq2 = filter(paq, 
-                        incluye act && 
-                        le quedan inscripciones disponibles
-                   )
-            request.setAttribute("paquetes", paq2);
             
-            */
+            String nomAct = dts.getNombreActividad();
+            Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
+            DTPaquete p;
+            for (DTCompra c : dttur.getCompras()) {
+                p = ICA.getInfoPaquete(c.getPaquete());
+                if (c.getCantTuristas()>0 && p.getActividades().contains(nomAct))
+                    paqCompVig.add(p);
+            }
+            request.setAttribute("paquetes", paqCompVig);
 	        
 			request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
 		} else {
@@ -92,8 +150,6 @@ public class inscripcionSalida extends HttpServlet {
 		SE PROCESA LA PETICION DE INSCRIPCION
 		*/
 	    
-	    // TODO validar campos no vacio desde js
-	    
 	    /*
 	    En caso de que ya exista un registro de el/la turista a la salida turística o
 	    se haya alcanzado el límite máximo de turistas para la salida, el turista
@@ -102,26 +158,33 @@ public class inscripcionSalida extends HttpServlet {
 	    */
 	    
         HttpSession session = request.getSession();
-        DTUsuario turista = (DTUsuario)session.getAttribute("usuario_loggueado");
+        DTTurista turista = (DTTurista)session.getAttribute("usuario_loggueado");
         
         Fabrica fabrica = Fabrica.getInstance();
         ICtrlActividad ICA = fabrica.getICtrlActividad();
         ICtrlUsuario ICU = fabrica.getICtrlUsuario();
         
+        // de donde saco la salida??
         DTSalida salida = ICA.getInfoCompletaSalida(request.getParameter("Salida"));
    
         int cantTuristas = Integer.parseInt(request.getParameter("cantTuristas"));
         
         // compra por paquete
-        if (request.getParameter("TipoDeInscripcion").equals("InscripcionPorPaquete")) {
+        if (request.getParameter("tipoDeInscripcion").equals("porPaquete")) {
             // obtener paquete seleccionado
             DTPaquete paq = ICA.getInfoPaquete(request.getParameter("paqueteSeleccionado"));
             
             // descontar cantidad de inscripciones indicada del paquete para la actividad correspondiente
             // TODO 
-            //      funcion en el controlador que devuelva el paquete y setearle la nueva cantidad
-            //      o funcion en el controlador que le saque cierta cantidad
-            //      DONDE SE GUARDAN LOS PAQUETES?, NO HAY HANDLER
+            //      de eso se encarga alguna funcion de compra que hay que implementar en el controlador
+//            try {
+//                 ICA.comprarPaquete(turista.getNombre(), salida.getNombreActividad(), cantTuristas);
+//            } catch(CompraException e) {
+//                request.setAttribute("nombreSalida", salida.getNombre());
+//                request.setAttribute("CompraException", e.getMessage());
+//                doGet(request, response);
+//                e.printStackTrace();
+//            }
   
             
         // compra general
@@ -133,8 +196,11 @@ public class inscripcionSalida extends HttpServlet {
         try {
             ICU.ingresarInscripcion(turista.getNickname(), salida.getNombre(), cantTuristas, new GregorianCalendar());
         } catch (InscriptionFailException e) {
-            // TODO
-            // decidir que hacer si hay error en la inscripcion
+            // ERROR : ya existe un registro del turista en la salida turística o
+            // se alcanzo el límite máximo de turistas para la salida
+            request.setAttribute("nombreSalida", salida.getNombre());
+            request.setAttribute("InscriptionFailedError", e.getMessage());
+            doGet(request, response);
             e.printStackTrace();
         }
         
