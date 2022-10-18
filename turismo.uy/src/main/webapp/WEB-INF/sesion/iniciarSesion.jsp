@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page errorPage="/WEB-INF/errorPages/404.jsp"%>
 <%@page import="servlets.iniciarSesion"%>
-<%@page import="logica.clases.Usuario"%>
+<%@page import="model.logica.clases.Usuario"%>
 
 <!DOCTYPE html>
 <html>

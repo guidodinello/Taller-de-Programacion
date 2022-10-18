@@ -15,8 +15,9 @@ public class SalidaTuristica{
 	    private String lugarSalida;
 	    private ActividadTuristica actividad;
 	    private int plazosDisponibles;
+	    private String img;
 		   
-	    public SalidaTuristica(String Sn, GregorianCalendar Ds,String SlugarSal, int CmaxT,GregorianCalendar Da,ActividadTuristica actividad) {
+	    public SalidaTuristica(String Sn, GregorianCalendar Ds,String SlugarSal, int CmaxT,GregorianCalendar Da,ActividadTuristica actividad, String img) {
 	        this.nombre = Sn;
 	        this.fechaSalida = Ds;
 	        this.fechaAlta= Da;
@@ -24,6 +25,7 @@ public class SalidaTuristica{
 	        this.lugarSalida = SlugarSal;
 	        this.actividad = actividad;
 	        this.plazosDisponibles = cantidadMaximaDeTuristas;
+	        this.img = img;
 	    }
 
 	    public String getNombre() {
@@ -70,6 +72,10 @@ public class SalidaTuristica{
 				}
 			});
 			return resultado;
+		}
+		
+		public String getImg() {
+		    return img;
 		}
 		
 }

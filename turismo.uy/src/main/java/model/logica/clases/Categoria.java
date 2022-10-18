@@ -28,5 +28,9 @@ public class Categoria {
     public void agregarActividad(ActividadTuristica actividad) {
         this.actividades.put(actividad.getNombre(), actividad);
     }
+
+    public boolean tieneActividad(String nombre) {
+        return actividades.containsKey(nombre);
+    }
 	
 }

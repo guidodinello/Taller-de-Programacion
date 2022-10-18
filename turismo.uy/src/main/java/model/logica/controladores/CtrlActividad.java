@@ -116,7 +116,7 @@ public class CtrlActividad implements ICtrlActividad{
 		return at.getInfoBasicaSalidasVigentes(fechaSistema);
 	}
 	
-	public void altaSalidaTuristica(String nombreSal,GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas, GregorianCalendar fechaAlta,String  actividad) throws YaExisteException {
+	public void altaSalidaTuristica(String nombreSal,GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas, GregorianCalendar fechaAlta,String  actividad, String img) throws YaExisteException {
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		if (hS.existeSalida(nombreSal)) {
 			throw new YaExisteException("La salida " + nombreSal + "ya se encuentra registrada");
@@ -125,7 +125,7 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerActividades hA = HandlerActividades.getInstance();
 		ActividadTuristica actividadAux = hA.obtenerActividadTuristica(actividad);
 		
-		SalidaTuristica newSal = new SalidaTuristica(nombreSal,fechaSal,lugarSal,cantMaxTuristas,fechaAlta,actividadAux);
+		SalidaTuristica newSal = new SalidaTuristica(nombreSal,fechaSal,lugarSal,cantMaxTuristas,fechaAlta,actividadAux,img);
 		actividadAux.agregarSalida(newSal);
 		hS.addSalidas(newSal);
 	
@@ -154,11 +154,11 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	//Paquetes
-	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) throws YaExisteException {
+	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta, String img) throws YaExisteException {
 		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		if(hP.existePaquete(nombre))
 			throw new YaExisteException("El paquete " + nombre + " ya se encuentra registrado");
-		PaqueteTuristico newPaquete = new PaqueteTuristico(nombre, descripcion, validez, descuento, fechaDeAlta);
+		PaqueteTuristico newPaquete = new PaqueteTuristico(nombre, descripcion, validez, descuento, fechaDeAlta, img);
 		hP.addPaquete(newPaquete);
 	}
 	
