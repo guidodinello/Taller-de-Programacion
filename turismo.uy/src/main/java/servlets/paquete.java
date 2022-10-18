@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.Set;
+import java.util.HashSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,7 @@ import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.Fabrica;
 
 import model.datatypes.DTPaquete;
+import model.datatypes.DTActividad;
 
 @WebServlet("/paquete")
 public class paquete extends HttpServlet {
@@ -26,7 +29,12 @@ public class paquete extends HttpServlet {
         String name = request.getParameter("nombrePaquete");
         DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
         
+        Set<DTActividad> datosActividades = new HashSet<DTActividad>();
+        for(String actividad: paqueteT.getActividades())
+            datosActividades.add(ctrlActividad.getInfoActividad(actividad));
+        
         request.setAttribute("paquete", paqueteT);
+        request.setAttribute("datosActividadPaquete", datosActividades);
         
         request.getRequestDispatcher("/WEB-INF/altaUsuario/consultaPaquete.jsp").
             forward(request, response);

@@ -25,8 +25,10 @@ public class salida extends HttpServlet {
 		ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
 		String name = request.getParameter("nombreSalida");
 		DTSalida salidaT = ctrlActividad.getInfoCompletaSalida(name);
+		String actividad = salidaT.getNombreActividad();
 		
 		request.setAttribute("salida", salidaT);
+		request.setAttribute("nombreActividadSalida", actividad);
 		
 		request.getRequestDispatcher("/WEB-INF/altaUsuario/consultaSalida.jsp").
 			forward(request, response);

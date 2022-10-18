@@ -32,9 +32,9 @@
 						<div class="card-body">
 							<h5 class="card-title"><%= salida.getNombre() %></h5>
 							
-							<% DTActividad actividad = (DTActividad) request.getAttribute("datosActividadSalida"); %>
+							<% String nombreActividad = (String) request.getAttribute("nombreActividadSalida"); %>
 							
-							<div><a href="/consultaActividad?nombreActividad=<%= actividad.getNombre() %>">Consulta de Actividad Turistica</a></div>
+							<div><a href="/consultaActividad?nombreAct=<%= nombreActividad %>">Consulta de Actividad Turistica</a></div>
 							<div><a href="/inscripcionSalida?nombreSalida=<%= salida.getNombre() %>">Inscripcion a Salida Turistica</a></div>
 							<p class="card-text"><small class="text-muted">Fecha de alta: 
 								<%= 
