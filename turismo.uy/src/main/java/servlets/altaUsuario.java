@@ -1,12 +1,8 @@
 package servlets;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,16 +36,27 @@ public class altaUsuario extends HttpServlet {
 		super();
 	}
 	
-	private InputStream guardarImgBin(Part part, HttpServletRequest request) {
+	private String guardarImg(Part part, HttpServletRequest request) {
+		String direccionImagen = "";
+		
 		try {
-			InputStream archivoBits = part.getInputStream();
+			
+			String direccionArchivos = request.getServletContext().getRealPath("/assests/imgPerfilUsuario/");
+			System.out.println(direccionArchivos);
+			File uploads = new File(direccionArchivos);
+			
+			String nombreArchivo = request.getParameter("Nickname") + ".PNG";
+			InputStream archivoBits = part.getInputStream(); 
+			
 			if(archivoBits != null) {
-			    return archivoBits;
+				File imagen = new File(uploads, nombreArchivo);
+				direccionImagen = imagen.getAbsolutePath();
+				Files.copy(archivoBits, imagen.toPath());		
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return direccionImagen;
 	}
 	
 	private String extencionValida(String fileName) {
@@ -77,32 +84,23 @@ public class altaUsuario extends HttpServlet {
 		String [] fechaNac = request.getParameter("FechaNacimiento").split("-");
 		String tipoUsu  = request.getParameter("TipoUsuario");
 		String pass     = request.getParameter("Contrasenia");
-		//Foto de perfil
 		Part foto     = request.getPart("FotoPerfil");
-		InputStream inputStreamFoto = null; //para guardar el binario;
-		byte [] fotoBin = null;
-		String fotoDir = ""; //para guardar la direccion;
+		String fotoDireccion = request.getServletContext().getRealPath("/assests/imgPerfilUsuario/usuarioDefault.png");
+		System.out.println(fotoDireccion);
 		
-		if(foto.getInputStream() != null) {
-		    System.out.println(foto.getInputStream());
+		if(foto != null) {
 			if(!extencionValida(foto.getSubmittedFileName()).isEmpty()) {
-			    inputStreamFoto = guardarImgBin(foto, request);
-			    fotoBin = inputStreamFoto.readAllBytes();
-				fotoDir = "imagen?nick="+nick;
-				System.out.println("entra if");
-			}else {
-			    fotoDir = "media/imagenes/usuarioPerfil.png";
-			    System.out.println("entra else");
+				fotoDireccion = guardarImg(foto, request);
 			}
 		}
 		try {
 			if(tipoUsu.equals("Turista")) {
 				String nacionalidad = request.getParameter("Nacionalidad");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), fotoDir, fotoBin ,tipoUsuario.turista, nacionalidad, "", "");
+				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion,tipoUsuario.turista, nacionalidad, "", "");
 			}else {
 				String desc = request.getParameter("Descripcion");
 				String sitio = request.getParameter("LinkSitioWeb");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), fotoDir, fotoBin, tipoUsuario.proveedor, "", desc, sitio);
+				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion, tipoUsuario.proveedor, "", desc, sitio);
 			}
 			response.sendRedirect("home");
 			

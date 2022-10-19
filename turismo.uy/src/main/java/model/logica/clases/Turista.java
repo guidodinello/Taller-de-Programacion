@@ -1,6 +1,5 @@
 package model.logica.clases;
 
-import java.io.InputStream;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.HashMap;
@@ -15,8 +14,8 @@ public class Turista extends Usuario {
 	private Map<String, InscripcionSalida> inscripciones;
 	private String nacionalidad;
 
-	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir,byte [] imgBin, String nacionalidad) {
-		super(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir, imgBin);
+	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String img, String nacionalidad) {
+		super(nickname, email, nombre, apellido, contrasena, fechaNac, img);
 		this.nacionalidad = nacionalidad;
 		this.inscripciones = new HashMap<String, InscripcionSalida>();
 	}

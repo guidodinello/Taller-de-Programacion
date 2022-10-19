@@ -14,7 +14,6 @@ import model.datatypes.DTTurista;
 import model.datatypes.DTUsuario;
 import model.datatypes.tipoUsuario;
 
-import java.io.InputStream;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
@@ -26,13 +25,13 @@ public class CtrlUsuario implements ICtrlUsuario{
 	
 	public CtrlUsuario() {}
 	
-	public void altaUsuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, byte [] imgBin, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
+	public void altaUsuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String img, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		if (tipo == tipoUsuario.turista) {
-			Turista t = new Turista(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir, imgBin, nacionalidad);
+			Turista t = new Turista(nickname, email, nombre, apellido, contrasena, fechaNac, img, nacionalidad);
 			hu.agregarTurista(t);
 		} else {
-			Proveedor p = new Proveedor(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir, imgBin, descripcion, sitioWeb);
+			Proveedor p = new Proveedor(nickname, email, nombre, apellido, contrasena, fechaNac, img, descripcion, sitioWeb);
 			hu.agregarProveedor(p);
 		}
 	}

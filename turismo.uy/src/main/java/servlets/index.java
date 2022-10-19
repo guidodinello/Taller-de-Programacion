@@ -48,24 +48,23 @@ public class index extends HttpServlet {
         //Alta Usuarios
         try {
             //turistas
-
-            icu.altaUsuario("lachiqui","mirtha.legrand.ok@hotmail.com.ar", "Rosa María", "Martínez", "awdrg543", new GregorianCalendar(1927, 2, 23), "https://tinyurl.com/2e3s66tw", null, tipoUsuario.turista, "argentina", "", "");
-            icu.altaUsuario("isabelita","isabelita@thecrown.co.uk", "Elizabeth", "Windsor", "r5t6y7u8", new GregorianCalendar(1926, 4, 21), "https://tinyurl.com/ycy8mbrn", null, tipoUsuario.turista, "inglesa", "", "");
-            icu.altaUsuario("anibal","anibal@fing.edu.uy", "Aníbal", "Lecter", "edrft543", new GregorianCalendar(1937, 12, 31), "https://tinyurl.com/y2u3tybh", null, tipoUsuario.turista, "lituana", "", "");
-            icu.altaUsuario("waston","e.waston@gmail.com", "Emma", "Waston", "poiuy987", new GregorianCalendar(1990, 4, 15), "https://tinyurl.com/2p9ed8et", null, tipoUsuario.turista, "inglesa", "", "");
-            icu.altaUsuario("elelvis","suavemente@hotmail.com", "Elvis", "Lacio", "45idgaf67", new GregorianCalendar(1971, 7, 30), "https://tinyurl.com/mtwppxxz", null, tipoUsuario.turista, "estadounidense", "", "");
-            icu.altaUsuario("eleven11","eleven11@gmail.com", "Eleven", "Once", "xdrgb657", new GregorianCalendar(2004, 2, 19), "https://tinyurl.com/3ztpasya", null, tipoUsuario.turista, "española", "", "");
-            icu.altaUsuario("bobesponja","bobesponja@nickelodeon.com", "Bob", "Esponja", "sbsplol1", new GregorianCalendar(1999, 5, 1), "https://tinyurl.com/43zymcch", null, tipoUsuario.turista, "japonesa", "", "");
-            icu.altaUsuario("tony","eltony@manya.org.uy", "Antonio", "Pacheco", "okmnji98", new GregorianCalendar(1976, 4, 11), "https://tinyurl.com/mr3a38w4", null, tipoUsuario.turista, "uruguaya", "", "");
-            icu.altaUsuario("chino","chino@trico.org.uy", "Álvaro", "Recoba", "qsxcdw43", new GregorianCalendar(1976, 3, 17), "https://tinyurl.com/2b556k7t", null, tipoUsuario.turista, "uruguaya", "", "");
-            icu.altaUsuario("mastropiero","johann.sebastian@gmail.com", "Johann Sebastian", "Mastropiero", "qpwoei586", new GregorianCalendar(1922, 2, 7), "https://tinyurl.com/3mbeyawm", null, tipoUsuario.turista, "austríaca", "", "");
+            icu.altaUsuario("lachiqui","mirtha.legrand.ok@hotmail.com.ar", "Rosa María", "Martínez", "awdrg543", new GregorianCalendar(1927, 2, 23), "tinyurl.com/2e3s66tw", tipoUsuario.turista, "argentina", "", "");
+            icu.altaUsuario("isabelita","isabelita@thecrown.co.uk", "Elizabeth", "Windsor", "r5t6y7u8", new GregorianCalendar(1926, 4, 21), "tinyurl.com/ycy8mbrn", tipoUsuario.turista, "inglesa", "", "");
+            icu.altaUsuario("anibal","anibal@fing.edu.uy", "Aníbal", "Lecter", "edrft543", new GregorianCalendar(1937, 12, 31), "tinyurl.com/y2u3tybh", tipoUsuario.turista, "lituana", "", "");
+            icu.altaUsuario("waston","e.waston@gmail.com", "Emma", "Waston", "poiuy987", new GregorianCalendar(1990, 4, 15), "tinyurl.com/2p9ed8et", tipoUsuario.turista, "inglesa", "", "");
+            icu.altaUsuario("elelvis","suavemente@hotmail.com", "Elvis", "Lacio", "45idgaf67", new GregorianCalendar(1971, 7, 30), "tinyurl.com/mtwppxxz", tipoUsuario.turista, "estadounidense", "", "");
+            icu.altaUsuario("eleven11","eleven11@gmail.com", "Eleven", "Once", "xdrgb657", new GregorianCalendar(2004, 2, 19), "tinyurl.com/3ztpasya", tipoUsuario.turista, "española", "", "");
+            icu.altaUsuario("bobesponja","bobesponja@nickelodeon.com", "Bob", "Esponja", "sbsplol1", new GregorianCalendar(1999, 5, 1), "tinyurl.com/43zymcch", tipoUsuario.turista, "japonesa", "", "");
+            icu.altaUsuario("tony","eltony@manya.org.uy", "Antonio", "Pacheco", "okmnji98", new GregorianCalendar(1976, 4, 11), "tinyurl.com/mr3a38w4", tipoUsuario.turista, "uruguaya", "", "");
+            icu.altaUsuario("chino","chino@trico.org.uy", "Álvaro", "Recoba", "qsxcdw43", new GregorianCalendar(1976, 3, 17), "tinyurl.com/2b556k7t", tipoUsuario.turista, "uruguaya", "", "");
+            icu.altaUsuario("mastropiero","johann.sebastian@gmail.com", "Johann Sebastian", "Mastropiero", "qpwoei586", new GregorianCalendar(1922, 2, 7), "tinyurl.com/3mbeyawm", tipoUsuario.turista, "austríaca", "", "");
             //proveedores
             descripcion = "Hola! me llamo Washington y soy el encargado del portal de turismo del departamento de Rocha - Uruguay";
-            icu.altaUsuario("washington","washington@turismorocha.gub.uy", "Washington", "Rocha", "asdfg654", new GregorianCalendar(1970, 9, 14), "https://tinyurl.com/3whe8372", null, tipoUsuario.proveedor, "", descripcion, "http://turismorocha.gub.uy/");
+            icu.altaUsuario("washington","washington@turismorocha.gub.uy", "Washington", "Rocha", "asdfg654", new GregorianCalendar(1970, 9, 14), "tinyurl.com/3whe8372", tipoUsuario.proveedor, "", descripcion, "http://turismorocha.gub.uy/");
             descripcion = "Pablo es el presidente de la Sociedad de Fomento Turístico de Rivera (conocida como Socfomturriv)";
-            icu.altaUsuario("eldiez","eldiez@socfomturriv.org.uy", "Pablo", "Bengoechea", "ytrewq10", new GregorianCalendar(1965, 6, 27), "https://tinyurl.com/mu4jeas3", null, tipoUsuario.proveedor, "", descripcion, "http://wwww.socfomturriv.org.uy");
+            icu.altaUsuario("eldiez","eldiez@socfomturriv.org.uy", "Pablo", "Bengoechea", "ytrewq10", new GregorianCalendar(1965, 6, 27), "tinyurl.com/mu4jeas3", tipoUsuario.proveedor, "", descripcion, "http://wwww.socfomturriv.org.uy");
             descripcion = "Departamento de Turismo del Departamento de Colonia";
-            icu.altaUsuario("meche","meche@colonia.gub.uy", "Mercedes", "Venn", "mnjkiu89", new GregorianCalendar(1990, 12, 31), "https://tinyurl.com/4hs4v9c5", null, tipoUsuario.proveedor, "", descripcion, "http://colonia.gub.uy/turismo/");
+            icu.altaUsuario("meche","meche@colonia.gub.uy", "Mercedes", "Venn", "mnjkiu89", new GregorianCalendar(1990, 12, 31), "tinyurl.com/4hs4v9c5", tipoUsuario.proveedor, "", descripcion, "http://colonia.gub.uy/turismo/");
         } catch(YaExisteException e) {
             e.printStackTrace();
         }
