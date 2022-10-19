@@ -15,8 +15,8 @@ public class Turista extends Usuario {
 	private Map<String, InscripcionSalida> inscripciones;
 	private String nacionalidad;
 
-	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, byte [] img, String nacionalidad) {
-		super(nickname, email, nombre, apellido, contrasena, fechaNac, img);
+	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir,byte [] imgBin, String nacionalidad) {
+		super(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir, imgBin);
 		this.nacionalidad = nacionalidad;
 		this.inscripciones = new HashMap<String, InscripcionSalida>();
 	}

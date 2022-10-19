@@ -26,13 +26,13 @@ public class CtrlUsuario implements ICtrlUsuario{
 	
 	public CtrlUsuario() {}
 	
-	public void altaUsuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, byte [] img, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
+	public void altaUsuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, byte [] imgBin, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		if (tipo == tipoUsuario.turista) {
-			Turista t = new Turista(nickname, email, nombre, apellido, contrasena, fechaNac, img, nacionalidad);
+			Turista t = new Turista(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir, imgBin, nacionalidad);
 			hu.agregarTurista(t);
 		} else {
-			Proveedor p = new Proveedor(nickname, email, nombre, apellido, contrasena, fechaNac, img, descripcion, sitioWeb);
+			Proveedor p = new Proveedor(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir, imgBin, descripcion, sitioWeb);
 			hu.agregarProveedor(p);
 		}
 	}

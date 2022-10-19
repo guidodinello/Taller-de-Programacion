@@ -34,7 +34,7 @@
 							<a href="consultaUsuario?STATE=INFO"
 								class="card mb-4 shadow-sm card-usuarios hover"> <img
 								class="bd-placeholder-img card-img-top"
-								src="imagen?nick=<%=usuario.getNickname()%>">
+								src="<%=usuario.getImgDir()%>">
 								<h5 class="m-3"><%=usuario.getNombre()%></h5>
 							</a>
 						</div>
