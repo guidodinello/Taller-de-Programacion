@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,14 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.datatypes.DTActividad;
 import model.datatypes.estadoActividad;
-import datosDePrueba.CargarDatosDePrueba;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.ICtrlUsuario;
 import model.datatypes.tipoUsuario;
-import model.logica.clases.ActividadTuristica;
-import model.logica.handlers.HandlerActividades;
 import model.logica.interfaces.Fabrica;
 
 /**
@@ -36,6 +32,7 @@ public class index extends HttpServlet {
      */
     public index() {
         super();
+        cargarDatos();
     }
     
     // Hard-Codeo de los datos
@@ -221,42 +218,7 @@ public class index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	    CargarDatosDePrueba cdp = new CargarDatosDePrueba();
-        Fabrica fabrica = Fabrica.getInstance();
-//        ICtrlUsuario ICU = fabrica.getICtrlUsuario();
-        ICtrlActividad ICA = fabrica.getICtrlActividad();
-//        cdp.cargarDatos(ICU, ICA);
-//        request.setAttribute("act_confirmadas", ICA.getDTActividadesConfirmadas());
-        
-	    /* Hardcodeo de prueba hasta que tengamos datos cargados
-	    Set<String> salidas = new HashSet<String>();
-	    salidas.add("salida1");
-	    Set<String> categorias = new HashSet<String>();
-	    categorias.add("categoria1");
-	    Set<DTActividad> actividades = new HashSet<DTActividad>();
-	    DTActividad dta1 = new DTActividad("nombre1","descripcion","dpto","ciudad",
-                new GregorianCalendar(),0,(float) 0.1,
-                salidas,
-                categorias,
-                "",estadoActividad.confirmada );
-       DTActividad dta2 = new DTActividad("nombre2","descripcion","dpto","ciudad",
-                new GregorianCalendar(),0,(float) 0.1,
-                salidas,
-                categorias,
-                "",estadoActividad.confirmada );
-        DTActividad dta3 = new DTActividad("nombre3","descripcion","dpto","ciudad",
-                new GregorianCalendar(),0,(float) 0.1,
-                salidas,
-                categorias,
-                "",estadoActividad.confirmada );
-	    actividades.add(dta1);
-	    actividades.add(dta2);
-	    actividades.add(dta3);
-        request.setAttribute("act_confirmadas", actividades);
-         Fin Hardcodeo*/
-        
-        //
-	    cargarDatos();
+        ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
 	    Set<DTActividad> actividades = ICA.getDTActividadesConfirmadas();
 	    request.setAttribute("act_confirmadas", actividades);
 	    
