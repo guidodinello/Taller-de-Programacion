@@ -119,7 +119,7 @@ public class inscripcionSalida extends HttpServlet {
             seleccionado y la actividad turística correspondiente
             */
             HttpSession session = request.getSession();
-            DTTurista dttur = (DTTurista)session.getAttribute("usuario_loggueado");
+            DTTurista dttur = (DTTurista)session.getAttribute("usuario_logueado");
             
             String nomAct = dts.getNombreActividad();
             Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
@@ -158,7 +158,7 @@ public class inscripcionSalida extends HttpServlet {
 	    */
 	    
         HttpSession session = request.getSession();
-        DTTurista turista = (DTTurista)session.getAttribute("usuario_loggueado");
+        DTTurista turista = (DTTurista)session.getAttribute("usuario_logueado");
         
         Fabrica fabrica = Fabrica.getInstance();
         ICtrlActividad ICA = fabrica.getICtrlActividad();

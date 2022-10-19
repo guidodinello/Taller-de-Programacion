@@ -1,6 +1,8 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
 <%@page import="servlets.altaUsuario" %>
-
+<%@page import="model.datatypes.DTUsuario"%>
+<%@page import="model.datatypes.DTProveedor"%>
+<%@page import="model.datatypes.DTTurista"%>
 
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top">
 	<div class="container justify-content-center justify-content-lg-between"> 
@@ -18,6 +20,9 @@
                 </div>
         	</div>
         </div>
+        <% 
+        if(session.getAttribute("usuario_logueado") == null ){
+        %>
 		<div class="collapse navbar-collapse" id="navbar4" style="flex-grow:0;">
         	<ul class="navbar-nav mr-0 mt-3 mt-lg-0">
             	<li class="nav-item"> 
@@ -36,5 +41,24 @@
                 </li>
         	</ul>
     	</div>
+    	<%
+        }
+        
+        else{
+        	DTUsuario usr = (DTUsuario) session.getAttribute("usuario_logueado");
+    	%>
+    	<div class="collapse navbar-collapse flex-grow-0">
+        	<ul class="navbar-nav mr-0 mt-3 mt-lg-0">
+            	<li class="nav-item"> 
+                	<a class="white text-decoration-none" href="miPerfilTurista.html">
+                    	<img class="me-2 rounded-circle usr-pic" src="https://<%= usr.getImg() %>">
+                    	<%= usr.getNombre() + " " + usr.getApellido()%>
+                    </a>
+                 </li>
+        	</ul>
+        </div>
+    	<%
+        }
+    	%>
 	</div>
 </nav>

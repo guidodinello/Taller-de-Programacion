@@ -9,6 +9,12 @@ public class DTUsuario {
 	private GregorianCalendar fechaNac;
 	private String nombre;
 	private String apellido;
+<<<<<<< HEAD
+	private String imgDir;
+	private byte [] imgBin;
+=======
+	private String img;
+>>>>>>> 9a74449 (Revert "Merge branch 'develop-web-test' of https://gitlab.fing.edu.uy/tprog/tpgr14 into develop-web-test")
 	
 	public DTUsuario(Usuario usuario) {
 		nickname = usuario.getNickname();
@@ -16,6 +22,12 @@ public class DTUsuario {
 		fechaNac = usuario.getFechaNac();
 		nombre = usuario.getNombre();
 		apellido = usuario.getApellido();
+<<<<<<< HEAD
+		imgDir = usuario.getImgDir();
+		imgBin = usuario.getImgBin();
+=======
+		img = usuario.getImg();
+>>>>>>> 9a74449 (Revert "Merge branch 'develop-web-test' of https://gitlab.fing.edu.uy/tprog/tpgr14 into develop-web-test")
 	}
 
 	public String getNickname() {
@@ -38,4 +50,14 @@ public class DTUsuario {
 		return apellido;
 	}
 	
+	public String getImg() {
+	    return img;
+	}
+	
+<<<<<<< HEAD
+	public byte [] getImg() {
+	    return imgBin;
+	}
+=======
+>>>>>>> 9a74449 (Revert "Merge branch 'develop-web-test' of https://gitlab.fing.edu.uy/tprog/tpgr14 into develop-web-test")
 }

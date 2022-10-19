@@ -134,20 +134,10 @@ public class CtrlActividad implements ICtrlActividad{
 	public DTSalida getInfoCompletaSalida(String salida) {
 	
 		HandlerSalidas hS = HandlerSalidas.getInstance();
+		SalidaTuristica sal = hS.obtenerSalidaTuristica(salida);
+		DTActividad dtAct = getInfoActividad(sal.getActividad().getNombre());
 		
-		DTSalida nueva =   new DTSalida();
-		SalidaTuristica[] salidas=  hS.getSalidas();
-		for (int i = 0; i < salidas.length; i++) {
-			String nombreSal =salidas[i].getNombre();
-			if(nombreSal == salida) {
-				nueva.setNombre(nombreSal);
-				nueva.setfechaAlta(salidas[i].getfechaAlta());
-				nueva.setfechaSalida(salidas[i].getfechaSalida());
-				nueva.setlugarSalida(salidas[i].getlugarSalida());
-				nueva.setmaxTuristas(salidas[i].getcantidadMaximaDeTuristas());
-				nueva.setTuristas(salidas[i].getTuristasInscriptos());
-			}
-		}
+		DTSalida nueva = new DTSalida(sal.getNombre(), dtAct.getNombre(), dtAct.getDepartamento(), sal.getfechaSalida(), sal.getfechaAlta(), sal.getcantidadMaximaDeTuristas(), sal.getlugarSalida(), sal.getTuristasInscriptos(), sal.getImg());
 		
 		
 		return nueva;
@@ -224,9 +214,23 @@ public class CtrlActividad implements ICtrlActividad{
 		}
 		return res;
 	}
+	
 	public Set<DTActividad> getDTActividadesConfirmadas() {
 		Function<ActividadTuristica, DTActividad> dts = (a) -> { return a.getDTActividad(); };
 		Predicate<ActividadTuristica> confirmada = (a) -> { return a.getEstado().equals(estadoActividad.confirmada);  };                                                          
 		return filter(dts, confirmada);
 	}
+
+    public Set<String> listarPaquetesCategoria(String categoria) {
+        Set<String> res = new HashSet<String>();
+        
+        Set<String> paquetes = listarPaquetes();
+        for(String paq : paquetes) {
+            DTPaquete actual = getInfoPaquete(paq);
+            if(actual.getCategorias().contains(categoria))
+                res.add(paq);
+        }
+        
+        return res;
+    }
 }
