@@ -1,8 +1,12 @@
 package servlets;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,7 +40,7 @@ public class altaUsuario extends HttpServlet {
 		super();
 	}
 	
-	private String guardarImg(Part part, HttpServletRequest request) {
+	private InputStream guardarImg(Part part, HttpServletRequest request) {
 		String direccionImagen = "";
 		
 		try {
@@ -46,17 +50,15 @@ public class altaUsuario extends HttpServlet {
 			File uploads = new File(direccionArchivos);
 			
 			String nombreArchivo = request.getParameter("Nickname") + ".PNG";
-			InputStream archivoBits = part.getInputStream(); 
+			InputStream archivoBits = part.getInputStream();
 			
 			if(archivoBits != null) {
-				File imagen = new File(uploads, nombreArchivo);
-				direccionImagen = imagen.getAbsolutePath();
-				Files.copy(archivoBits, imagen.toPath());		
+			    return archivoBits;
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return direccionImagen;
+		return null;
 	}
 	
 	private String extencionValida(String fileName) {
@@ -85,8 +87,7 @@ public class altaUsuario extends HttpServlet {
 		String tipoUsu  = request.getParameter("TipoUsuario");
 		String pass     = request.getParameter("Contrasenia");
 		Part foto     = request.getPart("FotoPerfil");
-		String fotoDireccion = request.getServletContext().getRealPath("/assests/imgPerfilUsuario/usuarioDefault.png");
-		System.out.println(fotoDireccion);
+		InputStream fotoDireccion = null;
 		
 		if(foto != null) {
 			if(!extencionValida(foto.getSubmittedFileName()).isEmpty()) {
@@ -96,11 +97,11 @@ public class altaUsuario extends HttpServlet {
 		try {
 			if(tipoUsu.equals("Turista")) {
 				String nacionalidad = request.getParameter("Nacionalidad");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion,tipoUsuario.turista, nacionalidad, "", "");
+				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion.readAllBytes(),tipoUsuario.turista, nacionalidad, "", "");
 			}else {
 				String desc = request.getParameter("Descripcion");
 				String sitio = request.getParameter("LinkSitioWeb");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion, tipoUsuario.proveedor, "", desc, sitio);
+				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion.readAllBytes(), tipoUsuario.proveedor, "", desc, sitio);
 			}
 			response.sendRedirect("home");
 			
