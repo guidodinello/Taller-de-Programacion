@@ -11,7 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import model.logica.handlers.HandlerUsuarios;
 import model.logica.clases.Usuario;
+import model.logica.clases.Turista;
+import model.logica.clases.Proveedor;
 import model.datatypes.DTUsuario;
+import model.datatypes.DTTurista;
+import model.datatypes.DTProveedor;
 
 
 /**
@@ -53,8 +57,18 @@ public class iniciarSesion extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/sesion/iniciarSesion.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
-			session.setAttribute("usuario_loggueado", new DTUsuario(usr));
-			request.getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
+			if(usr instanceof Turista) {
+			    DTTurista tur = new DTTurista((Turista)usr);
+			    session.setAttribute("usuario_logueado", (DTUsuario)tur);
+			}
+			else {
+			    DTProveedor prov = new DTProveedor((Proveedor)usr);
+			    session.setAttribute("usuario_logueado", (DTUsuario)prov);
+			}
+			
+			//request.getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
+			response.sendRedirect("index");
+            return;
 		}
 
 	}

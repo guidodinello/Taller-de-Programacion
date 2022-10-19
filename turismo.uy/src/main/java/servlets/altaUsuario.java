@@ -74,7 +74,7 @@ public class altaUsuario extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("usuario_logueado") != null) {
-			response.sendRedirect("/index");
+			response.sendRedirect("index");
 			return;
 		}
 		String nick     = request.getParameter("Nickname");
