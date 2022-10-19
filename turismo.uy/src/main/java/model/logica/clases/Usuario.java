@@ -1,21 +1,24 @@
 package model.logica.clases;
 
+import java.io.InputStream;
 import java.util.GregorianCalendar;
 //import java.util.List;
 
 public class Usuario {
 
-	protected String nickname, email, nombre, apellido, contrasena, imagenPerfil;
+	protected String nickname, email, nombre, apellido, contrasena, imgDir;
+	protected byte [] imgBin;
 	protected GregorianCalendar fechaNac;
 	
-	public Usuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String encodedImg) {
+	public Usuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, byte [] binarioImagen) {
 		this.nickname = nickname;
 		this.email = email;
 		this.contrasena = contrasena;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNac = fechaNac;
-		this.imagenPerfil = encodedImg;
+		this.imgDir = imgDir;
+		this.imgBin = binarioImagen;
 	}
 
 	public String getNickname() {
@@ -38,8 +41,8 @@ public class Usuario {
 		return contrasena;
 	}
 	
-	public String getImg() {
-	    return imagenPerfil;
+	public String getImgDir() {
+	    return imgDir;
 	}
 	
 	public GregorianCalendar getFechaNac() {
@@ -55,11 +58,15 @@ public class Usuario {
 	}
 	
 	public void setImg(String img) {
-	    this.imagenPerfil = img;
+	    this.imgDir = img;
 	}
 	
 	public void setFechaNac(GregorianCalendar fechaNac) {
 		this.fechaNac = fechaNac;
+	}
+	
+	public byte [] getImgBin() {
+	    return imgBin;
 	}
 
 }
