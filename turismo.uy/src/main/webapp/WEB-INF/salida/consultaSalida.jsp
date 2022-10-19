@@ -26,7 +26,7 @@
 			<div class="card mb-3" style="max-width: 800px;">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="<%= salida.getImg() %>" class="img-fluid rounded-start" alt="...">
+						<img src="https://<%= salida.getImg() %>" class="img-fluid rounded-start" alt="...">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
@@ -34,8 +34,8 @@
 							
 							<% String nombreActividad = (String) request.getAttribute("nombreActividadSalida"); %>
 							
-							<div><a href="/consultaActividad?nombreAct=<%= nombreActividad %>">Consulta de Actividad Turistica</a></div>
-							<div><a href="/inscripcionSalida?nombreSalida=<%= salida.getNombre() %>">Inscripcion a Salida Turistica</a></div>
+							<div><a href="consultaActividad?nombreAct=<%= nombreActividad %>">Consulta de Actividad Turistica</a></div>
+							<div><a href="inscripcionSalida?nombreSalida=<%= salida.getNombre() %>">Inscripcion a Salida Turistica</a></div>
 							<p class="card-text"><small class="text-muted">Fecha de alta: 
 								<%= 
 									new SimpleDateFormat("dd/MM/yyyy").format(salida.getfechaAlta().getTime())
@@ -58,10 +58,10 @@
 		                        	<label for="inputPassword6" class="col-form-label disabled'">Dia:</label>
 		                        </div>
 		                        <div class="col-auto">
-		                        	<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="
+		                        	<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
 		                        	<%= 
-									new SimpleDateFormat("dd/MM/yyyy").format(salida.getfechaAlta().getTime())
-									%>">
+									new SimpleDateFormat("dd/MM/yyyy").format(salida.getfechaSalida().getTime())
+									%>>
 		                    	</div>
 		                    </div>
 						</fieldset>
@@ -73,10 +73,10 @@
 									<label for="inputPassword6" class="col-form-label">Hora:</label>
 								</div>
 								<div class="col-auto">
-									<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="
+									<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
 									<%= 
 									new SimpleDateFormat("HH:mm").format(salida.getfechaSalida().getTime())
-									%>">
+									%>>
 								</div>
 							
 							</div>

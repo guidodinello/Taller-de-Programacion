@@ -44,6 +44,6 @@ public class InscripcionSalida{
 		String SlugarSal = this.salida.getlugarSalida();
 		Set<String> SSturistas = this.salida.getTuristasInscriptos();
 		DTActividad actSalida = salida.getActividad().getDTActividad();
-		return new DTSalida(Sn,actSalida.getNombre(), actSalida.getDepartamento(), Ds, Da, CmaxT, SlugarSal, SSturistas);
+		return new DTSalida(Sn,actSalida.getNombre(), actSalida.getDepartamento(), Ds, Da, CmaxT, SlugarSal, SSturistas, this.salida.getImg());
 	}
 }

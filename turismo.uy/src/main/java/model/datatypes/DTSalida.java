@@ -37,11 +37,11 @@ public class DTSalida {
 	        this.img = img;
 	    }
 	 
-	 public DTSalida(String Sn,String actividad, String deptoAct, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas) {
+	 public DTSalida(String Sn,String actividad, String deptoAct, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas, String img) {
 	        this.nombre = Sn;
 	        this.nombreActividad = actividad;
 	        this.nombreDepartamentoActividad = deptoAct;
-	        this.img = "";
+	        this.img = img;
 	        this.fechaSalida = Ds;
 	        this.fechaAlta= Da;
 	        this.maxTuristas = CmaxT;

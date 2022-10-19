@@ -35,4 +35,5 @@ public interface ICtrlActividad{
 	
 	public abstract <T> Set<T> filter(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition);
 	public abstract Set<DTActividad> getDTActividadesConfirmadas();
+    public abstract Set<String> listarPaquetesCategoria(String categoria);
 }
