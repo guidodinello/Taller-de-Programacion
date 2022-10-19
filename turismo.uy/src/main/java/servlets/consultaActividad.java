@@ -34,7 +34,7 @@ public class consultaActividad extends HttpServlet {
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 		ActividadTuristica actividad = hA.obtenerActividadTuristica(request.getParameter("nombreAct"));
-		Set<DTSalida> salidasActividad = ctrlActividad.listarInfoSalidasVigentes(actividad.getNombre(), new GregorianCalendar());
+		Set<DTSalida> salidasActividad = ctrlActividad.listarInfoSalidasVigentes(actividad.getNombre(), new GregorianCalendar(19, 1, 2020));
 		
 		DTActividad datosActividad = ctrlActividad.getInfoActividad(actividad.getNombre());
 		

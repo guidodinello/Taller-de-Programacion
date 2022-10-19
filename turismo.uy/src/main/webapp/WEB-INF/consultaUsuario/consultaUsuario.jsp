@@ -21,7 +21,7 @@
 	<jsp:include page="/WEB-INF/templates/Navbar.jsp" />
 	<div class="row mt-5 mt-lg-0 container-principal">
 		<jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp" />
-		
+		<div class="col-sm-9 text-center">
 		<%
 		switch ((String) request.getAttribute("STATE")) {
 			case "LISTAR" :
@@ -34,7 +34,7 @@
 							<a href="consultaUsuario?STATE=INFO"
 								class="card mb-4 shadow-sm card-usuarios hover"> <img
 								class="bd-placeholder-img card-img-top"
-								src="../img/<%=usuario.getNombre()%>.jpg">
+								src="https://<%=usuario.getImg()%>">
 								<h5 class="m-3"><%=usuario.getNombre()%></h5>
 							</a>
 						</div>
@@ -389,6 +389,7 @@
 			<%}		
 			break;
 		}%>
+		</div>
  	</div> 
 	<jsp:include page="/WEB-INF/templates/Footer.jsp" />
 	<script
