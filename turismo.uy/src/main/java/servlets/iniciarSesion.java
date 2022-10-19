@@ -65,10 +65,7 @@ public class iniciarSesion extends HttpServlet {
 			    DTProveedor prov = new DTProveedor((Proveedor)usr);
 			    session.setAttribute("usuario_logueado", (DTUsuario)prov);
 			}
-			
-			//request.getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
 			response.sendRedirect("index");
-            return;
 		}
 
 	}
