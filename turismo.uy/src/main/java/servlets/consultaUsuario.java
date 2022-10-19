@@ -17,6 +17,8 @@ import model.datatypes.DTUsuario;
 import model.logica.clases.Proveedor;
 import model.logica.clases.Usuario;
 import model.logica.handlers.HandlerUsuarios;
+import model.logica.interfaces.Fabrica;
+import model.logica.interfaces.ICtrlUsuario;
 
 @WebServlet("/consultaUsuario")
 public class consultaUsuario extends HttpServlet{
@@ -43,10 +45,11 @@ public class consultaUsuario extends HttpServlet{
 	 */
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		      throws ServletException, IOException {
-		        HandlerUsuarios hu = HandlerUsuarios.getInstance();
+	            HandlerUsuarios hu = HandlerUsuarios.getInstance();
+	            ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 		        Set<DTUsuario> usuarios = new HashSet<DTUsuario>();
-				for(Usuario u : hu.listarUsuarios()) {
-					usuarios.add(new DTUsuario(u));
+				for(String u : ctrlUsr.listarUsuarios()) {
+					usuarios.add(ctrlUsr.getInfoBasicaUsuario(u));
 				};
 		        String estado;
 		        if(request.getParameter("STATE") == null)

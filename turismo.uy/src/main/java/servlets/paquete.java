@@ -36,7 +36,7 @@ public class paquete extends HttpServlet {
         request.setAttribute("paquete", paqueteT);
         request.setAttribute("datosActividadPaquete", datosActividades);
         
-        request.getRequestDispatcher("/WEB-INF/altaUsuario/consultaPaquete.jsp").
+        request.getRequestDispatcher("/WEB-INF/paquete/consultaPaquete.jsp").
             forward(request, response);
     }
     
