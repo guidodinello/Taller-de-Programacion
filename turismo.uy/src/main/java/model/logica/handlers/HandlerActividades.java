@@ -2,6 +2,7 @@ package model.logica.handlers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 import model.logica.clases.ActividadTuristica;
@@ -34,7 +35,8 @@ public class HandlerActividades{
 		return actividadesTuristicas.get(actividad);
 	}
 	public Set<ActividadTuristica> obtenerActividadesTuristicas() {
-		return (Set<ActividadTuristica>) actividadesTuristicas.values();
+	    return new HashSet<ActividadTuristica>(actividadesTuristicas.values());
+		//return (Set<ActividadTuristica>) actividadesTuristicas.values();
 	}
 	
 	public static void clear() {

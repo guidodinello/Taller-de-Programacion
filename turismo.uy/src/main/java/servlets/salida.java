@@ -23,12 +23,14 @@ public class salida extends HttpServlet {
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 		ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
-		String name = request.getParameter("nombreSalida");
+		String name = (String) request.getParameter("nombreSalida");
 		DTSalida salidaT = ctrlActividad.getInfoCompletaSalida(name);
+		String actividad = salidaT.getNombreActividad();
 		
 		request.setAttribute("salida", salidaT);
-		
-		request.getRequestDispatcher("/WEB-INF/altaUsuario/consultaSalida.jsp").
+		request.setAttribute("nombreActividadSalida", actividad);
+				
+		request.getRequestDispatcher("/WEB-INF/salida/consultaSalida.jsp").
 			forward(request, response);
 	}
 	

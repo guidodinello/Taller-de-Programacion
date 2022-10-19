@@ -14,13 +14,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import datatypes.estadoActividad;
 
-import javax.swing.JCheckBox;
 import javax.swing.JButton;
 
 public class aceptarRechazarActividad extends JInternalFrame {

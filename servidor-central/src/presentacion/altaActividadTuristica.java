@@ -6,7 +6,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-import datatypes.estadoActividad;
 //import excepciones.UsuarioNoExisteException;
 import excepciones.YaExisteException;
 //import logica.DataUsuario;
@@ -24,7 +23,6 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JList;
 
 @SuppressWarnings("serial")
 public class altaActividadTuristica extends JInternalFrame {

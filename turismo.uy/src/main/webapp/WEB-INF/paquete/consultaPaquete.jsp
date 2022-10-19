@@ -27,7 +27,7 @@
 			<div class="card mb-3" style="max-width: 800px;">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="../img/paq-disfrutarrocha.jpg" class="img-fluid rounded-start" alt="...">
+						<img src="https://<%= paquete.getImg() %>" class="img-fluid rounded-start" alt="...">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
@@ -82,7 +82,7 @@
 									for(String categoria: paquete.getCategorias()){
 								%>
 								<div class="col-auto">
-									<a href="/categorias?nombreCat=<%= categoria %>" class="badge bg-secondary"><%= categoria %></a>
+									<a href="categoria?nombreCat=<%= categoria %>" class="badge bg-secondary"><%= categoria %></a>
 								</div>
 								<% } %>
 							</div>
@@ -105,10 +105,10 @@
                         %>
                         
                         <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="/consultaActividad?nombreActividad=<%= actividad.getNombre() %>">
+                            <a class="text-decoration-none" href="consultaActividad?nombreAct=<%= actividad.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="<%= actividad.getImg() %>" class="img-fluid rounded-start" alt="...">
+                                        <img src="https://<%= actividad.getImg() %>" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">

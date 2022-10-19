@@ -40,6 +40,10 @@ public class Usuario {
 		return contrasena;
 	}
 	
+	public String getImg() {
+	    return imagenPerfil;
+	}
+	
 	public GregorianCalendar getFechaNac() {
 		return fechaNac;
 	}
@@ -50,6 +54,10 @@ public class Usuario {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
+	}
+	
+	public void setImg(String img) {
+	    this.imagenPerfil = img;
 	}
 	
 	public void setFechaNac(GregorianCalendar fechaNac) {

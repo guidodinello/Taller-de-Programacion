@@ -1,6 +1,7 @@
 package logica.clases;
 
 import java.util.GregorianCalendar;
+import datatypes.DTCompra;
 
 public class Compra {
 	private GregorianCalendar fechaCompra;
@@ -16,6 +17,10 @@ public class Compra {
 		this.vencimiento = fechaCompra;
 		this.vencimiento.add(GregorianCalendar.DATE,paquete.getPeriodoValidez());
 		this.costoTotal = cantidadTuristas * paquete.getCosto();
+	}
+	
+	public DTCompra getDT() {
+		return new DTCompra(paquete.getNombre(), fechaCompra, cantidadTuristas);
 	}
 	
 	public PaqueteTuristico getPaquete() {

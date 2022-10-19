@@ -9,6 +9,7 @@ import model.datatypes.DTActividad;
 import model.datatypes.DTSalida;
 import model.datatypes.estadoActividad;
 import model.logica.handlers.HandlerDepartamentos;
+import model.logica.handlers.HandlerCategorias;
 
 import java.util.HashMap;
 
@@ -78,7 +79,7 @@ public class ActividadTuristica{
 		salidas.values().forEach((e) -> {
 			if(e.getfechaSalida().after(fechaSistema)) {
 				Set<String> turistas = new HashSet<String>();
-				DTSalida actual = new DTSalida(e.getNombre(), e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas);
+				DTSalida actual = new DTSalida(e.getNombre(), e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas, e.getImg());
 				res.add(actual);
 			}
 		});
@@ -93,18 +94,22 @@ public class ActividadTuristica{
 		int dura = this.duracionHs;
 		float costo = this.costoPorTurista;
 		Set<String> salidas = new HashSet<String>();
-		Set<String> categorias = new HashSet<String>();
  		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
  		String img = this.img;
-		/*
-		 * this.categorias.forEach((key,value)->{
-		 * 	categorias.add(value.getNombre())});
-		 */
+		Set<String> categorias = getCategorias();
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
 		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, img, estadoActividad.agregada);
 	}
+
+    public Set<String> getCategorias() {
+        Set<String> res = new HashSet<String>();
+        HandlerCategorias hC = HandlerCategorias.getInstance();
+        Set<Categoria> categorias = hC.obtenerCategorias();
+        categorias.forEach((e)->{if(e.tieneActividad(nombre)) res.add(e.getNombre());});
+        return res;
+    }
 
 }

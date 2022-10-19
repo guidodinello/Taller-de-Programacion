@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page errorPage="/WEB-INF/errorPages/404.jsp"%>
 <%@page import="servlets.iniciarSesion"%>
 <%@page import="model.logica.clases.Usuario"%>
 
@@ -23,6 +24,7 @@
 			<div class="login-content shadow p-5 pt-4 card mb-3"
 				style="height: fit-content;">
 				<div class="card-body">
+				
 					<form method="POST" action="iniciarSesion"
 						id="FormularioIniciarSesion">
 						<h3 class="text-center default-text pt-3 mb-5">
@@ -34,7 +36,7 @@
 							</div>
 							<div class="div">
 								<h5>Nickname o Email</h5>
-								<input type="text" class="input"
+								<input type="text" class="input" name="nick-or-email"
 									id="NicknameOEmailIniciarSesionText">
 							</div>
 						</div>
@@ -44,7 +46,7 @@
 							</div>
 							<div class="div">
 								<h5>Contraseña</h5>
-								<input type="password" class="input"
+								<input type="password" class="input" name="password"
 									id="ContraseniaIniciarSesionText">
 							</div>
 						</div>

@@ -1,16 +1,3 @@
-
-/*Comportamiento de boton sumbit cuando no tiene todo lo requerido*/
-$("#btnIniciarSesion").on("click", function(e){
-    if(($("#NicknameOEmailIniciarSesionText").val() == "washington" || $("#NicknameOEmailIniciarSesionText").val() == "washington@turismorocha.gub.uy") && $("#ContraseniaIniciarSesionText").val() == "asdfg654"){
-        $("#FormularioIniciarSesion").attr("action","./homeLogueadoProv.html")
-    }
-    if(($("#NicknameOEmailIniciarSesionText").val() == "lachiqui" || $("#NicknameOEmailIniciarSesionText").val() == "mirtha.legrand.ok@hotmail.com.ar") && $("#ContraseniaIniciarSesionText").val() == "awdrg543"){
-        $("#FormularioIniciarSesion").attr("action","./homeLogueado.html")
-    }
-})
-
-//**//
-
 const inputs = document.querySelectorAll(".input");
 
 

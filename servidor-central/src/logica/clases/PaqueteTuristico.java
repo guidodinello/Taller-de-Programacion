@@ -2,15 +2,10 @@ package logica.clases;
 
 //import java.util.Set;
 import java.util.Map;
-import java.util.Set;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import java.util.HashMap;
 import java.util.GregorianCalendar;
 
 import datatypes.DTPaquete;
-import logica.handlers.HandlerUsuarios;
 
 public class PaqueteTuristico {
 	private String nombre, descripcion;

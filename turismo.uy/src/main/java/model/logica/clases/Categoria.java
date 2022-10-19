@@ -1,6 +1,7 @@
 package model.logica.clases;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 
 public class Categoria {
@@ -9,6 +10,7 @@ public class Categoria {
 
 	public Categoria(String nombre) {
 		this.nombre = nombre;
+		actividades = new HashMap<String, ActividadTuristica>();
 	}
 	
 	public String getNombre() {
@@ -25,6 +27,10 @@ public class Categoria {
     
     public void agregarActividad(ActividadTuristica actividad) {
         this.actividades.put(actividad.getNombre(), actividad);
+    }
+
+    public boolean tieneActividad(String nombre) {
+        return actividades.containsKey(nombre);
     }
 	
 }

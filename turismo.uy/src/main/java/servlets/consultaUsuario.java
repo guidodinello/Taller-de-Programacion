@@ -17,6 +17,8 @@ import model.datatypes.DTUsuario;
 import model.logica.clases.Proveedor;
 import model.logica.clases.Usuario;
 import model.logica.handlers.HandlerUsuarios;
+import model.logica.interfaces.Fabrica;
+import model.logica.interfaces.ICtrlUsuario;
 
 @WebServlet("/consultaUsuario")
 public class consultaUsuario extends HttpServlet{
@@ -43,10 +45,11 @@ public class consultaUsuario extends HttpServlet{
 	 */
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		      throws ServletException, IOException {
-		        HandlerUsuarios hu = HandlerUsuarios.getInstance();
+	            HandlerUsuarios hu = HandlerUsuarios.getInstance();
+	            ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 		        Set<DTUsuario> usuarios = new HashSet<DTUsuario>();
-				for(Usuario u : hu.listarUsuarios()) {
-					usuarios.add(new DTUsuario(u));
+				for(String u : ctrlUsr.listarUsuarios()) {
+					usuarios.add(ctrlUsr.getInfoBasicaUsuario(u));
 				};
 		        String estado;
 		        if(request.getParameter("STATE") == null)
@@ -62,23 +65,29 @@ public class consultaUsuario extends HttpServlet{
 		        break;
 		      case "INFO":
 		        DTUsuario usuarioLogueado =
-		            (DTUsuario) request.getSession().getAttribute("USUARIO_LOGEADO");
-		        String nombreUsuario = (String) request.getParameter("usuario");
+		            (DTUsuario) request.getSession().getAttribute("usuario_logueado");
+		        String nombreUsuario = (String) request.getParameter("Nickname");
 		        request.setAttribute("STATE", "INFO");
-		        if(usuarioLogueado.getNombre() != nombreUsuario){
+		        if(usuarioLogueado == null) {
+		            request.setAttribute("PERFIL_USUARIO", (Usuario)
+		                    hu.getUsuarioByNickname(nombreUsuario));
+		        }
+		        
+		        else if(usuarioLogueado.getNickname() != nombreUsuario){
 		        request.setAttribute("PERFIL_USUARIO", (Usuario)
 		            hu.getUsuarioByNickname(nombreUsuario));
+		      
 		        }
 		        else{
 		            request.setAttribute("MI_PERFIL_USUARIO", (Usuario)
 				            hu.getUsuarioByNickname(nombreUsuario));
 
 		        }
-		        request.getRequestDispatcher("/WEB-INF/pages/consultaUsuario.jsp").forward(request,
+		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);
 		        break;
 		      default:
-		        request.setAttribute("STATE", "");
+		        request.setAttribute("STATE", "DEFAULT");
 		        request.getRequestDispatcher("/WEB-INF/error/error500.jsp").forward(request, response);
 		    }
 		  }
