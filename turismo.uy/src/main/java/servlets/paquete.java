@@ -25,23 +25,29 @@ public class paquete extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
-        ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
-        String name = request.getParameter("nombrePaquete");
-        DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
         
-        Set<DTActividad> datosActividades = new HashSet<DTActividad>();
-        for(String actividad: paqueteT.getActividades())
-            datosActividades.add(ctrlActividad.getInfoActividad(actividad));
-        
-        request.setAttribute("paquete", paqueteT);
-        request.setAttribute("datosActividadPaquete", datosActividades);
-        
-        request.getRequestDispatcher("/WEB-INF/paquete/consultaPaquete.jsp").
-            forward(request, response);
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        if(request.getParameter("COMPRA") != null) {
+            System.out.println("Me voy!");
+            request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp");
+        } else {
+            System.out.println("Consultando!");
+            ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
+            String name = request.getParameter("nombrePaquete");
+            DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
+            
+            Set<DTActividad> datosActividades = new HashSet<DTActividad>();
+            for(String actividad: paqueteT.getActividades())
+                datosActividades.add(ctrlActividad.getInfoActividad(actividad));
+            
+            request.setAttribute("paquete", paqueteT);
+            request.setAttribute("datosActividadPaquete", datosActividades);
+            
+            request.getRequestDispatcher("/WEB-INF/paquete/consultaPaquete.jsp").
+                forward(request, response);
+        }
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
