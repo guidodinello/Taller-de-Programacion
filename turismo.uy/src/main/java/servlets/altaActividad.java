@@ -62,17 +62,14 @@ public class altaActividad extends HttpServlet {
         HttpSession session = request.getSession();
         DTProveedor prov = (DTProveedor) session.getAttribute("usuario_logueado");
         
-        String departamento = request.getParameter("Departamento");
-        String nombre = request.getParameter("Nombre");
-        String descripcion = request.getParameter("Descripcion");
+        String departamento =(String) request.getParameter("Departamento");
+        String nombre =(String) request.getParameter("Nombre");
+        String descripcion =(String) request.getParameter("Descripcion");
         int duracion = Integer.parseInt(request.getParameter("Duracion"));
         float costo = Float.parseFloat(request.getParameter("Costo"));
         String ciudad = request.getParameter("Ciudad");
         Set<String> categorias = new HashSet<String>(Arrays.asList(request.getParameterValues("Categorias")));
-        
-        System.out.println(categorias);
-        
-        
+       
         //Foto de la actividad
         InputStream inputStreamFoto = null;
         String imgDir = "";
@@ -94,6 +91,7 @@ public class altaActividad extends HttpServlet {
         
         try {
             ctrlAct.altaActividadTuristica(departamento, nombre, descripcion, duracion, costo, ciudad, prov.getNickname(), new GregorianCalendar(), imgDir, imgBin, categorias, estadoActividad.agregada);
+            response.sendRedirect("index");
         } catch(YaExisteException e) {
             e.printStackTrace();
             request.setAttribute("fail", true);

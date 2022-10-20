@@ -49,7 +49,7 @@
 										<%
 										for(String depto : deptos){
 										%>
-											<option value=<%=depto%>><%=depto%></option>
+											<option value="<%=depto%>"><%=depto%></option>
 										<%
 										} 
 										%>
@@ -117,7 +117,7 @@
 										<%
 										for(String cat : cates){
 										%>
-    										<option value=<%=cat%>><%=cat%></option>
+    										<option value="<%=cat%>"><%=cat%></option>
     									<%
 										}
     									%>
