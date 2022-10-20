@@ -109,7 +109,7 @@ public class altaUsuario extends HttpServlet {
 			}
 		    DTUsuario newUsr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nick);
             session.setAttribute("usuario_logueado", newUsr);
-			request.getRequestDispatcher("/index").forward(request, response);
+			response.sendRedirect("index");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

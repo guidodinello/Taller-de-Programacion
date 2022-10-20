@@ -46,7 +46,7 @@ public class imagen extends HttpServlet {
         response.resetBuffer();
         ServletOutputStream outputStream =null;
         BufferedOutputStream bufferedOutputStream =null;
-        response.setContentType("image/png");
+        response.setContentType("image/*");
         try {
             outputStream = response.getOutputStream();
             bufferedOutputStream = new BufferedOutputStream(outputStream);
