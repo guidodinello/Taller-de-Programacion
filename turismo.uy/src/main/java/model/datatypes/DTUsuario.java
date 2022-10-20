@@ -48,7 +48,7 @@ public class DTUsuario {
 	    return imgDir;
 	}
 	
-	public byte [] getImg() {
+	public byte [] getImgBin() {
 	    return imgBin;
 	}
 }

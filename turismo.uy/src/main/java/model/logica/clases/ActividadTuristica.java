@@ -103,11 +103,12 @@ public class ActividadTuristica{
  		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
- 		String img = this.imgDir;
+ 		String imgDireccion = this.imgDir;
+ 		byte [] imgBinario = imgBin;
 		Set<String> categorias = getCategorias();
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, img, estadoActividad.agregada);
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, imgBinario, estadoActividad.agregada);
 	}
 
     public Set<String> getCategorias() {
