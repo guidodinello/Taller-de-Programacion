@@ -20,9 +20,10 @@ public class ActividadTuristica{
 	private GregorianCalendar fechaAlta;
 	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
-	private String img;
+	private String imgDir;
+	private byte [] imgBin;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String img, estadoActividad estado) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, byte[] imgBin, estadoActividad estado) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
@@ -31,7 +32,8 @@ public class ActividadTuristica{
 		this.fechaAlta = fechaAlta;
 		this.estado = estado;
 		salidas = new HashMap<String, SalidaTuristica>();
-		this.img = img;
+		this.imgDir = imgDir;
+		this.imgBin = imgBin;
 	}
 	
 	public String getNombre() {
@@ -66,8 +68,12 @@ public class ActividadTuristica{
 		return this.salidas.keySet();
 	}
 	
-	public String getImg() {
-		return this.img;
+	public String getImgDir() {
+		return this.imgDir;
+	}
+	
+	public byte [] getImgBin() {
+	    return imgBin;
 	}
 	
 	public void agregarSalida(SalidaTuristica s) {
@@ -97,11 +103,12 @@ public class ActividadTuristica{
  		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
- 		String img = this.img;
+ 		String imgDireccion = this.imgDir;
+ 		byte [] imgBinario = imgBin;
 		Set<String> categorias = getCategorias();
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, img, estadoActividad.agregada);
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, imgBinario, estadoActividad.agregada);
 	}
 
     public Set<String> getCategorias() {

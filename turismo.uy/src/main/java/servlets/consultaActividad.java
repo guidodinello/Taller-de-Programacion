@@ -52,14 +52,6 @@ public class consultaActividad extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
-		/*try {
-		    Set<String> setString = new HashSet<String>();
-			ctrlUsuario.altaUsuario("testProv", "testEmail", "testNomb", "testAp", "testPass", new GregorianCalendar(),"", tipoUsuario.proveedor, "", "testdesc", "testSitio");
-			ctrlActividad.altaDepartamento("deptotest","deptotest" ,"deptotest");
-			ctrlActividad.altaActividadTuristica("deptotest", "testNombre", "testDesc", 10, 110, "test", "testProv", new GregorianCalendar(), "", setString);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}*/
 		processRequest(request, response);
 
 	}

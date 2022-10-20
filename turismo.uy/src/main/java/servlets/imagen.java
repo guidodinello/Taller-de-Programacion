@@ -25,7 +25,9 @@ import javax.servlet.http.Part;
 import excepciones.YaExisteException;
 import model.logica.interfaces.ICtrlUsuario;
 import model.logica.interfaces.Fabrica;
+import model.logica.interfaces.ICtrlActividad;
 import model.logica.clases.Turista;
+import model.datatypes.DTActividad;
 import model.datatypes.DTUsuario;
 import model.datatypes.tipoUsuario;
 import model.logica.clases.Proveedor;
@@ -35,6 +37,7 @@ import model.logica.clases.Usuario;
 public class imagen extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
+    private ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
     private String[] extencionesValidas = {".icon", ".png", ".jpg"};
     
     public imagen() {
@@ -46,7 +49,7 @@ public class imagen extends HttpServlet {
         response.resetBuffer();
         ServletOutputStream outputStream =null;
         BufferedOutputStream bufferedOutputStream =null;
-        response.setContentType("image/png");
+        response.setContentType("image/*");
         try {
             outputStream = response.getOutputStream();
             bufferedOutputStream = new BufferedOutputStream(outputStream);
@@ -70,9 +73,12 @@ public class imagen extends HttpServlet {
         
         if(nick != null) {
             DTUsuario usr = ctrlUsuario.getInfoBasicaUsuario(nick);
-            mostrarIMG(request, response, usr.getImg());
+            mostrarIMG(request, response, usr.getImgBin());
         }
-
+        if(nombreAct != null) {
+            DTActividad act = ctrlActividad.getInfoActividad(nombreAct);
+            mostrarIMG(request, response, act.getImgBin());
+        }
         
     }
     
