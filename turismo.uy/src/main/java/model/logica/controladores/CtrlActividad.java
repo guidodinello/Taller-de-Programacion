@@ -205,8 +205,18 @@ public class CtrlActividad implements ICtrlActividad{
 		});
 		return resultado;
 	}
+
+    public <T> Set<T> filterSalidas(Function<SalidaTuristica, T> returnFunction, Predicate<SalidaTuristica> condition) {
+        Set<T> res = new HashSet<T>();
+        SalidaTuristica[] salidas = HandlerSalidas.getInstance().getSalidas();
+        for (SalidaTuristica s : salidas) {
+            if (condition.test(s))
+                res.add(returnFunction.apply(s));
+        }
+        return res;
+    }
 	
-	public <T> Set<T> filter(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition) {
+	public <T> Set<T> filterActividades(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition) {
 	    Set<T> res = new HashSet<T>();
 	    Set<ActividadTuristica> actividades = HandlerActividades.getInstance().obtenerActividadesTuristicas();
 		for (ActividadTuristica act : actividades) {
@@ -219,7 +229,7 @@ public class CtrlActividad implements ICtrlActividad{
 	public Set<DTActividad> getDTActividadesConfirmadas() {
 		Function<ActividadTuristica, DTActividad> dts = (a) -> { return a.getDTActividad(); };
 		Predicate<ActividadTuristica> confirmada = (a) -> { return a.getEstado().equals(estadoActividad.confirmada);  };                                                          
-		return filter(dts, confirmada);
+		return filterActividades(dts, confirmada);
 	}
 
     public Set<String> listarPaquetesCategoria(String categoria) {

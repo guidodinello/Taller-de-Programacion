@@ -1,6 +1,7 @@
 package model.logica.interfaces;
 import excepciones.YaExisteException;
 import model.logica.clases.ActividadTuristica;
+import model.logica.clases.SalidaTuristica;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -33,7 +34,8 @@ public interface ICtrlActividad{
 	public abstract DTPaquete getInfoPaquete(String paqueteSeleccionado);
 	public abstract Set<String> listarCategorias();
 	
-	public abstract <T> Set<T> filter(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition);
+	public abstract <T> Set<T> filterSalidas(Function<SalidaTuristica, T> returnFunction, Predicate<SalidaTuristica> condition);
+	public abstract <T> Set<T> filterActividades(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition);
 	public abstract Set<DTActividad> getDTActividadesConfirmadas();
     public abstract Set<String> listarPaquetesCategoria(String categoria);
 }
