@@ -18,7 +18,7 @@ public class Compra {
         this.paquete = paquete;
         this.vencimiento = fechaCompra;
         this.vencimiento.add(GregorianCalendar.DATE,paquete.getPeriodoValidez());
-        this.costoTotal = cantidadTuristas * paquete.getCosto();
+        this.costoTotal = cantidadTuristas * paquete.calcularCosto();
     }
     
     public DTCompra getDT() {

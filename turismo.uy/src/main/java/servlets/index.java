@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.datatypes.DTActividad;
 import model.datatypes.estadoActividad;
+import model.datatypes.tipoInscripcion;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import model.logica.interfaces.ICtrlActividad;
@@ -207,7 +208,7 @@ public class index extends HttpServlet {
         
         //Inscripciones
         try {
-            icu.ingresarInscripcion("lachiqui", "Degusta Agosto", 3, new GregorianCalendar(2022,8,15));
+            icu.ingresarInscripcion("lachiqui", "Degusta Agosto", 3, new GregorianCalendar(2022,8,15), tipoInscripcion.general, "");
         } catch(InscriptionFailException e) {
             e.printStackTrace();
         }
