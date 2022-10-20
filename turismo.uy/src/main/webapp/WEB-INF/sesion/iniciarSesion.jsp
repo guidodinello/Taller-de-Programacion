@@ -1,6 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page errorPage="/WEB-INF/errorPages/404.jsp"%>
 <%@page import="servlets.iniciarSesion"%>
 <%@page import="model.logica.clases.Usuario"%>
 
