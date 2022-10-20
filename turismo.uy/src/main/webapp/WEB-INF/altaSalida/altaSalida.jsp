@@ -29,7 +29,7 @@
 
                         <div class="mb-4 text-start needs-validate">
                             <label for="dpto" class="form-label">Departamento donde se llevará a cabo la salida</label>
-                            <select name="dpto" class="form-select non-empty" required>
+                            <select id="departamento" name="dpto" class="form-select non-empty" required onchange="if (this.selectedIndex) cargarActividades();">
                                 <option value="" selected disabled>Seleccione un Departamento</option>
                  					
                  				<%
@@ -50,7 +50,7 @@
                                 
                                 <%
                                		if(request.getAttribute("listaAct") != null){
-                               			Set<String> nombreActs = (Set<String>) request.getAttribute("listarAct");
+                               			Set<String> nombreActs = (Set<String>) request.getAttribute("listaAct");
 										for (String act:  nombreActs) {
 								%>
 										<option value="<%= act %>"><%= act %></option>
@@ -115,5 +115,6 @@
 	</div>
 
 	<jsp:include page="/WEB-INF/templates/Footer.jsp" />
+	<script src="js/altaSalida.js"></script>
 </body>
 </html>
