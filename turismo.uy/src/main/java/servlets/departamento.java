@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.logica.interfaces.Fabrica;
 import model.logica.interfaces.ICtrlActividad;
 import model.datatypes.DTActividad;
+import model.datatypes.estadoActividad;
 
 @WebServlet("/departamento")
 public class departamento extends HttpServlet {
@@ -28,8 +29,11 @@ public class departamento extends HttpServlet {
         Set<String> actividades = ctrlActividad.listarActividadesDepartamento(name);
         
         Set<DTActividad> dtAct = new HashSet<DTActividad>();
-        for(String act : actividades)
-            dtAct.add(ctrlActividad.getInfoActividad(act));
+        for(String act : actividades) {
+            DTActividad actual = ctrlActividad.getInfoActividad(act);
+            if(actual.getestado() == estadoActividad.confirmada)
+                dtAct.add(actual);
+        }
         
         request.setAttribute("datosActividades", dtAct);
         

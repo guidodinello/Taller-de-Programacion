@@ -108,7 +108,7 @@ public class ActividadTuristica{
 		Set<String> categorias = getCategorias();
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, imgBinario, estadoActividad.agregada);
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, imgBinario, estado);
 	}
 
     public Set<String> getCategorias() {

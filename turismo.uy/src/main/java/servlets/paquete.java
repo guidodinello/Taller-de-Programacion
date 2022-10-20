@@ -14,6 +14,7 @@ import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.Fabrica;
 
 import model.datatypes.DTPaquete;
+import model.datatypes.estadoActividad;
 import model.datatypes.DTActividad;
 
 @WebServlet("/paquete")
@@ -30,17 +31,18 @@ public class paquete extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("COMPRA") != null) {
-            System.out.println("Me voy!");
             request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp");
         } else {
-            System.out.println("Consultando!");
             ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
             String name = request.getParameter("nombrePaquete");
             DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
             
             Set<DTActividad> datosActividades = new HashSet<DTActividad>();
-            for(String actividad: paqueteT.getActividades())
-                datosActividades.add(ctrlActividad.getInfoActividad(actividad));
+            for(String actividad: paqueteT.getActividades()) {
+                DTActividad actual = ctrlActividad.getInfoActividad(actividad);
+                if(actual.getestado() == estadoActividad.confirmada)
+                    datosActividades.add(actual);
+            }
             
             request.setAttribute("paquete", paqueteT);
             request.setAttribute("datosActividadPaquete", datosActividades);
