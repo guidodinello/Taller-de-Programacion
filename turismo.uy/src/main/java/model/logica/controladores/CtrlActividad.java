@@ -86,8 +86,6 @@ public class CtrlActividad implements ICtrlActividad{
 
 		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, imgDir, imgBin, estado);
 
-	    System.out.println(nomDep);
-	    System.out.println(resu);
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		hD.getDepto(nomDep).agregarActividad(resu);
 
