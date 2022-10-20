@@ -44,8 +44,8 @@
 									<label for="Departamento" class ="form-label">Seleccione un departamento</label>
 								</div>
 								<div class="col-auto">
-									<select name="Departamento" id="DepartamentoAltaActOption" class="form-control" defaultOptions="Seleccionar" aria-describedby="DepartamentoAltaActNullValidate">
-										<option value="Seleccionar"></option>
+									<select name="Departamento" id="DepartamentoAltaActOption" class="form-control" aria-describedby="DepartamentoAltaActNullValidate">
+										<option selected>Seleccionar</option>
 										<%
 										for(String depto : deptos){
 										%>
@@ -113,7 +113,7 @@
 	                  			<div class="col-auto">
 									<label for="Categorias" class ="form-label">Seleccione la/s categoria/s de la actividad</label>
 									<div class="col-auto">
-										<select name="Categorias" multiple>
+										<select id="CategoriasAltaAct" name="Categorias" multiple="multiple" aria-describedby="CategoriasAltaActNullValidate" required>
 										<%
 										for(String cat : cates){
 										%>
@@ -122,12 +122,15 @@
 										}
     									%>
 										</select>
+										<div id="CategoriasAltaActNullValidate" class="invalid-feedback">
+	                         				Debe seleccionar al menos una categoria.
+	                      				</div>
 									</div>
 								</div>
 	                  		</div>
 	                  		
 	                  		<div class="mb-3">
-	                      		<button type="submit" class="btn btn-primary" id="btnRgistrarse">Registrar</button>
+	                      		<button type="submit" class="btn btn-primary" id="btnRegistrarAct">Registrar</button>
 	                  		</div>
 						
 						</form>
@@ -141,6 +144,8 @@
 		</div>
 		
 		<jsp:include page="/WEB-INF/templates/Footer.jsp"/>
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+		<script src="js/altaActividad.js"></script>
 	</body>
 	
 </html>

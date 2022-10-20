@@ -3,7 +3,6 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
-//import datatypes.DTSalida;
 import model.logica.handlers.HandlerUsuarios;
 
 public class SalidaTuristica{
