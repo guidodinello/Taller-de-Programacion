@@ -51,7 +51,7 @@
         	<ul class="navbar-nav mr-0 mt-3 mt-lg-0">
             	<li class="nav-item"> 
                 	<a class="white text-decoration-none" href="miPerfilTurista.html">
-                    	<img class="me-2 rounded-circle usr-pic" src="https://<%= usr.getImg() %>">
+                    	<img class="me-2 rounded-circle usr-pic" src="<%= usr.getImgDir() %>">
                     	<%= usr.getNombre() + " " + usr.getApellido()%>
                     </a>
                  </li>
