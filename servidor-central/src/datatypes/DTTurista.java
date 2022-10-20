@@ -16,8 +16,11 @@ public class DTTurista extends DTUsuario {
 		super(t);
 		nacionalidad = t.getNacionalidad();
 		compras = new HashSet<DTCompra>();
-		for (Compra c : t.getCompras()) {
-			compras.add(c.getDT());
+		
+		if(compras != null) {
+			for (Compra c : t.getCompras()) {
+				compras.add(c.getDT());
+			}
 		}
 	}
 

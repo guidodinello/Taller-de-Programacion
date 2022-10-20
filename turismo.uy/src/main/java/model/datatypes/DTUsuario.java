@@ -1,5 +1,6 @@
 package model.datatypes;
 
+import java.io.InputStream;
 import java.util.GregorianCalendar;
 import model.logica.clases.Usuario;
 
@@ -9,9 +10,9 @@ public class DTUsuario {
 	private GregorianCalendar fechaNac;
 	private String nombre;
 	private String apellido;
-	private String imgDir;
+    private String imgDir;
 	private byte [] imgBin;
-	private String img;
+
 	
 	public DTUsuario(Usuario usuario) {
 		nickname = usuario.getNickname();
@@ -21,7 +22,6 @@ public class DTUsuario {
 		apellido = usuario.getApellido();
 		imgDir = usuario.getImgDir();
 		imgBin = usuario.getImgBin();
-		img = usuario.getImg();
 	}
 
 	public String getNickname() {
@@ -45,8 +45,9 @@ public class DTUsuario {
 	}
 	
 	public String getImgDir() {
-	    return img;
+	    return imgDir;
 	}
+	
 	public byte [] getImg() {
 	    return imgBin;
 	}
