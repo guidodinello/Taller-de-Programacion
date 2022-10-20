@@ -18,9 +18,13 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import excepciones.YaExisteException;
+import logica.handlers.HandlerUsuarios;
 import model.logica.interfaces.ICtrlUsuario;
 import model.logica.interfaces.Fabrica;
 import model.logica.clases.Turista;
+import model.datatypes.DTProveedor;
+import model.datatypes.DTTurista;
+import model.datatypes.DTUsuario;
 import model.datatypes.tipoUsuario;
 import model.logica.clases.Proveedor;
 import model.logica.clases.Usuario;
@@ -102,7 +106,9 @@ public class altaUsuario extends HttpServlet {
 				String sitio = request.getParameter("LinkSitioWeb");
 				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])),fotoDireccion, tipoUsuario.proveedor, "", desc, sitio);
 			}
-			response.sendRedirect("home");
+		    DTUsuario newUsr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nick);
+            session.setAttribute("usuario_logueado", newUsr);
+			request.getRequestDispatcher("/index").forward(request, response);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
