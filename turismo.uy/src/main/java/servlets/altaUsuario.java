@@ -37,28 +37,41 @@ import model.logica.clases.Usuario;
 public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
-	private String[] extencionesValidas = {".icon", ".png", ".jpg"};
+	private String[] ext = {".icon", ".png", ".jpg"};
 	
 	public altaUsuario() {
 		super();
 	}
 	
-	private InputStream guardarImgBin(Part part, HttpServletRequest request) {
-		try {
-			InputStream archivoBits = part.getInputStream();
-			if(archivoBits != null) {
-			    return archivoBits;
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+    private String guardarImg(Part p, HttpServletRequest req, String ext) {
+        String dir = "media/imagenes/usuarioPerfil.png";
+        
+        try {
+            
+            dir = req.getServletContext().getRealPath(/media/imagenes/);
+            dir = dir +"/media/imagenes/";
+            File uploads = new File(dir);
+            
+            String na = req.getParameter("Nickname") + ext;
+            InputStream ab = p.getInputStream(); 
+            
+            if(ab != null) {
+                File img = new File(uploads, na);
+                dir = "media/imagnes/"+na;
+                Files.copy(ab, img.toPath());       
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dir;
+    }
+
+
 	
-	private String extencionValida(String fileName) {
+	private String extencionValida(String fn) {
 	    String resultado = "";
-		for(String es : extencionesValidas) {
-			if(fileName.toLowerCase().endsWith(es)) {
+		for(String es : ext) {
+			if(fn.toLowerCase().endsWith(es)) {
 			    resultado = es;
 				return resultado;
 			}
@@ -73,41 +86,32 @@ public class altaUsuario extends HttpServlet {
 			response.sendRedirect("index");
 			return;
 		}
-		String nick     = request.getParameter("Nickname");
-		String nomb     = request.getParameter("Nombre");
-		String apell    = request.getParameter("Apellido");
-		String email    = request.getParameter("Email");
-		String [] fechaNac = request.getParameter("FechaNacimiento").split("-");
-		String tipoUsu  = request.getParameter("TipoUsuario");
-		String pass     = request.getParameter("Contrasenia");
+		String nic     = request.getParameter("Nickname");
+		String nom     = request.getParameter("Nombre");
+		String ape    = request.getParameter("Apellido");
+		String ema    = request.getParameter("Email");
+		String [] nac = request.getParameter("FechaNacimiento").split("-");
+		String tU  = request.getParameter("TipoUsuario");
+		String pas     = request.getParameter("Contrasenia");
 		//Foto de perfil
-		Part foto     = request.getPart("FotoPerfil");
-		InputStream inputStreamFoto = null; //para guardar el binario;
-		byte [] fotoBin = null;
-		String fotoDir = ""; //para guardar la direccion;
+		Part p     = request.getPart("FotoPerfil");
+		String fd = "media/imagenes/usuarioPerfil.png";  //para guardar la direccion;
 		
-		if(foto.getInputStream() != null) {
-		    
-			if(!extencionValida(foto.getSubmittedFileName()).isEmpty()) {
-			    inputStreamFoto = guardarImgBin(foto, request);
-			    fotoBin = inputStreamFoto.readAllBytes();
-				fotoDir = "imagen?nick="+nick;
-				
-			}else {
-			    fotoDir = "media/imagenes/usuarioPerfil.png";
-			    
-			}
+		if(!extencionValida(p.getSubmittedFileName()).isEmpty()) {
+		    fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
 		}
+		
+		
 		try {
-			if(tipoUsu.equals("Turista")) {
+			if(tU.equals("Turista")) {
 				String nacionalidad = request.getParameter("Nacionalidad");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), fotoDir, fotoBin ,tipoUsuario.turista, nacionalidad, "", "");
+				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd,tipoUsuario.turista, nacionalidad, "", "");
 			}else {
 				String desc = request.getParameter("Descripcion");
 				String sitio = request.getParameter("LinkSitioWeb");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), fotoDir, fotoBin, tipoUsuario.proveedor, "", desc, sitio);
+				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, tipoUsuario.proveedor, "", desc, sitio);
 			}
-		    DTUsuario newUsr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nick);
+		    DTUsuario newUsr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nic);
             session.setAttribute("usuario_logueado", newUsr);
 			response.sendRedirect("index");
 			
