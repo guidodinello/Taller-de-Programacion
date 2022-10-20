@@ -22,7 +22,6 @@ public class DTUsuario {
 		apellido = usuario.getApellido();
 		imgDir = usuario.getImgDir();
 		imgBin = usuario.getImgBin();
-
 	}
 
 	public String getNickname() {
@@ -52,5 +51,4 @@ public class DTUsuario {
 	public byte [] getImg() {
 	    return imgBin;
 	}
-
 }

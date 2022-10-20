@@ -45,7 +45,6 @@ public class index extends HttpServlet {
         //Alta Usuarios
         try {
             //turistas
-
             icu.altaUsuario("lachiqui","mirtha.legrand.ok@hotmail.com.ar", "Rosa María", "Martínez", "awdrg543", new GregorianCalendar(1927, 2, 23), "https://tinyurl.com/2e3s66tw", null, tipoUsuario.turista, "argentina", "", "");
             icu.altaUsuario("isabelita","isabelita@thecrown.co.uk", "Elizabeth", "Windsor", "r5t6y7u8", new GregorianCalendar(1926, 4, 21), "https://tinyurl.com/ycy8mbrn", null, tipoUsuario.turista, "inglesa", "", "");
             icu.altaUsuario("anibal","anibal@fing.edu.uy", "Aníbal", "Lecter", "edrft543", new GregorianCalendar(1937, 12, 31), "https://tinyurl.com/y2u3tybh", null, tipoUsuario.turista, "lituana", "", "");
