@@ -1,4 +1,11 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
+<%@page import="servlets.altaSalida" %>
+
+<%@page import="java.util.Set"%>
+
+<%@page import="model.logica.interfaces.Fabrica"%>
+<%@page import="model.logica.interfaces.ICtrlActividad"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -24,10 +31,15 @@
                             <label for="dpto" class="form-label">Departamento donde se llevará a cabo la salida</label>
                             <select name="dpto" class="form-select non-empty" required>
                                 <option value="" selected disabled>Seleccione un Departamento</option>
-                                <option value="colonia">Colonia</option>
-                                <option value="maldonado">Maldonado</option>
-                                <option value="montevideo">Montevideo</option>
-                                <option value="rocha">Rocha</option>
+                 					
+                 				<%
+									Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
+									for (String depto: deptos) {
+								%>
+									<option value="<%= depto %>"><%= depto %></option>
+								<%
+									}
+								%>
                             </select> 
                         </div>
 
@@ -35,8 +47,17 @@
                             <label for="ciudad">Actividad:</label>
                             <select name="ciudad" class="form-select non-empty" required>
                                 <option value="" selected disabled>Seleccione una Actividad</option>
-                                <option value="rocha">Degusta</option>
-                                <option value="montevideo">Teatro con Sabores</option>
+                                
+                                <%
+                               		if(request.getAttribute("listaAct") != null){
+                               			Set<String> nombreActs = (Set<String>) request.getAttribute("listarAct");
+										for (String act:  nombreActs) {
+								%>
+										<option value="<%= act %>"><%= act %></option>
+								<%
+										}
+                               		}
+								%>
                             </select> 
                         </div>
 
