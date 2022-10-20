@@ -87,15 +87,15 @@ public class altaUsuario extends HttpServlet {
 		String fotoDir = ""; //para guardar la direccion;
 		
 		if(foto.getInputStream() != null) {
-		    System.out.println(foto.getInputStream());
+		    
 			if(!extencionValida(foto.getSubmittedFileName()).isEmpty()) {
 			    inputStreamFoto = guardarImgBin(foto, request);
 			    fotoBin = inputStreamFoto.readAllBytes();
 				fotoDir = "imagen?nick="+nick;
-				System.out.println("entra if");
+				
 			}else {
 			    fotoDir = "media/imagenes/usuarioPerfil.png";
-			    System.out.println("entra else");
+			    
 			}
 		}
 		try {
