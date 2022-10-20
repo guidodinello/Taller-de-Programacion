@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import datatypes.DTCompra;
-import datatypes.DTPaquete;
-import datatypes.DTSalida;
-import datatypes.DTTurista;
-import datatypes.tipoUsuario;
+import model.datatypes.DTCompra;
+import model.datatypes.DTPaquete;
+import model.datatypes.DTSalida;
+import model.datatypes.DTTurista;
+import model.datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
-import logica.interfaces.Fabrica;
-import logica.interfaces.ICtrlActividad;
-import logica.interfaces.ICtrlUsuario;
+import model.logica.interfaces.Fabrica;
+import model.logica.interfaces.ICtrlActividad;
+import model.logica.interfaces.ICtrlUsuario;
 import model.datatypes.DTUsuario;
 import model.logica.clases.Proveedor;
 import model.logica.clases.Turista;
@@ -41,7 +41,7 @@ public class inscripcionSalida extends HttpServlet {
         super();
     }
     
-    private void hardCodeoParaTesting(HttpServletRequest request) {
+    /*private void hardCodeoParaTesting(HttpServletRequest request) {
         Fabrica f = Fabrica.getInstance();
         ICtrlActividad cAct = f.getICtrlActividad();
         ICtrlUsuario cUsr = f.getICtrlUsuario();
@@ -88,7 +88,7 @@ public class inscripcionSalida extends HttpServlet {
         }
         
         request.setAttribute("nombreSalida", nomSal);
-    }
+    }*/
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -99,7 +99,7 @@ public class inscripcionSalida extends HttpServlet {
 		 RENDERIZADO DEL FORMULARIO DE INSCRIPCION
 		*/
 	    
-	    hardCodeoParaTesting(request);
+	    //hardCodeoParaTesting(request);
 	    
 	    if (request.getAttribute("nombreSalida") != null){
 	        

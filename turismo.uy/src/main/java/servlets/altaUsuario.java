@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import excepciones.YaExisteException;
-import logica.handlers.HandlerUsuarios;
 import model.logica.interfaces.ICtrlUsuario;
 import model.logica.interfaces.Fabrica;
 import model.logica.clases.Turista;
