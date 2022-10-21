@@ -1,15 +1,9 @@
 package servlets;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
@@ -21,94 +15,95 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import excepciones.YaExisteException;
 import model.logica.interfaces.ICtrlUsuario;
 import model.logica.interfaces.Fabrica;
-import model.logica.clases.Turista;
-import model.datatypes.DTProveedor;
-import model.datatypes.DTTurista;
 import model.datatypes.DTUsuario;
 import model.datatypes.tipoUsuario;
-import model.logica.clases.Proveedor;
-import model.logica.clases.Usuario;
 
 @MultipartConfig
 @WebServlet("/altaUsuario")
 public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
-	private String[] extencionesValidas = {".icon", ".png", ".jpg"};
+	private String[] ext = {".icon", ".png", ".jpg"};
+	private String udi = "media/imagenes/usuarioPerfil.png";
+	private String rui = "media/imagenes/";
 	
 	public altaUsuario() {
 		super();
 	}
 	
-	private InputStream guardarImgBin(Part part, HttpServletRequest request) {
-		try {
-			InputStream archivoBits = part.getInputStream();
-			if(archivoBits != null) {
-			    return archivoBits;
+    private String guardarImg(Part p, HttpServletRequest req, String ext) {
+        String dir = udi;
+        try {
+            /*Si existe un archivo con el mismo nombre lo eliminamos*/
+            File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+req.getParameter("Nickname")+ "_usr" +ext);
+            System.out.println(file);
+            if(file.delete())
+                System.out.println("deleted");
+            
+            
+            dir = req.getServletContext().getRealPath("/"+rui);
+            File fil = new File(dir);
+            
+            String na = req.getParameter("Nickname")+ "_usr" + ext;
+            InputStream ab = p.getInputStream(); 
+            System.out.println(dir);
+            
+            if(ab != null) {
+                File img = new File(fil, na);
+                dir = rui + na;
+                Files.copy(ab, img.toPath());       
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dir;
+    }
+
+	private String extencionValida(String fn) {
+	    String res = "";
+		for(String es : ext) {
+			if(fn.toLowerCase().endsWith(es)) {
+			    res = es;
+				return res;
 			}
-		}catch (Exception e) {
-			e.printStackTrace();
 		}
-		return null;
+		return res;
 	}
-	
-	private String extencionValida(String fileName) {
-	    String resultado = "";
-		for(String es : extencionesValidas) {
-			if(fileName.toLowerCase().endsWith(es)) {
-			    resultado = es;
-				return resultado;
-			}
-		}
-		return resultado;
-	}
-	
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("usuario_logueado") != null) {
+		HttpSession ses = request.getSession();
+		if(ses.getAttribute("usuario_logueado") != null) {
 			response.sendRedirect("index");
 			return;
 		}
-		String nick     = request.getParameter("Nickname");
-		String nomb     = request.getParameter("Nombre");
-		String apell    = request.getParameter("Apellido");
-		String email    = request.getParameter("Email");
-		String [] fechaNac = request.getParameter("FechaNacimiento").split("-");
-		String tipoUsu  = request.getParameter("TipoUsuario");
-		String pass     = request.getParameter("Contrasenia");
+		String nic     = request.getParameter("Nickname");
+		String nom     = request.getParameter("Nombre");
+		String ape    = request.getParameter("Apellido");
+		String ema    = request.getParameter("Email");
+		String [] nac = request.getParameter("FechaNacimiento").split("-");
+		String tU  = request.getParameter("TipoUsuario");
+		String pas     = request.getParameter("Contrasenia");
 		//Foto de perfil
-		Part foto     = request.getPart("FotoPerfil");
-		InputStream inputStreamFoto = null; //para guardar el binario;
-		byte [] fotoBin = null;
-		String fotoDir = ""; //para guardar la direccion;
+		Part p     = request.getPart("FotoPerfil");
+		String fd = udi;  //para guardar la direccion;
 		
-		if(foto.getInputStream() != null) {
-		    
-			if(!extencionValida(foto.getSubmittedFileName()).isEmpty()) {
-			    inputStreamFoto = guardarImgBin(foto, request);
-			    fotoBin = inputStreamFoto.readAllBytes();
-				fotoDir = "imagen?nick="+nick;
-				
-			}else {
-			    fotoDir = "media/imagenes/usuarioPerfil.png";
-			    
-			}
+		if(!extencionValida(p.getSubmittedFileName()).isEmpty()) {
+		    fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
 		}
+		
 		try {
-			if(tipoUsu.equals("Turista")) {
+			if(tU.equals("Turista")) {
 				String nacionalidad = request.getParameter("Nacionalidad");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), fotoDir, fotoBin ,tipoUsuario.turista, nacionalidad, "", "");
+				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd,tipoUsuario.turista, nacionalidad, "", "");
 			}else {
-				String desc = request.getParameter("Descripcion");
-				String sitio = request.getParameter("LinkSitioWeb");
-				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), fotoDir, fotoBin, tipoUsuario.proveedor, "", desc, sitio);
+				String des = request.getParameter("Descripcion");
+				String web = request.getParameter("LinkSitioWeb");
+				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, tipoUsuario.proveedor, "", des, web);
 			}
-		    DTUsuario newUsr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nick);
-            session.setAttribute("usuario_logueado", newUsr);
+		    DTUsuario usr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nic);
+            ses.setAttribute("usuario_logueado", usr);
 			response.sendRedirect("index");
 			
 		}catch(Exception e) {
@@ -120,14 +115,14 @@ public class altaUsuario extends HttpServlet {
 	}
 	
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
-	        request.setAttribute("fail", false);
-			request.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(request, response);
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
+	        req.setAttribute("fail", false);
+			req.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(req, res);
 	}
 	
 	
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
-		processRequest(req, resp);
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
+		processRequest(req, res);
 
 	}
 	

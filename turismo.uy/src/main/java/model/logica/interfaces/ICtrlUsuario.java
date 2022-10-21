@@ -16,7 +16,7 @@ import excepciones.InscriptionFailException;
 public interface ICtrlUsuario {
 
 	public abstract void altaUsuario(String nickname,String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac,
-	        String imgDir, byte [] imgBin, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
+	        String imgDir, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
 	public abstract void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha, tipoInscripcion tipo, String paquete) throws InscriptionFailException;
 	public abstract void ingresarCompra(String nickname, String paquete, int cant, GregorianCalendar fecha) throws CompraFailException;
 	public abstract Set<String> listarTuristas();
