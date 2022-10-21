@@ -219,13 +219,11 @@ public class inscripcionSalida extends HttpServlet {
             if(request.getParameter("tipoDeInscripcion").equals("porPaquete")) {
                 String paq = request.getParameter("paqueteSeleccionado");
                 ICU.ingresarInscripcion(turista.getNickname(), sal, cantTuristas, new GregorianCalendar(), tipoInscripcion.paquete, paq);
-                System.out.println("Inscripcion por Paquete con exito!");
-                response.sendRedirect("index");
             }
             else {
                 ICU.ingresarInscripcion(turista.getNickname(), sal, cantTuristas, new GregorianCalendar(), tipoInscripcion.general, "");
-                System.out.println("Inscripcion general con exito!");
             }
+            response.sendRedirect("index");
         } catch(InscriptionFailException e) {
             e.printStackTrace();
             request.setAttribute("InscriptionFailedError", e.getMessage());

@@ -34,4 +34,8 @@ public class DTCompra {
     public int disponiblesEnActividad(String nomAct) {
         return disponibles.get(nomAct);
     }
+    
+    public boolean tieneActividad(String atividad) {
+        return disponibles.containsKey(atividad);
+    }
 }
