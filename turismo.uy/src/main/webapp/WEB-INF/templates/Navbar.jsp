@@ -50,7 +50,7 @@
     	<div class="collapse navbar-collapse flex-grow-0">
         	<ul class="navbar-nav mr-0 mt-3 mt-lg-0">
             	<li class="nav-item"> 
-                	<a class="white text-decoration-none" href="miPerfilTurista.html">
+                	<a class="white text-decoration-none" href="consultaUsuario?STATE=INFO&&NICKNAME=<%=usr.getNickname()%>">
                     	<img class="me-2 rounded-circle usr-pic" src="<%= usr.getImgDir() %>">
                     	<%= usr.getNombre() + " " + usr.getApellido()%>
                     </a>

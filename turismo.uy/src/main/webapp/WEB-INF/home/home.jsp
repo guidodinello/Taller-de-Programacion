@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.logica.interfaces.Fabrica"%>
+<%@page import="model.logica.interfaces.ICtrlActividad"%>
 <%@page import="model.datatypes.DTActividad"%>
 <%@page import="java.util.Set"%>
 
