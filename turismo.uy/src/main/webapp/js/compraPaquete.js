@@ -31,6 +31,12 @@ const marcarObligatorios = (campo) => {
 
 const formularioValidado = () => {
     let cant = marcarObligatorios("Cant");
+    
+    if($("#CantCompraPaqText").val()<1){
+		$("#CantCompraPaqText").addClass("is-invalid");
+		return false;
+	}
+    
     return  cant;
 }
 

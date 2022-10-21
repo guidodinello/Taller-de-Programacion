@@ -85,7 +85,8 @@ public class ActividadTuristica{
 		salidas.values().forEach((e) -> {
 			if(e.getfechaSalida().after(fechaSistema)) {
 				Set<String> turistas = new HashSet<String>();
-				DTSalida actual = new DTSalida(e.getNombre(), e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas, e.getImg());
+				DTActividad dtAct = getDTActividad();
+				DTSalida actual = new DTSalida(e.getNombre(), dtAct.getNombre(), dtAct.getDepartamento(),  e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas, e.getImg());
 				res.add(actual);
 			}
 		});

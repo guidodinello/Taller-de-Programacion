@@ -69,7 +69,7 @@
       </label>
     </div>
     <div class="col-auto">
-      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=miUsr.getFechaNac()%>">
+      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=new SimpleDateFormat("dd/MM/yyyy").format(miUsr.getFechaNac().getTime())%>">
     </div>
 
   </div>

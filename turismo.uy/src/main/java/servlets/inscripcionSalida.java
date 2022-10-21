@@ -105,59 +105,70 @@ public class inscripcionSalida extends HttpServlet {
 		 El turista indico la salida a la que se quiere inscribir.
 		 RENDERIZADO DEL FORMULARIO DE INSCRIPCION
 		*/
-	    
-	    //hardCodeoParaTesting(request);
-        ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
-        //ICtrlUsuario ICU = Fabrica.getInstance().getICtrlUsuario();
-        
-	    if (request.getParameter("nombreSalida") != null){
-	        
-	        // obtener info de la salida seleccionada
-	        DTSalida dts = ICA.getInfoCompletaSalida((String)request.getParameter("nombreSalida"));
-	        
-	        request.setAttribute("salida", dts);
-	        
-	        /*
-                En caso de que el turista haya comprado paquetes que aún estén vigentes y
-            que incluyan la actividad turística de la salida seleccionada y posea
-            inscripciones disponibles, el sistema muestra estos paquetes y el turista
-            podrá elegir uno de ellos para realizar la inscripción. En este caso, se
-            deberán descontar la cantidad de inscripciones indicada del paquete
-            seleccionado y la actividad turística correspondiente
-            */
-            HttpSession session = request.getSession();
-            DTTurista dttur = (DTTurista)session.getAttribute("usuario_logueado");
+	    if(!(request.getSession().getAttribute("usuario_logueado") instanceof DTTurista))
+	        response.sendRedirect("index");
+	    else {
+    	    //hardCodeoParaTesting(request);
+            ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
+            //ICtrlUsuario ICU = Fabrica.getInstance().getICtrlUsuario();
             
-            String nomAct = dts.getNombreActividad();
-            Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
-            DTPaquete p;
-            for (DTCompra c : dttur.getCompras()) {
-                if(c.getVigente()) {
-                    p = ICA.getInfoPaquete(c.getPaquete());
-                    if (p.getActividades().contains(nomAct) && c.disponiblesEnActividad(nomAct) > 0)
-                        paqCompVig.add(p);
+    	    if (request.getParameter("nombreSalida") != null){
+    	        
+    	        // obtener info de la salida seleccionada
+    	        DTSalida dts = ICA.getInfoCompletaSalida((String)request.getParameter("nombreSalida"));
+    	        
+    	        request.setAttribute("salida", dts);
+    	        
+    	        /*
+                    En caso de que el turista haya comprado paquetes que aún estén vigentes y
+                que incluyan la actividad turística de la salida seleccionada y posea
+                inscripciones disponibles, el sistema muestra estos paquetes y el turista
+                podrá elegir uno de ellos para realizar la inscripción. En este caso, se
+                deberán descontar la cantidad de inscripciones indicada del paquete
+                seleccionado y la actividad turística correspondiente
+                */
+                HttpSession session = request.getSession();
+                DTTurista dttur = (DTTurista)session.getAttribute("usuario_logueado");
+                
+                String nomAct = dts.getNombreActividad();
+                Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
+                DTPaquete p;
+                for (DTCompra c : dttur.getCompras()) {
+                    if(c.getVigente()) {
+                        p = ICA.getInfoPaquete(c.getPaquete());
+                        if (p.getActividades().contains(nomAct) && c.disponiblesEnActividad(nomAct) > 0)
+                            paqCompVig.add(p);
+                    }
                 }
-            }
-            request.setAttribute("paquetes", paqCompVig);
-	        
-			request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
-	    } else if (request.getParameter("listar") != null) {
-	        // se llego desde acceso a casos de uso
-	        // se listan todas las salidas
-	        Function<SalidaTuristica, DTSalida> darDts = (s) -> { 
-	             return ICA.getInfoCompletaSalida(s.getNombre());
-	            };
-	        Predicate<SalidaTuristica> truthy = (s) -> { return true; };
-	        Set<DTSalida> dtsalidas = ICA.filterSalidas(darDts, truthy);
-
-	        request.setAttribute("salidas", dtsalidas);
-	        request.getRequestDispatcher("/WEB-INF/salida/listadoSalidas.jsp").forward(request, response);
-	    } else {
-		    // ERROR: se llego a la pagina de inscripcion salida sin haber seleccionado una salida
-		    // TODO
-		    // ver como se redirige a la pagina de error correctamente
-		    request.getRequestDispatcher("/WEB-INF/errorPages/500.jsp").forward(request, response);
-		}
+                request.setAttribute("paquetes", paqCompVig);
+    	        
+    			request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
+    	    } else if (request.getParameter("listar") != null) {
+    	        // se llego desde acceso a casos de uso
+    	        // se listan todas las salidas
+    	        /*
+    	        Function<SalidaTuristica, DTSalida> darDts = (s) -> { 
+    	             return ICA.getInfoCompletaSalida(s.getNombre());
+    	            };
+    	        Predicate<SalidaTuristica> truthy = (s) -> { return true; };
+    	        Set<DTSalida> dtsalidas = ICA.filterSalidas(darDts, truthy);*/
+    	        
+    	        Set<DTSalida> dtsalidas = new HashSet<DTSalida>();
+    	        GregorianCalendar fecha = new GregorianCalendar();
+    	        for(DTActividad act : ICA.getDTActividadesConfirmadas()) {
+    	            dtsalidas.addAll(ICA.listarInfoSalidasVigentes(act.getNombre(), fecha));
+    	        }
+    
+    	        request.setAttribute("salidas", dtsalidas);
+    	        request.getRequestDispatcher("/WEB-INF/salida/listadoSalidas.jsp").forward(request, response);
+    	    } else {
+    		    // ERROR: se llego a la pagina de inscripcion salida sin haber seleccionado una salida
+    		    // TODO
+    		    // ver como se redirige a la pagina de error correctamente
+    		    request.getRequestDispatcher("/WEB-INF/errorPages/500.jsp").forward(request, response);
+    		}
+	    
+	    }
 
 	}
 

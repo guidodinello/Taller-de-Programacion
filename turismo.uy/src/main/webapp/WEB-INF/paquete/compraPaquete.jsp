@@ -55,9 +55,9 @@
 							
 							<div class="mb-4 text-start" id="CantCompraPaqDiv">
 								<label for="Cantidad" class = "form-label" id="CantCompraPaqLabel">Cantidad de turistas</label>
-								<input type="number" step="1" name="Cantidad" id="CantCompraPaqText" placeholder="Ingrese la cantidad de turistas" class ="form-control" aria-describedby="CantcompraPaqTextNullValidate" required>
+								<input type="number" step="1" min="1" name="Cantidad" id="CantCompraPaqText" placeholder="Ingrese la cantidad de turistas" class ="form-control" aria-describedby="CantcompraPaqTextNullValidate" required>
 		                      	<div id="CantcompraPaqTextNullValidate" class="invalid-feedback">
-		                         	El campo Cantidad de turistas es obligatorio.
+		                         	El campo Cantidad de turistas es obligatorio y deber ser mayor a 0.
 		                      	</div>
 							</div>
 							
