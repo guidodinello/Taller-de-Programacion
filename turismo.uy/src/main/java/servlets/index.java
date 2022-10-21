@@ -16,6 +16,7 @@ import model.datatypes.estadoActividad;
 import model.datatypes.tipoInscripcion;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
+import excepciones.CompraFailException;
 import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.ICtrlUsuario;
 import model.datatypes.tipoUsuario;
@@ -204,11 +205,44 @@ public class index extends HttpServlet {
         ica.ingresarActividadAPaquete("Valle Del Lunarejo", "Cabalgata en Valle del Lunarejo");
         
         //Compra Paquetes
-        //TO-DO
+        try {
+            icu.ingresarCompra("lachiqui", "Disfrutar Rocha", 2, new GregorianCalendar(2022, 7, 15));
+            icu.ingresarCompra("lachiqui", "Un día en Colonia", 5, new GregorianCalendar(2022, 7, 20));
+            icu.ingresarCompra("waston", "Un día en Colonia", 1, new GregorianCalendar(2022, 8, 15));
+            icu.ingresarCompra("elelvis", "Disfrutar Rocha", 10, new GregorianCalendar(2022, 8, 1));
+            icu.ingresarCompra("elelvis", "Un día en Colonia", 2, new GregorianCalendar(2022, 8, 18));
+            icu.ingresarCompra("mastropiero", "Un día en Colonia", 6, new GregorianCalendar(2022, 8, 2));
+        } catch(CompraFailException e) {
+            e.printStackTrace();
+        }
         
         //Inscripciones
         try {
+            //Generales
             icu.ingresarInscripcion("lachiqui", "Degusta Agosto", 3, new GregorianCalendar(2022,7,15), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("elelvis", "Degusta Agosto", 5, new GregorianCalendar(2022,7,16), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("lachiqui", "Tour por Colonia del Sacramento 18-09", 3, new GregorianCalendar(2022,7,18), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("isabelita", "Tour por Colonia del Sacramento 18-09", 1, new GregorianCalendar(2022,7,19), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("mastropiero", "Almuerzo 2", 2, new GregorianCalendar(2022,7,19), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("chino", "Teatro con Sabores 1", 1, new GregorianCalendar(2022,7,19), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("chino", "Teatro con Sabores 2", 10, new GregorianCalendar(2022,7,20), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("bobesponja", "Teatro con Sabores 2", 2, new GregorianCalendar(2022,7,20), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("anibal", "Teatro con Sabores 2", 1, new GregorianCalendar(2022,7,21), tipoInscripcion.general, "");
+            icu.ingresarInscripcion("tony", "Degusta Setiembre", 11, new GregorianCalendar(2022,7,21), tipoInscripcion.general, "");
+            
+            //Por paquete
+            icu.ingresarInscripcion("lachiqui", "Degusta Noviembre", 2, new GregorianCalendar(2022,9,3), tipoInscripcion.paquete, "Disfrutar Rocha");
+            icu.ingresarInscripcion("lachiqui", "Teatro con Sabores 3", 2, new GregorianCalendar(2022,9,3), tipoInscripcion.paquete, "Disfrutar Rocha");
+            icu.ingresarInscripcion("elelvis", "Degusta Setiembre", 5, new GregorianCalendar(2022,8,2), tipoInscripcion.paquete, "Disfrutar Rocha");
+            icu.ingresarInscripcion("elelvis", "Teatro con Sabores 1", 5, new GregorianCalendar(2022,8,2), tipoInscripcion.paquete, "Disfrutar Rocha");
+            icu.ingresarInscripcion("lachiqui", "Tour por Colonia del Sacramento 11-09", 5, new GregorianCalendar(2022,8,3), tipoInscripcion.paquete, "Un día en Colonia");
+            icu.ingresarInscripcion("lachiqui", "Almuerzo 1", 5, new GregorianCalendar(2022,8,3), tipoInscripcion.paquete, "Un día en Colonia");
+            icu.ingresarInscripcion("waston", "Tour por Colonia del Sacramento 18-09", 1, new GregorianCalendar(2022,8,5), tipoInscripcion.paquete, "Un día en Colonia");
+            icu.ingresarInscripcion("waston", "Almuerzo 2", 1, new GregorianCalendar(2022,8,5), tipoInscripcion.paquete, "Un día en Colonia");
+            icu.ingresarInscripcion("elelvis", "Tour por Colonia del Sacramento 30-10", 2, new GregorianCalendar(2022,9,2), tipoInscripcion.paquete, "Un día en Colonia");
+            icu.ingresarInscripcion("elelvis", "Almuerzo en el Real 1", 2, new GregorianCalendar(2022,9,11), tipoInscripcion.paquete, "Un día en Colonia");
+            icu.ingresarInscripcion("mastropiero", "Tour por Colonia del Sacramento 30-10", 4, new GregorianCalendar(2022,9,12), tipoInscripcion.paquete, "Un día en Colonia");
+            icu.ingresarInscripcion("mastropiero", "Almuerzo en el Real 1", 4, new GregorianCalendar(2022,9,12), tipoInscripcion.paquete, "Un día en Colonia");
         } catch(InscriptionFailException e) {
             e.printStackTrace();
         }
