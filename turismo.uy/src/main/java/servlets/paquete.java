@@ -40,14 +40,8 @@ public class paquete extends HttpServlet {
         String nomb = (String) request.getParameter("nombrePaquete");
         int cantTuristas = Integer.parseInt(request.getParameter("Cantidad"));
         
-        System.out.println(cantTuristas == 12);
-        
         try {
-            System.out.println(tur.getNickname());
-            System.out.println(nomb);
-            System.out.println(cantTuristas);
             ctrlUsr.ingresarCompra(tur.getNickname(), nomb, cantTuristas, new GregorianCalendar());
-            System.out.println("Compra el paquete!");
             response.sendRedirect("index");
         } catch(CompraFailException e){
             e.printStackTrace();
@@ -63,7 +57,7 @@ public class paquete extends HttpServlet {
         DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
         request.setAttribute("paquete", paqueteT);
         
-        if(request.getParameter("COMPRA") != null) {
+        if(request.getParameter("COMPRA") != null && request.getSession().getAttribute("usuario_logueado") instanceof DTTurista) {
             request.setAttribute("fail", false);
             request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp").
                 forward(request, response);
