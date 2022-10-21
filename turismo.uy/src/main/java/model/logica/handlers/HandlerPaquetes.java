@@ -3,6 +3,11 @@ package model.logica.handlers;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+
+import model.logica.clases.Compra;
+import model.logica.clases.Turista;
+import model.logica.handlers.HandlerUsuarios;
+
 import java.util.HashSet;
 
 import model.logica.clases.PaqueteTuristico;
@@ -37,7 +42,23 @@ public class HandlerPaquetes {
 	}
 	
 	public Set<PaqueteTuristico> getPaquetes(){
-		return new HashSet<PaqueteTuristico>(paquetes.values());
+	    /*Set<PaqueteTuristico> paq = new HashSet<PaqueteTuristico> (paquetes.values());
+        HandlerUsuarios hu = HandlerUsuarios.getInstance();
+         Set<Turista> turistas = hu.listarTuristas();
+         for (Turista t : turistas){
+             Set<Compra> compras =  t.getCompras();
+             if(compras != null)
+                 for (Compra i : compras) {
+                    PaqueteTuristico p =  i.getPaquete();
+                    if(paq.contains(p)) {
+                        paq.remove(p);
+                    }
+                 }
+             
+         }
+         return paq;*/
+	    Set<PaqueteTuristico> res = new HashSet<PaqueteTuristico>(paquetes.values());
+	    return res;
 	}
 	
 	public static void clear() {

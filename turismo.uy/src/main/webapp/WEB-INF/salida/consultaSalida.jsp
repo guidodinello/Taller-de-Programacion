@@ -3,6 +3,7 @@
 <%@page import="servlets.salida"%>
 <%@page import="model.datatypes.DTSalida"%>
 <%@page import="model.datatypes.DTActividad"%>
+<%@page import="model.datatypes.DTTurista"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -35,7 +36,13 @@
 							<% String nombreActividad = (String) request.getAttribute("nombreActividadSalida"); %>
 							
 							<div><a href="consultaActividad?nombreAct=<%= nombreActividad %>">Consulta de Actividad Turistica</a></div>
+							<%
+							if(session.getAttribute("usuario_logueado") instanceof DTTurista){
+							%>
 							<div><a href="inscripcionSalida?nombreSalida=<%= salida.getNombre() %>">Inscripcion a Salida Turistica</a></div>
+							<%
+							}
+							%>
 							<p class="card-text"><small class="text-muted">Fecha de alta: 
 								<%= 
 									new SimpleDateFormat("dd/MM/yyyy").format(salida.getfechaAlta().getTime())

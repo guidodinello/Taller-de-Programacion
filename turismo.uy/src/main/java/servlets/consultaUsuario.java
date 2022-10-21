@@ -56,6 +56,7 @@ public class consultaUsuario extends HttpServlet{
 		            estado = "";
 		        else
 		            estado = request.getParameter("STATE");
+		        System.out.print(estado);
 		    switch (estado) {
 		      case "LISTAR":
 		        request.setAttribute("STATE", "LISTAR");
@@ -66,21 +67,25 @@ public class consultaUsuario extends HttpServlet{
 		      case "INFO":
 		        DTUsuario usuarioLogueado =
 		            (DTUsuario) request.getSession().getAttribute("usuario_logueado");
-		        String nombreUsuario = (String) request.getParameter("Nickname");
+		        String nombreUsuario = (String) request.getParameter("NICKNAME");
 		        request.setAttribute("STATE", "INFO");
+		        //no estoy logueada 
 		        if(usuarioLogueado == null) {
-		            request.setAttribute("PERFIL_USUARIO", (Usuario)
-		                    hu.getUsuarioByNickname(nombreUsuario));
+		            request.setAttribute("PERFIL_USUARIO", (DTUsuario)
+		                    ctrlUsr.getInfoBasicaUsuario(nombreUsuario));
 		        }
-		        
-		        else if(usuarioLogueado.getNickname() != nombreUsuario){
-		        request.setAttribute("PERFIL_USUARIO", (Usuario)
-		            hu.getUsuarioByNickname(nombreUsuario));
+		        //estoy logueada viendo otro perfil
+		        else if(!usuarioLogueado.getNickname().equals(nombreUsuario)){
+		            System.out.println("ENTRA ESTA MIERDA2");
+		        request.setAttribute("PERFIL_USUARIO", (DTUsuario)
+                        ctrlUsr.getInfoBasicaUsuario(nombreUsuario));
 		      
 		        }
+		        //estoy logueada viendo mi perfil
 		        else{
-		            request.setAttribute("MI_PERFIL_USUARIO", (Usuario)
-				            hu.getUsuarioByNickname(nombreUsuario));
+		            System.out.println("ENTRA ESTA MIERDA3");
+		            request.setAttribute("MI_PERFIL_USUARIO", (DTUsuario)
+                            ctrlUsr.getInfoBasicaUsuario(nombreUsuario));
 
 		        }
 		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,

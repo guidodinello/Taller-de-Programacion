@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="datatypes.DTSalida"%>
-<%@page import="datatypes.DTPaquete"%>
+<%@page import="model.datatypes.DTSalida"%>
+<%@page import="model.datatypes.DTPaquete"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -49,15 +49,17 @@
 					    fmt.setCalendar(sal.getfechaSalida());
 					    String fechaSalida = fmt.format(sal.getfechaSalida().getTime());
 						%>
+						
+						<input type="hidden" name="nombreSalida" value="<%=sal.getNombre()%>" />
 
 						<div class="mb-4 text-start">
 							<div class="mb-4" id="InformacionSalida">
 								<div
 									class="card mb-3 rounded-3 bg-image shadow-1-strong card-color"
-									style="background-image: url('<%=sal.getImg()%>');">
+									style="background-image: url('https://<%=sal.getImg()%>');">
 									<div class="row g-0 mask card-color">
 										<div class="col-md-4 align-self-center">
-											<img src="<%=sal.getImg()%>"
+											<img src="https://<%=sal.getImg()%>"
 												class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 												alt="Salida Turistica: <%=sal.getNombre()%>">
 										</div>
@@ -92,6 +94,7 @@
 							paquetes = (Set<DTPaquete>)request.getAttribute("paquetes");
 						}
 						%>
+						
 						<div class="mb-4 text-start" id="TipoDeInscripcionDiv">
 							<label for="tipoDeInscripcion" class="form-label"
 								id="TipoDeIncripcionInscripcionSalidaLabel">Forma de Pago

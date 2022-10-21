@@ -19,11 +19,11 @@ $("#TipoDeInscripcionOption").on("mouseup", function(){
 })
 
 $("#PorPaqueteOption").on("mouseup", function(){
-    if ($(this).val() == "DisfrutarRocha") {
-        $("#CantidadTuristasDiv").show("slow");
+    if ($(this).val() != "") {
+        //$("#CantidadTuristasDiv").show("slow");
         $("#btnInicribirseASalida").attr("disabled", false);
     }else{
-        $("#CantidadTuristasDiv").hide("slow");
+        //$("#CantidadTuristasDiv").hide("slow");
         $("#btnInicribirseASalida").attr("disabled", true);
         
     }

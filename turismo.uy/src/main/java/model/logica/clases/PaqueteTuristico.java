@@ -12,16 +12,16 @@ import model.datatypes.DTPaquete;
 public class PaqueteTuristico {
 	private String nombre, descripcion;
 	private int periodoValidez;
-	private float costo;
+	private float descuento;
 	private GregorianCalendar fechaAlta;
 	private Map<String, ActividadTuristica> actividades;
 	private String img;
 	
-	public PaqueteTuristico(String nombre, String descripcion, int periodoValidez, float costo, GregorianCalendar fechaAlta, String img) {
+	public PaqueteTuristico(String nombre, String descripcion, int periodoValidez, float descuento, GregorianCalendar fechaAlta, String img) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.periodoValidez = periodoValidez;
-		this.costo = costo;
+		this.descuento = descuento;
 		this.fechaAlta = fechaAlta;
 		actividades = new HashMap<String, ActividadTuristica>();
 		this.img = img;
@@ -39,8 +39,8 @@ public class PaqueteTuristico {
 		return periodoValidez;
 	}
 
-	public float getCosto() {
-		return costo;
+	public float getDescuento() {
+		return descuento;
 	}
 	
 	public GregorianCalendar getFechaAlta() {
@@ -55,6 +55,10 @@ public class PaqueteTuristico {
 		actividades.put(act.getNombre(), act);
 	}
 	
+	public Set<String> getNombreActividades(){
+	    return actividades.keySet();
+	}
+	
 	public String getImg() {
 	    return img;
 	}
@@ -62,6 +66,14 @@ public class PaqueteTuristico {
 	public DTPaquete getDTPaquete() {
 	    Set<String> categorias = new HashSet<String>();
 	    actividades.forEach((key, value)->{categorias.addAll(value.getCategorias());});
-		return new DTPaquete(nombre, descripcion, periodoValidez, costo, fechaAlta, actividades.keySet(), categorias, img);
+		return new DTPaquete(nombre, descripcion, periodoValidez, descuento, calcularCosto(), fechaAlta, actividades.keySet(), categorias, img);
+	}
+	
+	public float calcularCosto() {
+	    float res = 0;
+	    for(ActividadTuristica act : actividades.values())
+	        res += act.getCostoPorTurista();
+	    
+	    return res*(1-descuento/100);
 	}
 }

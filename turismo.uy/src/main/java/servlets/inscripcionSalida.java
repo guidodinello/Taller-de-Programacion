@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -13,18 +15,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import datatypes.DTCompra;
-import datatypes.DTPaquete;
-import datatypes.DTSalida;
-import datatypes.DTTurista;
-import datatypes.tipoUsuario;
+import model.datatypes.DTActividad;
+import model.datatypes.DTCompra;
+import model.datatypes.DTPaquete;
+import model.datatypes.DTSalida;
+import model.datatypes.DTTurista;
+import model.datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
-import logica.interfaces.Fabrica;
-import logica.interfaces.ICtrlActividad;
-import logica.interfaces.ICtrlUsuario;
+import model.logica.interfaces.Fabrica;
+import model.logica.interfaces.ICtrlActividad;
+import model.logica.interfaces.ICtrlUsuario;
 import model.datatypes.DTUsuario;
+import model.datatypes.estadoActividad;
+import model.datatypes.tipoInscripcion;
+import model.logica.clases.ActividadTuristica;
 import model.logica.clases.Proveedor;
+import model.logica.clases.SalidaTuristica;
 import model.logica.clases.Turista;
 import model.logica.clases.Usuario;
 
@@ -41,7 +48,7 @@ public class inscripcionSalida extends HttpServlet {
         super();
     }
     
-    private void hardCodeoParaTesting(HttpServletRequest request) {
+    /*private void hardCodeoParaTesting(HttpServletRequest request) {
         Fabrica f = Fabrica.getInstance();
         ICtrlActividad cAct = f.getICtrlActividad();
         ICtrlUsuario cUsr = f.getICtrlUsuario();
@@ -88,7 +95,7 @@ public class inscripcionSalida extends HttpServlet {
         }
         
         request.setAttribute("nombreSalida", nomSal);
-    }
+    }*/
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -98,46 +105,70 @@ public class inscripcionSalida extends HttpServlet {
 		 El turista indico la salida a la que se quiere inscribir.
 		 RENDERIZADO DEL FORMULARIO DE INSCRIPCION
 		*/
-	    
-	    hardCodeoParaTesting(request);
-	    
-	    if (request.getAttribute("nombreSalida") != null){
-	        
-	        // obtener info de la salida seleccionada
-	        Fabrica fabrica = Fabrica.getInstance();
-	        ICtrlActividad ICA = fabrica.getICtrlActividad();
-	        DTSalida dts = ICA.getInfoCompletaSalida((String)request.getAttribute("nombreSalida"));
-	        
-	        request.setAttribute("salida", dts);
-	        
-	        /*
-                En caso de que el turista haya comprado paquetes que aún estén vigentes y
-            que incluyan la actividad turística de la salida seleccionada y posea
-            inscripciones disponibles, el sistema muestra estos paquetes y el turista
-            podrá elegir uno de ellos para realizar la inscripción. En este caso, se
-            deberán descontar la cantidad de inscripciones indicada del paquete
-            seleccionado y la actividad turística correspondiente
-            */
-            HttpSession session = request.getSession();
-            DTTurista dttur = (DTTurista)session.getAttribute("usuario_logueado");
+	    if(!(request.getSession().getAttribute("usuario_logueado") instanceof DTTurista))
+	        response.sendRedirect("index");
+	    else {
+    	    //hardCodeoParaTesting(request);
+            ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
+            //ICtrlUsuario ICU = Fabrica.getInstance().getICtrlUsuario();
             
-            String nomAct = dts.getNombreActividad();
-            Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
-            DTPaquete p;
-            for (DTCompra c : dttur.getCompras()) {
-                p = ICA.getInfoPaquete(c.getPaquete());
-                if (c.getCantTuristas()>0 && p.getActividades().contains(nomAct))
-                    paqCompVig.add(p);
-            }
-            request.setAttribute("paquetes", paqCompVig);
-	        
-			request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
-		} else {
-		    // ERROR: se llego a la pagina de inscripcion salida sin haber seleccionado una salida
-		    // TODO
-		    // ver como se redirige a la pagina de error correctamente
-		    request.getRequestDispatcher("/WEB-INF/errorPages/500.jsp").forward(request, response);
-		}
+    	    if (request.getParameter("nombreSalida") != null){
+    	        
+    	        // obtener info de la salida seleccionada
+    	        DTSalida dts = ICA.getInfoCompletaSalida((String)request.getParameter("nombreSalida"));
+    	        
+    	        request.setAttribute("salida", dts);
+    	        
+    	        /*
+                    En caso de que el turista haya comprado paquetes que aún estén vigentes y
+                que incluyan la actividad turística de la salida seleccionada y posea
+                inscripciones disponibles, el sistema muestra estos paquetes y el turista
+                podrá elegir uno de ellos para realizar la inscripción. En este caso, se
+                deberán descontar la cantidad de inscripciones indicada del paquete
+                seleccionado y la actividad turística correspondiente
+                */
+                HttpSession session = request.getSession();
+                DTTurista dttur = (DTTurista)session.getAttribute("usuario_logueado");
+                
+                String nomAct = dts.getNombreActividad();
+                Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
+                DTPaquete p;
+                for (DTCompra c : dttur.getCompras()) {
+                    if(c.getVigente()) {
+                        p = ICA.getInfoPaquete(c.getPaquete());
+                        if (p.getActividades().contains(nomAct) && c.disponiblesEnActividad(nomAct) > 0)
+                            paqCompVig.add(p);
+                    }
+                }
+                request.setAttribute("paquetes", paqCompVig);
+    	        
+    			request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
+    	    } else if (request.getParameter("listar") != null) {
+    	        // se llego desde acceso a casos de uso
+    	        // se listan todas las salidas
+    	        /*
+    	        Function<SalidaTuristica, DTSalida> darDts = (s) -> { 
+    	             return ICA.getInfoCompletaSalida(s.getNombre());
+    	            };
+    	        Predicate<SalidaTuristica> truthy = (s) -> { return true; };
+    	        Set<DTSalida> dtsalidas = ICA.filterSalidas(darDts, truthy);*/
+    	        
+    	        Set<DTSalida> dtsalidas = new HashSet<DTSalida>();
+    	        GregorianCalendar fecha = new GregorianCalendar();
+    	        for(DTActividad act : ICA.getDTActividadesConfirmadas()) {
+    	            dtsalidas.addAll(ICA.listarInfoSalidasVigentes(act.getNombre(), fecha));
+    	        }
+    
+    	        request.setAttribute("salidas", dtsalidas);
+    	        request.getRequestDispatcher("/WEB-INF/salida/listadoSalidas.jsp").forward(request, response);
+    	    } else {
+    		    // ERROR: se llego a la pagina de inscripcion salida sin haber seleccionado una salida
+    		    // TODO
+    		    // ver como se redirige a la pagina de error correctamente
+    		    request.getRequestDispatcher("/WEB-INF/errorPages/500.jsp").forward(request, response);
+    		}
+	    
+	    }
 
 	}
 
@@ -145,6 +176,25 @@ public class inscripcionSalida extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    //Si llegas al POST ya tenes nombreSalida, y si la inscripcion falla necesitas mandar de nuevo el DTSalida y los DTPaquete al JSP
+	    Fabrica fabrica = Fabrica.getInstance();
+	    ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
+	    DTSalida dts = ICA.getInfoCompletaSalida((String)request.getParameter("nombreSalida"));
+        request.setAttribute("salida", dts);
+        HttpSession session = request.getSession();
+        DTTurista turista = (DTTurista)session.getAttribute("usuario_logueado");
+        
+        String nomAct = dts.getNombreActividad();
+        Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
+        DTPaquete p;
+        for (DTCompra c : turista.getCompras()) {
+            if(c.getVigente()) {
+                p = ICA.getInfoPaquete(c.getPaquete());
+                if (p.getActividades().contains(nomAct) && c.disponiblesEnActividad(nomAct) > 0)
+                    paqCompVig.add(p);
+            }
+        }
+        request.setAttribute("paquetes", paqCompVig);
 		/* 
 		Respuesta del formulario de inscripcion a salida
 		SE PROCESA LA PETICION DE INSCRIPCION
@@ -156,21 +206,32 @@ public class inscripcionSalida extends HttpServlet {
 	    podrá (dependiendo del caso): cambiar la salida seleccionada o cancelar el
 	    caso de uso.
 	    */
-	    
-        HttpSession session = request.getSession();
-        DTTurista turista = (DTTurista)session.getAttribute("usuario_logueado");
         
-        Fabrica fabrica = Fabrica.getInstance();
-        ICtrlActividad ICA = fabrica.getICtrlActividad();
         ICtrlUsuario ICU = fabrica.getICtrlUsuario();
         
-        // de donde saco la salida??
-        DTSalida salida = ICA.getInfoCompletaSalida(request.getParameter("Salida"));
+        // de donde saco la salida?? RE: Se puede mandar el nombre desde el JSP con un input hidden
+        //DTSalida salida = ICA.getInfoCompletaSalida(request.getParameter("Salida"));
    
         int cantTuristas = Integer.parseInt(request.getParameter("cantTuristas"));
+        String sal = request.getParameter("nombreSalida");
+        
+        try {
+            if(request.getParameter("tipoDeInscripcion").equals("porPaquete")) {
+                String paq = request.getParameter("paqueteSeleccionado");
+                ICU.ingresarInscripcion(turista.getNickname(), sal, cantTuristas, new GregorianCalendar(), tipoInscripcion.paquete, paq);
+            }
+            else {
+                ICU.ingresarInscripcion(turista.getNickname(), sal, cantTuristas, new GregorianCalendar(), tipoInscripcion.general, "");
+            }
+            response.sendRedirect("index");
+        } catch(InscriptionFailException e) {
+            e.printStackTrace();
+            request.setAttribute("InscriptionFailedError", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
+        }
         
         // compra por paquete
-        if (request.getParameter("tipoDeInscripcion").equals("porPaquete")) {
+        /*if (request.getParameter("tipoDeInscripcion").equals("porPaquete")) {
             // obtener paquete seleccionado
             DTPaquete paq = ICA.getInfoPaquete(request.getParameter("paqueteSeleccionado"));
             
@@ -193,23 +254,23 @@ public class inscripcionSalida extends HttpServlet {
         }
         
         // efectivizar la inscripcion
-        try {
-            ICU.ingresarInscripcion(turista.getNickname(), salida.getNombre(), cantTuristas, new GregorianCalendar());
-        } catch (InscriptionFailException e) {
-            // ERROR : ya existe un registro del turista en la salida turística o
-            // se alcanzo el límite máximo de turistas para la salida
-            request.setAttribute("nombreSalida", salida.getNombre());
-            request.setAttribute("InscriptionFailedError", e.getMessage());
-            doGet(request, response);
-            e.printStackTrace();
-        }
+//        try {
+//            ICU.ingresarInscripcion(turista.getNickname(), salida.getNombre(), cantTuristas, new GregorianCalendar());
+//        } catch (InscriptionFailException e) {
+//            // ERROR : ya existe un registro del turista en la salida turística o
+//            // se alcanzo el límite máximo de turistas para la salida
+//            request.setAttribute("nombreSalida", salida.getNombre());
+//            request.setAttribute("InscriptionFailedError", e.getMessage());
+//            doGet(request, response);
+//            e.printStackTrace();
+//        }
         
         
 
         // TODO
         // elegir a donde redirigir luego de inscripto
-        // decidir como darle feedback al usuario si la inscripcion se realizo con exito o no
-	    request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
+        // decidir como darle feedback al usuario si la inscripcion se realizo con exito o no*/
+	    //request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
 	}
 	
 //	// TODO

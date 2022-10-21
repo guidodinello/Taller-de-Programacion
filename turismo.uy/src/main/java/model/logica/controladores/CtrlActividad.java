@@ -78,16 +78,17 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String img, Set<String> categorias, estadoActividad estado) throws YaExisteException {
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, estadoActividad estado) throws YaExisteException {
 		HandlerActividades hA = HandlerActividades.getInstance();
 		if(hA.existeActividad(nomActividad)){
 			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
 		}
 
-		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, img, estado);
-		
+		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, imgDir, estado);
+
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		hD.getDepto(nomDep).agregarActividad(resu);
+
 		
 		HandlerCategorias hC = HandlerCategorias.getInstance();
 		categorias.forEach(cat ->{
@@ -204,8 +205,18 @@ public class CtrlActividad implements ICtrlActividad{
 		});
 		return resultado;
 	}
+
+    public <T> Set<T> filterSalidas(Function<SalidaTuristica, T> returnFunction, Predicate<SalidaTuristica> condition) {
+        Set<T> res = new HashSet<T>();
+        SalidaTuristica[] salidas = HandlerSalidas.getInstance().getSalidas();
+        for (SalidaTuristica s : salidas) {
+            if (condition.test(s))
+                res.add(returnFunction.apply(s));
+        }
+        return res;
+    }
 	
-	public <T> Set<T> filter(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition) {
+	public <T> Set<T> filterActividades(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition) {
 	    Set<T> res = new HashSet<T>();
 	    Set<ActividadTuristica> actividades = HandlerActividades.getInstance().obtenerActividadesTuristicas();
 		for (ActividadTuristica act : actividades) {
@@ -218,7 +229,7 @@ public class CtrlActividad implements ICtrlActividad{
 	public Set<DTActividad> getDTActividadesConfirmadas() {
 		Function<ActividadTuristica, DTActividad> dts = (a) -> { return a.getDTActividad(); };
 		Predicate<ActividadTuristica> confirmada = (a) -> { return a.getEstado().equals(estadoActividad.confirmada);  };                                                          
-		return filter(dts, confirmada);
+		return filterActividades(dts, confirmada);
 	}
 
     public Set<String> listarPaquetesCategoria(String categoria) {

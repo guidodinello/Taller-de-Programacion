@@ -10,8 +10,9 @@ public class DTPaquete {
 	private GregorianCalendar fechaAlta;
 	private Set<String> actividades;
 	private Set<String> categorias;
+	private float costo;
 
-	public DTPaquete(String nombre, String descripcion, int periodoValidez, float descuento, GregorianCalendar fechaAlta,
+	public DTPaquete(String nombre, String descripcion, int periodoValidez, float descuento, float costo, GregorianCalendar fechaAlta,
 			Set<String> actividades, Set<String> categorias, String img) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -21,6 +22,7 @@ public class DTPaquete {
 		this.actividades = actividades;
 		this.img = img;
 		this.categorias = categorias;
+		this.costo = costo;
 	}
 
 	public String getNombre() {
@@ -53,6 +55,10 @@ public class DTPaquete {
 
 	public Set<String> getActividades() {
 		return actividades;
+	}
+	
+	public float getCosto() {
+	    return costo;
 	}
 
 }

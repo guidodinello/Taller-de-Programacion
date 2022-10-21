@@ -6,10 +6,9 @@ import java.util.GregorianCalendar;
 public class Usuario {
 
     protected String nickname, email, nombre, apellido, contrasena, imgDir;
-    protected byte [] imgBin;
     protected GregorianCalendar fechaNac;
     
-    public Usuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, byte [] binarioImagen) {
+    public Usuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir) {
         this.nickname = nickname;
         this.email = email;
         this.contrasena = contrasena;
@@ -17,7 +16,6 @@ public class Usuario {
         this.apellido = apellido;
         this.fechaNac = fechaNac;
         this.imgDir = imgDir;
-        this.imgBin = binarioImagen;
     }
 
     public String getNickname() {
@@ -62,10 +60,6 @@ public class Usuario {
     
     public void setFechaNac(GregorianCalendar fechaNac) {
         this.fechaNac = fechaNac;
-    }
-    
-    public byte [] getImgBin() {
-        return imgBin;
     }
 
 }
