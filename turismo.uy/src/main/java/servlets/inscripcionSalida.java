@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.datatypes.DTActividad;
 import model.datatypes.DTCompra;
 import model.datatypes.DTPaquete;
 import model.datatypes.DTSalida;
@@ -24,7 +27,10 @@ import model.logica.interfaces.Fabrica;
 import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.ICtrlUsuario;
 import model.datatypes.DTUsuario;
+import model.datatypes.estadoActividad;
+import model.logica.clases.ActividadTuristica;
 import model.logica.clases.Proveedor;
+import model.logica.clases.SalidaTuristica;
 import model.logica.clases.Turista;
 import model.logica.clases.Usuario;
 
@@ -100,13 +106,12 @@ public class inscripcionSalida extends HttpServlet {
 		*/
 	    
 	    //hardCodeoParaTesting(request);
-	    
-	    if (request.getAttribute("nombreSalida") != null){
+        ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
+        
+	    if (request.getParameter("nombreSalida") != null){
 	        
 	        // obtener info de la salida seleccionada
-	        Fabrica fabrica = Fabrica.getInstance();
-	        ICtrlActividad ICA = fabrica.getICtrlActividad();
-	        DTSalida dts = ICA.getInfoCompletaSalida((String)request.getAttribute("nombreSalida"));
+	        DTSalida dts = ICA.getInfoCompletaSalida((String)request.getParameter("nombreSalida"));
 	        
 	        request.setAttribute("salida", dts);
 	        
@@ -132,7 +137,18 @@ public class inscripcionSalida extends HttpServlet {
             request.setAttribute("paquetes", paqCompVig);
 	        
 			request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
-		} else {
+	    } else if (request.getParameter("listar") != null) {
+	        // se llego desde acceso a casos de uso
+	        // se listan todas las salidas
+	        Function<SalidaTuristica, DTSalida> darDts = (s) -> { 
+	             return ICA.getInfoCompletaSalida(s.getNombre());
+	            };
+	        Predicate<SalidaTuristica> truthy = (s) -> { return true; };
+	        Set<DTSalida> dtsalidas = ICA.filterSalidas(darDts, truthy);
+
+	        request.setAttribute("salidas", dtsalidas);
+	        request.getRequestDispatcher("/WEB-INF/salida/listadoSalidas.jsp").forward(request, response);
+	    } else {
 		    // ERROR: se llego a la pagina de inscripcion salida sin haber seleccionado una salida
 		    // TODO
 		    // ver como se redirige a la pagina de error correctamente
@@ -203,7 +219,7 @@ public class inscripcionSalida extends HttpServlet {
 //            doGet(request, response);
 //            e.printStackTrace();
 //        }
-//        
+        
         
 
         // TODO

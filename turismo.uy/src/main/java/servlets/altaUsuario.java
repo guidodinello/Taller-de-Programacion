@@ -107,7 +107,7 @@ public class altaUsuario extends HttpServlet {
 				String sitio = request.getParameter("LinkSitioWeb");
 				ctrlUsuario.altaUsuario(nick, email, nomb, apell, pass, new GregorianCalendar(Integer.parseInt(fechaNac[0]),Integer.parseInt(fechaNac[1])-1, Integer.parseInt(fechaNac[2])), fotoDir, fotoBin, tipoUsuario.proveedor, "", desc, sitio);
 			}
-		    DTUsuario newUsr = ctrlUsuario.getInfoBasicaUsuario(nick);
+		    DTUsuario newUsr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nick);
             session.setAttribute("usuario_logueado", newUsr);
 			response.sendRedirect("index");
 			

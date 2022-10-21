@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="datatypes.DTSalida"%>
-<%@page import="datatypes.DTPaquete"%>
+<%@page import="model.datatypes.DTSalida"%>
+<%@page import="model.datatypes.DTPaquete"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.text.SimpleDateFormat"%>

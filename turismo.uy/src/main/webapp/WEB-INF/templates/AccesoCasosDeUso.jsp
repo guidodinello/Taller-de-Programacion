@@ -17,7 +17,7 @@
                 <div class="card-header ">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i></div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
-                        <a href="inscripcionSalida" class="list-group-item list-group-item-action">Inscripción a Salida</a>
+                        <a href="inscripcionSalida?listar=1" class="list-group-item list-group-item-action">Inscripción a Salida</a>
                         <a href="compraPaquete" class="list-group-item list-group-item-action">Compra de Paquete</a>
                     </ul>
                 </div>
