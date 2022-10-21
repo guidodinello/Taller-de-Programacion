@@ -10,7 +10,6 @@ public class DTActividad {
 	private String descripcion;
 	private String departamento;
 	private String imgDir;
-	private byte[] imgBin;
 	private String nombreCiudad;
 	private GregorianCalendar fechaAlta;
 	private int duracionHs;
@@ -22,7 +21,7 @@ public class DTActividad {
 	
 
 	
-	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, byte [] imgBin, estadoActividad estado) {
+	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado) {
 		this.nombre = n;
 		this.descripcion = des;
 		this.departamento = departamento;
@@ -35,7 +34,6 @@ public class DTActividad {
 		this.estado = estado;
 		paquetes = new HashSet<String>();
 		this.imgDir = imgDir;
-		this.imgBin = imgBin;
 	}
 
 	public String getNombre() {
@@ -91,10 +89,6 @@ public class DTActividad {
 	
 	public String getImgDir(){
 		return imgDir;
-	}
-	
-	public byte [] getImgBin() {
-	    return imgBin;
 	}
 	
 	public String getNombreCiudad(){

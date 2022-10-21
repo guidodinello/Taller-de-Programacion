@@ -21,9 +21,8 @@ public class ActividadTuristica{
 	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
 	private String imgDir;
-	private byte [] imgBin;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, byte[] imgBin, estadoActividad estado) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, estadoActividad estado) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
@@ -33,7 +32,6 @@ public class ActividadTuristica{
 		this.estado = estado;
 		salidas = new HashMap<String, SalidaTuristica>();
 		this.imgDir = imgDir;
-		this.imgBin = imgBin;
 	}
 	
 	public String getNombre() {
@@ -72,10 +70,6 @@ public class ActividadTuristica{
 		return this.imgDir;
 	}
 	
-	public byte [] getImgBin() {
-	    return imgBin;
-	}
-	
 	public void agregarSalida(SalidaTuristica s) {
 		salidas.put(s.getNombre(), s);
 	}
@@ -105,11 +99,10 @@ public class ActividadTuristica{
 			salidas.add(value.getNombre());
 		});
  		String imgDireccion = this.imgDir;
- 		byte [] imgBinario = imgBin;
 		Set<String> categorias = getCategorias();
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, imgBinario, estado);
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado);
 	}
 
     public Set<String> getCategorias() {
