@@ -1,15 +1,9 @@
 package servlets;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
@@ -21,16 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import excepciones.YaExisteException;
 import model.logica.interfaces.ICtrlUsuario;
 import model.logica.interfaces.Fabrica;
-import model.logica.clases.Turista;
-import model.datatypes.DTProveedor;
-import model.datatypes.DTTurista;
 import model.datatypes.DTUsuario;
 import model.datatypes.tipoUsuario;
-import model.logica.clases.Proveedor;
-import model.logica.clases.Usuario;
 
 @MultipartConfig
 @WebServlet("/altaUsuario")
@@ -38,25 +26,33 @@ public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
 	private String[] ext = {".icon", ".png", ".jpg"};
+	private String udi = "media/imagenes/usuarioPerfil.png";
+	private String rui = "media/imagenes/";
 	
 	public altaUsuario() {
 		super();
 	}
 	
     private String guardarImg(Part p, HttpServletRequest req, String ext) {
-        String dir = "media/imagenes/usuarioPerfil.png";
-        
+        String dir = udi;
         try {
+            /*Si existe un archivo con el mismo nombre lo eliminamos*/
+            File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+req.getParameter("Nickname")+ "_usr" +ext);
+            System.out.println(file);
+            if(file.delete())
+                System.out.println("deleted");
             
-            dir = req.getServletContext().getRealPath("/media/imagenes/");
-            File uploads = new File(dir);
             
-            String na = req.getParameter("Nickname") + ext;
+            dir = req.getServletContext().getRealPath("/"+rui);
+            File fil = new File(dir);
+            
+            String na = req.getParameter("Nickname")+ "_usr" + ext;
             InputStream ab = p.getInputStream(); 
+            System.out.println(dir);
             
             if(ab != null) {
-                File img = new File(uploads, na);
-                dir = "media/imagnes/"+na;
+                File img = new File(fil, na);
+                dir = rui + na;
                 Files.copy(ab, img.toPath());       
             }
         }catch (Exception e) {
@@ -65,23 +61,20 @@ public class altaUsuario extends HttpServlet {
         return dir;
     }
 
-
-	
 	private String extencionValida(String fn) {
-	    String resultado = "";
+	    String res = "";
 		for(String es : ext) {
 			if(fn.toLowerCase().endsWith(es)) {
-			    resultado = es;
-				return resultado;
+			    res = es;
+				return res;
 			}
 		}
-		return resultado;
+		return res;
 	}
 	
-	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("usuario_logueado") != null) {
+		HttpSession ses = request.getSession();
+		if(ses.getAttribute("usuario_logueado") != null) {
 			response.sendRedirect("index");
 			return;
 		}
@@ -94,24 +87,23 @@ public class altaUsuario extends HttpServlet {
 		String pas     = request.getParameter("Contrasenia");
 		//Foto de perfil
 		Part p     = request.getPart("FotoPerfil");
-		String fd = "media/imagenes/usuarioPerfil.png";  //para guardar la direccion;
+		String fd = udi;  //para guardar la direccion;
 		
 		if(!extencionValida(p.getSubmittedFileName()).isEmpty()) {
 		    fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
 		}
-		
 		
 		try {
 			if(tU.equals("Turista")) {
 				String nacionalidad = request.getParameter("Nacionalidad");
 				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd,tipoUsuario.turista, nacionalidad, "", "");
 			}else {
-				String desc = request.getParameter("Descripcion");
-				String sitio = request.getParameter("LinkSitioWeb");
-				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, tipoUsuario.proveedor, "", desc, sitio);
+				String des = request.getParameter("Descripcion");
+				String web = request.getParameter("LinkSitioWeb");
+				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, tipoUsuario.proveedor, "", des, web);
 			}
-		    DTUsuario newUsr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nic);
-            session.setAttribute("usuario_logueado", newUsr);
+		    DTUsuario usr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nic);
+            ses.setAttribute("usuario_logueado", usr);
 			response.sendRedirect("index");
 			
 		}catch(Exception e) {
@@ -123,14 +115,14 @@ public class altaUsuario extends HttpServlet {
 	}
 	
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
-	        request.setAttribute("fail", false);
-			request.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(request, response);
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
+	        req.setAttribute("fail", false);
+			req.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(req, res);
 	}
 	
 	
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
-		processRequest(req, resp);
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
+		processRequest(req, res);
 
 	}
 	
