@@ -1,7 +1,9 @@
 package servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.HashSet;
@@ -28,82 +30,91 @@ import model.datatypes.DTProveedor;
 public class altaActividad extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
-    private String[] extencionesValidas = {".icon", ".png", ".jpg"};
+    private String[] ext = {".icon", ".png", ".jpg"};
+    private String udi = "media/imagenes/actDefault.png";
+    private String rui = "media/imagenes/";
     
     public altaActividad() {
         super();
     }
     
-    private InputStream guardarImgBin(Part part, HttpServletRequest request) {
+    private String guardarImg(Part p, HttpServletRequest req, String ext) {
+        String dir = udi;
         try {
-            InputStream archivoBits = part.getInputStream();
-            if(archivoBits != null) {
-                return archivoBits;
+            String na = req.getParameter("Nombre")+ "_act" + ext; //nombre del archivo
+            
+            /*Si existe un archivo con el mismo nombre lo eliminamos*/
+            File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+ na);
+            System.out.println(file);
+            if(file.delete())
+                System.out.println("deleted");
+            
+            
+            dir = req.getServletContext().getRealPath("/"+rui);
+            File fil = new File(dir);
+            
+            
+            InputStream ab = p.getInputStream(); 
+            System.out.println(dir);
+            
+            if(ab != null) {
+                File img = new File(fil, na);
+                dir = rui + na;
+                Files.copy(ab, img.toPath());       
             }
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return dir;
     }
     
     
-    private String extencionValida(String fileName) {
-        String resultado = "";
-        for(String es : extencionesValidas) {
-            if(fileName.toLowerCase().endsWith(es)) {
-                resultado = es;
-                return resultado;
+    private String extencionValida(String fn) {
+        String res = "";
+        for(String es : ext) {
+            if(fn.toLowerCase().endsWith(es)) {
+                res = es;
+                return res;
             }
         }
-        return resultado;
+        return res;
     }
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
-        HttpSession session = request.getSession();
-        DTProveedor prov = (DTProveedor) session.getAttribute("usuario_logueado");
+    protected void processRequest(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
+        HttpSession ses = req.getSession();
+        DTProveedor prov = (DTProveedor) ses.getAttribute("usuario_logueado");
         
-        String departamento =(String) request.getParameter("Departamento");
-        String nombre =(String) request.getParameter("Nombre");
-        String descripcion =(String) request.getParameter("Descripcion");
-        int duracion = Integer.parseInt(request.getParameter("Duracion"));
-        float costo = Float.parseFloat(request.getParameter("Costo"));
-        String ciudad = request.getParameter("Ciudad");
-        Set<String> categorias = new HashSet<String>(Arrays.asList(request.getParameterValues("Categorias")));
+        String dpt =(String) req.getParameter("Departamento");
+        String nom =(String) req.getParameter("Nombre");
+        String des =(String) req.getParameter("Descripcion");
+        int dhs = Integer.parseInt(req.getParameter("Duracion"));
+        float cos = Float.parseFloat(req.getParameter("Costo"));
+        String ciu = req.getParameter("Ciudad");
+        Set<String> cat = new HashSet<String>(Arrays.asList(req.getParameterValues("Categorias")));
        
         //Foto de la actividad
-        InputStream inputStreamFoto = null;
-        String imgDir = "";
-        byte [] imgBin = null;
-        Part foto = request.getPart("ImagenActividad");
+        String fd = udi;
+        Part p = req.getPart("ImagenActividad");
         
-        if(foto.getInputStream() != null) {
-            
-            if(!extencionValida(foto.getSubmittedFileName()).isEmpty()) {
-                inputStreamFoto = guardarImgBin(foto, request);
-                imgBin = inputStreamFoto.readAllBytes();
-                imgDir = "imagen?nombreAct="+nombre;
-                
-            }else {
-                imgDir = "media/imagenes/actDefault.jpg";
-                
-            }
+        if(!extencionValida(p.getSubmittedFileName()).isEmpty()) {
+            fd = guardarImg(p, req ,extencionValida(p.getSubmittedFileName()));
         }
         
         try {
-            ctrlAct.altaActividadTuristica(departamento, nombre, descripcion, duracion, costo, ciudad, prov.getNickname(), new GregorianCalendar(), imgDir, imgBin, categorias, estadoActividad.agregada);
-            response.sendRedirect("index");
+            ctrlAct.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), new GregorianCalendar(), fd, cat, estadoActividad.agregada);
+            res.sendRedirect("index");
         } catch(YaExisteException e) {
             e.printStackTrace();
-            request.setAttribute("fail", true);
-            request.getRequestDispatcher("/WEB-INF/actividad/altaActividad.jsp").forward(request, response);
+            req.setAttribute("fail", true);
+            req.getRequestDispatcher("/WEB-INF/actividad/altaActividad.jsp").forward(req, res);
         }
         
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
-        HttpSession session = request.getSession();
+        HttpSession ses = request.getSession();
         
-        if(!(session.getAttribute("usuario_logueado") instanceof DTProveedor)) {
+        if(!(ses.getAttribute("usuario_logueado") instanceof DTProveedor)) {
             response.sendRedirect("index");
             return;
         }

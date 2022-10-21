@@ -84,7 +84,7 @@ public class DTSalida {
 		return nombreDepartamentoActividad;
 	}
     
-	public String getImg() {
+	public String getImgDir() {
 		return img;
 	}
 	

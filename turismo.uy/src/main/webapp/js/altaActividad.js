@@ -1,4 +1,4 @@
-jQuery('option').mousedown(function(e) {
+ jQuery('option').mousedown(function(e) {
     e.preventDefault();
     jQuery(this).toggleClass('selected');
   
@@ -72,6 +72,6 @@ const formularioValidado = () => {
 $("#btnRegistrarAct").on("click", async function(e){
     e.preventDefault();
     if(formularioValidado()){
-        $("#FormularioCompraPaquete").submit();
+        $("#FormularioAltaActividad").submit();
     }
 })
