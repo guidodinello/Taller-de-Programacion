@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,14 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.datatypes.DTActividad;
 import model.datatypes.estadoActividad;
-import datosDePrueba.CargarDatosDePrueba;
+import model.datatypes.tipoInscripcion;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.ICtrlUsuario;
 import model.datatypes.tipoUsuario;
-import model.logica.clases.ActividadTuristica;
-import model.logica.handlers.HandlerActividades;
 import model.logica.interfaces.Fabrica;
 
 /**
@@ -36,6 +33,7 @@ public class index extends HttpServlet {
      */
     public index() {
         super();
+        cargarDatos();
     }
     
     // Hard-Codeo de los datos
@@ -48,23 +46,23 @@ public class index extends HttpServlet {
         //Alta Usuarios
         try {
             //turistas
-            icu.altaUsuario("lachiqui","mirtha.legrand.ok@hotmail.com.ar", "Rosa María", "Martínez", "awdrg543", new GregorianCalendar(1927, 2, 23), "tinyurl.com/2e3s66tw", tipoUsuario.turista, "argentina", "", "");
-            icu.altaUsuario("isabelita","isabelita@thecrown.co.uk", "Elizabeth", "Windsor", "r5t6y7u8", new GregorianCalendar(1926, 4, 21), "tinyurl.com/ycy8mbrn", tipoUsuario.turista, "inglesa", "", "");
-            icu.altaUsuario("anibal","anibal@fing.edu.uy", "Aníbal", "Lecter", "edrft543", new GregorianCalendar(1937, 12, 31), "tinyurl.com/y2u3tybh", tipoUsuario.turista, "lituana", "", "");
-            icu.altaUsuario("waston","e.waston@gmail.com", "Emma", "Waston", "poiuy987", new GregorianCalendar(1990, 4, 15), "tinyurl.com/2p9ed8et", tipoUsuario.turista, "inglesa", "", "");
-            icu.altaUsuario("elelvis","suavemente@hotmail.com", "Elvis", "Lacio", "45idgaf67", new GregorianCalendar(1971, 7, 30), "tinyurl.com/mtwppxxz", tipoUsuario.turista, "estadounidense", "", "");
-            icu.altaUsuario("eleven11","eleven11@gmail.com", "Eleven", "Once", "xdrgb657", new GregorianCalendar(2004, 2, 19), "tinyurl.com/3ztpasya", tipoUsuario.turista, "española", "", "");
-            icu.altaUsuario("bobesponja","bobesponja@nickelodeon.com", "Bob", "Esponja", "sbsplol1", new GregorianCalendar(1999, 5, 1), "tinyurl.com/43zymcch", tipoUsuario.turista, "japonesa", "", "");
-            icu.altaUsuario("tony","eltony@manya.org.uy", "Antonio", "Pacheco", "okmnji98", new GregorianCalendar(1976, 4, 11), "tinyurl.com/mr3a38w4", tipoUsuario.turista, "uruguaya", "", "");
-            icu.altaUsuario("chino","chino@trico.org.uy", "Álvaro", "Recoba", "qsxcdw43", new GregorianCalendar(1976, 3, 17), "tinyurl.com/2b556k7t", tipoUsuario.turista, "uruguaya", "", "");
-            icu.altaUsuario("mastropiero","johann.sebastian@gmail.com", "Johann Sebastian", "Mastropiero", "qpwoei586", new GregorianCalendar(1922, 2, 7), "tinyurl.com/3mbeyawm", tipoUsuario.turista, "austríaca", "", "");
+            icu.altaUsuario("lachiqui","mirtha.legrand.ok@hotmail.com.ar", "Rosa María", "Martínez", "awdrg543", new GregorianCalendar(1927, 2, 23), "https://tinyurl.com/2e3s66tw", null, tipoUsuario.turista, "argentina", "", "");
+            icu.altaUsuario("isabelita","isabelita@thecrown.co.uk", "Elizabeth", "Windsor", "r5t6y7u8", new GregorianCalendar(1926, 4, 21), "https://tinyurl.com/ycy8mbrn", null, tipoUsuario.turista, "inglesa", "", "");
+            icu.altaUsuario("anibal","anibal@fing.edu.uy", "Aníbal", "Lecter", "edrft543", new GregorianCalendar(1937, 12, 31), "https://tinyurl.com/y2u3tybh", null, tipoUsuario.turista, "lituana", "", "");
+            icu.altaUsuario("waston","e.waston@gmail.com", "Emma", "Waston", "poiuy987", new GregorianCalendar(1990, 4, 15), "https://tinyurl.com/2p9ed8et", null, tipoUsuario.turista, "inglesa", "", "");
+            icu.altaUsuario("elelvis","suavemente@hotmail.com", "Elvis", "Lacio", "45idgaf67", new GregorianCalendar(1971, 7, 30), "https://tinyurl.com/mtwppxxz", null, tipoUsuario.turista, "estadounidense", "", "");
+            icu.altaUsuario("eleven11","eleven11@gmail.com", "Eleven", "Once", "xdrgb657", new GregorianCalendar(2004, 2, 19), "https://tinyurl.com/3ztpasya", null, tipoUsuario.turista, "española", "", "");
+            icu.altaUsuario("bobesponja","bobesponja@nickelodeon.com", "Bob", "Esponja", "sbsplol1", new GregorianCalendar(1999, 5, 1), "https://tinyurl.com/43zymcch", null, tipoUsuario.turista, "japonesa", "", "");
+            icu.altaUsuario("tony","eltony@manya.org.uy", "Antonio", "Pacheco", "okmnji98", new GregorianCalendar(1976, 4, 11), "https://tinyurl.com/mr3a38w4", null, tipoUsuario.turista, "uruguaya", "", "");
+            icu.altaUsuario("chino","chino@trico.org.uy", "Álvaro", "Recoba", "qsxcdw43", new GregorianCalendar(1976, 3, 17), "https://tinyurl.com/2b556k7t", null, tipoUsuario.turista, "uruguaya", "", "");
+            icu.altaUsuario("mastropiero","johann.sebastian@gmail.com", "Johann Sebastian", "Mastropiero", "qpwoei586", new GregorianCalendar(1922, 2, 7), "https://tinyurl.com/3mbeyawm", null, tipoUsuario.turista, "austríaca", "", "");
             //proveedores
             descripcion = "Hola! me llamo Washington y soy el encargado del portal de turismo del departamento de Rocha - Uruguay";
-            icu.altaUsuario("washington","washington@turismorocha.gub.uy", "Washington", "Rocha", "asdfg654", new GregorianCalendar(1970, 9, 14), "tinyurl.com/3whe8372", tipoUsuario.proveedor, "", descripcion, "http://turismorocha.gub.uy/");
+            icu.altaUsuario("washington","washington@turismorocha.gub.uy", "Washington", "Rocha", "asdfg654", new GregorianCalendar(1970, 9, 14), "https://tinyurl.com/3whe8372", null, tipoUsuario.proveedor, "", descripcion, "http://turismorocha.gub.uy/");
             descripcion = "Pablo es el presidente de la Sociedad de Fomento Turístico de Rivera (conocida como Socfomturriv)";
-            icu.altaUsuario("eldiez","eldiez@socfomturriv.org.uy", "Pablo", "Bengoechea", "ytrewq10", new GregorianCalendar(1965, 6, 27), "tinyurl.com/mu4jeas3", tipoUsuario.proveedor, "", descripcion, "http://wwww.socfomturriv.org.uy");
+            icu.altaUsuario("eldiez","eldiez@socfomturriv.org.uy", "Pablo", "Bengoechea", "ytrewq10", new GregorianCalendar(1965, 6, 27), "https://tinyurl.com/mu4jeas3", null, tipoUsuario.proveedor, "", descripcion, "http://wwww.socfomturriv.org.uy");
             descripcion = "Departamento de Turismo del Departamento de Colonia";
-            icu.altaUsuario("meche","meche@colonia.gub.uy", "Mercedes", "Venn", "mnjkiu89", new GregorianCalendar(1990, 12, 31), "tinyurl.com/4hs4v9c5", tipoUsuario.proveedor, "", descripcion, "http://colonia.gub.uy/turismo/");
+            icu.altaUsuario("meche","meche@colonia.gub.uy", "Mercedes", "Venn", "mnjkiu89", new GregorianCalendar(1990, 12, 31), "https://tinyurl.com/4hs4v9c5", null, tipoUsuario.proveedor, "", descripcion, "http://colonia.gub.uy/turismo/");
         } catch(YaExisteException e) {
             e.printStackTrace();
         }
@@ -120,46 +118,46 @@ public class index extends HttpServlet {
             categorias = new HashSet<String>();
             categorias.add(C4);
             descripcion = "Festival gastronómico de productos locales en Rocha";
-            ica.altaActividadTuristica("Rocha", "Degusta", descripcion, 3, 800, "Rocha", "washington", new GregorianCalendar(2022, 7, 20), "tinyurl.com/bdehz9bb", categorias, estadoActividad.confirmada);
+            ica.altaActividadTuristica("Rocha", "Degusta", descripcion, 3, 800, "Rocha", "washington", new GregorianCalendar(2022, 7, 20), "https://tinyurl.com/bdehz9bb", null, categorias, estadoActividad.confirmada);
             categorias.clear();
             categorias.add(C3);
             categorias.add(C4);
             descripcion = "En el mes aniversario del Club Deportivo Unión de Rocha te invitamos a una merienda deliciosa.";
-            ica.altaActividadTuristica("Rocha", "Teatro con Sabores", descripcion, 3, 500, "Rocha", "washington", new GregorianCalendar(2022, 7, 21), "tinyurl.com/58fnr5j7", categorias, estadoActividad.confirmada);
+            ica.altaActividadTuristica("Rocha", "Teatro con Sabores", descripcion, 3, 500, "Rocha", "washington", new GregorianCalendar(2022, 7, 21), "https://tinyurl.com/58fnr5j7", null, categorias, estadoActividad.confirmada);
             categorias.clear();
             categorias.add(C3);
             descripcion = "Con guía especializado y en varios idiomas. Varios circuitos posibles.";
-            ica.altaActividadTuristica("Colonia", "Tour por Colonia del Sacramento", descripcion, 2, 400, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 8, 1), "tinyurl.com/3rp2vvjf", categorias, estadoActividad.confirmada);
+            ica.altaActividadTuristica("Colonia", "Tour por Colonia del Sacramento", descripcion, 2, 400, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 8, 1), "https://tinyurl.com/3rp2vvjf", null, categorias, estadoActividad.confirmada);
             categorias.clear();
             categorias.add(C4);
             descripcion = "Restaurante en la renovada Plaza de Toros con menú internacional";
-            ica.altaActividadTuristica("Colonia", "Almuerzo en el Real de San Carlos", descripcion, 2, 800, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 8, 1), "tinyurl.com/2yeu66vb", categorias, estadoActividad.confirmada);
+            ica.altaActividadTuristica("Colonia", "Almuerzo en el Real de San Carlos", descripcion, 2, 800, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 8, 1), "https://tinyurl.com/2yeu66vb", null, categorias, estadoActividad.confirmada);
             categorias.clear();
             categorias.add(C2);
             categorias.add(C4);
             descripcion = "Almuerzo en la Posada con ticket fijo. Menú que incluye bebida y postre casero.";
-            ica.altaActividadTuristica("Rivera", "Almuerzo en Valle del Lunarejo", descripcion, 2, 300, "Tranqueras", "eldiez", new GregorianCalendar(2022, 8, 1), "tinyurl.com/4yrs8y2c", categorias, estadoActividad.confirmada);
+            ica.altaActividadTuristica("Rivera", "Almuerzo en Valle del Lunarejo", descripcion, 2, 300, "Tranqueras", "eldiez", new GregorianCalendar(2022, 8, 1), "https://tinyurl.com/4yrs8y2c", null, categorias, estadoActividad.confirmada);
             categorias.clear();
             categorias.add(C2);
             descripcion = "Cabalgata por el área protegida. Varios recorridos para elegir.";
-            ica.altaActividadTuristica("Rivera", "Cabalgata en Valle del Lunarejo", descripcion, 2, 150, "Tranqueras", "eldiez", new GregorianCalendar(2022, 8, 1), "tinyurl.com/2vjd382t", categorias, estadoActividad.confirmada);
+            ica.altaActividadTuristica("Rivera", "Cabalgata en Valle del Lunarejo", descripcion, 2, 150, "Tranqueras", "eldiez", new GregorianCalendar(2022, 8, 1), "https://tinyurl.com/2vjd382t", null, categorias, estadoActividad.confirmada);
             categorias.clear();
             categorias.add(C3);
             descripcion = "Recorrida por los principales atractivos de la ciudad";
-            ica.altaActividadTuristica("Colonia", "Bus turístico Colonia", descripcion, 3, 600, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 9, 1), "tinyurl.com/bdzyrm93", categorias, estadoActividad.agregada);
+            ica.altaActividadTuristica("Colonia", "Bus turístico Colonia", descripcion, 3, 600, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 9, 1), "https://tinyurl.com/bdzyrm93", null, categorias, estadoActividad.agregada);
             categorias.clear();
             categorias.add(C3);
             descripcion = "Visita lugares exclusivos y relevantes";
-            ica.altaActividadTuristica("Colonia", "Colonia Premium Tour", descripcion, 4, 2600, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 9, 3), "tinyurl.com/284kr973", categorias, estadoActividad.rechazada);
+            ica.altaActividadTuristica("Colonia", "Colonia Premium Tour", descripcion, 4, 2600, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 9, 3), "https://tinyurl.com/284kr973", null, categorias, estadoActividad.rechazada);
             categorias.clear();
             categorias.add(C5);
             categorias.add(C1);
             descripcion = "kitsurf - windsurf - kayakismo - canotaje en Rocha";
-            ica.altaActividadTuristica("Rocha", "Deportes náuticos sin uso de motor", descripcion, 3, 1200, "Rocha", "washington", new GregorianCalendar(2022, 9, 5), "tinyurl.com/yck2a92h", categorias, estadoActividad.agregada);
+            ica.altaActividadTuristica("Rocha", "Deportes náuticos sin uso de motor", descripcion, 3, 1200, "Rocha", "washington", new GregorianCalendar(2022, 9, 5), "https://tinyurl.com/yck2a92h", null, categorias, estadoActividad.agregada);
             categorias.clear();
             categorias.add(C3);
             descripcion = "Rivera es un departamento de extraordinaria riqueza natural patrimonial y cultural con una ubicación geográfica privilegiada";
-            ica.altaActividadTuristica("Rivera", "Descubre Rivera", descripcion, 2, 650, "Rivera", "eldiez", new GregorianCalendar(2022, 9, 16), "tinyurl.com/y4vbc4xc", categorias, estadoActividad.rechazada);
+            ica.altaActividadTuristica("Rivera", "Descubre Rivera", descripcion, 2, 650, "Rivera", "eldiez", new GregorianCalendar(2022, 9, 16), "https://tinyurl.com/y4vbc4xc", null, categorias, estadoActividad.rechazada);
         } catch(YaExisteException e) {
             e.printStackTrace();
         }
@@ -210,7 +208,7 @@ public class index extends HttpServlet {
         
         //Inscripciones
         try {
-            icu.ingresarInscripcion("lachiqui", "Degusta Agosto", 3, new GregorianCalendar(2022,8,15));
+            icu.ingresarInscripcion("lachiqui", "Degusta Agosto", 3, new GregorianCalendar(2022,8,15), tipoInscripcion.general, "");
         } catch(InscriptionFailException e) {
             e.printStackTrace();
         }
@@ -221,42 +219,7 @@ public class index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	    CargarDatosDePrueba cdp = new CargarDatosDePrueba();
-        Fabrica fabrica = Fabrica.getInstance();
-//        ICtrlUsuario ICU = fabrica.getICtrlUsuario();
-        ICtrlActividad ICA = fabrica.getICtrlActividad();
-//        cdp.cargarDatos(ICU, ICA);
-//        request.setAttribute("act_confirmadas", ICA.getDTActividadesConfirmadas());
-        
-	    /* Hardcodeo de prueba hasta que tengamos datos cargados
-	    Set<String> salidas = new HashSet<String>();
-	    salidas.add("salida1");
-	    Set<String> categorias = new HashSet<String>();
-	    categorias.add("categoria1");
-	    Set<DTActividad> actividades = new HashSet<DTActividad>();
-	    DTActividad dta1 = new DTActividad("nombre1","descripcion","dpto","ciudad",
-                new GregorianCalendar(),0,(float) 0.1,
-                salidas,
-                categorias,
-                "",estadoActividad.confirmada );
-       DTActividad dta2 = new DTActividad("nombre2","descripcion","dpto","ciudad",
-                new GregorianCalendar(),0,(float) 0.1,
-                salidas,
-                categorias,
-                "",estadoActividad.confirmada );
-        DTActividad dta3 = new DTActividad("nombre3","descripcion","dpto","ciudad",
-                new GregorianCalendar(),0,(float) 0.1,
-                salidas,
-                categorias,
-                "",estadoActividad.confirmada );
-	    actividades.add(dta1);
-	    actividades.add(dta2);
-	    actividades.add(dta3);
-        request.setAttribute("act_confirmadas", actividades);
-         Fin Hardcodeo*/
-        
-        //
-	    cargarDatos();
+        ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
 	    Set<DTActividad> actividades = ICA.getDTActividadesConfirmadas();
 	    request.setAttribute("act_confirmadas", actividades);
 	    

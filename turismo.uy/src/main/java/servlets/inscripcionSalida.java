@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import datatypes.DTCompra;
-import datatypes.DTPaquete;
-import datatypes.DTSalida;
-import datatypes.DTTurista;
-import datatypes.tipoUsuario;
+import model.datatypes.DTCompra;
+import model.datatypes.DTPaquete;
+import model.datatypes.DTSalida;
+import model.datatypes.DTTurista;
+import model.datatypes.tipoUsuario;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
-import logica.interfaces.Fabrica;
-import logica.interfaces.ICtrlActividad;
-import logica.interfaces.ICtrlUsuario;
+import model.logica.interfaces.Fabrica;
+import model.logica.interfaces.ICtrlActividad;
+import model.logica.interfaces.ICtrlUsuario;
 import model.datatypes.DTUsuario;
 import model.logica.clases.Proveedor;
 import model.logica.clases.Turista;
@@ -41,7 +41,7 @@ public class inscripcionSalida extends HttpServlet {
         super();
     }
     
-    private void hardCodeoParaTesting(HttpServletRequest request) {
+    /*private void hardCodeoParaTesting(HttpServletRequest request) {
         Fabrica f = Fabrica.getInstance();
         ICtrlActividad cAct = f.getICtrlActividad();
         ICtrlUsuario cUsr = f.getICtrlUsuario();
@@ -88,7 +88,7 @@ public class inscripcionSalida extends HttpServlet {
         }
         
         request.setAttribute("nombreSalida", nomSal);
-    }
+    }*/
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -99,7 +99,7 @@ public class inscripcionSalida extends HttpServlet {
 		 RENDERIZADO DEL FORMULARIO DE INSCRIPCION
 		*/
 	    
-	    hardCodeoParaTesting(request);
+	    //hardCodeoParaTesting(request);
 	    
 	    if (request.getAttribute("nombreSalida") != null){
 	        
@@ -119,7 +119,7 @@ public class inscripcionSalida extends HttpServlet {
             seleccionado y la actividad turística correspondiente
             */
             HttpSession session = request.getSession();
-            DTTurista dttur = (DTTurista)session.getAttribute("usuario_loggueado");
+            DTTurista dttur = (DTTurista)session.getAttribute("usuario_logueado");
             
             String nomAct = dts.getNombreActividad();
             Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
@@ -158,7 +158,7 @@ public class inscripcionSalida extends HttpServlet {
 	    */
 	    
         HttpSession session = request.getSession();
-        DTTurista turista = (DTTurista)session.getAttribute("usuario_loggueado");
+        DTTurista turista = (DTTurista)session.getAttribute("usuario_logueado");
         
         Fabrica fabrica = Fabrica.getInstance();
         ICtrlActividad ICA = fabrica.getICtrlActividad();
@@ -193,17 +193,17 @@ public class inscripcionSalida extends HttpServlet {
         }
         
         // efectivizar la inscripcion
-        try {
-            ICU.ingresarInscripcion(turista.getNickname(), salida.getNombre(), cantTuristas, new GregorianCalendar());
-        } catch (InscriptionFailException e) {
-            // ERROR : ya existe un registro del turista en la salida turística o
-            // se alcanzo el límite máximo de turistas para la salida
-            request.setAttribute("nombreSalida", salida.getNombre());
-            request.setAttribute("InscriptionFailedError", e.getMessage());
-            doGet(request, response);
-            e.printStackTrace();
-        }
-        
+//        try {
+//            ICU.ingresarInscripcion(turista.getNickname(), salida.getNombre(), cantTuristas, new GregorianCalendar());
+//        } catch (InscriptionFailException e) {
+//            // ERROR : ya existe un registro del turista en la salida turística o
+//            // se alcanzo el límite máximo de turistas para la salida
+//            request.setAttribute("nombreSalida", salida.getNombre());
+//            request.setAttribute("InscriptionFailedError", e.getMessage());
+//            doGet(request, response);
+//            e.printStackTrace();
+//        }
+//        
         
 
         // TODO

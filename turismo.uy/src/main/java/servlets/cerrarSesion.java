@@ -20,24 +20,20 @@ public class cerrarSesion extends HttpServlet {
      */
     public cerrarSesion() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	    HttpSession session = request.getSession();
-        session.setAttribute("usuario_logueado", null);
-		request.getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
+	    request.getSession().invalidate();
+	    request.getRequestDispatcher("/index").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

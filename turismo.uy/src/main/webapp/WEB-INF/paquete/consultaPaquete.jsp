@@ -108,7 +108,7 @@
                             <a class="text-decoration-none" href="consultaActividad?nombreAct=<%= actividad.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="https://<%= actividad.getImg() %>" class="img-fluid rounded-start" alt="...">
+                                        <img src="<%= actividad.getImgDir() %>" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">

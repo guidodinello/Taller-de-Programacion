@@ -13,6 +13,9 @@ import model.datatypes.DTSalida;
 import model.datatypes.DTTurista;
 import model.datatypes.DTUsuario;
 import model.datatypes.tipoUsuario;
+import model.datatypes.tipoInscripcion;
+import model.logica.handlers.HandlerPaquetes;
+import model.logica.clases.PaqueteTuristico;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
@@ -25,29 +28,39 @@ public class CtrlUsuario implements ICtrlUsuario{
 	
 	public CtrlUsuario() {}
 	
-	public void altaUsuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String img, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
-		HandlerUsuarios hu = HandlerUsuarios.getInstance();
-		if (tipo == tipoUsuario.turista) {
-			Turista t = new Turista(nickname, email, nombre, apellido, contrasena, fechaNac, img, nacionalidad);
-			hu.agregarTurista(t);
-		} else {
-			Proveedor p = new Proveedor(nickname, email, nombre, apellido, contrasena, fechaNac, img, descripcion, sitioWeb);
-			hu.agregarProveedor(p);
-		}
-	}
+    public void altaUsuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, byte [] imgBin, tipoUsuario tipo, String nacionalidad, String descripcion, String sitioWeb) throws YaExisteException {
+        HandlerUsuarios hu = HandlerUsuarios.getInstance();
+        if (tipo == tipoUsuario.turista) {
+            Turista t = new Turista(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir, imgBin, nacionalidad);
+            hu.agregarTurista(t);
+        } else {
+            Proveedor p = new Proveedor(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir, imgBin, descripcion, sitioWeb);
+            hu.agregarProveedor(p);
+        }
+    }
 	
 
-	public void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) throws InscriptionFailException { 
+	public void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha, tipoInscripcion tipo, String paquete) throws InscriptionFailException { 
 		HandlerUsuarios hU = HandlerUsuarios.getInstance();
 		HandlerSalidas hS = HandlerSalidas.getInstance();
+		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		Turista turista = hU.getTuristaByNickname(nickname);
 		SalidaTuristica salidaT = hS.obtenerSalidaTuristica(salida);
+		PaqueteTuristico paq;
+		
 		if(turista.inscriptoSalida(salidaT))
 			throw new InscriptionFailException("El usuario " + turista.getNickname() + " ya se encuentra registrado en la salida seleccionada");
 		if(salidaT.getPlazosDisponibles() - cant < 0)
 			throw new InscriptionFailException("La salida " + salidaT.getNombre() + " no tiene los plazos suficientes para la inscripcion");
 		float costo = salidaT.calcularCosto(cant);
-		InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo);
+		
+		float descuento = 0;
+        if(tipo == tipoInscripcion.paquete) {
+            paq = hP.obtenerPaqueteTuristico(paquete);
+            descuento += paq.getDescuento()/100;
+        }
+		
+		InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo*(1- descuento));
 		salidaT.reducirPlazos(cant);
 		turista.agregarInscripcion(insc);
 	
