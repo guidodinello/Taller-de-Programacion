@@ -444,15 +444,18 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	}
 	
 	private void cargarEventos() {
-        btnSelecUsuario.addActionListener(new ActionListener() {
+        /*btnSelecUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		seleccionarUsuario();	
         	}
-        });
+        });*/
         
         ComboBoxSelUsuario.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		if(seteandoDatosIniciales == true)
+        			return;
         		limpiarCamposParaNuevoUsuario();
+        		seleccionarUsuario();
         		
         	}
         });

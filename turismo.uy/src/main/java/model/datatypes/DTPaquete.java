@@ -4,7 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 
 public class DTPaquete {
-	private String nombre, descripcion, img;
+	private String nombre, descripcion, imgDir;
 	private int periodoValidez;
 	private float descuento;
 	private GregorianCalendar fechaAlta;
@@ -20,7 +20,7 @@ public class DTPaquete {
 		this.descuento = descuento;
 		this.fechaAlta = fechaAlta;
 		this.actividades = actividades;
-		this.img = img;
+		this.imgDir = img;
 		this.categorias = categorias;
 		this.costo = costo;
 	}
@@ -34,7 +34,7 @@ public class DTPaquete {
 	}
 
 	public String getImg() {
-		return img;
+		return imgDir;
 	}
 	
 	public int getPeriodoValidez() {
