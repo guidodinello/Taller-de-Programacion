@@ -48,8 +48,7 @@ public class altaUsuario extends HttpServlet {
         
         try {
             
-            dir = req.getServletContext().getRealPath(/media/imagenes/);
-            dir = dir +"/media/imagenes/";
+            dir = req.getServletContext().getRealPath("/media/imagenes/");
             File uploads = new File(dir);
             
             String na = req.getParameter("Nickname") + ext;
