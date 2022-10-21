@@ -63,8 +63,8 @@ const formularioValidado = () => {
     let nomb = marcarObligatorios("Nombre");
     let desc = marcarObligatorios("Descripcion");
     let dur = marcarObligatorios("Duracion");
-    let cost = marcarObligatorios("Costo")
-    let ciud =marcarObligatorios("Ciudad")
+    let cost = marcarObligatorios("Costo");
+    let ciud =marcarObligatorios("Ciudad");
     return  nomb && desc && dur && cost && ciud;
 }
 
@@ -72,6 +72,6 @@ const formularioValidado = () => {
 $("#btnRegistrarAct").on("click", async function(e){
     e.preventDefault();
     if(formularioValidado()){
-        $("#FormularioAltaActividad").submit();
+        $("#FormularioCompraPaquete").submit();
     }
 })

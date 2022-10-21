@@ -3,6 +3,7 @@
 <%@page import="servlets.salida"%>
 <%@page import="model.datatypes.DTPaquete"%>
 <%@page import="model.datatypes.DTActividad"%>
+<%@page import="model.datatypes.DTTurista"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Set"%>
 <!DOCTYPE html>
@@ -33,6 +34,13 @@
 						<div class="card-body">
 							<h5 class="card-title"><%= paquete.getNombre() %></h5>
 							<p class="card-text"><%= paquete.getDescripcion() %></p>
+							<%
+							if(session.getAttribute("usuario_logueado") instanceof DTTurista){
+							%>
+							<div><a href="paquete?nombrePaquete=<%= paquete.getNombre() %>&COMPRA=1">Comprar Paquete Turístico</a></div>
+							<%
+							}
+							%>
 							<p class="card-text"><small class="text-muted">Fecha de alta: 
 								<%= 
 									new SimpleDateFormat("dd/MM/yyyy").format(paquete.getFechaAlta().getTime())

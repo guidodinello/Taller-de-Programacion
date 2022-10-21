@@ -1,9 +1,10 @@
 package model.logica.clases;
 
 import java.util.GregorianCalendar;
+import java.util.Map;
+import java.util.HashMap;
 
 import model.datatypes.DTCompra;
-import model.logica.clases.PaqueteTuristico;
 
 public class Compra {
     private GregorianCalendar fechaCompra;
@@ -11,6 +12,7 @@ public class Compra {
     private float costoTotal;
     private GregorianCalendar vencimiento;
     private PaqueteTuristico paquete;
+    private Map<String, Integer> disponibles;
     
     public Compra(GregorianCalendar fechaCompra, int cantidadTuristas ,PaqueteTuristico paquete) {
         this.fechaCompra = fechaCompra;
@@ -19,6 +21,10 @@ public class Compra {
         this.vencimiento = fechaCompra;
         this.vencimiento.add(GregorianCalendar.DATE,paquete.getPeriodoValidez());
         this.costoTotal = cantidadTuristas * paquete.calcularCosto();
+        
+        disponibles = new HashMap<String, Integer>();
+        for(String act : paquete.getNombreActividades())
+            disponibles.put(act, cantidadTuristas);
     }
     
     public DTCompra getDT() {
@@ -28,5 +34,16 @@ public class Compra {
     public PaqueteTuristico getPaquete() {
         return this.paquete;
         
+    }
+    
+    public boolean disponiblesEnActividad(int cantTuristas, String actividad) {
+        return cantTuristas <= disponibles.get(actividad);
+    }
+    
+    
+    //Pre: (disponiblesEnActividad(cantTuristas, actividad) == true)
+    public void reducirDisponiblesEnActividad(int cantTuristas, String actividad) {
+        int actual = disponibles.get(actividad);
+        disponibles.put(actividad, actual - cantTuristas);
     }
 }

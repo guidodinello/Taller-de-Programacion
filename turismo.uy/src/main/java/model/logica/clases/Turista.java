@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 
-import model.logica.clases.Compra;
-
 import java.util.HashSet;
 import model.datatypes.DTSalida;
 
@@ -54,4 +52,12 @@ public class Turista extends Usuario {
 	public boolean inscriptoSalida(SalidaTuristica s) {
 		return inscripciones.containsKey(s.getNombre());
 	}
+
+    public boolean comproPaquete(String paquete) {
+        return compras.containsKey(paquete);
+    }
+
+    public void agregarCompra(Compra comp) {
+        compras.put(comp.getPaquete().getNombre(), comp);
+    }
 }
