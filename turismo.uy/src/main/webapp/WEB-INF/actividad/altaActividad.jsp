@@ -22,7 +22,7 @@
 		
 			<div class="col-sm-9 text-center">
 			
-				<div class="card mb-3 formularioAltaActividad shadow">
+				<div class="card mb-3 formularioAltaActividad shadow" style="max-width: 800px">
 				
 					<div class="card-body">
 				

@@ -16,6 +16,7 @@ import model.datatypes.tipoUsuario;
 import model.datatypes.tipoInscripcion;
 import model.logica.handlers.HandlerPaquetes;
 import model.logica.clases.PaqueteTuristico;
+import model.logica.clases.Compra;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
@@ -23,6 +24,7 @@ import java.util.HashSet;
 
 import excepciones.YaExisteException;
 import excepciones.InscriptionFailException;
+import excepciones.CompraFailException;
 
 public class CtrlUsuario implements ICtrlUsuario{
 	
@@ -64,6 +66,19 @@ public class CtrlUsuario implements ICtrlUsuario{
 		salidaT.reducirPlazos(cant);
 		turista.agregarInscripcion(insc);
 	
+	}
+	
+	public void ingresarCompra(String nickname, String paquete, int cant, GregorianCalendar fecha) throws CompraFailException {
+	    HandlerUsuarios hU = HandlerUsuarios.getInstance();
+	    HandlerPaquetes hP = HandlerPaquetes.getInstance();
+	    Turista turista = hU.getTuristaByNickname(nickname);
+	    PaqueteTuristico paq = hP.obtenerPaqueteTuristico(paquete);
+	    
+	    if(turista.comproPaquete(paquete))
+	        throw new CompraFailException("El usuario " + turista.getNickname() + " ya compró el paquete anteriormente.");
+	    
+	    Compra comp = new Compra(fecha, cant, paq);
+	    turista.agregarCompra(comp);
 	}
 	
 	public Set<String> listarTuristas() {

@@ -55,6 +55,10 @@ public class PaqueteTuristico {
 		actividades.put(act.getNombre(), act);
 	}
 	
+	public Set<String> getNombreActividades(){
+	    return actividades.keySet();
+	}
+	
 	public String getImg() {
 	    return img;
 	}
@@ -62,7 +66,7 @@ public class PaqueteTuristico {
 	public DTPaquete getDTPaquete() {
 	    Set<String> categorias = new HashSet<String>();
 	    actividades.forEach((key, value)->{categorias.addAll(value.getCategorias());});
-		return new DTPaquete(nombre, descripcion, periodoValidez, descuento, fechaAlta, actividades.keySet(), categorias, img);
+		return new DTPaquete(nombre, descripcion, periodoValidez, descuento, calcularCosto(), fechaAlta, actividades.keySet(), categorias, img);
 	}
 	
 	public float calcularCosto() {

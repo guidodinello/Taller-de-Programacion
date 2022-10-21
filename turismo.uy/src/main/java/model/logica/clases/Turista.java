@@ -54,4 +54,16 @@ public class Turista extends Usuario {
 	public boolean inscriptoSalida(SalidaTuristica s) {
 		return inscripciones.containsKey(s.getNombre());
 	}
+
+    public boolean comproPaquete(String paquete) {
+        return compras.containsKey(paquete);
+    }
+
+    public void agregarCompra(Compra comp) {
+        compras.put(comp.getPaquete().getNombre(), comp);
+    }
+    
+	public Set<InscripcionSalida> getInscripciones() {
+        return new HashSet<InscripcionSalida>(inscripciones.values());
+    }
 }
