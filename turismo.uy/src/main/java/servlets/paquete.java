@@ -17,6 +17,8 @@ import excepciones.CompraFailException;
 import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.ICtrlUsuario;
 import model.logica.interfaces.Fabrica;
+import model.logica.clases.Turista;
+import model.logica.handlers.HandlerUsuarios;
 
 import model.datatypes.DTPaquete;
 import model.datatypes.estadoActividad;
@@ -42,6 +44,9 @@ public class paquete extends HttpServlet {
         
         try {
             ctrlUsr.ingresarCompra(tur.getNickname(), nomb, cantTuristas, new GregorianCalendar());
+            HandlerUsuarios hU = HandlerUsuarios.getInstance();
+            Turista t = hU.getTuristaByNickname(tur.getNickname());
+            session.setAttribute("usuario_logueado", new DTTurista(t));
             response.sendRedirect("index");
         } catch(CompraFailException e){
             e.printStackTrace();

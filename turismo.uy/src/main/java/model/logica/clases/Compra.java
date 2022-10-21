@@ -18,8 +18,8 @@ public class Compra {
         this.fechaCompra = fechaCompra;
         this.cantidadTuristas = cantidadTuristas;
         this.paquete = paquete;
-        this.vencimiento = fechaCompra;
-        this.vencimiento.add(GregorianCalendar.DATE,paquete.getPeriodoValidez());
+        this.vencimiento = (GregorianCalendar) fechaCompra.clone();
+        this.vencimiento.add(GregorianCalendar.DATE, paquete.getPeriodoValidez());
         this.costoTotal = cantidadTuristas * paquete.calcularCosto();
         
         disponibles = new HashMap<String, Integer>();
@@ -28,7 +28,7 @@ public class Compra {
     }
     
     public DTCompra getDT() {
-        return new DTCompra(paquete.getNombre(), fechaCompra, cantidadTuristas);
+        return new DTCompra(paquete.getNombre(), fechaCompra, cantidadTuristas, estaVigente(new GregorianCalendar()), disponibles);
     }
     
     public PaqueteTuristico getPaquete() {
@@ -36,14 +36,18 @@ public class Compra {
         
     }
     
-    public boolean disponiblesEnActividad(int cantTuristas, String actividad) {
-        return cantTuristas <= disponibles.get(actividad);
+    public int disponiblesEnActividad(String actividad) {
+        return disponibles.get(actividad);
     }
     
     
-    //Pre: (disponiblesEnActividad(cantTuristas, actividad) == true)
+    //Pre: (disponiblesEnActividad(actividad) >= cantTuristas)
     public void reducirDisponiblesEnActividad(int cantTuristas, String actividad) {
         int actual = disponibles.get(actividad);
         disponibles.put(actividad, actual - cantTuristas);
+    }
+    
+    public boolean estaVigente(GregorianCalendar fecha) {
+        return vencimiento.after(fecha);
     }
 }

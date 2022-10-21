@@ -28,6 +28,7 @@ import model.logica.interfaces.ICtrlActividad;
 import model.logica.interfaces.ICtrlUsuario;
 import model.datatypes.DTUsuario;
 import model.datatypes.estadoActividad;
+import model.datatypes.tipoInscripcion;
 import model.logica.clases.ActividadTuristica;
 import model.logica.clases.Proveedor;
 import model.logica.clases.SalidaTuristica;
@@ -107,6 +108,7 @@ public class inscripcionSalida extends HttpServlet {
 	    
 	    //hardCodeoParaTesting(request);
         ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
+        //ICtrlUsuario ICU = Fabrica.getInstance().getICtrlUsuario();
         
 	    if (request.getParameter("nombreSalida") != null){
 	        
@@ -130,9 +132,11 @@ public class inscripcionSalida extends HttpServlet {
             Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
             DTPaquete p;
             for (DTCompra c : dttur.getCompras()) {
-                p = ICA.getInfoPaquete(c.getPaquete());
-                if (c.getCantTuristas()>0 && p.getActividades().contains(nomAct))
-                    paqCompVig.add(p);
+                if(c.getVigente()) {
+                    p = ICA.getInfoPaquete(c.getPaquete());
+                    if (p.getActividades().contains(nomAct) && c.disponiblesEnActividad(nomAct) > 0)
+                        paqCompVig.add(p);
+                }
             }
             request.setAttribute("paquetes", paqCompVig);
 	        
@@ -161,6 +165,25 @@ public class inscripcionSalida extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    //Si llegas al POST ya tenes nombreSalida, y si la inscripcion falla necesitas mandar de nuevo el DTSalida y los DTPaquete al JSP
+	    Fabrica fabrica = Fabrica.getInstance();
+	    ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
+	    DTSalida dts = ICA.getInfoCompletaSalida((String)request.getParameter("nombreSalida"));
+        request.setAttribute("salida", dts);
+        HttpSession session = request.getSession();
+        DTTurista turista = (DTTurista)session.getAttribute("usuario_logueado");
+        
+        String nomAct = dts.getNombreActividad();
+        Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
+        DTPaquete p;
+        for (DTCompra c : turista.getCompras()) {
+            if(c.getVigente()) {
+                p = ICA.getInfoPaquete(c.getPaquete());
+                if (p.getActividades().contains(nomAct) && c.disponiblesEnActividad(nomAct) > 0)
+                    paqCompVig.add(p);
+            }
+        }
+        request.setAttribute("paquetes", paqCompVig);
 		/* 
 		Respuesta del formulario de inscripcion a salida
 		SE PROCESA LA PETICION DE INSCRIPCION
@@ -172,21 +195,34 @@ public class inscripcionSalida extends HttpServlet {
 	    podrá (dependiendo del caso): cambiar la salida seleccionada o cancelar el
 	    caso de uso.
 	    */
-	    
-        HttpSession session = request.getSession();
-        DTTurista turista = (DTTurista)session.getAttribute("usuario_logueado");
         
-        Fabrica fabrica = Fabrica.getInstance();
-        ICtrlActividad ICA = fabrica.getICtrlActividad();
         ICtrlUsuario ICU = fabrica.getICtrlUsuario();
         
-        // de donde saco la salida??
-        DTSalida salida = ICA.getInfoCompletaSalida(request.getParameter("Salida"));
+        // de donde saco la salida?? RE: Se puede mandar el nombre desde el JSP con un input hidden
+        //DTSalida salida = ICA.getInfoCompletaSalida(request.getParameter("Salida"));
    
         int cantTuristas = Integer.parseInt(request.getParameter("cantTuristas"));
+        String sal = request.getParameter("nombreSalida");
+        
+        try {
+            if(request.getParameter("tipoDeInscripcion").equals("porPaquete")) {
+                String paq = request.getParameter("paqueteSeleccionado");
+                ICU.ingresarInscripcion(turista.getNickname(), sal, cantTuristas, new GregorianCalendar(), tipoInscripcion.paquete, paq);
+                System.out.println("Inscripcion por Paquete con exito!");
+                response.sendRedirect("index");
+            }
+            else {
+                ICU.ingresarInscripcion(turista.getNickname(), sal, cantTuristas, new GregorianCalendar(), tipoInscripcion.general, "");
+                System.out.println("Inscripcion general con exito!");
+            }
+        } catch(InscriptionFailException e) {
+            e.printStackTrace();
+            request.setAttribute("InscriptionFailedError", e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
+        }
         
         // compra por paquete
-        if (request.getParameter("tipoDeInscripcion").equals("porPaquete")) {
+        /*if (request.getParameter("tipoDeInscripcion").equals("porPaquete")) {
             // obtener paquete seleccionado
             DTPaquete paq = ICA.getInfoPaquete(request.getParameter("paqueteSeleccionado"));
             
@@ -224,8 +260,8 @@ public class inscripcionSalida extends HttpServlet {
 
         // TODO
         // elegir a donde redirigir luego de inscripto
-        // decidir como darle feedback al usuario si la inscripcion se realizo con exito o no
-	    request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
+        // decidir como darle feedback al usuario si la inscripcion se realizo con exito o no*/
+	    //request.getRequestDispatcher("/WEB-INF/salida/inscripcionSalida.jsp").forward(request, response);
 	}
 	
 //	// TODO

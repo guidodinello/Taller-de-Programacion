@@ -38,13 +38,8 @@ public class Turista extends Usuario {
 		return resultado;
 	}
 	
-	public Set<Compra> getCompras() {
-        if(compras!= null) {
-            return new HashSet<Compra>(this.compras.values());
-        }
-        else {
-            return null;
-        }
+	public Map<String, Compra> getCompras() {
+        return compras;
     }
 
 	public void agregarInscripcion(InscripcionSalida insc) {

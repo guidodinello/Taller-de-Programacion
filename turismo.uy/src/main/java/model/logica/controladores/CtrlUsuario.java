@@ -49,12 +49,24 @@ public class CtrlUsuario implements ICtrlUsuario{
 		Turista turista = hU.getTuristaByNickname(nickname);
 		SalidaTuristica salidaT = hS.obtenerSalidaTuristica(salida);
 		PaqueteTuristico paq;
+		Compra com;
 		
 		if(turista.inscriptoSalida(salidaT))
 			throw new InscriptionFailException("El usuario " + turista.getNickname() + " ya se encuentra registrado en la salida seleccionada");
-		if(salidaT.getPlazosDisponibles() - cant < 0)
+		if(salidaT.getPlazosDisponibles() < cant)
 			throw new InscriptionFailException("La salida " + salidaT.getNombre() + " no tiene los plazos suficientes para la inscripcion");
+		
+		if(tipo == tipoInscripcion.paquete) {
+		    com = turista.getCompras().get(paquete);
+		    if(com.disponiblesEnActividad(salidaT.getActividad().getNombre()) < cant)
+		        throw new InscriptionFailException("No quedan cupos suficientes para la Actividad " + salidaT.getActividad().getNombre() + " en el paquete seleccionado");
+		    else {
+		        com.reducirDisponiblesEnActividad(cant, salidaT.getActividad().getNombre());
+		    }
+		}
+		
 		float costo = salidaT.calcularCosto(cant);
+		
 		
 		float descuento = 0;
         if(tipo == tipoInscripcion.paquete) {
@@ -65,7 +77,6 @@ public class CtrlUsuario implements ICtrlUsuario{
 		InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo*(1- descuento));
 		salidaT.reducirPlazos(cant);
 		turista.agregarInscripcion(insc);
-	
 	}
 	
 	public void ingresarCompra(String nickname, String paquete, int cant, GregorianCalendar fecha) throws CompraFailException {
