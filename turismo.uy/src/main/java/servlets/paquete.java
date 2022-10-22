@@ -47,10 +47,11 @@ public class paquete extends HttpServlet {
             HandlerUsuarios hU = HandlerUsuarios.getInstance();
             Turista t = hU.getTuristaByNickname(tur.getNickname());
             session.setAttribute("usuario_logueado", new DTTurista(t));
-            response.sendRedirect("index");
+            request.setAttribute("exito", "La compra del paquete "+ nomb + " se realizo exitosamente");
+            request.getRequestDispatcher("/index").forward(request, response);
         } catch(CompraFailException e){
             e.printStackTrace();
-            request.setAttribute("fail", true);
+            request.setAttribute("CompraFailError", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp").
                 forward(request, response);
         }
@@ -74,7 +75,6 @@ public class paquete extends HttpServlet {
             request.setAttribute("paquete", paqueteT);
             
             if(request.getParameter("COMPRA") != null && request.getSession().getAttribute("usuario_logueado") instanceof DTTurista) {
-                request.setAttribute("fail", false);
                 request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp").
                     forward(request, response);
             } else {
