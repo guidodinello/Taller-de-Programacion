@@ -18,30 +18,11 @@ $("#TipoDeInscripcionOption").on("mouseup", function(){
     }
 })
 
-$("#PorPaqueteOption").on("mouseup", function(){
-    if ($(this).val() != "") {
-        //$("#CantidadTuristasDiv").show("slow");
-        $("#btnInicribirseASalida").attr("disabled", false);
-    }else{
-        //$("#CantidadTuristasDiv").hide("slow");
-        $("#btnInicribirseASalida").attr("disabled", true);
-        
-    }
-})
-
 $("#btnInicribirseASalida").on("click", async function(e) {
     if(parseInt($("#CantidadTuristasText").val()) <= 0 || $("#CantidadTuristasText").val()=="") {
         e.preventDefault();
         $("#CantidadTuristasText").addClass("is-invalid");
     }else{
-        e.preventDefault();
-        await Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Incripción realizada con exito',
-            showConfirmButton: false,
-            timer: 1700,
-        })
         $("#FormularioInscripcionSalida").submit();
     }
   

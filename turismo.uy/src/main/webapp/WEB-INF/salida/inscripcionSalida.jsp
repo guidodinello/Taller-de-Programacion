@@ -15,6 +15,9 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="/WEB-INF/templates/Head.jsp" />
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+	integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+	crossorigin="anonymous"></script>
 <title>Turismo.uy</title>
 </head>
 <body>
@@ -29,7 +32,19 @@
 		String error_msg = (String)request.getAttribute("InscriptionFailedError");
 		if (error_msg != null) {
 		%>
-		<script> alert(<%=error_msg%>) </script>
+			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			<script>
+			$( document ).ready(async function(e){
+				await Swal.fire({
+				            position: 'center',
+				            icon: 'error',
+				            title: 'Error en la Inscripcion',
+				            text: '<%=error_msg%>',
+				            showConfirmButton: false,
+				            timer: 3000,
+				});
+			});
+			</script>
 		<%
 		}
 		%>
@@ -164,10 +179,6 @@
 
 	<jsp:include page="/WEB-INF/templates/Footer.jsp" />
 
-	<script src="https://code.jquery.com/jquery-3.6.1.min.js"
-		integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-		crossorigin="anonymous"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="js/inscripcionSalida.js"></script>
 
 </body>

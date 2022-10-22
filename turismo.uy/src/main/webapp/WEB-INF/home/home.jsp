@@ -13,6 +13,30 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/templates/Navbar.jsp" />
+	
+	<%
+	String success_msg = (String)request.getAttribute("exito");
+	if (success_msg != null) {
+	%>
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+		integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+		crossorigin="anonymous"></script>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script>
+		$( document ).ready(async function(e){
+			await Swal.fire({
+			            position: 'center',
+			            icon: 'success',
+			            title: 'Felicitaciones',
+			            text: '<%=success_msg%>',
+			            showConfirmButton: false,
+			            timer: 3000,
+			});
+		});
+		</script>
+	<%
+	}
+	%>
 
 	<div class="row mt-5 mt-lg-0"
 		style="padding-top: 10%; max-width: 1600px; padding-left: 5%; padding-right: 5%;">
