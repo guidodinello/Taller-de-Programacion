@@ -29,10 +29,10 @@
 			<a href="paquete?nombrePaquete=<%= p.getNombre() %>&COMPRA=1" class="text-decoration-none">
 				<div
 					class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
-					style="background-image: url('https://<%=p.getImg()%>');">
+					style="background-image: url('<%=p.getImg()%>');">
 					<div class="row g-0 mask card-color">
 						<div class="col-md-4 align-self-center">
-							<img src="https://<%=p.getImg()%>"
+							<img src="<%=p.getImg()%>"
 								class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 								alt="paquete Turistico: <%=p.getNombre()%>">
 						</div>

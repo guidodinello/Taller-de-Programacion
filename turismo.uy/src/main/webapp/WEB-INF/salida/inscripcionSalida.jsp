@@ -71,10 +71,10 @@
 							<div class="mb-4" id="InformacionSalida">
 								<div
 									class="card mb-3 rounded-3 bg-image shadow-1-strong card-color"
-									style="background-image: url('https://<%=sal.getImgDir()%>');">
+									style="background-image: url('<%=sal.getImgDir()%>');">
 									<div class="row g-0 mask card-color">
 										<div class="col-md-4 align-self-center">
-											<img src="https://<%=sal.getImgDir()%>"
+											<img src="<%=sal.getImgDir()%>"
 												class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 												alt="Salida Turistica: <%=sal.getNombre()%>">
 										</div>

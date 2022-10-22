@@ -36,10 +36,10 @@
 				<a href="inscripcionSalida?nombreSalida=<%= s.getNombre() %>" class="text-decoration-none">
 					<div
 						class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
-						style="background-image: url('https://<%=s.getImgDir()%>');">
+						style="background-image: url('<%=s.getImgDir()%>');">
 						<div class="row g-0 mask card-color">
 							<div class="col-md-4 align-self-center">
-								<img src="https://<%=s.getImgDir()%>"
+								<img src="<%=s.getImgDir()%>"
 									class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 									alt="salida Turistica: <%=s.getNombre()%>">
 							</div>
