@@ -58,32 +58,45 @@ public class paquete extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
-        String name = request.getParameter("nombrePaquete");
-        DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
-        request.setAttribute("paquete", paqueteT);
-        
-        if(request.getParameter("COMPRA") != null && request.getSession().getAttribute("usuario_logueado") instanceof DTTurista) {
-            request.setAttribute("fail", false);
-            request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp").
-                forward(request, response);
-        } else {
-            Set<DTActividad> datosActividades = new HashSet<DTActividad>();
-            for(String actividad: paqueteT.getActividades()) {
-                DTActividad actual = ctrlActividad.getInfoActividad(actividad);
-                if(actual.getestado() == estadoActividad.confirmada)
-                    datosActividades.add(actual);
+        if(request.getParameter("listar") != null) {
+            Set<DTPaquete> paquetes = new HashSet<DTPaquete>();
+            for(String paq : ctrlActividad.listarPaquetes()) {
+                DTPaquete actual = ctrlActividad.getInfoPaquete(paq);
+                if(!actual.getActividades().isEmpty())
+                    paquetes.add(actual);
             }
             
-            request.setAttribute("datosActividadPaquete", datosActividades);
+            request.setAttribute("paquetes", paquetes);
+            request.getRequestDispatcher("/WEB-INF/paquete/listadoPaquetes.jsp").forward(request, response);
+        } else {
+            String name = request.getParameter("nombrePaquete");
+            DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
+            request.setAttribute("paquete", paqueteT);
             
-            request.getRequestDispatcher("/WEB-INF/paquete/consultaPaquete.jsp").
-                forward(request, response);
+            if(request.getParameter("COMPRA") != null && request.getSession().getAttribute("usuario_logueado") instanceof DTTurista) {
+                request.setAttribute("fail", false);
+                request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp").
+                    forward(request, response);
+            } else {
+                Set<DTActividad> datosActividades = new HashSet<DTActividad>();
+                for(String actividad: paqueteT.getActividades()) {
+                    DTActividad actual = ctrlActividad.getInfoActividad(actividad);
+                    if(actual.getestado() == estadoActividad.confirmada)
+                        datosActividades.add(actual);
+                }
+                
+                request.setAttribute("datosActividadPaquete", datosActividades);
+                
+                request.getRequestDispatcher("/WEB-INF/paquete/consultaPaquete.jsp").
+                    forward(request, response);
+            }
         }
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
         String name = request.getParameter("nombrePaquete");
+        System.out.println(name);
         DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
         request.setAttribute("paquete", paqueteT);
         processRequest(request, response);

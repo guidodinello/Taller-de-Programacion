@@ -17,7 +17,10 @@
 <body>
 	<jsp:include page="/WEB-INF/templates/Navbar.jsp" />
 	
-	<% DTPaquete paquete = (DTPaquete) request.getAttribute("paquete"); %>
+	<% 
+	DTPaquete paquete = (DTPaquete) request.getAttribute("paquete");
+	Set<DTActividad> actividadesPaquete = (Set<DTActividad>) request.getAttribute("datosActividadPaquete");
+	%>
 	
 	<div class="row mt-5 mt-lg-0 container-principal">
 	
@@ -35,7 +38,7 @@
 							<h5 class="card-title"><%= paquete.getNombre() %></h5>
 							<p class="card-text"><%= paquete.getDescripcion() %></p>
 							<%
-							if(session.getAttribute("usuario_logueado") instanceof DTTurista){
+							if(session.getAttribute("usuario_logueado") instanceof DTTurista && !(actividadesPaquete.isEmpty())){
 							%>
 							<div><a href="paquete?nombrePaquete=<%= paquete.getNombre() %>&COMPRA=1">Comprar Paquete Turístico</a></div>
 							<%
@@ -108,7 +111,6 @@
                     <ul class="list-group list-group-flush">
                         
                         <%
-                        	Set<DTActividad> actividadesPaquete = (Set<DTActividad>) request.getAttribute("datosActividadPaquete");
                         	for(DTActividad actividad: actividadesPaquete){
                         %>
                         
