@@ -573,7 +573,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 				btnVerSalidaTurista.setEnabled(true);
 			}else {
 				seteandoDatosIniciales = true;
-				DTSalida dt = new  DTSalida("No tiene salidas", null, null, 0, null, null);
+				DTSalida dt = new  DTSalida("No tiene salidas", null, null, 0, null, null, "");
 				ComboBoxSalidasInscripto.addItem(dt);
 				seteandoDatosIniciales = false;
 				btnVerSalidaTurista.setEnabled(false);

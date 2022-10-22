@@ -116,7 +116,7 @@ public class CtrlActividad implements ICtrlActividad{
 		return at.getInfoBasicaSalidasVigentes(fechaSistema);
 	}
 	
-	public void altaSalidaTuristica(String nombreSal,GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas, GregorianCalendar fechaAlta,String  actividad) throws YaExisteException {
+	public void altaSalidaTuristica(String nombreSal,GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas, GregorianCalendar fechaAlta,String  actividad, String img) throws YaExisteException {
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		if (hS.existeSalida(nombreSal)) {
 			throw new YaExisteException("La salida " + nombreSal + "ya se encuentra registrada");
@@ -125,7 +125,7 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerActividades hA = HandlerActividades.getInstance();
 		ActividadTuristica actividadAux = hA.obtenerActividadTuristica(actividad);
 		
-		SalidaTuristica newSal = new SalidaTuristica(nombreSal,fechaSal,lugarSal,cantMaxTuristas,fechaAlta,actividadAux);
+		SalidaTuristica newSal = new SalidaTuristica(nombreSal,fechaSal,lugarSal,cantMaxTuristas,fechaAlta,actividadAux, img);
 		actividadAux.agregarSalida(newSal);
 		hS.addSalidas(newSal);
 	
@@ -140,7 +140,7 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String d = hD.getDeptoContains(a);
 		return new DTSalida(s.getNombre(), a.getNombre(), d, s.getfechaSalida(), a.getFechaAlta(), 
-				s.getcantidadMaximaDeTuristas(), s.getlugarSalida(), s.getTuristasInscriptos());
+				s.getcantidadMaximaDeTuristas(), s.getlugarSalida(), s.getTuristasInscriptos(), s.getImg());
 	}
 	
 	//Paquetes

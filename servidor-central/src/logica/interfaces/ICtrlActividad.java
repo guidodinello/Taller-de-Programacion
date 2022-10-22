@@ -21,7 +21,7 @@ public interface ICtrlActividad{
 	public abstract void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String img,  Set<String> categorias) throws YaExisteException;
 	public abstract Set<String> listarNombresSalidasDeActividad(String actividad);
 	public abstract Set<DTSalida> listarInfoSalidasVigentes(String actividad,GregorianCalendar fechaSistema);
-	public abstract void  altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas,GregorianCalendar fechaAlta, String actividad)throws YaExisteException;
+	public abstract void  altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas,GregorianCalendar fechaAlta, String actividad, String img)throws YaExisteException;
 	public abstract DTSalida getInfoCompletaSalida(String salida);
 	public abstract Set<String> listarDepartamentos();
 	public abstract Set<String> listarActividadesDepartamento(String depto);

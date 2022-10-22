@@ -8,7 +8,9 @@ import java.util.GregorianCalendar;
 import datatypes.DTActividad;
 import datatypes.DTSalida;
 import datatypes.estadoActividad;
+import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
+
 
 import java.util.HashMap;
 
@@ -79,7 +81,7 @@ public class ActividadTuristica{
 			if(e.getfechaSalida().after(fechaSistema)) {
 				Set<String> turistas = new HashSet<String>();
 				DTActividad dtAct = getDTActividad();
-				DTSalida actual = new DTSalida(e.getNombre(), dtAct.getNombre(), dtAct.getDepartamento(),  e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas, e.getImgDir());
+				DTSalida actual = new DTSalida(e.getNombre(), dtAct.getNombre(), dtAct.getDepartamento(),  e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas, e.getImg());
 				res.add(actual);
 			}
 		});
@@ -94,19 +96,22 @@ public class ActividadTuristica{
 		int dura = this.duracionHs;
 		float costo = this.costoPorTurista;
 		Set<String> salidas = new HashSet<String>();
-		Set<String> categorias = new HashSet<String>();
  		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
- 		String img = this.imgDir;
- 		estadoActividad estado = this.estado;
-		/*
-		 * this.categorias.forEach((key,value)->{
-		 * 	categorias.add(value.getNombre())});
-		 */
+ 		String imgDireccion = this.imgDir;
+		Set<String> categorias = getCategorias();
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, img, estado);
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado);
 	}
+	
+    public Set<String> getCategorias() {
+        Set<String> res = new HashSet<String>();
+        HandlerCategorias hC = HandlerCategorias.getInstance();
+        Set<Categoria> categorias = hC.obtenerCategorias();
+        categorias.forEach((e)->{if(e.tieneActividad(nombre)) res.add(e.getNombre());});
+        return res;
+    }
 
 }
