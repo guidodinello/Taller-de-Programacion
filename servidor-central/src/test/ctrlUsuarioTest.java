@@ -395,10 +395,10 @@ public class ctrlUsuarioTest {
 		}
 		GregorianCalendar fecha = new GregorianCalendar(2023,8,30);
 		try {
-			controladorActividad.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1");
-			controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");
-			controladorActividad.altaSalidaTuristica("A Canelones", fecha, "Canelones", 10, new GregorianCalendar(1,1,1), "Actividad 2");
-			controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(1,1,3), "Actividad 3");
+			controladorActividad.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1", "imagen");
+			controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2", "imagen");
+			controladorActividad.altaSalidaTuristica("A Canelones", fecha, "Canelones", 10, new GregorianCalendar(1,1,1), "Actividad 2", "imagen");
+			controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(1,1,3), "Actividad 3", "imagen");
 		} catch (YaExisteException e1) {
 			e1.printStackTrace();
 		}
