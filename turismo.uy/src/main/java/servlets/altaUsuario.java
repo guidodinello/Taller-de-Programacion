@@ -25,7 +25,7 @@ import model.datatypes.tipoUsuario;
 public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
-	private String[] ext = {".icon", ".png", ".jpg"};
+	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
 	private String udi = "media/imagenes/usuarioPerfil.png";
 	private String rui = "media/imagenes/";
 	

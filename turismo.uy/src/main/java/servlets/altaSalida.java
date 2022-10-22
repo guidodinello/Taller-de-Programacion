@@ -32,7 +32,7 @@ import model.logica.interfaces.ICtrlActividad;
 public class altaSalida extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlActividad iA = Fabrica.getInstance().getICtrlActividad();
-	private String[] ext = {".icon", ".png", ".jpg"};
+	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
     private String udi = "media/imagenes/salDefault.png";
     private String rui = "media/imagenes/";
     
