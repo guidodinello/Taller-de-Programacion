@@ -89,7 +89,7 @@ public class altaUsuario extends HttpServlet {
 		Part p     = request.getPart("fotoDeLaSalida");
 		String fd = udi;  //para guardar la direccion;
 		
-		if(!extencionValida(p.getSubmittedFileName()).isEmpty()) {
+		if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
 		    fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
 		}else {
 		    fd = "";
