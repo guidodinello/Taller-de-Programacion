@@ -7,16 +7,18 @@ import java.util.Set;
 import java.util.HashSet;
 import datatypes.DTSalida;
 
+
+
 public class Turista extends Usuario {
 	private Map<String, InscripcionSalida> inscripciones;
 	private String nacionalidad;
 	private Map<String ,Compra> compras;
 
-	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String img, String nacionalidad) {
-		super(nickname, email, nombre, apellido, contrasena, fechaNac, img);
+	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, String nacionalidad) {
+		super(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir);
 		this.nacionalidad = nacionalidad;
 		this.inscripciones = new HashMap<String, InscripcionSalida>();
-		//this.compras = vacio;
+		this.compras = new HashMap<String, Compra>();
 	}
 
 	public String getNacionalidad() {
@@ -34,14 +36,11 @@ public class Turista extends Usuario {
 		});
 		return resultado;
 	}
-	public Set<Compra> getCompras() {
-		if(compras!= null) {
-			return new HashSet<Compra>(this.compras.values());
-		}
-		else {
-			return null;
-		}
-	}
+	
+	public Map<String, Compra> getCompras() {
+        return compras;
+    }
+
 	public void agregarInscripcion(InscripcionSalida insc) {
 		inscripciones.put(insc.getSalida().getNombre(), insc);
 	}
@@ -49,4 +48,16 @@ public class Turista extends Usuario {
 	public boolean inscriptoSalida(SalidaTuristica s) {
 		return inscripciones.containsKey(s.getNombre());
 	}
+
+    public boolean comproPaquete(String paquete) {
+        return compras.containsKey(paquete);
+    }
+
+    public void agregarCompra(Compra comp) {
+        compras.put(comp.getPaquete().getNombre(), comp);
+    }
+    
+	public Set<InscripcionSalida> getInscripciones() {
+        return new HashSet<InscripcionSalida>(inscripciones.values());
+    }
 }

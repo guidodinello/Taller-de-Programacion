@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 
-import model.logica.clases.Compra;
-
 import java.util.HashSet;
 import model.datatypes.DTSalida;
 
