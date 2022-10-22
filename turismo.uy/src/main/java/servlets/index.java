@@ -256,6 +256,10 @@ public class index extends HttpServlet {
         ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();
 	    Set<DTActividad> actividades = ICA.getDTActividadesConfirmadas();
 	    request.setAttribute("act_confirmadas", actividades);
+	    if(request.getParameter("exito") != null) {
+	        request.setAttribute("exito", "El usuario fue registrado con exito");
+	    }
+	    
 	    
         request.getRequestDispatcher("/WEB-INF/home/home.jsp").forward(request, response);
 	}
