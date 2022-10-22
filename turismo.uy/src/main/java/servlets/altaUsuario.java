@@ -25,7 +25,7 @@ import model.datatypes.tipoUsuario;
 public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
-	private String[] ext = {".icon", ".png", ".jpg"};
+	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
 	private String udi = "media/imagenes/usuarioPerfil.png";
 	private String rui = "media/imagenes/";
 	
@@ -86,7 +86,7 @@ public class altaUsuario extends HttpServlet {
 		String tU  = request.getParameter("TipoUsuario");
 		String pas     = request.getParameter("Contrasenia");
 		//Foto de perfil
-		Part p     = request.getPart("fotoDeLaSalida");
+		Part p     = request.getPart("FotoPerfil");
 		String fd = udi;  //para guardar la direccion;
 		
 		if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
@@ -104,7 +104,7 @@ public class altaUsuario extends HttpServlet {
 			}
 		    DTUsuario usr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nic);
             ses.setAttribute("usuario_logueado", usr);
-			response.sendRedirect("index");
+			response.sendRedirect("index?exito=Usuario registrado correctamente");
 			
 		}catch(Exception e) {
 			e.printStackTrace();

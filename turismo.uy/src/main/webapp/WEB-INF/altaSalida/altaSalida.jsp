@@ -12,6 +12,9 @@
 <head>
 	<meta charset="UTF-8">
 	<jsp:include page="/WEB-INF/templates/Head.jsp"/>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+	integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+	crossorigin="anonymous"></script>
 	<title>Turismo.uy</title>
 </head>
 <body>
@@ -19,7 +22,27 @@
 	<div class="row mt-5 mt-lg-0" style="padding-top: 10%; max-width: 1600px; padding-left: 5%; padding-right: 5%;">
 
 		<jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp" />
-
+				<%
+		String error_msg = (String)request.getAttribute("SalidaFailedError");
+		if (error_msg != null) {
+		%>
+			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			<script>
+			$( document ).ready(async function(e){
+				await Swal.fire({
+				            position: 'center',
+				            icon: 'error',
+				            title: 'Error en la alta de salida',
+				            text: '<%=error_msg%>',
+				            showConfirmButton: false,
+				            timer: 3000,
+				});
+			});
+			</script>
+		<%
+		}
+		%>
+		
 		<div class="col-sm-8 text-center">
 		
 		     <div class="card mb-3 formularioRegistro shadow">

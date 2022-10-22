@@ -1,4 +1,5 @@
-Ref, Nombre, Validez, Descuento, FechaAlta, Descripción
-P1, Disfrutar Rocha, 60, 20, 10/08/2022, Actividades para hacer en familia y disfrutar arte y gastronomía
-P2, Un día en Colonia, 45, 15, 01/08/2022, Paseos por el casco histórico y se puede terminar con Almuerzo en la Plaza de Toros
+Ref, Nombre, Validez, Descuento, FechaAlta, Descripción, URLImagen
+P1, Disfrutar Rocha, 60, 20, 10/08/2022, Actividades para hacer en familia y disfrutar arte y gastronomía, tinyurl.com/3ppwdca4
+P2, Un día en Colonia, 45, 15, 01/08/2022, Paseos por el casco histórico y se puede terminar con Almuerzo en la Plaza de Toros, tinyurl.com/4yzrdt8b
+P3, Valle Del Lunarejo, 60, 15, 15/09/2022, Visite un área protegida con un paisaje natural hermoso, tinyurl.com/mvteyv6y
 
