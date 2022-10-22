@@ -257,7 +257,7 @@ public class index extends HttpServlet {
 	    Set<DTActividad> actividades = ICA.getDTActividadesConfirmadas();
 	    request.setAttribute("act_confirmadas", actividades);
 	    if(request.getParameter("exito") != null) {
-	        request.setAttribute("exito", "El usuario fue registrado con exito");
+	        request.setAttribute("exito", request.getParameter("exito"));
 	    }
 	    
 	    

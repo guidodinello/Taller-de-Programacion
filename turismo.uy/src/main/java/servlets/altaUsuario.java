@@ -104,7 +104,7 @@ public class altaUsuario extends HttpServlet {
 			}
 		    DTUsuario usr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nic);
             ses.setAttribute("usuario_logueado", usr);
-			response.sendRedirect("index?exito=1");
+			response.sendRedirect("index?exito=Usuario registrado con exito");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
