@@ -91,8 +91,6 @@ public class altaUsuario extends HttpServlet {
 		
 		if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
 		    fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
-		}else {
-		    fd = "";
 		}
 		
 		try {

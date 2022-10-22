@@ -96,7 +96,7 @@ public class altaActividad extends HttpServlet {
         String fd = udi;
         Part p = req.getPart("ImagenActividad");
         
-        if(!extencionValida(p.getSubmittedFileName()).isEmpty()) {
+        if(p !=null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
             fd = guardarImg(p, req ,extencionValida(p.getSubmittedFileName()));
         }
         
