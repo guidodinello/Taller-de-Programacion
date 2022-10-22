@@ -34,9 +34,11 @@ public class consultaActividad extends HttpServlet {
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 		ActividadTuristica actividad = hA.obtenerActividadTuristica(request.getParameter("nombreAct"));
-		Set<DTSalida> salidasActividad = ctrlActividad.listarInfoSalidasVigentes(actividad.getNombre(), new GregorianCalendar());
-		
 		DTActividad datosActividad = ctrlActividad.getInfoActividad(actividad.getNombre());
+		
+		Set<DTSalida> salidasActividad = new HashSet<DTSalida>();
+		for(String sal : datosActividad.getSalidas())
+		    salidasActividad.add(ctrlActividad.getInfoCompletaSalida(sal));
 		
 		Set<String> nombPaquetesActividad = datosActividad.getPaquetes();
 		Set<DTPaquete> paquetesActvidad = new HashSet<DTPaquete>(); 
