@@ -19,7 +19,7 @@ public class ActividadTuristica{
 	private GregorianCalendar fechaAlta;
 	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
-	private String img;
+	private String imgDir;
 	
 	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String img) {
 		this.nombre = nombre;
@@ -30,7 +30,7 @@ public class ActividadTuristica{
 		this.fechaAlta = fechaAlta;
 		this.estado = estadoActividad.agregada;
 		salidas = new HashMap<String, SalidaTuristica>();
-		this.img = img;
+		this.imgDir = img;
 	}
 	
 	public String getNombre() {
@@ -65,8 +65,8 @@ public class ActividadTuristica{
 		return this.salidas.keySet();
 	}
 	
-	public String getImg() {
-		return this.img;
+	public String getImgDir() {
+		return this.imgDir;
 	}
 	
 	public void agregarSalida(SalidaTuristica s) {
@@ -78,7 +78,8 @@ public class ActividadTuristica{
 		salidas.values().forEach((e) -> {
 			if(e.getfechaSalida().after(fechaSistema)) {
 				Set<String> turistas = new HashSet<String>();
-				DTSalida actual = new DTSalida(e.getNombre(), e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas);
+				DTActividad dtAct = getDTActividad();
+				DTSalida actual = new DTSalida(e.getNombre(), dtAct.getNombre(), dtAct.getDepartamento(),  e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas, e.getImgDir());
 				res.add(actual);
 			}
 		});
@@ -97,7 +98,7 @@ public class ActividadTuristica{
  		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
- 		String img = this.img;
+ 		String img = this.imgDir;
  		estadoActividad estado = this.estado;
 		/*
 		 * this.categorias.forEach((key,value)->{

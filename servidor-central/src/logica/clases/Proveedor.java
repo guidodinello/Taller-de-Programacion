@@ -12,8 +12,8 @@ public class Proveedor extends Usuario {
 	private String descripcion, sitioWeb;
 	
 
-	public Proveedor(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String img, String descripcion, String sitioWeb) {
-		super(nickname, email, nombre, apellido, contrasena, fechaNac, img);
+	public Proveedor(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, String descripcion, String sitioWeb) {
+		super(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir);
 		this.descripcion = descripcion;
 		this.sitioWeb = sitioWeb;
 		actividades = new HashMap<String, ActividadTuristica>();
