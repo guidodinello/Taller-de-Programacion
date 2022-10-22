@@ -25,12 +25,8 @@
 			<%
 			@SuppressWarnings("unchecked")
 			Set<DTSalida> salidas = (Set<DTSalida>) request.getAttribute("salidas");
-			
-		   	SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy hh:mm");
 		   	
 			for (DTSalida s : salidas) {
-			    fmt.setCalendar(s.getfechaSalida());
-			    String fechaSalida = fmt.format(s.getfechaSalida().getTime());
 			    
 			%>
 				<a href="inscripcionSalida?nombreSalida=<%= s.getNombre() %>" class="text-decoration-none">
@@ -48,7 +44,7 @@
 									<h5 class="card-title"><%=s.getNombre()%></h5>
 									<p class="card-text"><%=s.getNombreActividad()%></p>
 									<p class="card-text"><%=s.getNombreDepartamentoActividad()%></p>
-									<p class="card-text">Fecha y Hora : <%=fechaSalida%></p>
+									<p class="card-text">Fecha y Hora : <%=new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(s.getfechaSalida().getTime())%></p>
 									<p class="card-text"><%=s.getlugarSalida()%></p>
 								</div>
 							</div>

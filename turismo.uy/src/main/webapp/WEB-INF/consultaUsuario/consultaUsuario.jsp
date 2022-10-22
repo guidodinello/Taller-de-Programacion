@@ -232,17 +232,6 @@
 					
 											}
 											for(DTSalida sal:salidas){
-												SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy");
-											    fmt.setCalendar(sal.getfechaSalida());
-											    String fechaSalida = fmt.format(sal.getfechaSalida().getTime());
-											    
-											    SimpleDateFormat fmt2 = new SimpleDateFormat("hh:mm");
-											    fmt.setCalendar(sal.getfechaSalida());
-											    String horaSalida = fmt2.format(sal.getfechaSalida().getTime());
-											    
-											    SimpleDateFormat fmtA = new SimpleDateFormat("dd-MMM-yyyy");
-											    fmt.setCalendar(sal.getfechaSalida());
-											    String fechaAlta = fmtA.format(sal.getfechaAlta().getTime());
 														 %>
                                             <fieldset disabled>
                                                 <div class="row g-3 align-items-center pt-3">
@@ -268,7 +257,10 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <input type="" class="form-control disabled"
-                                                            aria-describedby="disabled" placeholder="<%=horaSalida%>">
+                                                            aria-describedby="disabled" placeholder=
+                                                            <%= 
+																new SimpleDateFormat("HH:mm").format(sal.getfechaSalida().getTime())
+															%>>
                                                     </div>
 
                                                 </div>
@@ -284,7 +276,10 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <input type="" class="form-control disabled"
-                                                            aria-describedby="disabled" placeholder="<%=fechaSalida%>">
+                                                            aria-describedby="disabled" placeholder=
+                                                            <%= 
+															new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaSalida().getTime())
+															%>>
                                                     </div>
 
                                                 </div>
@@ -300,7 +295,9 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <input type="" class="form-control disabled"
-                                                            aria-describedby="disabled" placeholder="<%=fechaAlta%>">
+                                                            aria-describedby="disabled" placeholder=<%= 
+															new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaAlta().getTime())
+															%>>
                                                     </div>
 
                                                 </div>
@@ -398,9 +395,6 @@
 														Turista tur = (Turista) usr;
 														Set<InscripcionSalida> sali = tur.getInscripciones();
 														for (InscripcionSalida sal:sali){
-															SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy");
-														    fmt.setCalendar(sal.getFechaAlta());
-														    String fechaSalida = fmt.format(sal.getFechaAlta().getTime());
 														
 														%>
 														
@@ -438,7 +432,10 @@
 									                        </label>
 									                      </div>
 									                      <div class="col-auto">
-									                        <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=fechaSalida%>">
+									                        <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
+									                        <%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(sal.getFechaAlta().getTime())
+															%>>
 									                      </div>
 									             
 									                    </div>
@@ -703,17 +700,6 @@
 					
 											}
 											for(DTSalida sal:salidas){
-												SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy");
-											    fmt.setCalendar(sal.getfechaSalida());
-											    String fechaSalida = fmt.format(sal.getfechaSalida().getTime());
-											    
-											    SimpleDateFormat fmt2 = new SimpleDateFormat("hh:mm");
-											    fmt.setCalendar(sal.getfechaSalida());
-											    String horaSalida = fmt2.format(sal.getfechaSalida().getTime());
-											    
-											    SimpleDateFormat fmtA = new SimpleDateFormat("dd-MMM-yyyy");
-											    fmt.setCalendar(sal.getfechaSalida());
-											    String fechaAlta = fmtA.format(sal.getfechaAlta().getTime());
 														 %>
                                             <fieldset disabled>
                                                 <div class="row g-3 align-items-center pt-3">
@@ -739,7 +725,10 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <input type="" class="form-control disabled"
-                                                            aria-describedby="disabled" placeholder="<%=horaSalida%>">
+                                                            aria-describedby="disabled" placeholder=
+                                                            <%= 
+																new SimpleDateFormat("HH:mm").format(sal.getfechaSalida().getTime())
+															%>>
                                                     </div>
 
                                                 </div>
@@ -755,7 +744,10 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <input type="" class="form-control disabled"
-                                                            aria-describedby="disabled" placeholder="<%=fechaSalida%>">
+                                                            aria-describedby="disabled" placeholder=
+                                                            <%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaSalida().getTime())
+															%>>
                                                     </div>
 
                                                 </div>
@@ -771,7 +763,10 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <input type="" class="form-control disabled"
-                                                            aria-describedby="disabled" placeholder="<%=fechaAlta%>">
+                                                            aria-describedby="disabled" placeholder=
+                                                            <%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaAlta().getTime())
+															%>>
                                                     </div>
 
                                                 </div>
