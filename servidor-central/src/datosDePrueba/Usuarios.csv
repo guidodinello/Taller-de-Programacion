@@ -1,15 +1,15 @@
-Ref, Tipo, Nickname, Nombre, Apellido, EMail, FechaNac
-U1, T, lachiqui, Rosa María, Martínez, mirtha.legrand.ok@hotmail.com.ar, 23/2/1927
-U2, T, isabelita, Elizabeth, Windsor, isabelita@thecrown.co.uk, 21/04/1926
-U3, T, anibal, Aníbal, Lecter, anibal@fing.edu.uy, 31/12/1937
-U4, T, waston, Emma, Waston, e.waston@gmail.com, 15/4/1990
-U5, T, elelvis, Elvis, Lacio, suavemente@hotmail.com, 30/07/1971
-U6, T, eleven11, Eleven, Once, eleven11@gmail.com, 19/02/2004
-U7, T, bobesponja, Bob, Esponja, bobesponja@nickelodeon.com, 01/05/1999
-U8, T, tony, Antonio, Pacheco, eltony@manya.org.uy, 11/04/1976
-U9, T, chino, Álvaro, Recoba, chino@trico.org.uy, 17/03/1976 
-U10, T, mastropiero, Johann Sebastian, Mastropiero, johann.sebastian@gmail.com, 07/02/1922
-U11, P, washington, Washington, Rocha, washington@turismorocha.gub.uy, 14/09/1970
-U12, P, eldiez, Pablo, Bengoechea, eldiez@socfomturriv.org.uy, 27/06/1965
-U13, P, meche, Mercedes, Venn, meche@colonia.gub.uy, 31/12/1990
+Ref, Tipo, Nickname, Nombre, Apellido, EMail, FechaNac, Clave, URLImagen
+U1, T, lachiqui, Rosa María, Martínez, mirtha.legrand.ok@hotmail.com.ar, 23/2/1927, awdrg543, tinyurl.com/2e3s66tw
+U2, T, isabelita, Elizabeth, Windsor, isabelita@thecrown.co.uk, 21/04/1926, r5t6y7u8, tinyurl.com/ycy8mbrn
+U3, T, anibal, Aníbal, Lecter, anibal@fing.edu.uy, 31/12/1937, edrft543, tinyurl.com/y2u3tybh
+U4, T, waston, Emma, Waston, e.waston@gmail.com, 15/4/1990,poiuy987, tinyurl.com/2p9ed8et
+U5, T, elelvis, Elvis, Lacio, suavemente@hotmail.com, 30/07/1971, 45idgaf67, tinyurl.com/mtwppxxz
+U6, T, eleven11, Eleven, Once, eleven11@gmail.com, 19/02/2004, xdrgb657, tinyurl.com/3ztpasya
+U7, T, bobesponja, Bob, Esponja, bobesponja@nickelodeon.com, 01/05/1999,sbsplol1, tinyurl.com/43zymcch
+U8, T, tony, Antonio, Pacheco, eltony@manya.org.uy, 11/04/1976, okmnji98, tinyurl.com/mr3a38w4
+U9, T, chino, Álvaro, Recoba, chino@trico.org.uy, 17/03/1976, qsxcdw43, tinyurl.com/2b556k7t
+U10, T, mastropiero, Johann Sebastian, Mastropiero, johann.sebastian@gmail.com, 07/02/1922, qpwoei586, tinyurl.com/3mbeyawm
+U11, P, washington, Washington, Rocha, washington@turismorocha.gub.uy, 14/09/1970, asdfg654, tinyurl.com/3whe8372
+U12, P, eldiez, Pablo, Bengoechea, eldiez@socfomturriv.org.uy, 27/06/1965, ytrewq10, tinyurl.com/mu4jeas3
+U13, P, meche, Mercedes, Venn, meche@colonia.gub.uy, 31/12/1990, mnjkiu89, tinyurl.com/4hs4v9c5
 
