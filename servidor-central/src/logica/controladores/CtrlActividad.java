@@ -119,7 +119,7 @@ public class CtrlActividad implements ICtrlActividad{
 	public void altaSalidaTuristica(String nombreSal,GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas, GregorianCalendar fechaAlta,String  actividad, String img) throws YaExisteException {
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		if (hS.existeSalida(nombreSal)) {
-			throw new YaExisteException("La salida " + nombreSal + "ya se encuentra registrada");
+			throw new YaExisteException("La salida " + nombreSal + " ya se encuentra registrada");
 			
 		}
 		HandlerActividades hA = HandlerActividades.getInstance();
