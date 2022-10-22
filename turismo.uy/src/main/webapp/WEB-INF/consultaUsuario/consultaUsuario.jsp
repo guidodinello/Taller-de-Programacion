@@ -196,7 +196,10 @@
 													      </label>
 													    </div>
 													    <div class="col-auto">
-													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=miUsr.getFechaNac()%>">
+													      <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder=
+													      	<%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(miUsr.getFechaNac().getTime())
+															%>>
 													    </div>
 													
 													  </div>
@@ -443,7 +446,7 @@
 									                          <label for="inputPassword6" class="col-form-label disabled'">Tipo:</label>
 									                        </div>
 									                        <div class="col-auto">
-									                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="">
+									                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=sal.getTipo()%>">
 									                        </div>
 									                  
 									                      </div>
@@ -660,7 +663,10 @@
 													      </label>
 													    </div>
 													    <div class="col-auto">
-													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=Usr.getFechaNac()%>">
+													      <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')"  placeholder=
+													      	<%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(Usr.getFechaNac().getTime())
+															%>>
 													    </div>
 													
 													  </div>
