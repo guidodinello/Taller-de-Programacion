@@ -31,7 +31,7 @@ public class altaActividad extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
     private String[] ext = {".icon", ".png", ".jpg"};
-    private String udi = "media/imagenes/actDefault.png";
+    private String udi = "media/imagenes/actDefault.jpg";
     private String rui = "media/imagenes/";
     
     public altaActividad() {
