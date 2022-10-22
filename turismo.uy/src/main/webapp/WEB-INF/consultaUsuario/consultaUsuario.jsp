@@ -569,10 +569,10 @@
 							                  <ul class="nav nav-tabs card-header-tabs" id="bologna-list" role="tablist">
 							                    <li class="nav-item">
 							                      <a class="nav-link nav-link active" style="color: black;" href="#perfil" role="tab"
-							                        aria-controls="description" aria-selected="true">Perfil</a>
+							                        aria-controls="perfil" aria-selected="true">Perfil</a>
 							                    </li>
 							                    <li class="nav-item">
-							                      <a class="nav-link nav-link-usr" href="#salidas" role="tab" aria-controls="history"
+							                      <a class="nav-link nav-link-usr" href="#salidas" role="tab" aria-controls="salidas"
 							                        aria-selected="false">Salidas</a>
 							                    </li>
 							                    	<%
@@ -580,7 +580,7 @@
 													%>
 							                     <li class="nav-item">
 					                                <a class="nav-link nav-link-usr " href="#actividades" role="tab"
-					                                  aria-controls="history" aria-selected="false">Actividades ofrecidas</a>
+					                                  aria-controls="actividades" aria-selected="false">Actividades ofrecidas</a>
 					                             </li>
 					                             <%
 													}
@@ -591,7 +591,7 @@
 							            <div class="card-body">
 											<div class="tab-content mt-3">
 										<%--/////////////////////////// P E R F I L  //////////////////////--%>
-					                        	<div class="tab-pane active" id="perfil" role="tabpanel">
+					                        	<div class="tab-pane active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
 					                            	<div class="card-body">
 					                            	<form>
 													<h4 class=" font-up font-bold py-2 white-text">Datos del usuario</h4>
@@ -670,7 +670,7 @@
 							          
 																			<%--	///////////////////////////S A L I D A S//////////////////////--%>
 											<div class="tab-pane" id="salidas" role="tabpanel"
-												aria-labelledby="history-tab">
+												aria-labelledby="salidas-tab">
 												<div class="card-body">
 														<%--C O N T E N I D O       D E      S A L I D A S --%>
 											<% 
@@ -773,7 +773,7 @@
 					                            
 					                         <%if (Usr instanceof DTProveedor) {%>   
 					                     <%--/////////////////////////// A C T I V I D A D E S  //////////////////////--%>
-					                            <div class="tab-pane active" id="actividades" role="tabpanel">
+					                            <div class="tab-pane" id="actividades" role="tabpanel" aria-labelledby="actividades-tab">
 					                               <div class="card-body">
 					                               <%
 													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
