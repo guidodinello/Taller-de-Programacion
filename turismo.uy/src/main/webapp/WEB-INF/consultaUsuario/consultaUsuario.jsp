@@ -320,12 +320,13 @@
 											<div class="tab-pane" id="paquetes" role="tabpanel"
 												aria-labelledby="paquetes-tab">
 												<div class="card-body">
-												<%   Set<DTPaquete> res = new HashSet<DTPaquete>();
+												<%   
 											    DTTurista Usuario = (DTTurista)miUsr;
 											    for (DTCompra c : Usuario.getCompras()) {
-											        res.add(ctrlA.getInfoPaquete(c.getPaquete()));%>
+											    	DTPaquete paq = ctrlA.getInfoPaquete(c.getPaquete());
+											    %>
 										 		<form>
-								                    <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html">Disfrutar Rocha</a>
+								                    <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html"><%= paq.getNombre() %></a>
 								                    <fieldset disabled>
 								                      <div class="row g-3 align-items-center pt-3">
 								                        <div class="col-auto">
@@ -333,7 +334,7 @@
 								                          <label for="inputPassword6" class="col-form-label disabled'">Cantidad Turistas:</label>
 								                        </div>
 								                        <div class="col-auto">
-								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="2">
+								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= c.getCantTuristas() %>">
 								                        </div>
 								                  
 								                      </div>
@@ -345,7 +346,7 @@
 								                          <label for="inputPassword6" class="col-form-label disabled'">Validez:</label>
 								                        </div>
 								                        <div class="col-auto">
-								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="60">
+								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= paq.getPeriodoValidez() %> dias">
 								                        </div>
 								                  
 								                      </div>
@@ -357,7 +358,7 @@
 								                          <label for="inputPassword6" class="col-form-label disabled'">Descuento:</label>
 								                        </div>
 								                        <div class="col-auto">
-								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="20">
+								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= paq.getDescuento() %> %">
 								                        </div>
 								                  
 								                      </div>
@@ -371,7 +372,10 @@
 								                      </label>
 								                    </div>
 								                    <div class="col-auto">
-								                      <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="15/08/2022">
+								                      <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
+								                      		<%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(c.getFechaCompra().getTime())
+															%>>
 								                    </div>
 								           
 								                  </div>

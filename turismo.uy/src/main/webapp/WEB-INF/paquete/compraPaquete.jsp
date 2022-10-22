@@ -6,11 +6,33 @@
 <html>
 	<head>
 		<jsp:include page="/WEB-INF/templates/Head.jsp" />
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     	<title>Turismo.uy</title>
 	</head>
 	
 	<body>
 		<jsp:include page="/WEB-INF/templates/Navbar.jsp" />
+		
+		<%
+		String error_msg = (String)request.getAttribute("CompraFailError");
+		if (error_msg != null) {
+		%>
+			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			<script>
+			$( document ).ready(async function(e){
+				await Swal.fire({
+				            position: 'center',
+				            icon: 'error',
+				            title: 'Error en la compra',
+				            text: '<%=error_msg%>',
+				            showConfirmButton: false,
+				            timer: 3000,
+				});
+			});
+			</script>
+		<%
+		}
+		%>
 		
 		<% DTPaquete paquete = (DTPaquete) request.getAttribute("paquete"); %>
 		
@@ -40,14 +62,7 @@
 				<div class="card mb-3 formularioCompraPaquete shadow" style="max-width: 800px">
 					<div class="card-body">
 						<h5 class="card-title">Compra de Paquete</h5>
-						<%
-		              	boolean fail = (boolean) request.getAttribute("fail");
-		              	if(fail){
-		              	%>
-		              	<p id="failCompraPaquete">Ya se compró el paquete anteriormente</p>
-		              	<%
-		              	}
-		              	%>
+						
 		              		
 						<form method="POST" action="paquete" id="FormularioCompraPaquete" enctype="multipart/form-data" >
 							
@@ -71,7 +86,6 @@
 			</div>
 		</div>
 		<jsp:include page="/WEB-INF/templates/Footer.jsp"/>
-		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 		<script src="js/compraPaquete.js"></script>
 	</body>
 </html>
