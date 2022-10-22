@@ -6,11 +6,33 @@
 <html>
 	<head>
 		<jsp:include page="/WEB-INF/templates/Head.jsp" />
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     	<title>Turismo.uy</title>
 	</head>
 	
 	<body>
 		<jsp:include page="/WEB-INF/templates/Navbar.jsp" />
+		
+		<%
+		String error_msg = (String)request.getAttribute("AltaYaExiste");
+		if (error_msg != null) {
+		%>
+			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			<script>
+			$( document ).ready(async function(e){
+				await Swal.fire({
+				            position: 'center',
+				            icon: 'error',
+				            title: 'Error en el alta',
+				            text: '<%=error_msg%>',
+				            showConfirmButton: false,
+				            timer: 3000,
+				});
+			});
+			</script>
+		<%
+		}
+		%>
 		
 		<% 
 		Set<String> deptos = (Set<String>) request.getAttribute("listaDepartamentos"); 
@@ -28,14 +50,7 @@
 				
 						<h5 class="card-title">Alta de Actividad</h5>
 						
-						<%
-	              		boolean fail = (boolean) request.getAttribute("fail");
-	              		if(fail){
-	              		%>
-	              		<p id="failAltaUsuario">Ya existe una actividad con ese nombre, por favor intentelo nuevamente</p>
-	              		<%
-	              		}
-	              		%>
+						
 				
 						<form method="POST" action="altaActividad" id="FormularioAltaActividad" enctype="multipart/form-data">
 						
@@ -144,7 +159,6 @@
 		</div>
 		
 		<jsp:include page="/WEB-INF/templates/Footer.jsp"/>
-		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 		<script src="js/altaActividad.js"></script>
 	</body>
 	

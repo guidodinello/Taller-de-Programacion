@@ -102,10 +102,11 @@ public class altaActividad extends HttpServlet {
         
         try {
             ctrlAct.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), new GregorianCalendar(), fd, cat, estadoActividad.agregada);
-            res.sendRedirect("index");
+            req.setAttribute("exito", "La actividad "+ nom + " se ha dado de alta exitosamente");
+            req.getRequestDispatcher("/index").forward(req, res);
         } catch(YaExisteException e) {
             e.printStackTrace();
-            req.setAttribute("fail", true);
+            req.setAttribute("AltaYaExiste", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/actividad/altaActividad.jsp").forward(req, res);
         }
         
@@ -117,17 +118,18 @@ public class altaActividad extends HttpServlet {
         if(!(ses.getAttribute("usuario_logueado") instanceof DTProveedor)) {
             response.sendRedirect("index");
             return;
-        }
-        
+        } else {
         request.setAttribute("listaDepartamentos", ctrlAct.listarDepartamentos());
         request.setAttribute("listaCategorias", ctrlAct.listarCategorias());
         
-        request.setAttribute("fail", false);
         request.getRequestDispatcher("/WEB-INF/actividad/altaActividad.jsp").forward(request, response);
+        }
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
         request.setCharacterEncoding("UTF-8");
+        request.setAttribute("listaDepartamentos", ctrlAct.listarDepartamentos());
+        request.setAttribute("listaCategorias", ctrlAct.listarCategorias());
         processRequest(request, response);
     }
 }
