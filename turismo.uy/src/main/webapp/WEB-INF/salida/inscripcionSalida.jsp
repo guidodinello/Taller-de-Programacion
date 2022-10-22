@@ -59,10 +59,6 @@
 
 						<%
 						DTSalida sal = (DTSalida) request.getAttribute("salida");
-						
-					   	SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy hh:mm");
-					    fmt.setCalendar(sal.getfechaSalida());
-					    String fechaSalida = fmt.format(sal.getfechaSalida().getTime());
 						%>
 						
 						<input type="hidden" name="nombreSalida" value="<%=sal.getNombre()%>" />
@@ -84,7 +80,7 @@
 												<div class="card-text">
 													<p>
 														Fecha y Hora:
-														<%=fechaSalida%>
+														<%=new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(sal.getfechaSalida().getTime())%>
 													</p>
 													<p>
 														Cantidad máxima de turistas:
