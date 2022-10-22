@@ -44,7 +44,6 @@ public class altaSalida extends JInternalFrame {
 	private GregorianCalendar fechaNac;
 
 	private JButton calendarBtn;
-private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
 	private JTextField date;
 	private JInternalFrame f;
 	private  JComboBox<String> comboBox,comboBox_1 ;
@@ -75,16 +74,11 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
        
        comboBox = new JComboBox<String>();
        
-       rdbtnNewRadioButton = new JRadioButton("Confirmar Depto.");
-       
        JLabel lblNewLabel_1 = new JLabel("Seleccionar Actividad");
        lblNewLabel_1.setEnabled(false);
        
       comboBox_1 = new JComboBox<String>();
        comboBox_1.setEnabled(false);
-       
-      rdbtnNewRadioButton_1 = new JRadioButton("Confirmar Act.");
-       rdbtnNewRadioButton_1.setEnabled(false);
        
        JLabel lblNewLabel_2 = new JLabel("INFORMACION DE LA SALIDA:");
        lblNewLabel_2.setEnabled(false);
@@ -159,11 +153,7 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
        								.addComponent(comboBox_1, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
        								.addComponent(comboBox, 0, 150, Short.MAX_VALUE)
-       								.addComponent(btnNewButton_1))
-       							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-       							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-       								.addComponent(rdbtnNewRadioButton)
-       								.addComponent(rdbtnNewRadioButton_1)))
+       								.addComponent(btnNewButton_1)))
        						.addGroup(groupLayout.createSequentialGroup()
        							.addComponent(lblNewLabel_3)
        							.addPreferredGap(ComponentPlacement.RELATED)
@@ -194,7 +184,7 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
        				.addGroup(groupLayout.createSequentialGroup()
        					.addGap(65)
        					.addComponent(btnNewButton)))
-       			.addContainerGap())
+       			.addContainerGap(111, Short.MAX_VALUE))
        );
        groupLayout.setVerticalGroup(
        	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -202,13 +192,11 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
        			.addGap(23)
        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
        				.addComponent(lblNewLabel)
-       				.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-       				.addComponent(rdbtnNewRadioButton))
+       				.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
        			.addPreferredGap(ComponentPlacement.RELATED)
        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
        				.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-       				.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-       				.addComponent(rdbtnNewRadioButton_1))
+       				.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
        			.addGap(18)
        			.addComponent(lblNewLabel_2)
        			.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -241,7 +229,7 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
        pack();
        /////////////////////////////////////////////////////ACTION LISTENERSS/////////////////////////////////////
      
-       rdbtnNewRadioButton.addActionListener(new ActionListener(){
+     /* rdbtnNewRadioButton.addActionListener(new ActionListener(){
     	    public void actionPerformed(ActionEvent e) {
     	    if(comboBox.getSelectedIndex() == -1) return;
     	    else  if (!rdbtnNewRadioButton.isSelected()) {
@@ -287,24 +275,28 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
     	        settear =true;
     	    }
     	    }
-    });
+    });*/
        comboBox.addActionListener(new ActionListener() {
     	   public void actionPerformed(ActionEvent e) {
-    		   if (rdbtnNewRadioButton.isSelected()) {
+    		   /*if (rdbtnNewRadioButton.isSelected()) {
     			   rdbtnNewRadioButton.setSelected(false);
     			   rdbtnNewRadioButton_1.setSelected(false);
     			   rdbtnNewRadioButton_1.setEnabled(false);
-    			   settear = false;
+    			   settear = false;*/
     			   comboBox_1.removeAllItems();
     			   comboBox_1.setEnabled(false);
+    			   
     			   settear = true;
+    			   lblNewLabel_1.setEnabled(true);
     			   lblNewLabel_2.setEnabled(false);
 	    		   lblNewLabel_3.setEnabled(false);
 	    		   lblNewLabel_4.setEnabled(false);
 	    		   lblNewLabel_5.setEnabled(false);
 	    		   lblNewLabel_6.setEnabled(false);
 	    		   lblNewLabel_7.setEnabled(false);
-	    		   
+	    		   textField_1.setText("");
+	    			textField_2.setText("");
+	    			textField_3.setText("");
 	    		   calendarBtn.setEnabled(false);
 	    		   spinner.setEnabled(false);
 	    		   spinner_1.setEnabled(false);
@@ -313,35 +305,48 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
 	    		  // textField_3.setEnabled(true);
 	    		  spinner_2.setEnabled(false);
 	    		   btnNewButton.setEnabled(false);
-    		   }
+	    		   comboBox_1.setEnabled(true);
+	    		   settear = false;
+	       	    comboBox_1.removeAllItems();
+	       	    Set<String> actividades = iCS.listarActividadesDepartamento(comboBox.getSelectedItem().toString() );
+	       	        actividades.forEach((act)->{
+	       	        	
+	       	           comboBox_1.addItem(act);
+	       	           
+	       	        });
+	       	        settear =true;
+    		   //}
     	   }
        });
        comboBox_1.addActionListener(new ActionListener() {
     	   public void actionPerformed(ActionEvent e) {
-    		   if (rdbtnNewRadioButton_1.isSelected()) {
+    		  
     			   
-    			   rdbtnNewRadioButton_1.setSelected(false);
-    			   lblNewLabel_2.setEnabled(false);
-	    		   lblNewLabel_3.setEnabled(false);
-	    		   lblNewLabel_4.setEnabled(false);
-	    		   lblNewLabel_5.setEnabled(false);
-	    		   lblNewLabel_6.setEnabled(false);
-	    		   lblNewLabel_7.setEnabled(false);
-	    		   
-	    		   calendarBtn.setEnabled(false);
-	    		   spinner.setEnabled(false);
-	    		   spinner_1.setEnabled(false);
-	    		   textField_1.setEnabled(false);
-	    		   textField_2.setEnabled(false);
+    		
 	    		  // textField_3.setEnabled(true);
 	    		  spinner_2.setEnabled(false);
 	    		   btnNewButton.setEnabled(false);
+	    		   lblNewLabel_2.setEnabled(true);
+	    		   lblNewLabel_3.setEnabled(true);
+	    		   lblNewLabel_4.setEnabled(true);
+	    		   lblNewLabel_5.setEnabled(true);
+	    		   lblNewLabel_6.setEnabled(true);
+	    		   lblNewLabel_7.setEnabled(true);
+	    		   
+	    		   calendarBtn.setEnabled(true);
+	    		   spinner.setEnabled(true);
+	    		   spinner_1.setEnabled(true);
+	    		   textField_1.setEnabled(true);
+	    		   textField_2.setEnabled(true);
+	    		  // textField_3.setEnabled(true);
+	    		  spinner_2.setEnabled(true);
+	    		   btnNewButton.setEnabled(true);
     			   
     		   }
-    	   }
+    	   
        });
        
-       rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+      /* rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
     	  
     	   public void actionPerformed(ActionEvent e) {
     		   if(!rdbtnNewRadioButton_1.isSelected()) {
@@ -380,7 +385,7 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
     		   btnNewButton.setEnabled(true);
     		   }
     	   }
-       });
+       });*/
        
          
        calendarBtn.addActionListener(new ActionListener() {
@@ -461,9 +466,9 @@ public void limpiarForm() {
 	 comboBox.removeAllItems();
 	 comboBox_1.removeAllItems();
 	}
-	 rdbtnNewRadioButton.setSelected(false);
-	 rdbtnNewRadioButton_1.setSelected(false);	 
-	 rdbtnNewRadioButton_1.setEnabled(false);
+	// rdbtnNewRadioButton.setSelected(false);
+	// rdbtnNewRadioButton_1.setSelected(false);	 
+	// rdbtnNewRadioButton_1.setEnabled(false);
 
 	
 }
