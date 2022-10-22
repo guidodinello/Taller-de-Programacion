@@ -25,27 +25,33 @@
 		     <div class="card mb-3 formularioRegistro shadow">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Registrar Salida</h5>
-                    <form action="./homeLogueadoProv.html" id="formAltaSalida" class="needs-validation" novalidate>
+                    <form method="POST" action="altaSalida" enctype="multipart/form-data" id="formAltaSalida">
 
                         <div class="mb-4 text-start needs-validate">
                             <label for="dpto" class="form-label">Departamento donde se llevará a cabo la salida</label>
-                            <select id="departamento" name="dpto" class="form-select non-empty" required onchange="if (this.selectedIndex) cargarActividades();">
-                                <option value="" selected disabled>Seleccione un Departamento</option>
+                            <select id="departamento" name="departamento" class="form-select non-empty" required 
+                            onchange="if (this.selectedIndex) cargarActividades();">
+                                <option value="" disabled <%if(request.getAttribute("nombreDep") == null){ %>selected="selected"
+                                <%} %>> Seleccione un Departamento</option>
                  					
                  				<%
 									Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
 									for (String depto: deptos) {
 								%>
-									<option value="<%= depto %>"><%= depto %></option>
+									<option value="<%= depto %>" <%if(request.getAttribute("nombreDep") != null && request.getAttribute("nombreDep").equals(depto)){ 
+									%> selected="selected" <%} %>><%= depto %></option>
 								<%
 									}
 								%>
-                            </select> 
+                            </select>
+                          <div id="validarDepto" class="invalid-feedback">
+	                          Es obligatorio seleccionar un departamento.
+	                      </div>
                         </div>
 
                         <div class="mb-4 text-start needs-validate">
                             <label for="ciudad">Actividad:</label>
-                            <select name="ciudad" class="form-select non-empty" required>
+                            <select id="actividad" name="actividad" class="form-select non-empty" required>
                                 <option value="" selected disabled>Seleccione una Actividad</option>
                                 
                                 <%
@@ -58,47 +64,57 @@
 										}
                                		}
 								%>
-                            </select> 
+                            </select>
+                          <div id="validarAct" class="invalid-feedback">
+	                          Es obligatorio seleccionar una actividad.
+	                      </div>
                         </div>
 
-                        <div class="mb-4 text-start needs-validate check input">
-                            <label for="nombre" class="form-label">Nombre : </label>
-                            <input type="text" name="nombre"
+                        <div class="mb-4 text-start needs-validate check input" id="nombreSDiv">
+                            <label  for="nombre" class="form-label">Nombre : </label>
+                            <input id="nombreSText" type="text" name="nombre"
                                 placeholder="Nombre de la salida" class="form-control non-empty" required>
-                                <div class="valid-feedback is-valid"></div>
+                          <div id="validarNombre" class="invalid-feedback">
+	                          El campo nombre es obligatorio.
+	                      </div>
                         </div>
 
                         <div class="mb-4 text-start row needs-validate">
                             <div class="col">
                                 <label for="duracion" class="form-label">Fecha de salida: </label>
-                                <input type="date" name="fecha" class="form-control w-75 non-empty" required>
+                                <input id="fecha" type="date" name="fechaNuevaYUnica" class="form-control w-75 non-empty" required>
                             </div>
                             <div class="col">
                                 <label for="costo" class="form-label">Hora de salida: </label>
-                                <input type="time" name="hora" class="form-control w-75 non-empty" required>
+                                <input type="number" min="0" max="23" name="hora"
+                                placeholder="Hora de salida" class="form-control non-empty" required>
                             </div>
                         </div>
                         
-                        <div class="mb-4 text-start needs-validate check input">
+                        <div class="mb-4 text-start needs-validate check input" id="lugarDeSalidaDiv">
                             <label for="nombre" class="form-label">Lugar : </label>
-                            <input type="text" name="nombre"
+                            <input id="lugarDeSalidaText" type="text" name="lugar"
                                 placeholder="Lugar de la salida" class="form-control non-empty" required>
-                                <div class="valid-feedback is-valid"></div>
+                          <div id="validarLugar" class="invalid-feedback">
+	                          El campo lugar es obligatorio.
+	                      </div>
                         </div>
                         
-                        <div class="mb-4 text-start needs-validate check input">
-                            <label for="nombre" class="form-label">Cantidad maxima de turistas : </label>
-                            <input type="number" min="0" name="nombre"
+                        <div class="mb-4 text-start needs-validate check input" id="validarMaxTuDiv">
+                            <label id="cantidadMaximaDeTuristas" for="nombre" class="form-label">Cantidad maxima de turistas : </label>
+                            <input type="number" min="0" name="cantMaxTur"
                                 placeholder="Cantidad maxima de turistas" class="form-control non-empty" required>
-                                <div class="valid-feedback is-valid"></div>
-                        </div>
+                          <div id="validarMaxTuText" class="invalid-feedback">
+	                          El campo cantidad maxima de turistas es obligatorio.
+	                      </div>                        
+	                   </div>
 
                         <div class="mb-4 text-start row g-3 align-items-center">
                             <div class="col-auto">
                                 <label for="FotoPerfil" class="form-label">Subir foto de la salida</label>
                             </div>
                             <div class="ps-lg-3 col-auto">
-                                <input type="file" class="form-control">
+                                <input id="fotoDeLaSalida" type="file" class="form-control">
                             </div>
                         </div>
 

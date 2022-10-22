@@ -86,11 +86,13 @@ public class altaUsuario extends HttpServlet {
 		String tU  = request.getParameter("TipoUsuario");
 		String pas     = request.getParameter("Contrasenia");
 		//Foto de perfil
-		Part p     = request.getPart("FotoPerfil");
+		Part p     = request.getPart("fotoDeLaSalida");
 		String fd = udi;  //para guardar la direccion;
 		
-		if(!extencionValida(p.getSubmittedFileName()).isEmpty()) {
+		if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
 		    fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
+		}else {
+		    fd = "";
 		}
 		
 		try {
