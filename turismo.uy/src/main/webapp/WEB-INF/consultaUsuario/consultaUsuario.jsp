@@ -90,9 +90,9 @@
 											role="tablist">
 											<li class="nav-item"><a class="nav-link nav-link active"
 												style="color: black;" href="#perfil" role="tab"
-												aria-controls="description" aria-selected="true">Perfil</a></li>
+												aria-controls="perfil" aria-selected="true">Perfil</a></li>
 											<li class="nav-item"><a class="nav-link nav-link-usr"
-												href="#salidas" role="tab" aria-controls="history"
+												href="#salidas" role="tab" aria-controls="salidas"
 												aria-selected="false">Salidas</a></li>
 												<%
 													if (miUsr instanceof DTTurista) {
@@ -101,10 +101,10 @@
 												%>
 												
 											<li class="nav-item"><a class="nav-link nav-link-usr"
-												href="#inscripciones" role="tab" aria-controls="history"
+												href="#inscripciones" role="tab" aria-controls="inscripciones"
 												aria-selected="false">Inscripciones</a></li>
 											<li class="nav-item"><a class="nav-link nav-link-usr"
-												href="#deals" role="tab" aria-controls="deals"
+												href="#paquetes" role="tab" aria-controls="paquetes"
 												aria-selected="false">Paquetes Comprados</a></li>
 											
 												<%}
@@ -113,7 +113,7 @@
 												%>
 												<li class="nav-item">
 		                                        <a class="nav-link nav-link-usr " href="#actividades" role="tab"
-		                                            aria-controls="history" aria-selected="false">Actividades ofrecidas</a>
+		                                            aria-controls="actividades" aria-selected="false">Actividades ofrecidas</a>
 		                                    </li>
 		                                    <%
 		                                    }
@@ -126,7 +126,7 @@
 										<div class="tab-content mt-3">
 										
 										<%-- //////////////////////////P E R F I L //////////////////////--%>
-											<div class="tab-pane active" id="perfil" role="tabpanel">
+											<div class="tab-pane active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
 												<div class="card-body">
 		
 												<form>
@@ -206,7 +206,7 @@
 										
 										<%--	///////////////////////////S A L I D A S//////////////////////--%>
 											<div class="tab-pane" id="salidas" role="tabpanel"
-												aria-labelledby="history-tab">
+												aria-labelledby="salidas-tab">
 												<div class="card-body">
 																<%--C O N T E N I D O       D E      S A L I D A S --%>
 											<% 
@@ -310,16 +310,17 @@
 												<%if (miUsr instanceof DTTurista){
 												ICtrlActividad ctrlA = Fabrica.getInstance().getICtrlActividad();
 												
-											    Set<DTPaquete> res = new HashSet<DTPaquete>();
-											    DTTurista Usuario = (DTTurista)miUsr;
-											    for (DTCompra c : Usuario.getCompras()) {
-											        res.add(ctrlA.getInfoPaquete(c.getPaquete()));
+											 
 											     %>
 										
 										<%--///////////////////PAQUETES/////////////////////////////////////////////////////--%>
-											<div class="tab-pane" id="deals" role="tabpanel"
-												aria-labelledby="deals-tab">
+											<div class="tab-pane" id="paquetes" role="tabpanel"
+												aria-labelledby="paquetes-tab">
 												<div class="card-body">
+												<%   Set<DTPaquete> res = new HashSet<DTPaquete>();
+											    DTTurista Usuario = (DTTurista)miUsr;
+											    for (DTCompra c : Usuario.getCompras()) {
+											        res.add(ctrlA.getInfoPaquete(c.getPaquete()));%>
 										 		<form>
 								                    <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html">Disfrutar Rocha</a>
 								                    <fieldset disabled>
@@ -374,12 +375,13 @@
 								                </fieldset>
 								
 								                </form>
+								                	<%} %>
 								                	</div>
 											</div>
-											<%} %>
+										
 										<%--/////////////////////////I N S C R I P C I O N E S////////////////////////////////--%>
 											<div class="tab-pane" id="inscripciones" role="tabpanel"
-												aria-labelledby="history-tab">
+												aria-labelledby="inscripciones-tab">
 												<div class="card-body">
 							
 														<%
@@ -448,15 +450,16 @@
 									                    </fieldset>
 									             
 									                  </form>
+									                  <%} %>
 												</div>
 											</div>
 											
-												<%}
+												<%
 												} else{
 												%>
 												<%--///////////////////////////A C T I V I D A D E S //////////////////////--%>
 												<div class="tab-pane" id="actividades" role="tabpanel"
-												aria-labelledby="history-tab">
+												aria-labelledby="actividades-tab">
 													<div class="card-body">
 													<%
 													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
