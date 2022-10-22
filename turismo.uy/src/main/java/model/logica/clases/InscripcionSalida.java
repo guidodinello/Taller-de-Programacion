@@ -5,6 +5,7 @@ import java.util.Set;
 
 import model.datatypes.DTActividad;
 import model.datatypes.DTSalida;
+import model.datatypes.tipoInscripcion;
 
 public class InscripcionSalida{
 	
@@ -12,12 +13,14 @@ public class InscripcionSalida{
 	private GregorianCalendar fechaAlta;
 	private float costo;
 	private SalidaTuristica salida;
+	private tipoInscripcion tipo;
 
-	public InscripcionSalida(int cant, GregorianCalendar fecha, SalidaTuristica salidaT, float costo) {
+	public InscripcionSalida(int cant, GregorianCalendar fecha, SalidaTuristica salidaT, float costo, tipoInscripcion tipo) {
 		this.cantTuristas = cant;
 		this.fechaAlta = fecha;
 		this.salida = salidaT;
 		this.costo = costo;
+		this.tipo = tipo;
 	}
 
 	public int getCantTuristas() {
@@ -34,6 +37,10 @@ public class InscripcionSalida{
 	
 	public SalidaTuristica getSalida() {
 		return salida;
+	}
+	
+	public tipoInscripcion getTipo() {
+	    return tipo;
 	}
 	
 	public DTSalida getDTSalida() {

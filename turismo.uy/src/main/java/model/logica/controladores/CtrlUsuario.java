@@ -74,7 +74,7 @@ public class CtrlUsuario implements ICtrlUsuario{
             descuento += paq.getDescuento()/100;
         }
 		
-		InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo*(1- descuento));
+		InscripcionSalida insc = new InscripcionSalida(cant, fecha, salidaT, costo*(1- descuento), tipo);
 		salidaT.reducirPlazos(cant);
 		turista.agregarInscripcion(insc);
 	}

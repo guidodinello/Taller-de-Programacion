@@ -443,7 +443,7 @@
 									                          <label for="inputPassword6" class="col-form-label disabled'">Tipo:</label>
 									                        </div>
 									                        <div class="col-auto">
-									                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="">
+									                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=sal.getTipo()%>">
 									                        </div>
 									                  
 									                      </div>
@@ -461,10 +461,10 @@
 												%>
 												<%--///////////////////////////A C T I V I D A D E S //////////////////////--%>
 												<div class="tab-pane" id="actividades" role="tabpanel"
-												aria-labelledby="history-tab">
+													aria-labelledby="history-tab">
 													<div class="card-body">
 													 <a style="text-decoration:none; font-size: 24px;"
-                                                href="./consultaSalida.html" class="font-up font-bold"><%=act.getNombre()%></a>
+                                                href="consultaActividad?nombreAct=<%=act.getNombre() %>" class="font-up font-bold"><%=act.getNombre()%></a>
                                             <form>
 
                                                 <fieldset disabled>
@@ -540,7 +540,7 @@
 		</div>	<%-- cierre del col-sm principal --%>			
 					
 			<%}
-			 else {%>	
+			 else { %>	
 			 <div class="col-sm" style="margin-right: 12%;">
 					<div class="card mb-3" style="max-width: 800px;">
 						<div class="row g-0">
@@ -659,7 +659,7 @@
 													    <div class="col-auto">
 													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="
 													      <%=
-													      	new SimpleDateFormat("dd/MM/yyyy").format(miUsr.getFechaNac().getTime())
+													      	new SimpleDateFormat("dd/MM/yyyy").format(Usr.getFechaNac().getTime())
 													      %>">
 													    </div>
 													
