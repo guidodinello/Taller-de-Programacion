@@ -454,15 +454,17 @@
 											</div>
 											
 												<%}
-												} else{
-													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
-													Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
-													for(DTActividad act:actividades){
-												%>
+												} else{%>
+													
 												<%--///////////////////////////A C T I V I D A D E S //////////////////////--%>
 												<div class="tab-pane" id="actividades" role="tabpanel"
 													aria-labelledby="history-tab">
 													<div class="card-body">
+													<% 
+													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
+													Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
+													for(DTActividad act:actividades){
+												%>
 													 <a style="text-decoration:none; font-size: 24px;"
                                                 href="consultaActividad?nombreAct=<%=act.getNombre() %>" class="font-up font-bold"><%=act.getNombre()%></a>
                                             <form>
