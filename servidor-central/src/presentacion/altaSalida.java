@@ -410,7 +410,7 @@ private JRadioButton  rdbtnNewRadioButton_1,  rdbtnNewRadioButton;
 				return;
 				 }
 				 try {
-					iCS.altaSalidaTuristica(textField_1.getText(), fechaNac, textField_2.getText(), (int)spinner_2.getValue(), new GregorianCalendar(),comboBox_1.getSelectedItem().toString() );
+					iCS.altaSalidaTuristica(textField_1.getText(), fechaNac, textField_2.getText(), (int)spinner_2.getValue(), new GregorianCalendar(),comboBox_1.getSelectedItem().toString(), "");
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida se ha creado con exito", "Registrar Salida", JOptionPane.INFORMATION_MESSAGE);
 
 				 } catch (YaExisteException e) {

@@ -208,7 +208,7 @@ public class CargarDatosDePrueba {
 				 ICA.altaSalidaTuristica(values[2].trim(), new GregorianCalendar(Integer.parseInt(valuesFecha[2].trim()), Integer.parseInt(valuesFecha[1].trim()) - 1, 
 					Integer.parseInt(valuesFecha[0].trim()), Integer.parseInt((String) values[4].trim().subSequence(0, values[4].trim().length() -2)), 0), values[6].trim(), 
 						 Integer.parseInt(values[5].trim()), new GregorianCalendar(Integer.parseInt(valuesFechaAlta[2].trim()), Integer.parseInt(valuesFechaAlta[1].trim()), 
-								 Integer.parseInt(valuesFechaAlta[0].trim())), nombreAct);
+								 Integer.parseInt(valuesFechaAlta[0].trim())), nombreAct, "");
 				  			//Ref, RefActiv, Nombre, Fecha, Hora, TuristaMax, Lugar, FechaAlta
 			}
 			br.close();

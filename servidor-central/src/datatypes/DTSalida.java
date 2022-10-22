@@ -9,7 +9,7 @@ public class DTSalida {
 	private String nombre;
 	private String nombreActividad;
 	private String nombreDepartamentoActividad;
-	private String img;
+	private String imgDir;
 	private GregorianCalendar fechaSalida;
 	private GregorianCalendar fechaAlta;
 	private int maxTuristas;
@@ -27,21 +27,21 @@ public class DTSalida {
 	        
 	    }
 
-	 public DTSalida(String Sn, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas) {
+	 public DTSalida(String Sn, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas, String img) {
 	        this.nombre = Sn;
 	        this.fechaSalida = Ds;
 	        this.fechaAlta= Da;
 	        this.maxTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.turistasInscriptos = SSturistas;
-	        this.img ="";
+	        this.imgDir = img;
 	    }
 	 
-	 public DTSalida(String Sn,String actividad, String deptoAct, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas) {
+	 public DTSalida(String Sn,String actividad, String deptoAct, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas, String img) {
 	        this.nombre = Sn;
 	        this.nombreActividad = actividad;
 	        this.nombreDepartamentoActividad = deptoAct;
-	        this.img = "";
+	        this.imgDir = img;
 	        this.fechaSalida = Ds;
 	        this.fechaAlta= Da;
 	        this.maxTuristas = CmaxT;
@@ -84,8 +84,8 @@ public class DTSalida {
 		return nombreDepartamentoActividad;
 	}
 	
-	public String getImg() {
-		return img;
+	public String getImgDir() {
+		return imgDir;
 	}
     
     public GregorianCalendar getfechaSalida() {

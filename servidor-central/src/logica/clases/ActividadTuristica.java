@@ -8,7 +8,9 @@ import java.util.GregorianCalendar;
 import datatypes.DTActividad;
 import datatypes.DTSalida;
 import datatypes.estadoActividad;
+import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
+
 
 import java.util.HashMap;
 
@@ -19,7 +21,7 @@ public class ActividadTuristica{
 	private GregorianCalendar fechaAlta;
 	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
-	private String img;
+	private String imgDir;
 	
 	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String img) {
 		this.nombre = nombre;
@@ -30,7 +32,7 @@ public class ActividadTuristica{
 		this.fechaAlta = fechaAlta;
 		this.estado = estadoActividad.agregada;
 		salidas = new HashMap<String, SalidaTuristica>();
-		this.img = img;
+		this.imgDir = img;
 	}
 	
 	public String getNombre() {
@@ -65,8 +67,8 @@ public class ActividadTuristica{
 		return this.salidas.keySet();
 	}
 	
-	public String getImg() {
-		return this.img;
+	public String getImgDir() {
+		return this.imgDir;
 	}
 	
 	public void agregarSalida(SalidaTuristica s) {
@@ -78,7 +80,8 @@ public class ActividadTuristica{
 		salidas.values().forEach((e) -> {
 			if(e.getfechaSalida().after(fechaSistema)) {
 				Set<String> turistas = new HashSet<String>();
-				DTSalida actual = new DTSalida(e.getNombre(), e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas);
+				DTActividad dtAct = getDTActividad();
+				DTSalida actual = new DTSalida(e.getNombre(), dtAct.getNombre(), dtAct.getDepartamento(),  e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas, e.getImg());
 				res.add(actual);
 			}
 		});
@@ -93,19 +96,22 @@ public class ActividadTuristica{
 		int dura = this.duracionHs;
 		float costo = this.costoPorTurista;
 		Set<String> salidas = new HashSet<String>();
-		Set<String> categorias = new HashSet<String>();
  		this.salidas.forEach((key,value)->{
 			salidas.add(value.getNombre());
 		});
- 		String img = this.img;
- 		estadoActividad estado = this.estado;
-		/*
-		 * this.categorias.forEach((key,value)->{
-		 * 	categorias.add(value.getNombre())});
-		 */
+ 		String imgDireccion = this.imgDir;
+		Set<String> categorias = getCategorias();
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, img, estado);
+		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado);
 	}
+	
+    public Set<String> getCategorias() {
+        Set<String> res = new HashSet<String>();
+        HandlerCategorias hC = HandlerCategorias.getInstance();
+        Set<Categoria> categorias = hC.obtenerCategorias();
+        categorias.forEach((e)->{if(e.tieneActividad(nombre)) res.add(e.getNombre());});
+        return res;
+    }
 
 }

@@ -78,7 +78,8 @@ public class DTActividad {
 		return fechaAlta;
 	}
 	
-	public String getFechaAltaString() {
+	@SuppressWarnings("static-access")
+    public String getFechaAltaString() {
 		String dia = String.valueOf(fechaAlta.get(fechaAlta.DAY_OF_MONTH));
 		String mes = String.valueOf(fechaAlta.get(fechaAlta.MONTH) + 1);
 		String anio = String.valueOf(fechaAlta.get(fechaAlta.YEAR));

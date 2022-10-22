@@ -29,4 +29,7 @@ public class Categoria {
 		this.actividades.put(actividad.getNombre(), actividad);
 	}
 
+	public boolean tieneActividad(String nombre) {
+        return actividades.containsKey(nombre);
+    }
 }

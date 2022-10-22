@@ -43,7 +43,7 @@ public class HandlerPaquetes {
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		 Set<Turista> turistas = hu.listarTuristas();
 		 for (Turista t : turistas){
-			 Set<Compra> compras =  t.getCompras();
+			 Set<Compra> compras =  (Set<Compra>) t.getCompras().values();
 			 if(compras != null)
 				 for (Compra i : compras) {
 				 	PaqueteTuristico p =  i.getPaquete();
