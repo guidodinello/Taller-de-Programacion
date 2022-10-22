@@ -90,9 +90,9 @@
 											role="tablist">
 											<li class="nav-item"><a class="nav-link nav-link active"
 												style="color: black;" href="#perfil" role="tab"
-												aria-controls="description" aria-selected="true">Perfil</a></li>
+												aria-controls="perfil" aria-selected="true">Perfil</a></li>
 											<li class="nav-item"><a class="nav-link nav-link-usr"
-												href="#salidas" role="tab" aria-controls="history"
+												href="#salidas" role="tab" aria-controls="salidas"
 												aria-selected="false">Salidas</a></li>
 												<%
 													if (miUsr instanceof DTTurista) {
@@ -101,10 +101,10 @@
 												%>
 												
 											<li class="nav-item"><a class="nav-link nav-link-usr"
-												href="#inscripciones" role="tab" aria-controls="history"
+												href="#inscripciones" role="tab" aria-controls="inscripciones"
 												aria-selected="false">Inscripciones</a></li>
 											<li class="nav-item"><a class="nav-link nav-link-usr"
-												href="#deals" role="tab" aria-controls="deals"
+												href="#paquetes" role="tab" aria-controls="paquetes"
 												aria-selected="false">Paquetes Comprados</a></li>
 											
 												<%}
@@ -113,7 +113,7 @@
 												%>
 												<li class="nav-item">
 		                                        <a class="nav-link nav-link-usr " href="#actividades" role="tab"
-		                                            aria-controls="history" aria-selected="false">Actividades ofrecidas</a>
+		                                            aria-controls="actividades" aria-selected="false">Actividades ofrecidas</a>
 		                                    </li>
 		                                    <%
 		                                    }
@@ -126,7 +126,7 @@
 										<div class="tab-content mt-3">
 										
 										<%-- //////////////////////////P E R F I L //////////////////////--%>
-											<div class="tab-pane active" id="perfil" role="tabpanel">
+											<div class="tab-pane active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
 												<div class="card-body">
 		
 												<form>
@@ -196,7 +196,10 @@
 													      </label>
 													    </div>
 													    <div class="col-auto">
-													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=miUsr.getFechaNac()%>">
+													      <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder=
+													      	<%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(miUsr.getFechaNac().getTime())
+															%>>
 													    </div>
 													
 													  </div>
@@ -206,7 +209,7 @@
 										
 										<%--	///////////////////////////S A L I D A S//////////////////////--%>
 											<div class="tab-pane" id="salidas" role="tabpanel"
-												aria-labelledby="history-tab">
+												aria-labelledby="salidas-tab">
 												<div class="card-body">
 																<%--C O N T E N I D O       D E      S A L I D A S --%>
 											<% 
@@ -310,18 +313,20 @@
 												<%if (miUsr instanceof DTTurista){
 												ICtrlActividad ctrlA = Fabrica.getInstance().getICtrlActividad();
 												
-											    Set<DTPaquete> res = new HashSet<DTPaquete>();
-											    DTTurista Usuario = (DTTurista)miUsr;
-											    for (DTCompra c : Usuario.getCompras()) {
-											        res.add(ctrlA.getInfoPaquete(c.getPaquete()));
+											 
 											     %>
 										
 										<%--///////////////////PAQUETES/////////////////////////////////////////////////////--%>
-											<div class="tab-pane" id="deals" role="tabpanel"
-												aria-labelledby="deals-tab">
+											<div class="tab-pane" id="paquetes" role="tabpanel"
+												aria-labelledby="paquetes-tab">
 												<div class="card-body">
+												<%   
+											    DTTurista Usuario = (DTTurista)miUsr;
+											    for (DTCompra c : Usuario.getCompras()) {
+											    	DTPaquete paq = ctrlA.getInfoPaquete(c.getPaquete());
+											    %>
 										 		<form>
-								                    <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html">Disfrutar Rocha</a>
+								                    <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html"><%= paq.getNombre() %></a>
 								                    <fieldset disabled>
 								                      <div class="row g-3 align-items-center pt-3">
 								                        <div class="col-auto">
@@ -329,7 +334,7 @@
 								                          <label for="inputPassword6" class="col-form-label disabled'">Cantidad Turistas:</label>
 								                        </div>
 								                        <div class="col-auto">
-								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="2">
+								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= c.getCantTuristas() %>">
 								                        </div>
 								                  
 								                      </div>
@@ -341,7 +346,7 @@
 								                          <label for="inputPassword6" class="col-form-label disabled'">Validez:</label>
 								                        </div>
 								                        <div class="col-auto">
-								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="60">
+								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= paq.getPeriodoValidez() %> dias">
 								                        </div>
 								                  
 								                      </div>
@@ -353,7 +358,7 @@
 								                          <label for="inputPassword6" class="col-form-label disabled'">Descuento:</label>
 								                        </div>
 								                        <div class="col-auto">
-								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="20">
+								                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= paq.getDescuento() %> %">
 								                        </div>
 								                  
 								                      </div>
@@ -367,19 +372,23 @@
 								                      </label>
 								                    </div>
 								                    <div class="col-auto">
-								                      <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="15/08/2022">
+								                      <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
+								                      		<%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(c.getFechaCompra().getTime())
+															%>>
 								                    </div>
 								           
 								                  </div>
 								                </fieldset>
 								
 								                </form>
+								                	<%} %>
 								                	</div>
 											</div>
-											<%} %>
+										
 										<%--/////////////////////////I N S C R I P C I O N E S////////////////////////////////--%>
 											<div class="tab-pane" id="inscripciones" role="tabpanel"
-												aria-labelledby="history-tab">
+												aria-labelledby="inscripciones-tab">
 												<div class="card-body">
 							
 														<%
@@ -441,22 +450,23 @@
 									                          <label for="inputPassword6" class="col-form-label disabled'">Tipo:</label>
 									                        </div>
 									                        <div class="col-auto">
-									                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="">
+									                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=sal.getTipo()%>">
 									                        </div>
 									                  
 									                      </div>
 									                    </fieldset>
 									             
 									                  </form>
+									                  <%} %>
 												</div>
 											</div>
 											
-												<%}
+												<%
 												} else{
 												%>
 												<%--///////////////////////////A C T I V I D A D E S //////////////////////--%>
 												<div class="tab-pane" id="actividades" role="tabpanel"
-												aria-labelledby="history-tab">
+												aria-labelledby="actividades-tab">
 													<div class="card-body">
 													<%
 													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
@@ -566,10 +576,10 @@
 							                  <ul class="nav nav-tabs card-header-tabs" id="bologna-list" role="tablist">
 							                    <li class="nav-item">
 							                      <a class="nav-link nav-link active" style="color: black;" href="#perfil" role="tab"
-							                        aria-controls="description" aria-selected="true">Perfil</a>
+							                        aria-controls="perfil" aria-selected="true">Perfil</a>
 							                    </li>
 							                    <li class="nav-item">
-							                      <a class="nav-link nav-link-usr" href="#salidas" role="tab" aria-controls="history"
+							                      <a class="nav-link nav-link-usr" href="#salidas" role="tab" aria-controls="salidas"
 							                        aria-selected="false">Salidas</a>
 							                    </li>
 							                    	<%
@@ -577,7 +587,7 @@
 													%>
 							                     <li class="nav-item">
 					                                <a class="nav-link nav-link-usr " href="#actividades" role="tab"
-					                                  aria-controls="history" aria-selected="false">Actividades ofrecidas</a>
+					                                  aria-controls="actividades" aria-selected="false">Actividades ofrecidas</a>
 					                             </li>
 					                             <%
 													}
@@ -588,7 +598,7 @@
 							            <div class="card-body">
 											<div class="tab-content mt-3">
 										<%--/////////////////////////// P E R F I L  //////////////////////--%>
-					                        	<div class="tab-pane active" id="perfil" role="tabpanel">
+					                        	<div class="tab-pane active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
 					                            	<div class="card-body">
 					                            	<form>
 													<h4 class=" font-up font-bold py-2 white-text">Datos del usuario</h4>
@@ -657,7 +667,10 @@
 													      </label>
 													    </div>
 													    <div class="col-auto">
-													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=Usr.getFechaNac()%>">
+													      <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')"  placeholder=
+													      	<%= 
+																new SimpleDateFormat("dd/MM/yyyy").format(Usr.getFechaNac().getTime())
+															%>>
 													    </div>
 													
 													  </div>
@@ -667,7 +680,7 @@
 							          
 																			<%--	///////////////////////////S A L I D A S//////////////////////--%>
 											<div class="tab-pane" id="salidas" role="tabpanel"
-												aria-labelledby="history-tab">
+												aria-labelledby="salidas-tab">
 												<div class="card-body">
 														<%--C O N T E N I D O       D E      S A L I D A S --%>
 											<% 
@@ -770,7 +783,7 @@
 					                            
 					                         <%if (Usr instanceof DTProveedor) {%>   
 					                     <%--/////////////////////////// A C T I V I D A D E S  //////////////////////--%>
-					                            <div class="tab-pane active" id="actividades" role="tabpanel">
+					                            <div class="tab-pane" id="actividades" role="tabpanel" aria-labelledby="actividades-tab">
 					                               <div class="card-body">
 					                               <%
 													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
