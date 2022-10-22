@@ -63,7 +63,7 @@
 						<div class="card mb-3" style="max-width: 800px;">
 							<div class="row g-0">
 								<div class="col-md-4">
-									<img src="" class="img-fluid rounded-start" alt="...">
+									<img src="<%=miUsr.getImgDir()%>" class="img-fluid rounded-start" alt="...">
 								</div>
 								<div class="col-md-8">
 									<div class="card-body">
@@ -196,11 +196,9 @@
 													      </label>
 													    </div>
 													    <div class="col-auto">
-													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="
-													      <%=
-													      	new SimpleDateFormat("dd/MM/yyyy").format(miUsr.getFechaNac().getTime())
-													      %>">
+													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=miUsr.getFechaNac()%>">
 													    </div>
+													
 													  </div>
 												</form>
 											</div>
@@ -443,7 +441,7 @@
 									                          <label for="inputPassword6" class="col-form-label disabled'">Tipo:</label>
 									                        </div>
 									                        <div class="col-auto">
-									                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=sal.getTipo()%>">
+									                          <input type="" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="">
 									                        </div>
 									                  
 									                      </div>
@@ -454,19 +452,18 @@
 											</div>
 											
 												<%}
-												} else{%>
-													
+												} else{
+												%>
 												<%--///////////////////////////A C T I V I D A D E S //////////////////////--%>
 												<div class="tab-pane" id="actividades" role="tabpanel"
-													aria-labelledby="history-tab">
+												aria-labelledby="history-tab">
 													<div class="card-body">
-													<% 
+													<%
 													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
 													Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
-													for(DTActividad act:actividades){
-												%>
+													for(DTActividad act:actividades){ %>
 													 <a style="text-decoration:none; font-size: 24px;"
-                                                href="consultaActividad?nombreAct=<%=act.getNombre() %>" class="font-up font-bold"><%=act.getNombre()%></a>
+                                                href="./consultaSalida.html" class="font-up font-bold"><%=act.getNombre()%></a>
                                             <form>
 
                                                 <fieldset disabled>
@@ -530,10 +527,11 @@
 
 
                                             </form>
+                                            <%}%>
 													</div>
 												</div>
 												
-												<%}}%>
+												<%}%>
 										</div>
 									</div>
 								</div>
@@ -542,12 +540,12 @@
 		</div>	<%-- cierre del col-sm principal --%>			
 					
 			<%}
-			 else { %>	
+			 else {%>	
 			 <div class="col-sm" style="margin-right: 12%;">
 					<div class="card mb-3" style="max-width: 800px;">
 						<div class="row g-0">
 							<div class="col-md-4">
-								<img src="" class="img-fluid rounded-start" alt="...">
+								<img src="<%=Usr.getImgDir()%>" class="img-fluid rounded-start" alt="...">
 							</div>
 							 <div class="col-md-8">
 								   <div class="card-body">
@@ -603,7 +601,7 @@
 															<div class="col-auto">
 																<input type="text" id="inputPassword6" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder="<%--=miUsr.getNickname()--%>">
+																	placeholder="<%=Usr.getNickname()%>">
 															</div>
 															<div class="col-auto">
 																<span id="passwordHelpInline" class="form-text"> No puede
@@ -619,7 +617,7 @@
 														<div class="col-auto">
 															<input type="text" id="inputPassword6" class="form-control"
 																aria-describedby="passwordHelpInline"
-																placeholder="<%--=miUsr.getNombre()--%>">
+																placeholder="<%=Usr.getNombre()%>">
 												     	 </div>
 												
 												    </div>
@@ -630,7 +628,7 @@
 													        <label for="inputPassword6" class="col-form-label">Apellido:</label>
 													      </div>
 													      <div class="col-auto">
-													        <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="<%--=miUsr.getApellido()--%>">
+													        <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="<%=Usr.getApellido()%>">
 													      </div>
 												
 												    </div>
@@ -642,7 +640,7 @@
 														        <label for="inputPassword6" class="col-form-label disabled'">Email:</label>
 														      </div>
 														      <div class="col">
-														        <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" value="<%--=miUsr.getEmail()--%>">
+														        <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" value="<%=Usr.getEmail()%>">
 														      </div>
 														      <div class="col-auto">
 														        <span id="passwordHelpInline" class="form-text">
@@ -659,10 +657,7 @@
 													      </label>
 													    </div>
 													    <div class="col-auto">
-													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="
-													      <%=
-													      	new SimpleDateFormat("dd/MM/yyyy").format(Usr.getFechaNac().getTime())
-													      %>">
+													      <input type="date" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%=Usr.getFechaNac()%>">
 													    </div>
 													
 													  </div>
@@ -777,6 +772,76 @@
 					                     <%--/////////////////////////// A C T I V I D A D E S  //////////////////////--%>
 					                            <div class="tab-pane active" id="actividades" role="tabpanel">
 					                               <div class="card-body">
+					                               <%
+													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
+													Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(Usr.getNickname());
+													for(DTActividad act:actividades){ %>
+													 <a style="text-decoration:none; font-size: 24px;"
+                                                href="./consultaSalida.html" class="font-up font-bold"><%=act.getNombre()%></a>
+                                            <form>
+
+                                                <fieldset disabled>
+                                                    <div class="row g-3 align-items-center pt-3">
+                                                        <div class="col-auto">
+                                                            <i class="fa fa-clock-o prefix white-text"></i>
+                                                            <label for="inputPassword6"
+                                                                class="col-form-label disabled'">Duracion:</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <input type="" class="form-control disabled"
+                                                                aria-describedby="disabled" placeholder="<%=act.getDuracionHs()%>">
+                                                        </div>
+
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset disabled>
+                                                    <div class="row g-3 align-items-center pt-3">
+                                                        <div class="col-auto">
+                                                            <i class="fa fa-money prefix white-text"></i>
+                                                            <label for="inputPassword6"
+                                                                class="col-form-label">Costo:</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <input type="password" class="form-control disabled"
+                                                                aria-describedby="disabled" placeholder="<%=act.getCosto()%>">
+                                                        </div>
+
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset disabled>
+                                                    <div class="row g-3 align-items-center pt-3">
+                                                        <div class="col-auto">
+                                                            <i class="fa fa-building prefix white-text"></i>
+                                                            <label for="inputPassword6"
+                                                                class="col-form-label">Ciudad:</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <input type="password" class="form-control disabled"
+                                                                aria-describedby="disabled" placeholder="<%=act.getNombreCiudad()%>">
+                                                        </div>
+
+                                                    </div>
+                                                </fieldset>
+
+                                                <fieldset disabled>
+                                                    <div class="row g-3 align-items-center pt-3">
+                                                        <div class="col-auto">
+                                                            <i class="fa fa-calendar prefix white-text"></i>
+                                                            <label for="inputPassword6"
+                                                                class="col-form-label disabled'">Fecha Alta:
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <input type="" class="form-control disabled"
+                                                                aria-describedby="disabled" placeholder="<%=act.getFechaAltaString()%>">
+                                                        </div>
+
+                                                    </div>
+                                                </fieldset>
+
+
+                                            </form>
+                                            <%}%>
 					                               </div>
 					                            </div>
 					                         <%}%> 
