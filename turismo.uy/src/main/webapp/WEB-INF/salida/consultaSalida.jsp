@@ -5,6 +5,7 @@
 <%@page import="model.datatypes.DTActividad"%>
 <%@page import="model.datatypes.DTTurista"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.GregorianCalendar"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -27,7 +28,7 @@
 			<div class="card mb-3" style="max-width: 800px;">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="https://<%= salida.getImg() %>" class="img-fluid rounded-start" alt="...">
+						<img src="https://<%= salida.getImgDir() %>" class="img-fluid rounded-start" alt="...">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
@@ -37,7 +38,7 @@
 							
 							<div><a href="consultaActividad?nombreAct=<%= nombreActividad %>">Consulta de Actividad Turistica</a></div>
 							<%
-							if(session.getAttribute("usuario_logueado") instanceof DTTurista){
+							if(session.getAttribute("usuario_logueado") instanceof DTTurista && salida.getfechaSalida().after(new GregorianCalendar())){
 							%>
 							<div><a href="inscripcionSalida?nombreSalida=<%= salida.getNombre() %>">Inscripcion a Salida Turistica</a></div>
 							<%
