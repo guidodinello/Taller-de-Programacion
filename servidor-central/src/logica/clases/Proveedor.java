@@ -1,7 +1,10 @@
 package logica.clases;
 
+import java.io.InputStream;
 import java.util.GregorianCalendar;
 import java.util.Set;
+
+import logica.clases.ActividadTuristica;
 import datatypes.DTActividad;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +14,6 @@ public class Proveedor extends Usuario {
 	private Map<String, ActividadTuristica> actividades;
 	private String descripcion, sitioWeb;
 	
-
 	public Proveedor(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, String descripcion, String sitioWeb) {
 		super(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir);
 		this.descripcion = descripcion;

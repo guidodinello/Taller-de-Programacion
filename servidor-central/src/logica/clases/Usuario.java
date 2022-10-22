@@ -5,18 +5,18 @@ import java.util.GregorianCalendar;
 
 public class Usuario {
 
-	protected String nickname, email, nombre, apellido, contrasena, imgDir;
-	protected GregorianCalendar fechaNac;
-	
-	public Usuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir) {
-		this.nickname = nickname;
-		this.email = email;
-		this.contrasena = contrasena;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.fechaNac = fechaNac;
-		this.imgDir = imgDir;
-	}
+    protected String nickname, email, nombre, apellido, contrasena, imgDir;
+    protected GregorianCalendar fechaNac;
+    
+    public Usuario(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir) {
+        this.nickname = nickname;
+        this.email = email;
+        this.contrasena = contrasena;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNac = fechaNac;
+        this.imgDir = imgDir;
+    }
 
     public String getNickname() {
         return nickname;

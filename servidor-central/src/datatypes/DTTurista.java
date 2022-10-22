@@ -1,11 +1,11 @@
 package datatypes;
 
-import logica.clases.Turista;
-
 import java.util.HashSet;
 import java.util.Set;
 
+import datatypes.DTCompra;
 import logica.clases.Compra;
+import logica.clases.Turista;
 
 
 public class DTTurista extends DTUsuario {
@@ -27,6 +27,6 @@ public class DTTurista extends DTUsuario {
 	}
 	
 	public Set<DTCompra> getCompras() {
-		return new HashSet<DTCompra>(compras);
-	}
+        return new HashSet<DTCompra>(compras);
+    }
 }

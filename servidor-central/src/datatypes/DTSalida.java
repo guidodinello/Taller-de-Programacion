@@ -83,11 +83,11 @@ public class DTSalida {
 	public String getNombreDepartamentoActividad() {
 		return nombreDepartamentoActividad;
 	}
-	
+    
 	public String getImgDir() {
 		return imgDir;
 	}
-    
+	
     public GregorianCalendar getfechaSalida() {
         return fechaSalida;
     }

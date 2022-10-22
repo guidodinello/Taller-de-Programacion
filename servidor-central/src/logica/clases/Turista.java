@@ -4,10 +4,9 @@ import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+
 import java.util.HashSet;
 import datatypes.DTSalida;
-
-
 
 public class Turista extends Usuario {
 	private Map<String, InscripcionSalida> inscripciones;

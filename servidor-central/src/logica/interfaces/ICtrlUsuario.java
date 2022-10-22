@@ -7,15 +7,18 @@ import datatypes.DTActividad;
 import datatypes.DTSalida;
 import datatypes.DTUsuario;
 import datatypes.tipoUsuario;
+import datatypes.tipoInscripcion;
 
 import excepciones.YaExisteException;
+import excepciones.CompraFailException;
 import excepciones.InscriptionFailException;
 
 public interface ICtrlUsuario {
 
 	public abstract void altaUsuario(String nickname,String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac,
-			String img, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
-	public abstract void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha) throws InscriptionFailException;
+	        String imgDir, tipoUsuario tipo, String nacionalidad, String desc, String sitioWeb) throws YaExisteException;
+	public abstract void ingresarInscripcion(String nickname, String salida, int cant, GregorianCalendar fecha, tipoInscripcion tipo, String paquete) throws InscriptionFailException;
+	public abstract void ingresarCompra(String nickname, String paquete, int cant, GregorianCalendar fecha) throws CompraFailException;
 	public abstract Set<String> listarTuristas();
 	public abstract Set<String> listarProveedores();
 	public abstract void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, String nacionalidad, String desc, String sitioWeb);

@@ -21,7 +21,7 @@ public class DTActividad {
 	
 
 	
-	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String img, estadoActividad estado) {
+	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado) {
 		this.nombre = n;
 		this.descripcion = des;
 		this.departamento = departamento;
@@ -33,7 +33,7 @@ public class DTActividad {
 		this.salidas = salidas;
 		this.estado = estado;
 		paquetes = new HashSet<String>();
-		this.imgDir = img;
+		this.imgDir = imgDir;
 	}
 
 	public String getNombre() {
@@ -79,7 +79,7 @@ public class DTActividad {
 	}
 	
 	@SuppressWarnings("static-access")
-	public String getFechaAltaString() {
+    public String getFechaAltaString() {
 		String dia = String.valueOf(fechaAlta.get(fechaAlta.DAY_OF_MONTH));
 		String mes = String.valueOf(fechaAlta.get(fechaAlta.MONTH) + 1);
 		String anio = String.valueOf(fechaAlta.get(fechaAlta.YEAR));

@@ -8,9 +8,8 @@ import java.util.GregorianCalendar;
 import datatypes.DTActividad;
 import datatypes.DTSalida;
 import datatypes.estadoActividad;
-import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
-
+import logica.handlers.HandlerCategorias;
 
 import java.util.HashMap;
 
@@ -23,16 +22,16 @@ public class ActividadTuristica{
 	private Map<String, SalidaTuristica> salidas;
 	private String imgDir;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String img) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, estadoActividad estado) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
 		this.costoPorTurista = costoPorTurista;
 		this.nombreCiudad = nombreCiudad;
 		this.fechaAlta = fechaAlta;
-		this.estado = estadoActividad.agregada;
+		this.estado = estado;
 		salidas = new HashMap<String, SalidaTuristica>();
-		this.imgDir = img;
+		this.imgDir = imgDir;
 	}
 	
 	public String getNombre() {
@@ -105,7 +104,7 @@ public class ActividadTuristica{
 		String nombreDepto = hD.getDeptoContains(this);
 		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado);
 	}
-	
+
     public Set<String> getCategorias() {
         Set<String> res = new HashSet<String>();
         HandlerCategorias hC = HandlerCategorias.getInstance();

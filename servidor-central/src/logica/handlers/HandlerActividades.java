@@ -1,8 +1,8 @@
 package logica.handlers;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 import logica.clases.ActividadTuristica;
@@ -35,11 +35,8 @@ public class HandlerActividades{
 		return actividadesTuristicas.get(actividad);
 	}
 	public Set<ActividadTuristica> obtenerActividadesTuristicas() {
-		Set<ActividadTuristica> res = new HashSet<ActividadTuristica>();
-		for(ActividadTuristica act:this.actividadesTuristicas.values()) {
-			res.add(act);
-		}
-		return res;
+	    return new HashSet<ActividadTuristica>(actividadesTuristicas.values());
+		//return (Set<ActividadTuristica>) actividadesTuristicas.values();
 	}
 	
 	public static void clear() {

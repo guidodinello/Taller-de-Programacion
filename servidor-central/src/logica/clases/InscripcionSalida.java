@@ -5,6 +5,7 @@ import java.util.Set;
 
 import datatypes.DTActividad;
 import datatypes.DTSalida;
+import datatypes.tipoInscripcion;
 
 public class InscripcionSalida{
 	
@@ -12,12 +13,14 @@ public class InscripcionSalida{
 	private GregorianCalendar fechaAlta;
 	private float costo;
 	private SalidaTuristica salida;
+	private tipoInscripcion tipo;
 
-	public InscripcionSalida(int cant, GregorianCalendar fecha, SalidaTuristica salidaT, float costo) {
+	public InscripcionSalida(int cant, GregorianCalendar fecha, SalidaTuristica salidaT, float costo, tipoInscripcion tipo) {
 		this.cantTuristas = cant;
 		this.fechaAlta = fecha;
 		this.salida = salidaT;
 		this.costo = costo;
+		this.tipo = tipo;
 	}
 
 	public int getCantTuristas() {
@@ -36,6 +39,10 @@ public class InscripcionSalida{
 		return salida;
 	}
 	
+	public tipoInscripcion getTipo() {
+	    return tipo;
+	}
+	
 	public DTSalida getDTSalida() {
 		String Sn = this.salida.getNombre();
 		GregorianCalendar Ds = this.salida.getfechaSalida();
@@ -44,6 +51,6 @@ public class InscripcionSalida{
 		String SlugarSal = this.salida.getlugarSalida();
 		Set<String> SSturistas = this.salida.getTuristasInscriptos();
 		DTActividad actSalida = salida.getActividad().getDTActividad();
-		return new DTSalida(Sn,actSalida.getNombre(), actSalida.getDepartamento(), Ds, Da, CmaxT, SlugarSal, SSturistas, salida.getImg());
+		return new DTSalida(Sn,actSalida.getNombre(), actSalida.getDepartamento(), Ds, Da, CmaxT, SlugarSal, SSturistas, this.salida.getImg());
 	}
 }

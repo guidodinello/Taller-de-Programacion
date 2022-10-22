@@ -78,16 +78,17 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String img, Set<String> categorias) throws YaExisteException {
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, estadoActividad estado) throws YaExisteException {
 		HandlerActividades hA = HandlerActividades.getInstance();
 		if(hA.existeActividad(nomActividad)){
 			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
 		}
 
-		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, img);
-		
+		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, imgDir, estado);
+
 		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
 		hD.getDepto(nomDep).agregarActividad(resu);
+
 		
 		HandlerCategorias hC = HandlerCategorias.getInstance();
 		categorias.forEach(cat ->{
@@ -119,36 +120,36 @@ public class CtrlActividad implements ICtrlActividad{
 	public void altaSalidaTuristica(String nombreSal,GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas, GregorianCalendar fechaAlta,String  actividad, String img) throws YaExisteException {
 		HandlerSalidas hS = HandlerSalidas.getInstance();
 		if (hS.existeSalida(nombreSal)) {
-			throw new YaExisteException("La salida " + nombreSal + " ya se encuentra registrada");
+			throw new YaExisteException("La salida " + nombreSal + "ya se encuentra registrada");
 			
 		}
 		HandlerActividades hA = HandlerActividades.getInstance();
 		ActividadTuristica actividadAux = hA.obtenerActividadTuristica(actividad);
 		
-		SalidaTuristica newSal = new SalidaTuristica(nombreSal,fechaSal,lugarSal,cantMaxTuristas,fechaAlta,actividadAux, img);
+		SalidaTuristica newSal = new SalidaTuristica(nombreSal,fechaSal,lugarSal,cantMaxTuristas,fechaAlta,actividadAux,img);
 		actividadAux.agregarSalida(newSal);
 		hS.addSalidas(newSal);
 	
 	}
 	
 	public DTSalida getInfoCompletaSalida(String salida) {
+	
 		HandlerSalidas hS = HandlerSalidas.getInstance();
-		SalidaTuristica s =  hS.obtenerSalidaTuristica(salida);
-		//GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas
-		ActividadTuristica a = s.getActividad();
+		SalidaTuristica sal = hS.obtenerSalidaTuristica(salida);
+		DTActividad dtAct = getInfoActividad(sal.getActividad().getNombre());
 		
-		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
-		String d = hD.getDeptoContains(a);
-		return new DTSalida(s.getNombre(), a.getNombre(), d, s.getfechaSalida(), a.getFechaAlta(), 
-				s.getcantidadMaximaDeTuristas(), s.getlugarSalida(), s.getTuristasInscriptos(), s.getImg());
+		DTSalida nueva = new DTSalida(sal.getNombre(), dtAct.getNombre(), dtAct.getDepartamento(), sal.getfechaSalida(), sal.getfechaAlta(), sal.getcantidadMaximaDeTuristas(), sal.getlugarSalida(), sal.getTuristasInscriptos(), sal.getImg());
+		
+		
+		return nueva;
 	}
 	
 	//Paquetes
-	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta) throws YaExisteException {
+	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta, String img) throws YaExisteException {
 		HandlerPaquetes hP = HandlerPaquetes.getInstance();
 		if(hP.existePaquete(nombre))
 			throw new YaExisteException("El paquete " + nombre + " ya se encuentra registrado");
-		PaqueteTuristico newPaquete = new PaqueteTuristico(nombre, descripcion, validez, descuento, fechaDeAlta);
+		PaqueteTuristico newPaquete = new PaqueteTuristico(nombre, descripcion, validez, descuento, fechaDeAlta, img);
 		hP.addPaquete(newPaquete);
 	}
 	
@@ -188,7 +189,7 @@ public class CtrlActividad implements ICtrlActividad{
 		PaqueteTuristico pt = hP.obtenerPaqueteTuristico(nombrePaquete);
 		
 		actividades.forEach(e ->{
-			if(!pt.tieneActividad(e.getNombre()) ) {
+			if(!pt.tieneActividad(e.getNombre()) & e.getEstado() == estadoActividad.confirmada  ) {
 				resu.add(e.getNombre());
 			}
 		});
@@ -204,8 +205,18 @@ public class CtrlActividad implements ICtrlActividad{
 		});
 		return resultado;
 	}
+
+    public <T> Set<T> filterSalidas(Function<SalidaTuristica, T> returnFunction, Predicate<SalidaTuristica> condition) {
+        Set<T> res = new HashSet<T>();
+        SalidaTuristica[] salidas = HandlerSalidas.getInstance().getSalidas();
+        for (SalidaTuristica s : salidas) {
+            if (condition.test(s))
+                res.add(returnFunction.apply(s));
+        }
+        return res;
+    }
 	
-	public <T> Set<T> filter(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition) {
+	public <T> Set<T> filterActividades(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition) {
 	    Set<T> res = new HashSet<T>();
 	    Set<ActividadTuristica> actividades = HandlerActividades.getInstance().obtenerActividadesTuristicas();
 		for (ActividadTuristica act : actividades) {
@@ -214,9 +225,23 @@ public class CtrlActividad implements ICtrlActividad{
 		}
 		return res;
 	}
+	
 	public Set<DTActividad> getDTActividadesConfirmadas() {
 		Function<ActividadTuristica, DTActividad> dts = (a) -> { return a.getDTActividad(); };
 		Predicate<ActividadTuristica> confirmada = (a) -> { return a.getEstado().equals(estadoActividad.confirmada);  };                                                          
-		return filter(dts, confirmada);
+		return filterActividades(dts, confirmada);
 	}
+
+    public Set<String> listarPaquetesCategoria(String categoria) {
+        Set<String> res = new HashSet<String>();
+        
+        Set<String> paquetes = listarPaquetes();
+        for(String paq : paquetes) {
+            DTPaquete actual = getInfoPaquete(paq);
+            if(actual.getCategorias().contains(categoria))
+                res.add(paq);
+        }
+        
+        return res;
+    }
 }
