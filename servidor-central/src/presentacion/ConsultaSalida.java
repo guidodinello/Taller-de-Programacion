@@ -248,7 +248,10 @@ public class ConsultaSalida extends JInternalFrame {
 		
 		ComboBoxSelDepartamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				if(!settear)return;
 				limpiarForm();
+				settear = false;
 				comboBox_1.removeAllItems();
 				comboBoxSal.removeAllItems();
 				comboBox_1.setEnabled(true);
@@ -256,7 +259,7 @@ public class ConsultaSalida extends JInternalFrame {
 				lblNewLabel_1.setEnabled(true);
 				//rdbtnNewRadioButton.setEnabled(true);
 
-				settear = false;
+				
 				// comboBox_1.removeAllItems();
 				Set<String> actividades = iCS
 						.listarActividadesDepartamento(ComboBoxSelDepartamento.getSelectedItem().toString());
@@ -326,6 +329,7 @@ public class ConsultaSalida extends JInternalFrame {
 		});*/
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(!settear)return;
 				//rdbtnNewRadioButton_1.setEnabled(true);
 				settear = false;
 				comboBoxSal.setEnabled(true);
@@ -338,6 +342,7 @@ public class ConsultaSalida extends JInternalFrame {
 
 					comboBoxSal.addItem(sal);
 				});
+				comboBoxTuristas.removeAllItems();
 				settear = true;
 
 				/*if(rdbtnNewRadioButton.isSelected()) {
@@ -356,6 +361,7 @@ public class ConsultaSalida extends JInternalFrame {
 		});
 		comboBoxSal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(!settear)return;
 				//if(rdbtnNewRadioButton_1.isSelected()) {
 					//rdbtnNewRadioButton_1.setSelected(false);
 					//limpiarForm();
@@ -374,7 +380,7 @@ public class ConsultaSalida extends JInternalFrame {
 				model = new DefaultComboBoxModel<String>(arrT);
 				comboBoxTuristas.setModel(model);
 				comboBoxTuristas.setEnabled(true);
-				
+			
 			}
 			
 		});
@@ -383,14 +389,13 @@ public class ConsultaSalida extends JInternalFrame {
 				ComboBoxSelDepartamento.removeAllItems();
 				limpiarForm();
 				setVisible(false);
+				settear = false;
 				comboBox_1.removeAllItems();
 				comboBox_1.setEnabled(false);
 				comboBoxSal.removeAllItems();
 				comboBoxSal.setEnabled(false);
 				
-				comboBoxTuristas.removeAllItems();
-				comboBoxTuristas.setEnabled(false);
-
+				settear = true;
 			}
 
 		});
@@ -404,10 +409,12 @@ public class ConsultaSalida extends JInternalFrame {
 		//rdbtnNewRadioButton.setEnabled(true);
 		comboBoxSal.setEnabled(true);
 		//rdbtnNewRadioButton_1.setEnabled(true);
+		settear = false;
 		Set<String> departamentos = ctrlSalida.listarDepartamentos();
 		departamentos.forEach((d) -> {
 			ComboBoxSelDepartamento.addItem(d);
 		});
+		settear = true;
 
 	}
 
