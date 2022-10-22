@@ -32,7 +32,7 @@ import model.logica.interfaces.ICtrlActividad;
 public class altaSalida extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlActividad iA = Fabrica.getInstance().getICtrlActividad();
-	private String[] ext = {".icon", ".png", ".jpg"};
+	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
     private String udi = "media/imagenes/salDefault.png";
     private String rui = "media/imagenes/";
     
@@ -129,7 +129,7 @@ public class altaSalida extends HttpServlet {
         
       //Con esto agregas la imagen
         String fd = udi;
-        Part p = request.getPart("ImagenActividad"); //aca solo es poner el nombre de donde te viene la foto del form el file y listo fd es el string que pasas
+        Part p = request.getPart("fotoDeLaSalida"); //aca solo es poner el nombre de donde te viene la foto del form el file y listo fd es el string que pasas
         
         if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
             fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
@@ -137,10 +137,11 @@ public class altaSalida extends HttpServlet {
         
         try {
             iA.altaSalidaTuristica(nombre, fecha, lugar, cantMaxTur, new GregorianCalendar(), actividad, fd);
+            request.setAttribute("exito", "Has registrado con exito la salida: " + nombre);
             request.getRequestDispatcher("/index").forward(request, response);
         }catch(YaExisteException e) {
             e.printStackTrace();
-            request.setAttribute("fail", true);
+            request.setAttribute("SalidaFailedError", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/altaSalida/altaSalida.jsp").forward(request, response);
         }
 	}
