@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import excepciones.YaExisteException;
+import model.datatypes.DTActividad;
+import model.datatypes.estadoActividad;
 import model.logica.interfaces.Fabrica;
 import model.logica.interfaces.ICtrlActividad;
 
@@ -85,10 +87,16 @@ public class altaSalida extends HttpServlet {
     
     protected void cargarActividades(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {        
         Set<String> nomAct = iA.listarActividadesDepartamento(request.getParameter("nombreDep"));
-        
+                
+        Set<String> nomActCon = new HashSet<String>();
+        for(String act : nomAct) {
+            DTActividad actual = iA.getInfoActividad(act);
+            if(actual.getestado() == estadoActividad.confirmada)
+                nomActCon.add(actual.getNombre());
+        }
         request.setAttribute("nombreDep", request.getParameter("nombreDep"));
 
-        request.setAttribute("listaAct", nomAct);
+        request.setAttribute("listaAct", nomActCon);
         request.getRequestDispatcher("/WEB-INF/altaSalida/altaSalida.jsp").forward(request, response);
     }
 	/**
@@ -125,10 +133,7 @@ public class altaSalida extends HttpServlet {
         
         if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
             fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
-        }else {
-            fd = "";
         }
-        
         
         try {
             iA.altaSalidaTuristica(nombre, fecha, lugar, cantMaxTur, new GregorianCalendar(), actividad, fd);
