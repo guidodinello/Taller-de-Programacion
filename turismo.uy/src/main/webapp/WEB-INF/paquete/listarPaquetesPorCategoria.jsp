@@ -30,10 +30,10 @@
 			<a class="text-decoration-none" href="paquete?nombrePaquete=<%=paq.getNombre()%>">
 						<div
 							class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
-							style="background-image: url('https://<%=paq.getImg()%>');">
+							style="background-image: url('<%=paq.getImg()%>');">
 							<div class="row g-0 mask card-color">
 								<div class="col-md-4 align-self-center">
-									<img src="https://<%=paq.getImg() %>"
+									<img src="<%=paq.getImg() %>"
 										class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 										alt="actividad Turistica: <%=paq.getNombre()%>">
 								</div>
