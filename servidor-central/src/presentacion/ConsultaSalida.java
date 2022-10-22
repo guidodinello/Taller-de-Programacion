@@ -432,19 +432,11 @@ public class ConsultaSalida extends JInternalFrame {
 	}
 
 	public void datosQueVienenDesdeOtroCasoDeUso(String departamento, String actividad, String salida) {
+		limpiarForm();
 		cargarDatos();
 		ComboBoxSelDepartamento.setSelectedItem(departamento);
-		//rdbtnDepto.doClick();
-		ComboBoxSelDepartamento.setEnabled(false);
-		//rdbtnDepto.setEnabled(false);
 		comboBox_1.setSelectedItem(actividad);
-		//rdbtnNewRadioButton.doClick();
-		comboBox_1.setEnabled(false);
-		//rdbtnNewRadioButton.setEnabled(false);
 		comboBoxSal.setSelectedItem(salida);
-		//rdbtnNewRadioButton_1.doClick();
-		comboBoxSal.setEnabled(false);
-		//rdbtnNewRadioButton_1.setEnabled(false);
 		setVisible(true);
 	}
 }
