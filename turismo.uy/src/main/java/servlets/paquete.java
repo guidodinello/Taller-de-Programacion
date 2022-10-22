@@ -94,9 +94,9 @@ public class paquete extends HttpServlet {
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
         String name = request.getParameter("nombrePaquete");
-        System.out.println(name);
         DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
         request.setAttribute("paquete", paqueteT);
         processRequest(request, response);

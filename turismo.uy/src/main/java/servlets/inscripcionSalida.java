@@ -176,6 +176,7 @@ public class inscripcionSalida extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    request.setCharacterEncoding("UTF-8");
 	    //Si llegas al POST ya tenes nombreSalida, y si la inscripcion falla necesitas mandar de nuevo el DTSalida y los DTPaquete al JSP
 	    Fabrica fabrica = Fabrica.getInstance();
 	    ICtrlActividad ICA = Fabrica.getInstance().getICtrlActividad();

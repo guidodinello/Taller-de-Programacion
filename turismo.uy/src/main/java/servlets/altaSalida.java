@@ -122,7 +122,7 @@ public class altaSalida extends HttpServlet {
         
         String[] setFecha = request.getParameter("fechaNuevaYUnica").split("-");
         Integer hora = Integer.parseInt(request.getParameter("hora")); 
-        GregorianCalendar fecha = new GregorianCalendar(Integer.parseInt(setFecha[0]), Integer.parseInt(setFecha[1]), Integer.parseInt(setFecha[2]), hora, 0);
+        GregorianCalendar fecha = new GregorianCalendar(Integer.parseInt(setFecha[0]), Integer.parseInt(setFecha[1])-1, Integer.parseInt(setFecha[2]), hora, 0);
         
         String lugar = request.getParameter("lugar");
         Integer cantMaxTur = Integer.parseInt(request.getParameter("cantMaxTur"));        
@@ -146,6 +146,7 @@ public class altaSalida extends HttpServlet {
 	}
 	   
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    request.setCharacterEncoding("UTF-8");
 		// TODO Auto-generated method stub
 		processRequest(request, response);
 	}

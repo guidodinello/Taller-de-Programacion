@@ -49,7 +49,7 @@
 		              	}
 		              	%>
 		              		
-						<form method="POST" action="paquete" id="FormularioCompraPaquete" enctype="multipart/form-data">
+						<form method="POST" action="paquete" id="FormularioCompraPaquete" enctype="multipart/form-data" >
 							
 							<input type="hidden" name="nombrePaquete" value="<%=paquete.getNombre()%>" />
 							
