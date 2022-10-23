@@ -37,7 +37,7 @@ public class aceptarRechazarActividad extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Aceptar o rechazar actividad ");
+		setTitle("Aceptar o Eechazar Actividad Turistica");
 		setBounds(30, 30, 453, 431);
 
 		comboBoxActividades = new JComboBox<String>();

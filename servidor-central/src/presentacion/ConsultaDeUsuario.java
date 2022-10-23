@@ -88,7 +88,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		setIconifiable(true);
 		setMaximizable(true);
 		setClosable(true);
-		setTitle("Consultar un Usuario");
+		setTitle("Consulta de Usuario");
 				
 		setBounds(30, 30, 654, 555);
 				

@@ -50,7 +50,7 @@
 		                        	<label for="inputPassword6" class="col-form-label disabled'">Duración:</label>
 		                        </div>
 		                        <div class="col-auto">
-		                        	<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getDuracionHs()%>>
+		                        	<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= actividad.getDuracionHs()%> hs">
 		                    	</div>
 		                    </div>
 						</fieldset>
@@ -62,7 +62,7 @@
 									<label for="inputPassword6" class="col-form-label">Costo:</label>
 								</div>
 								<div class="col-auto">
-									<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getCosto()%>>
+									<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= actividad.getCosto()%> $">
 								</div>
 							
 							</div>

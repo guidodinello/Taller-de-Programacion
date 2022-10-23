@@ -336,13 +336,14 @@ public class altaActividadTuristica extends JInternalFrame {
 				IActividad.altaActividadTuristica(comboBox_1.getSelectedItem().toString(), nomActividad, desc, Integer.parseInt(duraHs), Float.parseFloat(costo), 
 						nombCiudad, comboBox.getSelectedItem().toString(), fecha, "", setCat, estadoActividad.confirmada);
 				limpiarFormulario();
+				JOptionPane.showMessageDialog(this,
+						"Actividad Turística creada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+				setVisible(false);
 			
 			} catch(YaExisteException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
 			}
 			
-			
-			setVisible(false);
 		}
 	}
 	

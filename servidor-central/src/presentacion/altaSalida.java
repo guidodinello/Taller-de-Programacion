@@ -31,6 +31,9 @@ import javax.swing.JSpinner;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import datatypes.DTActividad;
+
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
@@ -63,7 +66,7 @@ public class altaSalida extends JInternalFrame {
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
-        setTitle("Registrar Salida");
+        setTitle("Alta de Salida Turistica");
         setBounds(10, 40, 452, 341);
 	
 	
@@ -133,7 +136,7 @@ public class altaSalida extends JInternalFrame {
        textField_3.setColumns(10);
        
        JLabel lblNewLabel_8 = new JLabel(":");
-       SpinnerModel sm3 = new SpinnerNumberModel(1, 1, 500, 1); //default value,lower bound,upper bound,increment by
+       SpinnerModel sm3 = new SpinnerNumberModel(1, -500, 500, 1); //default value,lower bound,upper bound,increment by
        spinner_2 = new JSpinner(sm3);
        
        GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -406,22 +409,48 @@ public class altaSalida extends JInternalFrame {
 		f = new JInternalFrame();
 		f.setVisible(false);
 		
+		
 		 btnNewButton.addActionListener(new ActionListener() {
+
+				
+				
 			 public void actionPerformed(ActionEvent ae) { 
 				 if(!settear) return;
 				 if(!checkForm()) {
 					 JOptionPane.showMessageDialog(getContentPane(), "Complete los campos", " Registro invalido", JOptionPane.INFORMATION_MESSAGE);
 				return;
 				 }
+				DTActividad act = iCS.getInfoActividad(comboBox_1.getSelectedItem().toString());
+				int dia = fechaNac.get(fechaNac.DAY_OF_MONTH);
+				int  mes = fechaNac.get(fechaNac.MONTH) + 1;
+				int anio = fechaNac.get(fechaNac.YEAR);
+				int diafa = act.getFechaAlta().get(fechaNac.DAY_OF_MONTH);
+				int mesfa = (act.getFechaAlta().get(fechaNac.MONTH) + 1);
+				int aniofa = (act.getFechaAlta().get(fechaNac.YEAR));
+				System.out.print(aniofa);
+				
+				if(aniofa > anio || (aniofa == anio && mesfa > mes) || (aniofa == anio && mesfa == mes && diafa>dia)) {
+					 JOptionPane.showMessageDialog(getContentPane(), "La fecha debe ser posterior al alta de la actividad ", " Registro invalido", JOptionPane.INFORMATION_MESSAGE);
+					 	return;
+					
+				}
+				
+				 if((int)spinner_2.getValue() < 0  ) {
+					 JOptionPane.showMessageDialog(getContentPane(), "Cantidad de turistas debe ser positiva", " Registro invalido", JOptionPane.INFORMATION_MESSAGE);
+				 return;
+				 }
+		
 				 try {
 					iCS.altaSalidaTuristica(textField_1.getText(), fechaNac, textField_2.getText(), (int)spinner_2.getValue(), new GregorianCalendar(),comboBox_1.getSelectedItem().toString(), "");
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida se ha creado con exito", "Registrar Salida", JOptionPane.INFORMATION_MESSAGE);
-
+					 settear = false;
+					 limpiarForm();
+					 cargarDatos();
+					 settear = true;
 				 } catch (YaExisteException e) {
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida ya existe", "Salida no Registrada", JOptionPane.INFORMATION_MESSAGE);
 				}
-				 limpiarForm();
-				 setVisible(false);
+				
 		 }
 			 
 		 });

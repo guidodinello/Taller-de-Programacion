@@ -32,7 +32,7 @@ public class CtrlActividad implements ICtrlActividad{
 	public void altaDepartamento(String nombreDepartamento, String descripcion , String URL) throws YaExisteException{
 		HandlerDepartamentos handlerDepto = HandlerDepartamentos.getInstance();
 		if (handlerDepto.existeDepartamento(nombreDepartamento)){
-			throw new YaExisteException("El departamento " + nombreDepartamento + "ya se encuentra registrado.");
+			throw new YaExisteException("El departamento " + nombreDepartamento + " ya se encuentra registrado.");
 		}
 		Departamento newD = new Departamento(nombreDepartamento, descripcion, URL);
 		handlerDepto.add(newD);
@@ -42,7 +42,7 @@ public class CtrlActividad implements ICtrlActividad{
 	public void altaCategoria(String nombre) throws YaExisteException{
 		HandlerCategorias handlerCategorias = HandlerCategorias.getInstance();
 		if (handlerCategorias.existeCategoria(nombre)){
-			throw new YaExisteException("La Categoria " + nombre + "ya se encuentra registrada.");
+			throw new YaExisteException("La Categoria " + nombre + " ya se encuentra registrada.");
 		}
 		Categoria nuevaCat = new Categoria(nombre);
 		handlerCategorias.add(nuevaCat);
@@ -124,7 +124,7 @@ public class CtrlActividad implements ICtrlActividad{
 	public void altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal, int cantMaxTuristas, GregorianCalendar fechaAlta, String  actividad, String img) throws YaExisteException {
 		HandlerSalidas handlerSal = HandlerSalidas.getInstance();
 		if (handlerSal.existeSalida(nombreSal)) {
-			throw new YaExisteException("La salida " + nombreSal + "ya se encuentra registrada");
+			throw new YaExisteException("La salida " + nombreSal + " ya se encuentra registrada");
 			
 		}
 		HandlerActividades handlerAct = HandlerActividades.getInstance();

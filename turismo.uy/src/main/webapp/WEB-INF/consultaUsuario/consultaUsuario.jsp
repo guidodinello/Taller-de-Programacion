@@ -72,12 +72,6 @@
 										
 										<h5 class="card-title"><%=miUsr.getNombre()%></h5>
 										<p class="card-text"><%=miUsr.getEmail()%></p>
-									
-										<p class="card-text">
-										
-											<small class="text-muted">Ultimo ingreso: 01/09/2022
-												14:26</small>
-											</p>
 									</div>
 								</div>
 							</div>
@@ -131,7 +125,7 @@
 											<div class="tab-pane active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
 												<div class="card-body">
 		
-												<form>
+												<form method="POST" action="consultaUsuario" id="FormularioModificarDatos" enctype="multipart/form-data">
 													<h4 class=" font-up font-bold py-2 white-text">Datos del usuario</h4>
 													<fieldset disabled>
 														<div class="row g-3 align-items-center pt-3">
@@ -153,10 +147,10 @@
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
 															<i class="fa fa-user prefix white-text"></i> <label
-																for="inputPassword6" class="col-form-label">Nombre:</label>
+																for="Nombre" class="col-form-label">Nombre:</label>
 														</div>
 														<div class="col-auto">
-															<input type="text" id="inputPassword6" class="form-control"
+															<input type="text" value=<%=miUsr.getNombre()%> name="Nombre" class="form-control"
 																aria-describedby="passwordHelpInline"
 																placeholder="<%=miUsr.getNombre()%>">
 												     	 </div>
@@ -166,10 +160,10 @@
 												    <div class="row g-3 align-items-center pt-3">
 													      <div class="col-auto">
 													        <i class="fa fa-user prefix white-text"></i>
-													        <label for="inputPassword6" class="col-form-label">Apellido:</label>
+													        <label for="Apellido" class="col-form-label">Apellido:</label>
 													      </div>
 													      <div class="col-auto">
-													        <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="<%=miUsr.getApellido()%>">
+													        <input type="text" value=<%=miUsr.getApellido()%> name = "Apellido" class="form-control" aria-describedby="passwordHelpInline" placeholder="<%=miUsr.getApellido()%>">
 													      </div>
 												
 												    </div>
@@ -194,17 +188,21 @@
 												  <div class="row g-3 align-items-center pt-3">
 													    <div class="col-auto">
 													      <i class="fa fa-birthday-cake prefix white-text"></i>
-													      <label for="inputPassword6" class="col-form-label disabled'">Fecha de Nacimiento:
+													      <label for="FechaNacimiento" class="col-form-label disabled'">Fecha de Nacimiento:
 													      </label>
 													    </div>
 													    <div class="col-auto">
-													      <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder=
+													      <input type="text" name="FechaNacimiento" value=<%=new SimpleDateFormat("yyyy-MM-dd").format(miUsr.getFechaNac().getTime())%> class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder=
 													      	<%= 
-																new SimpleDateFormat("dd/MM/yyyy").format(miUsr.getFechaNac().getTime())
+																new SimpleDateFormat("yyyy-MM-dd").format(miUsr.getFechaNac().getTime())
 															%>>
 													    </div>
 													
 													  </div>
+													  
+													<div class="mb-3">
+	                      								<button type="submit" class="btn btn-primary" id="btnGuardar">Guardar cambios</button>
+	                  								</div>
 												</form>
 											</div>
 										</div><%--cierre perfil --%>
@@ -244,7 +242,7 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <a style="text-decoration:none"
-                                                            href="./consultaSalida.html"><%=sal.getNombre()%></a>
+                                                            href="salida?nombreSalida=<%=sal.getNombre()%>"><%=sal.getNombre()%></a>
 
                                                     </div>
 
@@ -325,7 +323,7 @@
 											    	DTPaquete paq = ctrlA.getInfoPaquete(c.getPaquete());
 											    %>
 										 		<form>
-								                    <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html"><%= paq.getNombre() %></a>
+								                    <a style="text-decoration:none; font-size:larger;" href="paquete?nombrePaquete=<%=paq.getNombre()%>"><%= paq.getNombre() %></a>
 								                    <fieldset disabled>
 								                      <div class="row g-3 align-items-center pt-3">
 								                        <div class="col-auto">
@@ -472,7 +470,7 @@
 													Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
 													for(DTActividad act:actividades){ %>
 													 <a style="text-decoration:none; font-size: 24px;"
-                                                href="./consultaSalida.html" class="font-up font-bold"><%=act.getNombre()%></a>
+                                                href="consultaActividad?nombreAct=<%=act.getNombre() %>" class="font-up font-bold"><%=act.getNombre()%></a>
                                             <form>
 
                                                 <fieldset disabled>
@@ -575,9 +573,6 @@
 								   <div class="card-body">
 										<h5 class="card-title"><%=Usr.getNombre()%></h5>
 										<p class="card-text"><%=Usr.getEmail()%></p>
-										<p class="card-text">
-											<small class="text-muted">Ultimo ingreso: 01/09/2022 14:26</small>
-										</p>
 									</div>
 								</div>
 							</div>
@@ -627,12 +622,10 @@
 																	aria-describedby="disabled"
 																	placeholder="<%=Usr.getNickname()%>">
 															</div>
-															<div class="col-auto">
-																<span id="passwordHelpInline" class="form-text"> No puede
-																	cambiar este campo. </span>
-															</div>
+															
 														</div>
 													</fieldset>
+													<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
 															<i class="fa fa-user prefix white-text"></i> <label
@@ -645,7 +638,8 @@
 												     	 </div>
 												
 												    </div>
-												
+												    </fieldset>
+													<fieldset disabled>
 												    <div class="row g-3 align-items-center pt-3">
 													      <div class="col-auto">
 													        <i class="fa fa-user prefix white-text"></i>
@@ -656,6 +650,7 @@
 													      </div>
 												
 												    </div>
+												    </fieldset>
 												
 												    <fieldset disabled>
 													    <div class="row g-3 align-items-center pt-3">
@@ -666,14 +661,10 @@
 														      <div class="col">
 														        <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" value="<%=Usr.getEmail()%>">
 														      </div>
-														      <div class="col-auto">
-														        <span id="passwordHelpInline" class="form-text">
-														          No puede cambiar este campo.
-														        </span>
-														      </div>
+														      
 													    </div>
 												  	</fieldset>
-												
+													<fieldset disabled>
 												  <div class="row g-3 align-items-center pt-3">
 													    <div class="col-auto">
 													      <i class="fa fa-birthday-cake prefix white-text"></i>
@@ -688,6 +679,7 @@
 													    </div>
 													
 													  </div>
+													  </fieldset>
 												</form>
 					                            	</div>
 					          					</div>
@@ -727,7 +719,7 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <a style="text-decoration:none"
-                                                            href="./consultaSalida.html"><%=sal.getNombre()%></a>
+                                                            href="salida?nombreSalida=<%=sal.getNombre()%>"><%=sal.getNombre()%></a>
 
                                                     </div>
 
@@ -803,7 +795,7 @@
 													for(DTActividad act:actividades){ 
 														if(act.getestado() == estadoActividad.confirmada){%>
 													 <a style="text-decoration:none; font-size: 24px;"
-                                                href="./consultaSalida.html" class="font-up font-bold"><%=act.getNombre()%></a>
+                                                href="consultaActividad?nombreAct=<%=act.getNombre() %>" class="font-up font-bold"><%=act.getNombre()%></a>
                                             <form>
 
                                                 <fieldset disabled>

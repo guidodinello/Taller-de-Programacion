@@ -22,7 +22,7 @@ public class altaCategoria extends JInternalFrame {
 	
 	private JTextField textField;
 	public altaCategoria(ICtrlActividad ica) {
-		setTitle("Alta de categoria");
+		setTitle("Alta de Categoria");
 		setClosable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -88,12 +88,14 @@ public class altaCategoria extends JInternalFrame {
 				
 				IActividad.altaCategoria(nombreCategoria);
 				limpiarFormulario();
+				JOptionPane.showMessageDialog(this,
+						"Categoria creada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+				setVisible(false);
 			
 			} catch(YaExisteException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de Categoria ", JOptionPane.ERROR_MESSAGE);
 			}
 			
-			setVisible(false);
 		}
 	}
 	
