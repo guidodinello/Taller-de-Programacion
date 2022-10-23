@@ -1,10 +1,8 @@
 package logica.clases;
 
-import java.io.InputStream;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-import logica.clases.ActividadTuristica;
 import datatypes.DTActividad;
 import java.util.HashMap;
 import java.util.HashSet;

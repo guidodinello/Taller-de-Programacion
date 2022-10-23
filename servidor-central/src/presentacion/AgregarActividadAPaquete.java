@@ -2,8 +2,8 @@ package presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 import java.util.Set;
+import java.util.HashSet;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -175,14 +175,9 @@ public class AgregarActividadAPaquete extends JInternalFrame{
 		HandlerUsuarios hu = HandlerUsuarios.getInstance();
 		Set<Turista> turistas = hu.listarTuristas();
 		for (Turista t : turistas){
-			Set<Compra> compras =  (Set<Compra>) t.getCompras().values();
-			if(compras != null) {
-				for (Compra i : compras) {
-					setPaquetes.remove(i.getPaquete().getNombre());
-				}
-			} else {
-				break;
-			}
+			Set<Compra> compras =  new HashSet<Compra>(t.getCompras().values());
+			for (Compra i : compras)
+				setPaquetes.remove(i.getPaquete().getNombre());
 		}
 			 
 		String[] arrPaquetes = new String[setPaquetes.size()];

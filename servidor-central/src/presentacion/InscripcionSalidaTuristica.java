@@ -2,7 +2,6 @@ package presentacion;
 
 import java.util.Set;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;

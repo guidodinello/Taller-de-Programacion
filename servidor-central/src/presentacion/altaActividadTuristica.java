@@ -24,7 +24,6 @@ import java.util.Set;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
@@ -307,9 +306,9 @@ public class altaActividadTuristica extends JInternalFrame {
 		
 		if(checkFormulario()) {
 			int dia = Integer.parseInt(date.getText().substring(0,2));
-			int mes = Integer.parseInt(date.getText().substring(4,5));
+			int mes = Integer.parseInt(date.getText().substring(3,5));
 			int anio = Integer.parseInt(date.getText().substring(6,10));
-			GregorianCalendar fecha = new GregorianCalendar(anio, mes, dia);
+			GregorianCalendar fecha = new GregorianCalendar(anio, mes-1, dia);
 			
 			try {
 				Set<String> setString = new HashSet<String>();
