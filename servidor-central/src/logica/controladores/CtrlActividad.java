@@ -20,7 +20,7 @@ import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
 import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerCategorias;
-import logica.interfaces.*;
+import logica.interfaces.ICtrlActividad;
 import logica.clases.SalidaTuristica;
 import logica.clases.Proveedor;
 import logica.handlers.HandlerSalidas;
