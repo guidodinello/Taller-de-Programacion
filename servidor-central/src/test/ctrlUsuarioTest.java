@@ -35,7 +35,7 @@ import datatypes.DTTurista;
 public class ctrlUsuarioTest {
 	private static ICtrlUsuario controladorUsuario;
 	private static ICtrlActividad controladorActividad;
-	private static HandlerUsuarios hU;
+	private static HandlerUsuarios handlerU;
 	
 	public ctrlUsuarioTest() {
 	}
@@ -48,7 +48,7 @@ public class ctrlUsuarioTest {
 		HandlerUsuarios.clear();
 		HandlerPaquetes.clear();
 		Fabrica fabrica = Fabrica.getInstance();
-		hU = HandlerUsuarios.getInstance();
+		handlerU = HandlerUsuarios.getInstance();
 		controladorUsuario = fabrica.getICtrlUsuario();
 		controladorActividad = fabrica.getICtrlActividad();
 			try {
@@ -156,60 +156,60 @@ public class ctrlUsuarioTest {
 			assertEquals(controladorUsuario.listarUsuarios().isEmpty(), false);
 			assertEquals(controladorUsuario.listarTuristas().isEmpty(), false);
 			assertEquals(controladorUsuario.listarProveedores().isEmpty(), false);
-			assertEquals(hU.getTuristaByNickname(nickT1).getNickname(), nickT1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getNickname(), nickT2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getNickname(), nickT3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getNickname(), nickT4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getNickname(), nickT1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getNickname(), nickT2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getNickname(), nickT3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getNickname(), nickT4);
 			
-			assertEquals(hU.getTuristaByNickname(nickT1).getEmail(), emailT1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getEmail(), emailT2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getEmail(), emailT3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getEmail(), emailT4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getEmail(), emailT1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getEmail(), emailT2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getEmail(), emailT3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getEmail(), emailT4);
 			
-			assertEquals(hU.getTuristaByNickname(nickT1).getNombre(), nombT1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getNombre(), nombT2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getNombre(), nombT3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getNombre(), nombT4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getNombre(), nombT1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getNombre(), nombT2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getNombre(), nombT3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getNombre(), nombT4);
 			
-			assertEquals(hU.getTuristaByNickname(nickT1).getFechaNac(), fechaNac1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getFechaNac(), fechaNac2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getFechaNac(), fechaNac3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getFechaNac(), fechaNac4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getFechaNac(), fechaNac1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getFechaNac(), fechaNac2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getFechaNac(), fechaNac3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getFechaNac(), fechaNac4);
 			
-			assertEquals(hU.getTuristaByNickname(nickT1).getNacionalidad(), nacionalidadT1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getNacionalidad(), nacionalidadT2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getNacionalidad(), nacionalidadT3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getNacionalidad(), nacionalidadT4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getNacionalidad(), nacionalidadT1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getNacionalidad(), nacionalidadT2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getNacionalidad(), nacionalidadT3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getNacionalidad(), nacionalidadT4);
 
-			assertEquals(hU.getProveedorByNickname(nickP1).getNickname(), nickP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getNickname(), nickP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getNickname(), nickP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getNickname(), nickP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getNickname(), nickP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getNickname(), nickP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getNickname(), nickP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getNickname(), nickP4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getEmail(), emailP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getEmail(), emailP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getEmail(), emailP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getEmail(), emailP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getEmail(), emailP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getEmail(), emailP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getEmail(), emailP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getEmail(), emailP4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getNombre(), nombP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getNombre(), nombP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getNombre(), nombP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getNombre(), nombP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getNombre(), nombP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getNombre(), nombP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getNombre(), nombP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getNombre(), nombP4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getFechaNac(), fechaNac1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getFechaNac(), fechaNac2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getFechaNac(), fechaNac3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getFechaNac(), fechaNac4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getFechaNac(), fechaNac1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getFechaNac(), fechaNac2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getFechaNac(), fechaNac3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getFechaNac(), fechaNac4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getDescripcion(), descP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getDescripcion(), descP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getDescripcion(), descP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getDescripcion(), descP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getDescripcion(), descP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getDescripcion(), descP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getDescripcion(), descP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getDescripcion(), descP4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getSitioWeb(), linkP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getSitioWeb(), linkP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getSitioWeb(), linkP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getSitioWeb(), linkP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getSitioWeb(), linkP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getSitioWeb(), linkP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getSitioWeb(), linkP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getSitioWeb(), linkP4);
 			
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
@@ -517,8 +517,8 @@ public class ctrlUsuarioTest {
 	@Test
 	@Order(10)
 	public void testlistarInfoSalidasTurista(){ 
-		String t = "eze";
-		Set<DTSalida> obtenido = controladorUsuario.listarInfoSalidasTurista(t);
+		String tur = "eze";
+		Set<DTSalida> obtenido = controladorUsuario.listarInfoSalidasTurista(tur);
 		
 		Map<String, DTSalida> esperado = new HashMap<String, DTSalida>();
 		
@@ -544,8 +544,8 @@ public class ctrlUsuarioTest {
 	@Test
 	@Order(11)
 	public void testlistarInfoCompletaActividadesProveedor() {
-		String p = "cris";
-		Set<DTActividad> obtenido = controladorUsuario.listarInfoCompletaActividadesProveedor(p);
+		String prov = "cris";
+		Set<DTActividad> obtenido = controladorUsuario.listarInfoCompletaActividadesProveedor(prov);
 		
 		Map<String, DTActividad> esperado = new HashMap<String, DTActividad>();
 		
@@ -580,18 +580,18 @@ public class ctrlUsuarioTest {
 		DTProveedor duP = (DTProveedor)controladorUsuario.getInfoBasicaUsuario(nickP);
 		
 		assertEquals(duT.getNickname(), nickT);
-		assertEquals(duT.getNombre(), hU.getTuristaByNickname(nickT).getNombre());
-		assertEquals(duT.getEmail(), hU.getTuristaByNickname(nickT).getEmail());
-		assertEquals(duT.getApellido(), hU.getTuristaByNickname(nickT).getApellido());
-		assertEquals(duT.getFechaNac(), hU.getTuristaByNickname(nickT).getFechaNac());
-		assertEquals(duT.getNacionalidad(), hU.getTuristaByNickname(nickT).getNacionalidad());
+		assertEquals(duT.getNombre(), handlerU.getTuristaByNickname(nickT).getNombre());
+		assertEquals(duT.getEmail(), handlerU.getTuristaByNickname(nickT).getEmail());
+		assertEquals(duT.getApellido(), handlerU.getTuristaByNickname(nickT).getApellido());
+		assertEquals(duT.getFechaNac(), handlerU.getTuristaByNickname(nickT).getFechaNac());
+		assertEquals(duT.getNacionalidad(), handlerU.getTuristaByNickname(nickT).getNacionalidad());
 		
-		assertEquals(duP.getNombre(), hU.getProveedorByNickname(nickP).getNombre());
-		assertEquals(duP.getEmail(), hU.getProveedorByNickname(nickP).getEmail());
-		assertEquals(duP.getApellido(), hU.getProveedorByNickname(nickP).getApellido());
-		assertEquals(duP.getFechaNac(), hU.getProveedorByNickname(nickP).getFechaNac());
-		assertEquals(duP.getDescripcion(), hU.getProveedorByNickname(nickP).getDescripcion());
-		assertEquals(duP.getLinkSitioWeb(), hU.getProveedorByNickname(nickP).getSitioWeb());
+		assertEquals(duP.getNombre(), handlerU.getProveedorByNickname(nickP).getNombre());
+		assertEquals(duP.getEmail(), handlerU.getProveedorByNickname(nickP).getEmail());
+		assertEquals(duP.getApellido(), handlerU.getProveedorByNickname(nickP).getApellido());
+		assertEquals(duP.getFechaNac(), handlerU.getProveedorByNickname(nickP).getFechaNac());
+		assertEquals(duP.getDescripcion(), handlerU.getProveedorByNickname(nickP).getDescripcion());
+		assertEquals(duP.getLinkSitioWeb(), handlerU.getProveedorByNickname(nickP).getSitioWeb());
 	}
 	
 	

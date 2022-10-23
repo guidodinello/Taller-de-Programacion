@@ -11,7 +11,7 @@ import datatypes.DTSalida;
 public class Turista extends Usuario {
 	private Map<String, InscripcionSalida> inscripciones;
 	private String nacionalidad;
-	private Map<String ,Compra> compras;
+	private Map<String, Compra> compras;
 
 	public Turista(String nickname, String email, String nombre, String apellido, String contrasena, GregorianCalendar fechaNac, String imgDir, String nacionalidad) {
 		super(nickname, email, nombre, apellido, contrasena, fechaNac, imgDir);
@@ -30,7 +30,7 @@ public class Turista extends Usuario {
 	
 	public Set<DTSalida> getInfoInscripciones() {
 		Set<DTSalida> resultado = new HashSet<DTSalida>();
-		inscripciones.forEach((key, value)->{
+		inscripciones.forEach((key, value) -> {
 			resultado.add(value.getDTSalida());
 		});
 		return resultado;
@@ -44,8 +44,8 @@ public class Turista extends Usuario {
 		inscripciones.put(insc.getSalida().getNombre(), insc);
 	}
 	
-	public boolean inscriptoSalida(SalidaTuristica s) {
-		return inscripciones.containsKey(s.getNombre());
+	public boolean inscriptoSalida(SalidaTuristica salida) {
+		return inscripciones.containsKey(salida.getNombre());
 	}
 
     public boolean comproPaquete(String paquete) {

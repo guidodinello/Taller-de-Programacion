@@ -41,7 +41,7 @@ public class Proveedor extends Usuario {
 	
 	public Set<DTActividad> getDTActividades(){
 		Set<DTActividad> resultado = new HashSet<DTActividad>();
-		this.actividades.forEach((key, value)->{
+		this.actividades.forEach((key, value) -> { 
 			resultado.add(value.getDTActividad());
 		});
 		return resultado;
