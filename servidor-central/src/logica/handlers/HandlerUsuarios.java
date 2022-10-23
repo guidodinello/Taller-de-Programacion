@@ -16,8 +16,8 @@ public class HandlerUsuarios {
 	private static HandlerUsuarios instance = null;
 	
 	private Map<String, Usuario> usuarios; //guarda todos por el nickname
-	private Map<String, Proveedor> proveedores;//guarda por el email
-	private Map<String, Turista> turistas;//guarda por el email
+	private Map<String, Proveedor> proveedores; //guarda por el email
+	private Map<String, Turista> turistas; //guarda por el email
 
 	private HandlerUsuarios() {
 		usuarios = new HashMap<String, Usuario>();
@@ -31,64 +31,64 @@ public class HandlerUsuarios {
 		return instance;
 	}
 
-	public void agregarTurista(Turista t) throws YaExisteException {
-		if(usuarios.containsKey(t.getNickname())) {
-			throw new YaExisteException("El usuario con el nickname " +t.getNickname() + " ya se encuentra registrado.");
+	public void agregarTurista(Turista turista) throws YaExisteException {
+		if (usuarios.containsKey(turista.getNickname())) {
+			throw new YaExisteException("El usuario con el nickname " + turista.getNickname() + " ya se encuentra registrado.");
 		}
-		if(turistas.containsKey(t.getEmail())) {
-			throw new YaExisteException("El usuario con el email " +t.getEmail() + " ya se encuentra registrado.");
+		if (turistas.containsKey(turista.getEmail())) {
+			throw new YaExisteException("El usuario con el email " + turista.getEmail() + " ya se encuentra registrado.");
 		}
-		if(proveedores.containsKey(t.getEmail())) {
-			throw new YaExisteException("El usuario con el email " +t.getEmail() + " ya se encuentra registrado.");
+		if (proveedores.containsKey(turista.getEmail())) {
+			throw new YaExisteException("El usuario con el email " + turista.getEmail() + " ya se encuentra registrado.");
 		}
-		usuarios.put(t.getNickname(), t);
-		turistas.put(t.getEmail(), t);
+		usuarios.put(turista.getNickname(), turista);
+		turistas.put(turista.getEmail(), turista);
 	}
 
-	public void agregarProveedor(Proveedor p) throws YaExisteException {
-		if(usuarios.containsKey(p.getNickname())) {
-			throw new YaExisteException("El usuario con el nickname " +p.getNickname() + " ya se encuentra registrado.");
+	public void agregarProveedor(Proveedor prov) throws YaExisteException {
+		if (usuarios.containsKey(prov.getNickname())) {
+			throw new YaExisteException("El usuario con el nickname " + prov.getNickname() + " ya se encuentra registrado.");
 		}
-		if(proveedores.containsKey(p.getEmail())) {
-			throw new YaExisteException("El usuario con el email " +p.getEmail() + " ya se encuentra registrado.");
+		if (proveedores.containsKey(prov.getEmail())) {
+			throw new YaExisteException("El usuario con el email " + prov.getEmail() + " ya se encuentra registrado.");
 		}
-		if(turistas.containsKey(p.getEmail())) {
-			throw new YaExisteException("El usuario con el email " +p.getEmail() + " ya se encuentra registrado.");
+		if (turistas.containsKey(prov.getEmail())) {
+			throw new YaExisteException("El usuario con el email " + prov.getEmail() + " ya se encuentra registrado.");
 		}
-		usuarios.put(p.getNickname(), p);
-		proveedores.put(p.getEmail(), p);
+		usuarios.put(prov.getNickname(), prov);
+		proveedores.put(prov.getEmail(), prov);
 	}
 	
 //  siempre sabemos de antemano el tipo de usuario
-	public void agregarUsuario(Usuario u) throws YaExisteException {
-		if (u instanceof Proveedor) {
-			Proveedor p = (Proveedor) u;
-			this.agregarProveedor((Proveedor)p);
+	public void agregarUsuario(Usuario usr) throws YaExisteException {
+		if (usr instanceof Proveedor) {
+			Proveedor prov = (Proveedor) usr;
+			this.agregarProveedor((Proveedor) prov);
 		} else {
-			Turista t = (Turista) u;
-			this.agregarTurista((Turista)t);
+			Turista tur = (Turista) usr;
+			this.agregarTurista((Turista) tur);
 		}
 	}
 
 	//tira null si no existe
-	public Usuario getUsuarioByNickname(String n){
-		return usuarios.get(n);
+	public Usuario getUsuarioByNickname(String nick){
+		return usuarios.get(nick);
 	}
 	
-	public Proveedor getProveedorByNickname(String n) {
-		return (Proveedor)usuarios.get(n);
+	public Proveedor getProveedorByNickname(String nick) {
+		return (Proveedor) usuarios.get(nick);
 	}
 	
-	public Turista getTuristaByNickname(String n) {
-		return (Turista)usuarios.get(n);
+	public Turista getTuristaByNickname(String nick) {
+		return (Turista) usuarios.get(nick);
 	}
 
 //	siempre los pedimos por nickname
-	public Usuario getUsuarioByEmail(String n){
-		if(proveedores.get(n) != null) {
-			return proveedores.get(n);
+	public Usuario getUsuarioByEmail(String email){
+		if (proveedores.get(email) != null) {
+			return proveedores.get(email);
 		}
-		return turistas.get(n);
+		return turistas.get(email);
 	}
 
 	public Set<Turista> listarTuristas() {

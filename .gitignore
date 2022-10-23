@@ -4,6 +4,8 @@
 # folders
 bin/
 #.settings/
+#.project
+#.classpath
 .metadata/ 
 build/
 .vscode/

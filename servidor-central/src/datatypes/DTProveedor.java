@@ -6,10 +6,10 @@ public class DTProveedor extends DTUsuario {
 	private String descripcion;
 	private String sitioWeb;
 	
-	public DTProveedor(Proveedor p){
-		super(p);
-		descripcion = p.getDescripcion();
-		sitioWeb = p.getSitioWeb();
+	public DTProveedor(Proveedor prov){
+		super(prov);
+		descripcion = prov.getDescripcion();
+		sitioWeb = prov.getSitioWeb();
 	}
 
 	public String getDescripcion() {

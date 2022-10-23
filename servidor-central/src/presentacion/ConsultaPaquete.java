@@ -17,13 +17,10 @@ import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
-import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 import javax.swing.JScrollPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 
 @SuppressWarnings("serial")
 public class ConsultaPaquete extends JInternalFrame {
@@ -263,7 +260,7 @@ public class ConsultaPaquete extends JInternalFrame {
 	@SuppressWarnings("static-access")
 	private String fechaStringFormato(GregorianCalendar g, boolean conHora) {
 		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
-		String mes = String.valueOf(g.get(g.MONTH));
+		String mes = String.valueOf(g.get(g.MONTH) + 1);
 		String anio = String.valueOf(g.get(g.YEAR));
 		String hora = String.valueOf(g.get(g.HOUR));
 		String resultado = (conHora) ? dia + "/" + mes + "/" + anio + " " + hora + "hs" : dia + "/" + mes + "/" + anio;

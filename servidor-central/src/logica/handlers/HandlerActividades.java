@@ -8,7 +8,7 @@ import java.util.Set;
 import logica.clases.ActividadTuristica;
 
 public class HandlerActividades{
-    private Map<String,ActividadTuristica> actividadesTuristicas;
+    private Map<String, ActividadTuristica> actividadesTuristicas; 
     private static HandlerActividades instancia = null;
 
     private HandlerActividades() {
@@ -30,13 +30,12 @@ public class HandlerActividades{
 		actividadesTuristicas.put(actividad.getNombre(), actividad);
 	}
 
-    
 	public ActividadTuristica obtenerActividadTuristica(String actividad) {
 		return actividadesTuristicas.get(actividad);
 	}
+	
 	public Set<ActividadTuristica> obtenerActividadesTuristicas() {
 	    return new HashSet<ActividadTuristica>(actividadesTuristicas.values());
-		//return (Set<ActividadTuristica>) actividadesTuristicas.values();
 	}
 	
 	public static void clear() {

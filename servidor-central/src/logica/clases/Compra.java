@@ -14,7 +14,7 @@ public class Compra {
     private PaqueteTuristico paquete;
     private Map<String, Integer> disponibles;
     
-    public Compra(GregorianCalendar fechaCompra, int cantidadTuristas ,PaqueteTuristico paquete) {
+    public Compra(GregorianCalendar fechaCompra, int cantidadTuristas , PaqueteTuristico paquete) {
         this.fechaCompra = fechaCompra;
         this.cantidadTuristas = cantidadTuristas;
         this.paquete = paquete;
@@ -23,7 +23,7 @@ public class Compra {
         this.costoTotal = cantidadTuristas * paquete.calcularCosto();
         
         disponibles = new HashMap<String, Integer>();
-        for(String act : paquete.getNombreActividades())
+        for (String act : paquete.getNombreActividades())
             disponibles.put(act, cantidadTuristas);
     }
     
@@ -35,7 +35,10 @@ public class Compra {
         return this.paquete;
         
     }
-    
+    public float getCostoTotal() {
+        return costoTotal;
+        
+    }
     public int disponiblesEnActividad(String actividad) {
         return disponibles.get(actividad);
     }

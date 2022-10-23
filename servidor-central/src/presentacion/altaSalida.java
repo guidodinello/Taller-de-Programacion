@@ -27,7 +27,6 @@ import logica.interfaces.ICtrlActividad;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
-import javax.swing.JRadioButton;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -396,9 +395,9 @@ public class altaSalida extends JInternalFrame {
 				if (!date.getText().isEmpty()) {
 					textField_3.setText(date.getText());
 					int dia = Integer.parseInt(date.getText().substring(0,2));
-					int mes = Integer.parseInt(date.getText().substring(4,5));
+					int mes = Integer.parseInt(date.getText().substring(3,5));
 					int anio = Integer.parseInt(date.getText().substring(6,10));
-					fechaNac = new GregorianCalendar(anio, mes, dia);
+					fechaNac = new GregorianCalendar(anio, mes-1, dia);
 				}
 			}
 		});

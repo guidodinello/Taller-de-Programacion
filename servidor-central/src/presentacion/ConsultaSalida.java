@@ -19,7 +19,6 @@ import datatypes.DTSalida;
 import logica.interfaces.ICtrlActividad;
 import java.awt.Color;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -421,7 +420,7 @@ public class ConsultaSalida extends JInternalFrame {
 	@SuppressWarnings("static-access")
 	public String fechaStringFormato(GregorianCalendar g, boolean conHora) {
 		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
-		String mes = String.valueOf(g.get(g.MONTH));
+		String mes = String.valueOf(g.get(g.MONTH) + 1);
 		String anio = String.valueOf(g.get(g.YEAR));
 		String hora = String.valueOf(g.get(g.HOUR));
 		String resultado = (conHora) ? dia + "/" + mes + "/" + anio + " " + hora + "hs" : dia + "/" + mes + "/" + anio;

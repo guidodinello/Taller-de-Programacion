@@ -112,9 +112,9 @@ public class CrearPaquete extends JInternalFrame{
             // string en formato dd-mm-yyyy
             if(!selectedDate.getText().isEmpty()) {
               int dia = Integer.parseInt(selectedDate.getText().substring(0,2));
-              int mes = Integer.parseInt(selectedDate.getText().substring(4,5));
+              int mes = Integer.parseInt(selectedDate.getText().substring(3,5));
               int anio = Integer.parseInt(selectedDate.getText().substring(6,10));
-              fechaPaquete = new GregorianCalendar(anio, mes, dia);
+              fechaPaquete = new GregorianCalendar(anio, mes-1, dia);
             }
           }
         });

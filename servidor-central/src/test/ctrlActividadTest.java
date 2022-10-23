@@ -1,6 +1,9 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
@@ -32,7 +35,7 @@ import datatypes.DTSalida;
 public class ctrlActividadTest{
 	private static ICtrlActividad controladorActividad;
 	private static ICtrlUsuario controladorUsuario;
-	private static HandlerActividades hA;
+	private static HandlerActividades handlerA;
 	
 	public ctrlActividadTest() {}
 	
@@ -45,7 +48,7 @@ public class ctrlActividadTest{
 		HandlerDepartamentos.clear();
 		HandlerUsuarios.clear();
 		HandlerPaquetes.clear();
-		hA = HandlerActividades.getInstance();
+		handlerA = HandlerActividades.getInstance();
 		controladorActividad = fabrica.getICtrlActividad();
 		controladorUsuario = fabrica.getICtrlUsuario();
 
@@ -181,35 +184,35 @@ public class ctrlActividadTest{
 			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString);
 			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString);
 			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getNombre(),nombActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getNombre(),nombActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getNombre(),nombActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getNombre(),nombActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getNombre(),nombActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getNombre(),nombActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getNombre(),nombActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getNombre(),nombActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getDescripcion(),desActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getDescripcion(),desActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getDescripcion(),desActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getDescripcion(),desActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getDescripcion(),desActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getDescripcion(),desActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getDescripcion(),desActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getDescripcion(),desActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getDuracionHs(),duraHsActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getDuracionHs(),duraHsActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getDuracionHs(),duraHsActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getDuracionHs(),duraHsActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getDuracionHs(),duraHsActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getDuracionHs(),duraHsActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getDuracionHs(),duraHsActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getDuracionHs(),duraHsActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getCostoPorTurista(),costoActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getCostoPorTurista(),costoActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getCostoPorTurista(),costoActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getCostoPorTurista(),costoActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getCostoPorTurista(),costoActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getCostoPorTurista(),costoActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getCostoPorTurista(),costoActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getCostoPorTurista(),costoActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getNombreCiudad(),ciudadActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getNombreCiudad(),ciudadActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getNombreCiudad(),ciudadActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getNombreCiudad(),ciudadActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getNombreCiudad(),ciudadActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getNombreCiudad(),ciudadActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getNombreCiudad(),ciudadActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getNombreCiudad(),ciudadActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getFechaAlta(),fechaAct1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getFechaAlta(),fechaAct2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getFechaAlta(),fechaAct3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getFechaAlta(),fechaAct4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getFechaAlta(),fechaAct1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getFechaAlta(),fechaAct2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getFechaAlta(),fechaAct3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getFechaAlta(),fechaAct4);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -306,19 +309,19 @@ public class ctrlActividadTest{
 	@Order(9)
 	void testGetInfoActividad() {
 		String actividad = "Actividad 1";
-		DTActividad da = controladorActividad.getInfoActividad(actividad);
+		DTActividad dtAct = controladorActividad.getInfoActividad(actividad);
 		
-		assertEquals(da.getNombre(), "Actividad 1");
-		assertEquals(da.getDescripcion(), "act1 d");
-		assertEquals(da.getDuracionHs(), 2);
-		assertEquals(da.getCosto(), 11);
+		assertEquals(dtAct.getNombre(), "Actividad 1");
+		assertEquals(dtAct.getDescripcion(), "act1 d");
+		assertEquals(dtAct.getDuracionHs(), 2);
+		assertEquals(dtAct.getCosto(), 11);
 		
 		actividad = "Actividad 2";
-		da = controladorActividad.getInfoActividad(actividad);
-		assertEquals(da.getNombre(), "Actividad 2");
-		assertEquals(da.getDescripcion(), "act2 d");
-		assertEquals(da.getDuracionHs(), 3);
-		assertEquals(da.getCosto(), 12);
+		dtAct = controladorActividad.getInfoActividad(actividad);
+		assertEquals(dtAct.getNombre(), "Actividad 2");
+		assertEquals(dtAct.getDescripcion(), "act2 d");
+		assertEquals(dtAct.getDuracionHs(), 3);
+		assertEquals(dtAct.getCosto(), 12);
 	}
 	
 	//SALIDAS

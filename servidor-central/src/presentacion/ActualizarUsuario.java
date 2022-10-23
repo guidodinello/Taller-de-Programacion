@@ -383,9 +383,9 @@ public class ActualizarUsuario extends JInternalFrame {
 					if(!date.getText().isEmpty()) {
 						textFieldCalendario.setText(date.getText());
 						int dia = Integer.parseInt(date.getText().substring(0,2));
-						int mes = Integer.parseInt(date.getText().substring(4,5));
+						int mes = Integer.parseInt(date.getText().substring(3,5));
 						int anio = Integer.parseInt(date.getText().substring(6,10));
-						fechaNac = new GregorianCalendar(anio, mes, dia);
+						fechaNac = new GregorianCalendar(anio, mes-1, dia);
 					}
 				}
 			});

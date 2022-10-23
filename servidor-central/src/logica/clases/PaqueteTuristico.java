@@ -65,13 +65,15 @@ public class PaqueteTuristico {
 	
 	public DTPaquete getDTPaquete() {
 	    Set<String> categorias = new HashSet<String>();
-	    actividades.forEach((key, value)->{categorias.addAll(value.getCategorias());});
+	    actividades.forEach((key, value) -> {
+	    	categorias.addAll(value.getCategorias()); 
+	    	});
 		return new DTPaquete(nombre, descripcion, periodoValidez, descuento, calcularCosto(), fechaAlta, actividades.keySet(), categorias, img);
 	}
 	
 	public float calcularCosto() {
 	    float res = 0;
-	    for(ActividadTuristica act : actividades.values())
+	    for (ActividadTuristica act : actividades.values())
 	        res += act.getCostoPorTurista();
 	    
 	    return res*(1-descuento/100);

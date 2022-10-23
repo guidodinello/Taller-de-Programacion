@@ -16,7 +16,7 @@ public class HandlerCategorias {
 	};
 	
 	public static HandlerCategorias getInstance() {
-		if(HandlerCategorias.instancia == null) {
+		if (HandlerCategorias.instancia == null) {
 			HandlerCategorias.instancia = new HandlerCategorias();
 		}
 		return HandlerCategorias.instancia;

@@ -16,10 +16,10 @@ public class SalidaTuristica{
 	    private int plazosDisponibles;
 	    private String img;
 		   
-	    public SalidaTuristica(String Sn, GregorianCalendar Ds,String SlugarSal, int CmaxT,GregorianCalendar Da,ActividadTuristica actividad, String img) {
-	        this.nombre = Sn;
-	        this.fechaSalida = Ds;
-	        this.fechaAlta= Da;
+	    public SalidaTuristica(String salidaNombre, GregorianCalendar dateSalida, String SlugarSal, int CmaxT, GregorianCalendar dateAct, ActividadTuristica actividad, String img) {
+	        this.nombre = salidaNombre;
+	        this.fechaSalida = dateSalida;
+	        this.fechaAlta= dateAct;
 	        this.cantidadMaximaDeTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.actividad = actividad;
@@ -62,11 +62,11 @@ public class SalidaTuristica{
 		}
 		
 		public Set<String> getTuristasInscriptos(){
-			HandlerUsuarios hU = HandlerUsuarios.getInstance();
+			HandlerUsuarios handUsr = HandlerUsuarios.getInstance();
 			Set<String> resultado = new HashSet<String>();
-			Set<Turista> turistas = hU.listarTuristas();
-			turistas.forEach((t)->{
-				if(t.inscriptoSalida(this)) {
+			Set<Turista> turistas = handUsr.listarTuristas();
+			turistas.forEach( t-> {
+				if (t.inscriptoSalida(this)) {
 					resultado.add(t.getNombre());
 				}
 			});
