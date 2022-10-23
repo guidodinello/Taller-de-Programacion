@@ -10,13 +10,13 @@ import java.util.Set;
 
 public class Departamento{
 	private String nombre;
-	private String URL;
+	private String url;;
 	private String descripcion;
 	private Map<String, ActividadTuristica> actividades;
 	
-	public Departamento(String nombre,String descripcion, String URL) {
+	public Departamento(String nombre , String descripcion , String url) {
 		this.nombre = nombre;
-		this.URL = URL;
+		this.url = url;
 		this.descripcion = descripcion;
 		this.actividades = new HashMap<String, ActividadTuristica>();
 	}
@@ -26,7 +26,7 @@ public class Departamento{
 	}
 	
 	public String getURL() {
-		return URL;
+		return url;
 	}
 	
 	public String getDescripcion() {

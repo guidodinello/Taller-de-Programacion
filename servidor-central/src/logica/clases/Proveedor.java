@@ -1,10 +1,9 @@
 package logica.clases;
 
-import java.io.InputStream;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-import logica.clases.ActividadTuristica;
+
 import datatypes.DTActividad;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,7 +42,7 @@ public class Proveedor extends Usuario {
 	
 	public Set<DTActividad> getDTActividades(){
 		Set<DTActividad> resultado = new HashSet<DTActividad>();
-		this.actividades.forEach((key, value)->{
+		this.actividades.forEach((key, value) -> { 
 			resultado.add(value.getDTActividad());
 		});
 		return resultado;
