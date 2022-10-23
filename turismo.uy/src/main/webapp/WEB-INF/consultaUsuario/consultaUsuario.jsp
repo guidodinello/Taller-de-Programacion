@@ -30,27 +30,38 @@
 </head>
 
 <body>
+<style>
+.sameImg img{height:210px}
+</style>
 
 	<jsp:include page="/WEB-INF/templates/Navbar.jsp" />
 	<div class="row mt-5 mt-lg-0 container-principal">
 		<jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp" />
-		<div class="col-sm-9 text-center">
+		
 		<%
 		switch ((String) request.getAttribute("STATE")) {
 			case "LISTAR" :
 			Set<DTUsuario> listaUsuarios = (Set<DTUsuario>) request.getAttribute("USUARIOS");
 				if (listaUsuarios.isEmpty()) {%>	
 				<h1>No hay usuarios.</h1>
-				<%}else{
-				for (DTUsuario usuario : listaUsuarios) {%>
-				<div class="col-md-4">
+				<%}else{%>
+				 <div class="text-center col " style=" width: 800px; column-count:3;">
+					<%for (DTUsuario usuario : listaUsuarios) {%>
+				<div class="card rounded sameImg mb-1" style="width: 15rem;">
+  <img class="card-img-top" src="<%=usuario.getImgDir()%>" alt="Card image cap">
+  <div class="card-body"><a href="consultaUsuario?STATE=INFO&&NICKNAME=<%=usuario.getNickname()%>"</a>
+    <p class="card-text"><%=usuario.getNombre()%></p>
+  </div>
+</div>
+				<%-- <div class="col-md-6 sameH">
 							<a href="consultaUsuario?STATE=INFO&&NICKNAME=<%=usuario.getNickname()%>"
-								class="card mb-4 shadow-sm card-usuarios hover"> <img
+								class="card mb-3 shadow-sm rounded card-usuarios hover"> <img
 								class="bd-placeholder-img card-img-top"
 								src="<%=usuario.getImgDir()%>">
-								<h5 class="m-3"><%=usuario.getNombre()%></h5>
+								
 							</a>
-						</div>
+							<h5 class="m-3"><%=usuario.getNombre()%></h5>
+						</div>--%>
 				<%}
 				}%>	
 			<%
@@ -61,6 +72,7 @@
 				//mi perfil
 				if (miUsr != null) {
 				%>
+				<div class="col-sm-9 text-center" style="">
 					<div class="col-sm" style="margin-right: 12%;">
 						<div class="card mb-3" style="max-width: 800px;">
 							<div class="row g-0">
