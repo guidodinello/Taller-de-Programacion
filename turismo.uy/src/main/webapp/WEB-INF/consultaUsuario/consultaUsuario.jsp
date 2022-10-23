@@ -125,7 +125,7 @@
 											<div class="tab-pane active" id="perfil" role="tabpanel" aria-labelledby="perfil-tab">
 												<div class="card-body">
 		
-												<form>
+												<form method="POST" action="consultaUsuario" id="FormularioModificarDatos" enctype="multipart/form-data">
 													<h4 class=" font-up font-bold py-2 white-text">Datos del usuario</h4>
 													<fieldset disabled>
 														<div class="row g-3 align-items-center pt-3">
@@ -147,10 +147,10 @@
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
 															<i class="fa fa-user prefix white-text"></i> <label
-																for="inputPassword6" class="col-form-label">Nombre:</label>
+																for="Nombre" class="col-form-label">Nombre:</label>
 														</div>
 														<div class="col-auto">
-															<input type="text" id="inputPassword6" class="form-control"
+															<input type="text" name="Nombre" class="form-control"
 																aria-describedby="passwordHelpInline"
 																placeholder="<%=miUsr.getNombre()%>">
 												     	 </div>
@@ -160,10 +160,10 @@
 												    <div class="row g-3 align-items-center pt-3">
 													      <div class="col-auto">
 													        <i class="fa fa-user prefix white-text"></i>
-													        <label for="inputPassword6" class="col-form-label">Apellido:</label>
+													        <label for="Apellido" class="col-form-label">Apellido:</label>
 													      </div>
 													      <div class="col-auto">
-													        <input type="text" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" placeholder="<%=miUsr.getApellido()%>">
+													        <input type="text" name = "Apellido" class="form-control" aria-describedby="passwordHelpInline" placeholder="<%=miUsr.getApellido()%>">
 													      </div>
 												
 												    </div>
@@ -199,6 +199,10 @@
 													    </div>
 													
 													  </div>
+													  
+													<div class="mb-3">
+	                      								<button type="submit" class="btn btn-primary" id="btnGuardar">Guardar cambios</button>
+	                  								</div>
 												</form>
 											</div>
 										</div><%--cierre perfil --%>
@@ -618,12 +622,10 @@
 																	aria-describedby="disabled"
 																	placeholder="<%=Usr.getNickname()%>">
 															</div>
-															<div class="col-auto">
-																<span id="passwordHelpInline" class="form-text"> No puede
-																	cambiar este campo. </span>
-															</div>
+															
 														</div>
 													</fieldset>
+													<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
 															<i class="fa fa-user prefix white-text"></i> <label
@@ -636,7 +638,8 @@
 												     	 </div>
 												
 												    </div>
-												
+												    </fieldset>
+													<fieldset disabled>
 												    <div class="row g-3 align-items-center pt-3">
 													      <div class="col-auto">
 													        <i class="fa fa-user prefix white-text"></i>
@@ -647,6 +650,7 @@
 													      </div>
 												
 												    </div>
+												    </fieldset>
 												
 												    <fieldset disabled>
 													    <div class="row g-3 align-items-center pt-3">
@@ -657,14 +661,10 @@
 														      <div class="col">
 														        <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" value="<%=Usr.getEmail()%>">
 														      </div>
-														      <div class="col-auto">
-														        <span id="passwordHelpInline" class="form-text">
-														          No puede cambiar este campo.
-														        </span>
-														      </div>
+														      
 													    </div>
 												  	</fieldset>
-												
+													<fieldset disabled>
 												  <div class="row g-3 align-items-center pt-3">
 													    <div class="col-auto">
 													      <i class="fa fa-birthday-cake prefix white-text"></i>
@@ -679,6 +679,7 @@
 													    </div>
 													
 													  </div>
+													  </fieldset>
 												</form>
 					                            	</div>
 					          					</div>

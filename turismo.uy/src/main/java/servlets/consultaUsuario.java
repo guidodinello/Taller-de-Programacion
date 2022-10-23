@@ -1,25 +1,23 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import model.logica.clases.Turista;
 import model.datatypes.DTUsuario;
-import model.logica.clases.Proveedor;
-import model.logica.clases.Usuario;
-import model.logica.handlers.HandlerUsuarios;
+import model.datatypes.DTTurista;
+import model.datatypes.DTProveedor;
 import model.logica.interfaces.Fabrica;
 import model.logica.interfaces.ICtrlUsuario;
 
+@MultipartConfig
 @WebServlet("/consultaUsuario")
 public class consultaUsuario extends HttpServlet{
 
@@ -43,9 +41,21 @@ public class consultaUsuario extends HttpServlet{
 	 * @throws ServletException if a servlet-specific error occurs
 	 * @throws IOException      if an I/O error occurs
 	 */
+	 protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	     String nombre = request.getParameter("Nombre");
+	     String apellido = request.getParameter("Apellido");
+	     ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
+	     
+	     DTUsuario dtU = (DTUsuario) request.getSession().getAttribute("usuario_logueado");
+	     if(dtU instanceof DTTurista)
+	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, dtU.getFechaNac(), ((DTTurista)dtU).getNacionalidad(), "", "");
+	     else
+	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, dtU.getFechaNac(), "", ((DTProveedor)dtU).getDescripcion(), ((DTProveedor)dtU).getLinkSitioWeb());
+	     response.sendRedirect("consultaUsuario?STATE=INFO&&NICKNAME=" + dtU.getNickname());
+	 }
+	 
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		      throws ServletException, IOException {
-	            HandlerUsuarios hu = HandlerUsuarios.getInstance();
 	            ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 		        Set<DTUsuario> usuarios = new HashSet<DTUsuario>();
 				for(String u : ctrlUsr.listarUsuarios()) {
@@ -56,7 +66,6 @@ public class consultaUsuario extends HttpServlet{
 		            estado = "";
 		        else
 		            estado = request.getParameter("STATE");
-		        System.out.print(estado);
 		    switch (estado) {
 		      case "LISTAR":
 		        request.setAttribute("STATE", "LISTAR");
@@ -98,6 +107,6 @@ public class consultaUsuario extends HttpServlet{
 		  protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		      throws ServletException, IOException {
 		      request.setCharacterEncoding("UTF-8");
-		    doGet(request, response);
+		      processRequest(request, response);
 		  }
 }
