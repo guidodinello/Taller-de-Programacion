@@ -285,10 +285,11 @@ public class altaSalida extends JInternalFrame {
     			   rdbtnNewRadioButton_1.setSelected(false);
     			   rdbtnNewRadioButton_1.setEnabled(false);
     			   settear = false;*/
+    		   if(!settear) {
+    		   		settear = true;
     			   comboBox_1.removeAllItems();
     			   comboBox_1.setEnabled(false);
     			   
-    			   settear = true;
     			   lblNewLabel_1.setEnabled(true);
     			   lblNewLabel_2.setEnabled(false);
 	    		   lblNewLabel_3.setEnabled(false);
@@ -308,21 +309,21 @@ public class altaSalida extends JInternalFrame {
 	    		  spinner_2.setEnabled(false);
 	    		   btnNewButton.setEnabled(false);
 	    		   comboBox_1.setEnabled(true);
-	    		   settear = false;
 	       	    comboBox_1.removeAllItems();
+	       	    
 	       	    Set<String> actividades = iCS.listarActividadesDepartamento(comboBox.getSelectedItem().toString() );
 	       	        actividades.forEach((act)->{
 	       	        	
 	       	           comboBox_1.addItem(act);
 	       	           
 	       	        });
-	       	        settear =true;
-    		   //}
+	       	        settear =false;
+    		   }
     	   }
        });
        comboBox_1.addActionListener(new ActionListener() {
     	   public void actionPerformed(ActionEvent e) {
-    		  
+    		  if(!settear) {
     			   
     		
 	    		  // textField_3.setEnabled(true);
@@ -343,6 +344,7 @@ public class altaSalida extends JInternalFrame {
 	    		  // textField_3.setEnabled(true);
 	    		  spinner_2.setEnabled(true);
 	    		   btnNewButton.setEnabled(true);
+    		  }
     			   
     		   }
     	   
@@ -415,7 +417,7 @@ public class altaSalida extends JInternalFrame {
 				
 				
 			 public void actionPerformed(ActionEvent ae) { 
-				 if(!settear) return;
+				 
 				 if(!checkForm()) {
 					 JOptionPane.showMessageDialog(getContentPane(), "Complete los campos", " Registro invalido", JOptionPane.INFORMATION_MESSAGE);
 				return;
@@ -427,10 +429,10 @@ public class altaSalida extends JInternalFrame {
 				int diafa = act.getFechaAlta().get(fechaNac.DAY_OF_MONTH);
 				int mesfa = (act.getFechaAlta().get(fechaNac.MONTH) + 1);
 				int aniofa = (act.getFechaAlta().get(fechaNac.YEAR));
-				System.out.print(aniofa);
 				
 				if(aniofa > anio || (aniofa == anio && mesfa > mes) || (aniofa == anio && mesfa == mes && diafa>dia)) {
 					 JOptionPane.showMessageDialog(getContentPane(), "La fecha debe ser posterior al alta de la actividad ", " Registro invalido", JOptionPane.INFORMATION_MESSAGE);
+					 
 					 	return;
 					
 				}
@@ -443,10 +445,11 @@ public class altaSalida extends JInternalFrame {
 				 try {
 					iCS.altaSalidaTuristica(textField_1.getText(), fechaNac, textField_2.getText(), (int)spinner_2.getValue(), new GregorianCalendar(),comboBox_1.getSelectedItem().toString(), "");
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida se ha creado con exito", "Registrar Salida", JOptionPane.INFORMATION_MESSAGE);
-					 settear = false;
-					 limpiarForm();
-					 cargarDatos();
 					 settear = true;
+					 limpiarForm();
+					 //cargarDatos();
+					 settear = false;
+					 setVisible(false);
 				 } catch (YaExisteException e) {
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida ya existe", "Salida no Registrada", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -490,10 +493,10 @@ public void limpiarForm() {
 	spinner.setValue(0);
 	spinner_1.setValue(0);
 	spinner_2.setValue(1);
-	if(settear) {
+	settear=true;
 	 comboBox.removeAllItems();
 	 comboBox_1.removeAllItems();
-	}
+	 settear=false;
 	// rdbtnNewRadioButton.setSelected(false);
 	// rdbtnNewRadioButton_1.setSelected(false);	 
 	// rdbtnNewRadioButton_1.setEnabled(false);

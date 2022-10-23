@@ -210,7 +210,7 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 				
 				JOptionPane.showMessageDialog(this, "La inscripcion se ha realizado con exito", "Inscripcion a Salida Turistica", JOptionPane.INFORMATION_MESSAGE);
 				limpiarFormulario();
-	            setVisible(false);
+				setVisible(false);
 			} catch (InscriptionFailException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Inscripcion a Salida Turistica", JOptionPane.ERROR_MESSAGE);
 			}
