@@ -108,7 +108,7 @@ public class altaUsuario extends HttpServlet {
 			
 		}catch(Exception e) {
 			e.printStackTrace();
-			request.setAttribute("fail", true);
+			request.setAttribute("UsuarioYaExiste", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(request, response);
 		}
 	
@@ -116,7 +116,6 @@ public class altaUsuario extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
-	        req.setAttribute("fail", false);
 			req.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(req, res);
 	}
 	

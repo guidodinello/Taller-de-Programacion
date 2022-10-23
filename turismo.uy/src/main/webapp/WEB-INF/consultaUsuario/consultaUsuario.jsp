@@ -72,12 +72,6 @@
 										
 										<h5 class="card-title"><%=miUsr.getNombre()%></h5>
 										<p class="card-text"><%=miUsr.getEmail()%></p>
-									
-										<p class="card-text">
-										
-											<small class="text-muted">Ultimo ingreso: 01/09/2022
-												14:26</small>
-											</p>
 									</div>
 								</div>
 							</div>
@@ -244,7 +238,7 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <a style="text-decoration:none"
-                                                            href="./consultaSalida.html"><%=sal.getNombre()%></a>
+                                                            href="salida?nombreSalida=<%=sal.getNombre()%>"><%=sal.getNombre()%></a>
 
                                                     </div>
 
@@ -325,7 +319,7 @@
 											    	DTPaquete paq = ctrlA.getInfoPaquete(c.getPaquete());
 											    %>
 										 		<form>
-								                    <a style="text-decoration:none; font-size:larger;" href="./consultaPaquete.html"><%= paq.getNombre() %></a>
+								                    <a style="text-decoration:none; font-size:larger;" href="paquete?nombrePaquete=<%=paq.getNombre()%>"><%= paq.getNombre() %></a>
 								                    <fieldset disabled>
 								                      <div class="row g-3 align-items-center pt-3">
 								                        <div class="col-auto">
@@ -472,7 +466,7 @@
 													Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
 													for(DTActividad act:actividades){ %>
 													 <a style="text-decoration:none; font-size: 24px;"
-                                                href="./consultaSalida.html" class="font-up font-bold"><%=act.getNombre()%></a>
+                                                href="consultaActividad?nombreAct=<%=act.getNombre() %>" class="font-up font-bold"><%=act.getNombre()%></a>
                                             <form>
 
                                                 <fieldset disabled>
@@ -575,9 +569,6 @@
 								   <div class="card-body">
 										<h5 class="card-title"><%=Usr.getNombre()%></h5>
 										<p class="card-text"><%=Usr.getEmail()%></p>
-										<p class="card-text">
-											<small class="text-muted">Ultimo ingreso: 01/09/2022 14:26</small>
-										</p>
 									</div>
 								</div>
 							</div>
@@ -727,7 +718,7 @@
                                                     </div>
                                                     <div class="col-auto">
                                                         <a style="text-decoration:none"
-                                                            href="./consultaSalida.html"><%=sal.getNombre()%></a>
+                                                            href="salida?nombreSalida=<%=sal.getNombre()%>"><%=sal.getNombre()%></a>
 
                                                     </div>
 
@@ -803,7 +794,7 @@
 													for(DTActividad act:actividades){ 
 														if(act.getestado() == estadoActividad.confirmada){%>
 													 <a style="text-decoration:none; font-size: 24px;"
-                                                href="./consultaSalida.html" class="font-up font-bold"><%=act.getNombre()%></a>
+                                                href="consultaActividad?nombreAct=<%=act.getNombre() %>" class="font-up font-bold"><%=act.getNombre()%></a>
                                             <form>
 
                                                 <fieldset disabled>

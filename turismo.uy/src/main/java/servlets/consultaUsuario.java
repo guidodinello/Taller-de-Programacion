@@ -76,14 +76,12 @@ public class consultaUsuario extends HttpServlet{
 		        }
 		        //estoy logueada viendo otro perfil
 		        else if(!usuarioLogueado.getNickname().equals(nombreUsuario)){
-		            System.out.println("ENTRA ESTA MIERDA2");
 		        request.setAttribute("PERFIL_USUARIO", (DTUsuario)
                         ctrlUsr.getInfoBasicaUsuario(nombreUsuario));
 		      
 		        }
 		        //estoy logueada viendo mi perfil
 		        else{
-		            System.out.println("ENTRA ESTA MIERDA3");
 		            request.setAttribute("MI_PERFIL_USUARIO", (DTUsuario)
                             ctrlUsr.getInfoBasicaUsuario(nombreUsuario));
 

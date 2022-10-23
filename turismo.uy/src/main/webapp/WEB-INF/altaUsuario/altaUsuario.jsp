@@ -6,6 +6,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="media/style/altaUsuario.css">
+		<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 		<jsp:include page="/WEB-INF/templates/Head.jsp"/>
 		<title>Turismo.uy</title>	
 	</head>
@@ -20,14 +21,25 @@
 	              <h5 class="card-title">Registrarse</h5>
 	              
 	              <%
-	              	boolean fail = (boolean) request.getAttribute("fail");
-	              	if(fail){
-	              %>
-	              	<p id="failAltaUsuario">Ya existe un usuario registrado con estas credenciales por favor intentelo nuevamente</p>
-	              
-	              <%
-	              	}
-	              %>
+					String error_msg = (String)request.getAttribute("UsuarioYaExiste");
+					if (error_msg != null) {
+				  %>
+					<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+					<script>
+					$( document ).ready(async function(e){
+						await Swal.fire({
+						            position: 'center',
+						            icon: 'error',
+						            title: 'Error en el alta',
+						            text: '<%=error_msg%>',
+						            showConfirmButton: false,
+						            timer: 3000,
+						});
+					});
+					</script>
+				<%
+				}
+				%>
 	              
 	              <form method="POST" action="altaUsuario" id="FormularioRegistro" enctype="multipart/form-data">
 	                  <div class="mb-4 text-start" id="NicknameRegistroDiv">
@@ -154,7 +166,6 @@
         
         <jsp:include page="/WEB-INF/templates/Footer.jsp"/>
         
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script src="js/altaUsuario.js"></script>
 	</body>
