@@ -35,7 +35,6 @@ public class ActualizarUsuario extends JInternalFrame {
 	//Basicos
 	private JLabel LabelSelcUsuario;
 	private JComboBox<String> ComboBoxSelUsuario;
-	private JButton btnSelecUsuario = new JButton("Seleccionar");
 	//NO MODIFICABLES
 	private JLabel LabelInfoUsuario;
 	private JLabel LabelTipoUsuario;
@@ -75,6 +74,8 @@ public class ActualizarUsuario extends JInternalFrame {
 	private JButton btnModificarDatos;
 	private JButton btnCancelar;
 	//Modificacion de datos de combo box
+	
+	private Boolean limpiandoCombo;
 
 	
 
@@ -119,13 +120,6 @@ public class ActualizarUsuario extends JInternalFrame {
         gbc_cBSelcUsuario.gridx = 2;
         gbc_cBSelcUsuario.gridy = 1;
         getContentPane().add(ComboBoxSelUsuario, gbc_cBSelcUsuario);
-        GridBagConstraints gbc_btnSelecUsuario = new GridBagConstraints();
-        gbc_btnSelecUsuario.gridwidth = 2;
-        gbc_btnSelecUsuario.anchor = GridBagConstraints.CENTER;
-        gbc_btnSelecUsuario.insets = new Insets(0, 0, 5, 0);
-        gbc_btnSelecUsuario.gridx = 6;
-        gbc_btnSelecUsuario.gridy = 1;
-        getContentPane().add(btnSelecUsuario, gbc_btnSelecUsuario);
         	        
         //label Informacion usuario
         LabelInfoUsuario = new JLabel("Informacion del usuario");
@@ -345,6 +339,7 @@ public class ActualizarUsuario extends JInternalFrame {
 		f = new JInternalFrame();
 		f.setVisible(false);
         
+		    limpiandoCombo = false;
         cargarEventos();
 	}
 	
@@ -354,12 +349,9 @@ public class ActualizarUsuario extends JInternalFrame {
         	public void actionPerformed(ActionEvent e) {
         		limpiarCamposTexto();
         		btnModificarDatos.setEnabled(false);
-        	}
-        });
-		
-		btnSelecUsuario.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		seleccionarUsuario();	
+        		if (!limpiandoCombo && ComboBoxSelUsuario.getSelectedIndex() != 0) {
+        		  seleccionarUsuario();         		  
+        		}
         	}
         });
 		
@@ -393,18 +385,19 @@ public class ActualizarUsuario extends JInternalFrame {
 	};
 	
 	public void iniciarVentana() {
+	  limpiandoCombo = true;
 		limpiarComboBoxeUsuario();
+		limpiandoCombo = false;
 		limpiarCamposTexto();
 		btnModificarDatos.setEnabled(false);
 		Set<String> usuarios = ctrlUsuario.listarUsuarios();
 		if(usuarios.isEmpty()) {
         	ComboBoxSelUsuario.addItem("No hay usuarios registrados");
-        	btnSelecUsuario.setEnabled(false);
 		}else {
+		      ComboBoxSelUsuario.addItem("Seleccione un Usuario");
 	        usuarios.forEach((u)->{
 	        	ComboBoxSelUsuario.addItem(u);
 	        });
-	        btnSelecUsuario.setEnabled(true);
 		}
 		visibleCamposTurista(false);
 		visibleCamposProveedor(false);
@@ -483,13 +476,17 @@ public class ActualizarUsuario extends JInternalFrame {
 	}
 	
 	public void cancelar() {
+	  limpiandoCombo = true;
 		limpiarComboBoxeUsuario();
+    limpiandoCombo = false;
 		limpiarCamposTexto();
 		setVisible(false);
 	}
 	
 	public void limpiarComboBoxeUsuario(){
-		ComboBoxSelUsuario.removeAllItems();
+	  if (limpiandoCombo) {
+	    ComboBoxSelUsuario.removeAllItems();	    
+	  }
 	}
 	
 	public void limpiarCamposTexto() {
