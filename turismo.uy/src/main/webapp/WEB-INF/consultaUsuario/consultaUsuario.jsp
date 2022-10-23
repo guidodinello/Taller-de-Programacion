@@ -150,7 +150,7 @@
 																for="Nombre" class="col-form-label">Nombre:</label>
 														</div>
 														<div class="col-auto">
-															<input type="text" name="Nombre" class="form-control"
+															<input type="text" value=<%=miUsr.getNombre()%> name="Nombre" class="form-control"
 																aria-describedby="passwordHelpInline"
 																placeholder="<%=miUsr.getNombre()%>">
 												     	 </div>
@@ -163,7 +163,7 @@
 													        <label for="Apellido" class="col-form-label">Apellido:</label>
 													      </div>
 													      <div class="col-auto">
-													        <input type="text" name = "Apellido" class="form-control" aria-describedby="passwordHelpInline" placeholder="<%=miUsr.getApellido()%>">
+													        <input type="text" value=<%=miUsr.getApellido()%> name = "Apellido" class="form-control" aria-describedby="passwordHelpInline" placeholder="<%=miUsr.getApellido()%>">
 													      </div>
 												
 												    </div>
@@ -188,13 +188,13 @@
 												  <div class="row g-3 align-items-center pt-3">
 													    <div class="col-auto">
 													      <i class="fa fa-birthday-cake prefix white-text"></i>
-													      <label for="inputPassword6" class="col-form-label disabled'">Fecha de Nacimiento:
+													      <label for="FechaNacimiento" class="col-form-label disabled'">Fecha de Nacimiento:
 													      </label>
 													    </div>
 													    <div class="col-auto">
-													      <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder=
+													      <input type="text" name="FechaNacimiento" value=<%=new SimpleDateFormat("yyyy-MM-dd").format(miUsr.getFechaNac().getTime())%> class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder=
 													      	<%= 
-																new SimpleDateFormat("dd/MM/yyyy").format(miUsr.getFechaNac().getTime())
+																new SimpleDateFormat("yyyy-MM-dd").format(miUsr.getFechaNac().getTime())
 															%>>
 													    </div>
 													

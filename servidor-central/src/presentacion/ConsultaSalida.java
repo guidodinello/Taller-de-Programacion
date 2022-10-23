@@ -393,7 +393,6 @@ public class ConsultaSalida extends JInternalFrame {
 				comboBox_1.setEnabled(false);
 				comboBoxSal.removeAllItems();
 				comboBoxSal.setEnabled(false);
-				
 				settear = true;
 			}
 
