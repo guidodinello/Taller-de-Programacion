@@ -29,19 +29,19 @@ import logica.handlers.HandlerUsuarios;
 public class CtrlActividad implements ICtrlActividad{
 	
 	
-	public void altaDepartamento(String nombreDepartamento,String descripcion ,String URL) throws YaExisteException{
+	public void altaDepartamento(String nombreDepartamento, String descripcion , String URL) throws YaExisteException{
 		HandlerDepartamentos handlerDepto = HandlerDepartamentos.getInstance();
-		if(handlerDepto.existeDepartamento(nombreDepartamento)){
+		if (handlerDepto.existeDepartamento(nombreDepartamento)){
 			throw new YaExisteException("El departamento " + nombreDepartamento + "ya se encuentra registrado.");
 		}
-		Departamento newD = new Departamento(nombreDepartamento, descripcion,URL);
+		Departamento newD = new Departamento(nombreDepartamento, descripcion, URL);
 		handlerDepto.add(newD);
 		
 	}
 	
 	public void altaCategoria(String nombre) throws YaExisteException{
 		HandlerCategorias handlerCategorias = HandlerCategorias.getInstance();
-		if(handlerCategorias.existeCategoria(nombre)){
+		if (handlerCategorias.existeCategoria(nombre)){
 			throw new YaExisteException("La Categoria " + nombre + "ya se encuentra registrada.");
 		}
 		Categoria nuevaCat = new Categoria(nombre);
@@ -52,7 +52,8 @@ public class CtrlActividad implements ICtrlActividad{
 		Set<String> departamentos = new HashSet<String>();
 		HandlerDepartamentos handlerDpto = HandlerDepartamentos.getInstance();
 		Set<Departamento> depto = handlerDpto.obtenerDepartamentos();
-		depto.forEach((e) -> { departamentos.add(e.getNombre()); });
+		depto.forEach(e -> { 
+		  departamentos.add(e.getNombre()); });
 		return departamentos;
 	}
 	
@@ -73,7 +74,10 @@ public class CtrlActividad implements ICtrlActividad{
 		
 		Set<PaqueteTuristico> paquete = handlerPaquete.getPaquetes();
 		Set<String> paquetes = new HashSet<String>();
-		paquete.forEach((e) -> {if(e.tieneActividad(actividad)){paquetes.add(e.getNombre());}});
+		paquete.forEach((e) -> {
+		  if (e.tieneActividad(actividad)) { 
+		    paquetes.add(e.getNombre());
+		  }});
 		res.setPaquetes(paquetes);
 		return res;
 	}

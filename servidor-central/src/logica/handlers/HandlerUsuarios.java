@@ -76,16 +76,16 @@ public class HandlerUsuarios {
 	}
 	
 	public Proveedor getProveedorByNickname(String nick) {
-		return (Proveedor)usuarios.get(nick);
+		return (Proveedor) usuarios.get(nick);
 	}
 	
 	public Turista getTuristaByNickname(String nick) {
-		return (Turista)usuarios.get(nick);
+		return (Turista) usuarios.get(nick);
 	}
 
 //	siempre los pedimos por nickname
 	public Usuario getUsuarioByEmail(String email){
-		if(proveedores.get(email) != null) {
+		if (proveedores.get(email) != null) {
 			return proveedores.get(email);
 		}
 		return turistas.get(email);
