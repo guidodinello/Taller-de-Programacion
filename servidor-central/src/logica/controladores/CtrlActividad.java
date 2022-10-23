@@ -211,6 +211,12 @@ public class CtrlActividad implements ICtrlActividad{
 		});
 		return resultado;
 	}
+	
+	public void cambiarEstadoActividad(estadoActividad estado, String nombreAct) {
+		HandlerActividades ha = HandlerActividades.getInstance();
+		ActividadTuristica act = ha.obtenerActividadTuristica(nombreAct);
+		act.setEstado(estado);
+	}
 
     public <T> Set<T> filterSalidas(Function<SalidaTuristica, T> returnFunction, Predicate<SalidaTuristica> condition) {
         Set<T> res = new HashSet<T>();

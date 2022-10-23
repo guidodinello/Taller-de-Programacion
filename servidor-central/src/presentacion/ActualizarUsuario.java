@@ -90,7 +90,7 @@ public class ActualizarUsuario extends JInternalFrame {
 		setIconifiable(true);
 		setMaximizable(true);
 		setClosable(true);
-		setTitle("Modificar datos de usuario");
+		setTitle("Modificar datos de Usuario");
 				
 		setBounds(30, 30, 567, 454);
 				

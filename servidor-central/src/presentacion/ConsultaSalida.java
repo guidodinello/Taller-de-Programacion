@@ -56,7 +56,7 @@ public class ConsultaSalida extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consulta de Salida");
+		setTitle("Consulta de Salida Turistica");
 
 		setBounds(30, 30, 453, 431);
 

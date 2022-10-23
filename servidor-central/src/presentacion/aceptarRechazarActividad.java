@@ -23,19 +23,21 @@ import javax.swing.JButton;
 
 public class aceptarRechazarActividad extends JInternalFrame {
 	private JComboBox<String> comboBoxActividades;
+	private ICtrlActividad ica;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	public aceptarRechazarActividad(ICtrlActividad icA) {
+		ica = icA;
 		// Cuestiones de configuracion del frame
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Aceptar o rechazar actividad ");
+		setTitle("Aceptar o Eechazar Actividad Turistica");
 		setBounds(30, 30, 453, 431);
 
 		comboBoxActividades = new JComboBox<String>();
@@ -69,17 +71,13 @@ public class aceptarRechazarActividad extends JInternalFrame {
 
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HandlerActividades ha = HandlerActividades.getInstance();
-				ActividadTuristica act = ha.obtenerActividadTuristica(comboBoxActividades.getSelectedItem().toString());
-				act.setEstado(estadoActividad.confirmada);
+				ica.cambiarEstadoActividad(estadoActividad.confirmada, comboBoxActividades.getSelectedItem().toString());
 				setVisible(false);
 			}
 		});
 		btnRechazar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HandlerActividades ha = HandlerActividades.getInstance();
-				ActividadTuristica act = ha.obtenerActividadTuristica(comboBoxActividades.getSelectedItem().toString());
-				act.setEstado(estadoActividad.rechazada);
+				ica.cambiarEstadoActividad(estadoActividad.rechazada, comboBoxActividades.getSelectedItem().toString());
 				setVisible(false);
 			}
 		});

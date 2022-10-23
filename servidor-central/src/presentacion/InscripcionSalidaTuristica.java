@@ -55,7 +55,7 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
         setIconifiable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
-        setTitle("Inscripcion a Salida Turistica");
+        setTitle("Alta de Inscripción a Salida Turistica");
         setBounds(30, 30, 345, 364);
         
         lblDepartamentos = new JLabel("Departamento:");
