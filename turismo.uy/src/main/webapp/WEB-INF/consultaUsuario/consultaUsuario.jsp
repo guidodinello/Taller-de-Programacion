@@ -47,10 +47,10 @@
 				<%}else{%>
 				 <div class="text-center col " style=" width: 800px; column-count:3;">
 					<%for (DTUsuario usuario : listaUsuarios) {%>
-				<div class="card rounded sameImg mb-1" style="width: 15rem;">
+				<div class="card rounded sameImg mb-1" style="width: 15rem; ">
   <img class="card-img-top" src="<%=usuario.getImgDir()%>" alt="Card image cap">
-  <div class="card-body"><a href="consultaUsuario?STATE=INFO&&NICKNAME=<%=usuario.getNickname()%>"</a>
-    <p class="card-text"><%=usuario.getNombre()%></p>
+  <div class="card-body"><a href="consultaUsuario?STATE=INFO&&NICKNAME=<%=usuario.getNickname()%>"><%=usuario.getNombre()%></a>
+
   </div>
 </div>
 				<%-- <div class="col-md-6 sameH">
@@ -74,16 +74,16 @@
 				%>
 				<div class="col-sm-9 text-center" style="">
 					<div class="col-sm" style="margin-right: 12%;">
-						<div class="card mb-3" style="max-width: 800px;">
+						<div class="card mb-3" style="max-width: 800px; width:300px; margin-left:280px;">
 							<div class="row g-0">
-								<div class="col-md-4">
-									<img src="<%=miUsr.getImgDir()%>" class="img-fluid rounded-start" alt="...">
+								<div class="" style="">
+									<img src="<%=miUsr.getImgDir()%>" class="img-fluid rounded-start; max-width: 100px;" alt="...">
 								</div>
 								<div class="col-md-8">
 									<div class="card-body">
 										
 										<h5 class="card-title"><%=miUsr.getNombre()%></h5>
-										<p class="card-text"><%=miUsr.getEmail()%></p>
+									<%--<p class="card-text"><%=miUsr.getEmail()%></p> --%>	
 									</div>
 								</div>
 							</div>
@@ -575,16 +575,18 @@
 					
 			<%}
 			 else {%>	
-			 <div class="col-sm" style="margin-right: 12%;">
-					<div class="card mb-3" style="max-width: 800px;">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="<%=Usr.getImgDir()%>" class="img-fluid rounded-start" alt="...">
-							</div>
-							 <div class="col-md-8">
-								   <div class="card-body">
+				<div class="col-sm-9 text-center" style="">
+					<div class="col-sm" style="margin-right: 12%;">
+						<div class="card mb-3" style="max-width: 800px; width:200px; margin-left:280px;">
+							<div class="row g-0">
+								<div class="" style="">
+									<img src="<%=Usr.getImgDir()%>" class="img-fluid rounded-start; max-height: 100px;" alt="...">
+								</div>
+								<div class="col-md-8">
+									<div class="card-body">
+										
 										<h5 class="card-title"><%=Usr.getNombre()%></h5>
-										<p class="card-text"><%=Usr.getEmail()%></p>
+									<%--<p class="card-text"><%=miUsr.getEmail()%></p> --%>	
 									</div>
 								</div>
 							</div>
@@ -603,7 +605,7 @@
 							                      <a class="nav-link nav-link-usr" href="#salidas" role="tab" aria-controls="salidas"
 							                        aria-selected="false">Salidas</a>
 							                    </li>
-							                    	<%
+							                    	<% 
 													if (Usr instanceof DTProveedor) {
 													%>
 							                     <li class="nav-item">
@@ -685,8 +687,7 @@
 													    </div>
 													    <div class="col-auto">
 													      <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" onfocus="(this.type='date')" onblur="(this.type='text')"  placeholder=
-													      	<%= 
-																new SimpleDateFormat("dd/MM/yyyy").format(Usr.getFechaNac().getTime())
+													      	<%=new SimpleDateFormat("dd/MM/yyyy").format(Usr.getFechaNac().getTime())
 															%>>
 													    </div>
 													
