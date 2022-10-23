@@ -31,6 +31,7 @@ import logica.interfaces.ICtrlUsuario;
 import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
+import datatypes.estadoActividad;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlActividadTest{
 	private static ICtrlActividad controladorActividad;
@@ -180,10 +181,10 @@ public class ctrlActividadTest{
 			Set<String> setString = new HashSet<String>();
 
 			
-			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString);
-			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString);
-			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString);
-			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString);
+			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString, estadoActividad.agregada);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getNombre(),nombActividad1);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getNombre(),nombActividad2);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getNombre(),nombActividad3);
@@ -266,10 +267,10 @@ public class ctrlActividadTest{
 		String img = "";
 		Set<String> setString = new HashSet<String>();
 
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString, estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString, estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString, estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString, estadoActividad.agregada);});
 		
 	}
 	
@@ -477,11 +478,16 @@ public class ctrlActividadTest{
 		GregorianCalendar fechaAltaP3 = new GregorianCalendar(2000, 4, 2);
 		GregorianCalendar fechaAltaP4 = new GregorianCalendar(2015, 2, 2);
 		
+		String img1 = "media/imagenes/img1.png";
+		String img2 = "media/imagenes/img2.png";
+		String img3 = "media/imagenes/img3.png";
+		String img4 = "media/imagenes/img4.png";
+		
 		try {
-			controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1);
-			controladorActividad.crearPaquete(nombreP2, descP2, validezP2, descuentoP2, fechaAltaP2);
-			controladorActividad.crearPaquete(nombreP3, descP3, validezP3, descuentoP3, fechaAltaP3);
-			controladorActividad.crearPaquete(nombreP4, descP4, validezP4, descuentoP4, fechaAltaP4);
+			controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1, img1);
+			controladorActividad.crearPaquete(nombreP2, descP2, validezP2, descuentoP2, fechaAltaP2, img2);
+			controladorActividad.crearPaquete(nombreP3, descP3, validezP3, descuentoP3, fechaAltaP3, img3);
+			controladorActividad.crearPaquete(nombreP4, descP4, validezP4, descuentoP4, fechaAltaP4, img4);
 			
 			assertEquals(controladorActividad.listarPaquetes().isEmpty(), false);
 			assertEquals(controladorActividad.listarPaquetes().contains(nombreP1), true);
@@ -552,10 +558,15 @@ public class ctrlActividadTest{
 		GregorianCalendar fechaAltaP3 = new GregorianCalendar(2000, 4, 2);
 		GregorianCalendar fechaAltaP4 = new GregorianCalendar(2015, 2, 2);
 		
-		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1);});
-		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP2, descP2, validezP2, descuentoP2, fechaAltaP2);});
-		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP3, descP3, validezP3, descuentoP3, fechaAltaP3);});
-		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP4, descP4, validezP4, descuentoP4, fechaAltaP4);});
+		String img1 = "media/imagenes/img1.png";
+		String img2 = "media/imagenes/img2.png";
+		String img3 = "media/imagenes/img3.png";
+		String img4 = "media/imagenes/img4.png";
+		
+		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1, img1);});
+		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP2, descP2, validezP2, descuentoP2, fechaAltaP2, img2);});
+		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP3, descP3, validezP3, descuentoP3, fechaAltaP3, img3);});
+		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP4, descP4, validezP4, descuentoP4, fechaAltaP4, img4);});
 	
 	}
 	
