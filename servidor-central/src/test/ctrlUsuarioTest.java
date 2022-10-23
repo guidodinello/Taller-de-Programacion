@@ -16,6 +16,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import java.util.Set;
 
 import logica.handlers.HandlerActividades;
+import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
 import logica.handlers.HandlerSalidas;
@@ -46,6 +47,7 @@ public class ctrlUsuarioTest {
 	public static void iniciar() {
 		//clear a los handler
 		HandlerActividades.clear();
+		HandlerCategorias.clear();
 		HandlerSalidas.clear();
 		HandlerDepartamentos.clear();
 		HandlerUsuarios.clear();
@@ -291,11 +293,13 @@ public class ctrlUsuarioTest {
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, pass, fechaNac1, imgPerfil,tipoUsuario.turista, nacionalidadT1, null, null);});
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, pass, fechaNac2, imgPerfil,tipoUsuario.turista, nacionalidadT2, null, null);});	
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, pass, fechaNac3, imgPerfil,tipoUsuario.turista, nacionalidadT3, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, pass, fechaNac4, imgPerfil,tipoUsuario.turista, nacionalidadT4, null, null );});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, pass, fechaNac4, imgPerfil,tipoUsuario.turista, nacionalidadT4, null, null );});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailT4, nombT4, apT4, pass, fechaNac4, imgPerfil,tipoUsuario.turista, nacionalidadT4, null, null );});
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, pass, fechaNac1, imgPerfil,tipoUsuario.proveedor, null, descP1, linkP1);});	
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, pass, fechaNac2, imgPerfil,tipoUsuario.proveedor, null, descP2, linkP2);});	
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, pass, fechaNac3, imgPerfil,tipoUsuario.proveedor, null, descP3, linkP3);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, pass, fechaNac4, imgPerfil,tipoUsuario.proveedor, null, descP4, linkP4);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, pass, fechaNac4, imgPerfil,tipoUsuario.proveedor, null, descP4, linkP4);});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailP4, nombP4, apP4, pass, fechaNac4, imgPerfil,tipoUsuario.proveedor, null, descP4, linkP4);});
 		
 		
 		
@@ -373,11 +377,13 @@ public class ctrlUsuarioTest {
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, pass, fechaNac1, perfilImg, tipoUsuario.turista, nacionalidadT1, null, null);});
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, pass, fechaNac2, perfilImg, tipoUsuario.turista, nacionalidadT2, null, null);});	
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, pass, fechaNac3, perfilImg, tipoUsuario.turista, nacionalidadT3, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, pass, fechaNac4, perfilImg, tipoUsuario.turista, nacionalidadT4, null, null );});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, pass, fechaNac4, perfilImg, tipoUsuario.turista, nacionalidadT4, null, null );});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailP4, nombT4, apT4, pass, fechaNac4, perfilImg, tipoUsuario.turista, nacionalidadT4, null, null );});
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, pass, fechaNac1, perfilImg, tipoUsuario.proveedor, null, descP1, linkP1);});	
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, pass, fechaNac2, perfilImg, tipoUsuario.proveedor, null, descP2, linkP2);});	
 		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, pass, fechaNac3, perfilImg, tipoUsuario.proveedor, null, descP3, linkP3);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, pass, fechaNac4, perfilImg, tipoUsuario.proveedor, null, descP4, linkP4);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, pass, fechaNac4, perfilImg, tipoUsuario.proveedor, null, descP4, linkP4);});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailT4, nombP4, apP4, pass, fechaNac4, perfilImg, tipoUsuario.proveedor, null, descP4, linkP4);});
 		
 	}
 	@Test

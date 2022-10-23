@@ -58,17 +58,6 @@ public class HandlerUsuarios {
 		usuarios.put(prov.getNickname(), prov);
 		proveedores.put(prov.getEmail(), prov);
 	}
-	
-//  siempre sabemos de antemano el tipo de usuario
-	public void agregarUsuario(Usuario usr) throws YaExisteException {
-		if (usr instanceof Proveedor) {
-			Proveedor prov = (Proveedor) usr;
-			this.agregarProveedor((Proveedor) prov);
-		} else {
-			Turista tur = (Turista) usr;
-			this.agregarTurista((Turista) tur);
-		}
-	}
 
 	//tira null si no existe
 	public Usuario getUsuarioByNickname(String nick){
@@ -81,14 +70,6 @@ public class HandlerUsuarios {
 	
 	public Turista getTuristaByNickname(String nick) {
 		return (Turista) usuarios.get(nick);
-	}
-
-//	siempre los pedimos por nickname
-	public Usuario getUsuarioByEmail(String email){
-		if (proveedores.get(email) != null) {
-			return proveedores.get(email);
-		}
-		return turistas.get(email);
 	}
 
 	public Set<Turista> listarTuristas() {
