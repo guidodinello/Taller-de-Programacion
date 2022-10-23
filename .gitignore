@@ -9,8 +9,8 @@ build/
 .vscode/
 
 # files
-.project
-.classpath
+*.project
+*.classpath
 .pmd
 .checkstyle
 .vscode
