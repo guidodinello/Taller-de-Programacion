@@ -14,8 +14,8 @@ build/
 .pmd
 .checkstyle
 .vscode
-/turismo.uy/.project
-/turismo.uy/.classpath
+turismo.uy/.project
+turismo.uy/.classpath
 
 # extensions
 *.class
