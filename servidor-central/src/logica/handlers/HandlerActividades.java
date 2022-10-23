@@ -8,7 +8,7 @@ import java.util.Set;
 import logica.clases.ActividadTuristica;
 
 public class HandlerActividades{
-    private Map<String,ActividadTuristica> actividadesTuristicas;
+    private Map<String, ActividadTuristica> actividadesTuristicas; 
     private static HandlerActividades instancia = null;
 
     private HandlerActividades() {

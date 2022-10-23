@@ -10,10 +10,10 @@ public class DTCompra {
 	private boolean vigente;
 	private Map<String, Integer> disponibles;
 	
-	public DTCompra(String p, GregorianCalendar g, int c, boolean vig, Map<String, Integer> dis) {
-		paquete = p;
-		fechaCompra = g;
-		cantidadTuristas = c;
+	public DTCompra(String nomPaq, GregorianCalendar fecha, int cantTur, boolean vig, Map<String, Integer> dis) {
+		paquete = nomPaq;
+		fechaCompra = fecha;
+		cantidadTuristas = cantTur;
 		vigente = vig;
 		disponibles = dis;
 	}

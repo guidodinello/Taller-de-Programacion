@@ -9,7 +9,7 @@ import logica.clases.SalidaTuristica;
  * Clase que contiene la coleccion global de Salidas Turisticas 
  */
 public class HandlerSalidas{
-    private Map<String,SalidaTuristica > salidasTuristicas;
+    private Map<String, SalidaTuristica > salidasTuristicas;
     private static HandlerSalidas instancia = null;
 
     private HandlerSalidas() {
@@ -37,10 +37,10 @@ public class HandlerSalidas{
             return null;
         else {
             Collection<SalidaTuristica> salidas = salidasTuristicas.values();
-            Object[] o = salidas.toArray();
-            SalidaTuristica[] salida = new SalidaTuristica[o.length];
-            for (int i = 0; i < o.length; i++) {
-                salida[i] = (SalidaTuristica) o[i];
+            Object[] objeto = salidas.toArray();
+            SalidaTuristica[] salida = new SalidaTuristica[objeto.length];
+            for (int i = 0; i < objeto.length; i++) {
+                salida[i] = (SalidaTuristica) objeto[i];
             }
 
             return salida;
