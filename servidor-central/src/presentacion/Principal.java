@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import datosdeprueba.CargarDatosDePrueba;
+
 //import logica.*;
 //import presentacion.*;
 import javax.swing.JMenu;
@@ -20,8 +22,6 @@ import logica.interfaces.ICtrlUsuario;
 //import java.awt.GridBagConstraints;
 //import java.awt.Insets;
 //import javax.swing.JTextField;
-
-import datosDePrueba.CargarDatosDePrueba;
 
 public class Principal {
 
