@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import model.datatypes.DTUsuario;
 import model.datatypes.DTTurista;
 import model.datatypes.DTProveedor;
+import model.logica.clases.Turista;
+import model.logica.clases.Proveedor;
+import model.logica.handlers.HandlerUsuarios;
 import model.logica.interfaces.Fabrica;
 import model.logica.interfaces.ICtrlUsuario;
 
@@ -49,10 +52,17 @@ public class consultaUsuario extends HttpServlet{
 	     ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 	     
 	     DTUsuario dtU = (DTUsuario) request.getSession().getAttribute("usuario_logueado");
-	     if(dtU instanceof DTTurista)
+	     if(dtU instanceof DTTurista) {
 	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), ((DTTurista)dtU).getNacionalidad(), "", "");
-	     else
+	         HandlerUsuarios hU = HandlerUsuarios.getInstance();
+	         Turista t = hU.getTuristaByNickname(dtU.getNickname());
+	         request.getSession().setAttribute("usuario_logueado", new DTTurista(t));
+	     } else {
 	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), "", ((DTProveedor)dtU).getDescripcion(), ((DTProveedor)dtU).getLinkSitioWeb());
+	         HandlerUsuarios hU = HandlerUsuarios.getInstance();
+             Proveedor p = hU.getProveedorByNickname(dtU.getNickname());
+             request.getSession().setAttribute("usuario_logueado", new DTProveedor(p));
+	     }
 	     response.sendRedirect("consultaUsuario?STATE=INFO&&NICKNAME=" + dtU.getNickname());
 	 }
 	 
