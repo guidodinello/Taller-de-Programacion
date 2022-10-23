@@ -74,7 +74,7 @@ public class CtrlActividad implements ICtrlActividad{
 		
 		Set<PaqueteTuristico> paquete = handlerPaquete.getPaquetes();
 		Set<String> paquetes = new HashSet<String>();
-		paquete.forEach((e) -> {
+		paquete.forEach(e -> {
 		  if (e.tieneActividad(actividad)) { 
 		    paquetes.add(e.getNombre());
 		  }});
@@ -82,9 +82,9 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc,int duraHs,float costo,String nombCiudad,String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, estadoActividad estado) throws YaExisteException {
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, estadoActividad estado) throws YaExisteException {
 		HandlerActividades handlerAct = HandlerActividades.getInstance();
-		if(handlerAct.existeActividad(nomActividad)){
+		if (handlerAct.existeActividad(nomActividad)){
 			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
 		}
 
@@ -95,7 +95,7 @@ public class CtrlActividad implements ICtrlActividad{
 
 		
 		HandlerCategorias handlerCategorias = HandlerCategorias.getInstance();
-		categorias.forEach(cat ->{
+		categorias.forEach(cat -> {
 			handlerCategorias.getCategoria(cat).agregarActividad(resu);
 		});
 		
@@ -115,13 +115,13 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	//Salidas
-	public Set<DTSalida> listarInfoSalidasVigentes(String actividad,GregorianCalendar fechaSistema){
+	public Set<DTSalida> listarInfoSalidasVigentes(String actividad, GregorianCalendar fechaSistema){
 		HandlerActividades handlerAct = HandlerActividades.getInstance();
 		ActividadTuristica act = handlerAct.obtenerActividadTuristica(actividad);
 		return act.getInfoBasicaSalidasVigentes(fechaSistema);
 	}
 	
-	public void altaSalidaTuristica(String nombreSal,GregorianCalendar fechaSal, String lugarSal,int cantMaxTuristas, GregorianCalendar fechaAlta,String  actividad, String img) throws YaExisteException {
+	public void altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal, int cantMaxTuristas, GregorianCalendar fechaAlta, String  actividad, String img) throws YaExisteException {
 		HandlerSalidas handlerSal = HandlerSalidas.getInstance();
 		if (handlerSal.existeSalida(nombreSal)) {
 			throw new YaExisteException("La salida " + nombreSal + "ya se encuentra registrada");
@@ -130,7 +130,7 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerActividades handlerAct = HandlerActividades.getInstance();
 		ActividadTuristica actividadAux = handlerAct.obtenerActividadTuristica(actividad);
 		
-		SalidaTuristica newSal = new SalidaTuristica(nombreSal,fechaSal,lugarSal,cantMaxTuristas,fechaAlta,actividadAux,img);
+		SalidaTuristica newSal = new SalidaTuristica(nombreSal, fechaSal, lugarSal, cantMaxTuristas, fechaAlta, actividadAux, img);
 		actividadAux.agregarSalida(newSal);
 		handlerSal.addSalidas(newSal);
 	
@@ -149,9 +149,9 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	//Paquetes
-	public void crearPaquete(String nombre,String descripcion,int validez,float descuento,GregorianCalendar fechaDeAlta, String img) throws YaExisteException {
+	public void crearPaquete(String nombre, String descripcion, int validez, float descuento, GregorianCalendar  fechaDeAlta, String img) throws YaExisteException {
 		HandlerPaquetes handlerPaq = HandlerPaquetes.getInstance();
-		if(handlerPaq.existePaquete(nombre))
+		if (handlerPaq.existePaquete(nombre))
 			throw new YaExisteException("El paquete " + nombre + " ya se encuentra registrado");
 		PaqueteTuristico newPaquete = new PaqueteTuristico(nombre, descripcion, validez, descuento, fechaDeAlta, img);
 		handlerPaq.addPaquete(newPaquete);
@@ -161,11 +161,13 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerPaquetes handlerPaq = HandlerPaquetes.getInstance();
 		Set<PaqueteTuristico> paquetes = handlerPaq.getPaquetes();
 		Set<String> res = new HashSet<String>();
-		paquetes.forEach((e) -> {res.add(e.getNombre());});
+		paquetes.forEach(e -> {
+		  res.add(e.getNombre());
+		  });
 		return res;
 	}
 	
-	public void ingresarActividadAPaquete(String nombrePaquete,String nombreActividad) {
+	public void ingresarActividadAPaquete(String nombrePaquete, String nombreActividad) {
 		HandlerPaquetes handlerPaq = HandlerPaquetes.getInstance();
 		HandlerActividades handlerAct = HandlerActividades.getInstance();
 		PaqueteTuristico paq = handlerPaq.obtenerPaqueteTuristico(nombrePaquete);
@@ -184,7 +186,7 @@ public class CtrlActividad implements ICtrlActividad{
 		Set<String> depAct = this.listarActividadesDepartamento(depto);
 		HandlerActividades handlerAct = HandlerActividades.getInstance();
 		Set<ActividadTuristica> actividades = new HashSet<ActividadTuristica>();
-		for(String s: depAct) {
+		for (String s: depAct) {
 			ActividadTuristica act = handlerAct.obtenerActividadTuristica(s);
 			actividades.add(act);
 		}
@@ -192,8 +194,8 @@ public class CtrlActividad implements ICtrlActividad{
 		HandlerPaquetes handlerPaq = HandlerPaquetes.getInstance();
 		PaqueteTuristico paq = handlerPaq.obtenerPaqueteTuristico(nombrePaquete);
 		
-		actividades.forEach(e ->{
-			if(!paq.tieneActividad(e.getNombre()) & e.getEstado() == estadoActividad.confirmada  ) {
+		actividades.forEach(e -> {
+			if (!paq.tieneActividad(e.getNombre()) & e.getEstado() == estadoActividad.confirmada  ) {
 				resu.add(e.getNombre());
 			}
 		});
@@ -204,7 +206,7 @@ public class CtrlActividad implements ICtrlActividad{
 		Set<String> resultado = new HashSet<String>();
 		HandlerCategorias handlerCat = HandlerCategorias.getInstance();
 		Set<Categoria> categorias = handlerCat.obtenerCategorias();
-		categorias.forEach((e)->{
+		categorias.forEach(e -> {
 			resultado.add(e.getNombre());
 		});
 		return resultado;
@@ -231,8 +233,12 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	public Set<DTActividad> getDTActividadesConfirmadas() {
-		Function<ActividadTuristica, DTActividad> dts = (a) -> { return a.getDTActividad(); };
-		Predicate<ActividadTuristica> confirmada = (a) -> { return a.getEstado().equals(estadoActividad.confirmada);  };                                                          
+		Function<ActividadTuristica, DTActividad> dts = a -> { 
+		  return a.getDTActividad(); 
+		  };
+		Predicate<ActividadTuristica> confirmada = a -> { 
+		  return a.getEstado().equals(estadoActividad.confirmada); 
+		};                                                          
 		return filterActividades(dts, confirmada);
 	}
 
@@ -240,9 +246,9 @@ public class CtrlActividad implements ICtrlActividad{
         Set<String> res = new HashSet<String>();
         
         Set<String> paquetes = listarPaquetes();
-        for(String paq : paquetes) {
+        for (String paq : paquetes) {
             DTPaquete actual = getInfoPaquete(paq);
-            if(actual.getCategorias().contains(categoria))
+            if (actual.getCategorias().contains(categoria))
                 res.add(paq);
         }
         
