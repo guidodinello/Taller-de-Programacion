@@ -134,10 +134,10 @@
 
                         <div class="mb-4 text-start row g-3 align-items-center">
                             <div class="col-auto">
-                                <label for="FotoPerfil" class="form-label">Subir foto de la salida</label>
+                                <label for="fotoDeLaSalida" class="form-label">Subir foto de la salida</label>
                             </div>
                             <div class="ps-lg-3 col-auto">
-                                <input id="fotoDeLaSalida" type="file" class="form-control">
+                                <input name="fotoDeLaSalida" type="file" class="form-control">
                             </div>
                         </div>
 

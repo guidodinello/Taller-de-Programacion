@@ -5,6 +5,7 @@
 <%@page import="model.datatypes.DTCompra"%>
 <%@page import="model.datatypes.DTTurista"%>
 <%@page import="model.datatypes.DTActividad"%>
+<%@page import="model.datatypes.estadoActividad"%>
 <%@page import="model.datatypes.DTProveedor"%>
 <%@page import="model.datatypes.DTPaquete"%>
 <%@page import="model.logica.interfaces.ICtrlUsuario"%>
@@ -532,6 +533,21 @@
 
                                                     </div>
                                                 </fieldset>
+                                                
+                                                <fieldset disabled>
+                                                    <div class="row g-3 align-items-center pt-3">
+                                                        <div class="col-auto">
+                                                            <i class="fa fa-check prefix white-text"></i>
+                                                            <label for="inputPassword6"
+                                                                class="col-form-label">Estado:</label>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <input type="password" class="form-control disabled"
+                                                                aria-describedby="disabled" placeholder="<%=act.getestado()%>">
+                                                        </div>
+
+                                                    </div>
+                                                </fieldset>
 
 
                                             </form>
@@ -784,7 +800,8 @@
 					                               <%
 													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
 													Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(Usr.getNickname());
-													for(DTActividad act:actividades){ %>
+													for(DTActividad act:actividades){ 
+														if(act.getestado() == estadoActividad.confirmada){%>
 													 <a style="text-decoration:none; font-size: 24px;"
                                                 href="./consultaSalida.html" class="font-up font-bold"><%=act.getNombre()%></a>
                                             <form>
@@ -850,7 +867,8 @@
 
 
                                             </form>
-                                            <%}%>
+                                            <%			}//fin if
+													}//fin for%>
 					                               </div>
 					                            </div>
 					                         <%}%> 

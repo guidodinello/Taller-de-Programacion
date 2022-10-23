@@ -47,6 +47,7 @@ public class altaSalida extends HttpServlet {
         String dir = udi;
         try {
             String na = req.getParameter("nombre")+ "_sal" + ext; //nombre del archivo
+            System.out.println(na);
             
             /*Si existe un archivo con el mismo nombre lo eliminamos*/
             File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+ na);

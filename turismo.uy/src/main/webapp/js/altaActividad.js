@@ -59,6 +59,16 @@ const formularioValidado = () => {
 		$("#CategoriasAltaAct").addClass("is-invalid");
 		return false;
 	}
+	
+	if($("#DuracionAltaActText").val()<1){
+		$("#DuracionAltaActText").addClass("is-invalid");
+		return false;
+	}
+	
+	if($("#CostoAltaActText").val()<0.01){
+		$("#CostoAltaActText").addClass("is-invalid");
+		return false;
+	}
     
     let nomb = marcarObligatorios("Nombre");
     let desc = marcarObligatorios("Descripcion");

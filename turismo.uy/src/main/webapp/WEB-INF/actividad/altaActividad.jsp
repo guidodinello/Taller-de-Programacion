@@ -95,7 +95,7 @@
 								<label for="Duracion" class = "form-label" id="DuracionAltaActLabel">Duracion</label>
 								<input type="number" step="1" name="Duracion" id="DuracionAltaActText" placeholder="Ingrese una duracion en horas" class ="form-control" aria-describedby="DuracionAltaActTextNullValidate" required>
 	                      		<div id="DuracionAltaActTextNullValidate" class="invalid-feedback">
-	                         		El campo Duracion es obligatorio.
+	                         		El campo Duracion es obligatorio y debe ser mayor a 0
 	                      		</div>
 							</div>
 							
@@ -103,7 +103,7 @@
 								<label for="Costo" class = "form-label" id="CostoAltaActLabel">Costo</label>
 								<input type="number" step="0.01" name="Costo" id="CostoAltaActText" placeholder="Ingrese el costo" class ="form-control" aria-describedby="CostoAltaActTextNullValidate" required>
 	                      		<div id="CostoAltaActTextNullValidate" class="invalid-feedback">
-	                         		El campo Costo es obligatorio.
+	                         		El campo Costo es obligatorio y debe ser mayor a 0
 	                      		</div>
 							</div>
 							
