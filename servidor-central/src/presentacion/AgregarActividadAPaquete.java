@@ -169,23 +169,22 @@ public class AgregarActividadAPaquete extends JInternalFrame{
 		comboBoxPaquetes.removeAllItems();
 		borrandoFormularios = false;
 		DefaultComboBoxModel<String> model;
+		
 		//El ComboBox no soporta Sets, hay que decidir que hacer
 		Set<String> setPaquetes = controlAct.listarPaquetes();
-			HandlerUsuarios hu = HandlerUsuarios.getInstance();
-			 Set<Turista> turistas = hu.listarTuristas();
-			 for (Turista t : turistas){
-				Set<Compra> compras =  (Set<Compra>) t.getCompras().values();
-					if(compras != null) {
-					 	for (Compra i : compras) {
-					 		setPaquetes.remove(i.getPaquete().getNombre());
-					 	}
-					 }
-					 else {
-						 break;
-					 }
-				 }
+		HandlerUsuarios hu = HandlerUsuarios.getInstance();
+		Set<Turista> turistas = hu.listarTuristas();
+		for (Turista t : turistas){
+			Set<Compra> compras =  (Set<Compra>) t.getCompras().values();
+			if(compras != null) {
+				for (Compra i : compras) {
+					setPaquetes.remove(i.getPaquete().getNombre());
+				}
+			} else {
+				break;
+			}
+		}
 			 
-			
 		String[] arrPaquetes = new String[setPaquetes.size()];
 		setPaquetes.toArray(arrPaquetes);
 			 
