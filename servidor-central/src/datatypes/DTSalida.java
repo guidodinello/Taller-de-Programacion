@@ -27,7 +27,7 @@ public class DTSalida {
 	        
 	    }
 
-	 public DTSalida(String nomSalida, GregorianCalendar fechaSal, GregorianCalendar fechaAlta,int CmaxT,String SlugarSal,Set<String> SSturistas, String img) {
+	 public DTSalida(String nomSalida, GregorianCalendar fechaSal, GregorianCalendar fechaAlta, int CmaxT, String SlugarSal, Set<String> SSturistas, String img) {
 	        this.nombre = nomSalida;
 	        this.fechaSalida = fechaSal;
 	        this.fechaAlta= fechaAlta;
@@ -37,7 +37,7 @@ public class DTSalida {
 	        this.imgDir = img;
 	    }
 	 
-	 public DTSalida(String nomSalida,String actividad, String deptoAct, GregorianCalendar fechaSal, GregorianCalendar fechaAlt, int CmaxT,String SlugarSal,Set<String> SSturistas, String img) {
+	 public DTSalida(String nomSalida, String actividad, String deptoAct, GregorianCalendar fechaSal, GregorianCalendar fechaAlt, int CmaxT, String SlugarSal, Set<String> SSturistas, String img) {
 	        this.nombre = nomSalida;
 	        this.nombreActividad = actividad;
 	        this.nombreDepartamentoActividad = deptoAct;

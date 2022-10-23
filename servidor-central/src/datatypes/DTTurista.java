@@ -3,7 +3,6 @@ package datatypes;
 import java.util.HashSet;
 import java.util.Set;
 
-import datatypes.DTCompra;
 import logica.clases.Compra;
 import logica.clases.Turista;
 
