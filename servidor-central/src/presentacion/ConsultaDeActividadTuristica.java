@@ -139,9 +139,11 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
           borrandoFormularios = true;
           comboBoxSalidas.removeAllItems();
           comboBoxPaquetes.removeAllItems();
+          comboBoxCategorias.removeAllItems();
           borrandoFormularios = false;
           comboBoxSalidas.setEnabled(false);
           comboBoxPaquetes.setEnabled(false);
+          comboBoxCategorias.setEnabled(false);
           limpiarInformacion();
         }
       }
@@ -151,7 +153,6 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
       public void actionPerformed(ActionEvent arg0) {
         if (!borrandoFormularios) {
           cargarInformacionActividad(comboBoxActividades.getSelectedItem().toString());
-          cargarCategorias(comboBoxActividades.getSelectedItem().toString());
           comboBoxSalidas.setEnabled(true);
           comboBoxPaquetes.setEnabled(true);
           comboBoxCategorias.setEnabled(true);
@@ -268,6 +269,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
     DTActividad datosActividad = controlAct.getInfoActividad(actividad);
     cargarSalidas(datosActividad.getSalidas());
     cargarPaquetes(datosActividad.getPaquetes());
+    cargarCategorias(datosActividad.getCategorias());
     textFieldNombre.setText(datosActividad.getNombre());
     textAreaDescr.setText(datosActividad.getDescripcion());
     textFieldDuracion.setText(String.valueOf(datosActividad.getDuracionHs()));
@@ -292,6 +294,7 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
     comboBoxActividades.setEnabled(false);
     comboBoxSalidas.setEnabled(false);
     comboBoxPaquetes.setEnabled(false);
+    comboBoxCategorias.setEnabled(false);
     borrandoFormularios = true;
     comboBoxDepartamentos.setSelectedItem(null);
     borrandoFormularios = false;
@@ -347,28 +350,21 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
     borrandoFormularios = false;
   }
 
-  public void cargarCategorias(String actividad) {
+  public void cargarCategorias(Set<String> setCategorias) {
     borrandoFormularios = true;
     comboBoxCategorias.removeAllItems();
     borrandoFormularios = false;
-    comboBoxCategorias.addItem("Listado de Categorias");
+    DefaultComboBoxModel<String> model;
     
-    Set<String> setCategorias = controlAct.getInfoActividad(actividad).getCategorias();
-    
-    System.out.println(setCategorias.size());
-    for (String s : setCategorias) {
-      System.out.println(s);
-    }
     String[] arrCategorias = new String[setCategorias.size()];
     setCategorias.toArray(arrCategorias);
 
-    DefaultComboBoxModel<String> model;
+    
     model = new DefaultComboBoxModel<String>(arrCategorias);
     comboBoxCategorias.setModel(model);
     borrandoFormularios = true;
     comboBoxCategorias.setSelectedItem(null);
     borrandoFormularios = false;
-    
   }
 
   public void limpiarFormulario() {
