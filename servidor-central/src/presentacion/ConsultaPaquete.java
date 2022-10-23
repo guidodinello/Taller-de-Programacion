@@ -58,7 +58,7 @@ public class ConsultaPaquete extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setResizable(true);
-		setTitle("Consulta de Paquete");
+		setTitle("Consulta de Paquete de Actividades Turisticas");
 
 		lblPaquetesRegistrados = new JLabel("Paquetes Registrados");
 		lblPaquetesRegistrados.setHorizontalAlignment(SwingConstants.CENTER);

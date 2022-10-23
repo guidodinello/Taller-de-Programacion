@@ -66,7 +66,7 @@ public class altaSalida extends JInternalFrame {
         setMaximizable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
-        setTitle("Registrar Salida");
+        setTitle("Alta de Salida Turistica");
         setBounds(10, 40, 452, 341);
 	
 	

@@ -52,7 +52,7 @@ public class CrearPaquete extends JInternalFrame{
         setIconifiable(true);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setClosable(true);
-        setTitle("Crear Paquete de Actividades Turisticas");
+        setTitle("Alta de Paquete de Actividades Turisticas");
         setBounds(30, 30, 481, 376);
         
         lblNombre = new JLabel("Nombre:");

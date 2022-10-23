@@ -124,7 +124,7 @@ public class Principal {
 		frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
 
 		crearPaquete = new CrearPaquete(ICA);
-		crearPaquete.setBounds(30, 30, 368, 341);
+		crearPaquete.setBounds(30, 30, 475, 381);
 		crearPaquete.setVisible(false);
 		frmGestionDeTurismoUy.getContentPane().add(crearPaquete);
 
@@ -197,7 +197,7 @@ public class Principal {
 		JMenu menuUsuarios = new JMenu("Usuarios");
 		menuBar.add(menuUsuarios);
 
-		JMenuItem menuItemRegistrar = new JMenuItem("Registrar Usuario");
+		JMenuItem menuItemRegistrar = new JMenuItem("Alta de Usuario");
 		menuItemRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				altaUsuario.setVisible(true);
@@ -205,7 +205,7 @@ public class Principal {
 		});
 		menuUsuarios.add(menuItemRegistrar);
 
-		JMenuItem menuItemConsultaUsuario = new JMenuItem("Consultar Usuario");
+		JMenuItem menuItemConsultaUsuario = new JMenuItem("Consulta de Usuario");
 		menuItemConsultaUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consultaDeUsuario.iniciarVentana(consultaActividadInternalFrame, consultaDeSalida);
@@ -213,7 +213,7 @@ public class Principal {
 		});
 		menuUsuarios.add(menuItemConsultaUsuario);
 
-		JMenuItem menuItemActualizarUsuario = new JMenuItem("Modificar datos de usuario");
+		JMenuItem menuItemActualizarUsuario = new JMenuItem("Modificar datos de Usuario");
 		menuItemActualizarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				actualizarUsuario.iniciarVentana();
@@ -226,15 +226,6 @@ public class Principal {
 
 		JMenu menuActividades = new JMenu("Actividades");
 		menuBar.add(menuActividades);
-
-		JMenuItem menuItemAceptarRechazarActividad = new JMenuItem("Aceptar o Rechazar Actividad");
-		menuItemAceptarRechazarActividad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				aceptarRechazarActividad.cargarDatos();
-				aceptarRechazarActividad.setVisible(true);
-			};
-		});
-		menuActividades.add(menuItemAceptarRechazarActividad);
 
 		JMenuItem menuItemAltaCategoria = new JMenuItem("Alta de Categoria");
 		menuItemAltaCategoria.addActionListener(new ActionListener() {
@@ -252,29 +243,17 @@ public class Principal {
 			};
 		});
 		menuActividades.add(menuItemAltaActividadTuristica);
-
-		JMenuItem menuItemRegistrarSalida = new JMenuItem("Registrar Salida Turistica");
-		menuItemRegistrarSalida.addActionListener(new ActionListener() {
+		
+		JMenuItem menuItemAceptarRechazarActividad = new JMenuItem("Aceptar o Rechazar Actividad Turistica");
+		menuItemAceptarRechazarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				altaSalida.cargarDatos();
-				altaSalida.setVisible(true);
-			}
+				aceptarRechazarActividad.cargarDatos();
+				aceptarRechazarActividad.setVisible(true);
+			};
 		});
-		menuActividades.add(menuItemRegistrarSalida);
-
-		JMenuItem menuItemIngresarInscripcion = new JMenuItem("Registrar Inscripcion");
-		menuItemIngresarInscripcion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Muestro el InternalFrame para ingresar inscripcion
-				creInscrInternalFrame.limpiarFormulario();
-				creInscrInternalFrame.cargarDepartamentos();
-				creInscrInternalFrame.cargarTuristas();
-				creInscrInternalFrame.setVisible(true);
-			}
-		});
-		menuActividades.add(menuItemIngresarInscripcion);
-
-		JMenuItem menuItemConsultaActividadTuristica = new JMenuItem("Consulta Actividad Turistica");
+		menuActividades.add(menuItemAceptarRechazarActividad);
+		
+		JMenuItem menuItemConsultaActividadTuristica = new JMenuItem("Consulta de Actividad Turistica");
 		menuItemConsultaActividadTuristica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Muestro el InternalFrame para consulta una actividad
@@ -286,16 +265,47 @@ public class Principal {
 		});
 		menuActividades.add(menuItemConsultaActividadTuristica);
 
-		JMenuItem menuItemConsultaSalida = new JMenuItem("Consultar Salida");
+		
+		// -----------MENU SALIDAS-----------
+		JMenu menuSalidas = new JMenu("Salidas");
+		menuBar.add(menuSalidas);
+		
+		JMenuItem menuItemRegistrarSalida = new JMenuItem("Alta de Salida Turistica");
+		menuItemRegistrarSalida.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				altaSalida.cargarDatos();
+				altaSalida.setVisible(true);
+			}
+		});
+		menuSalidas.add(menuItemRegistrarSalida);
+		
+		JMenuItem menuItemConsultaSalida = new JMenuItem("Consulta de Salida Turistica");
 		menuItemConsultaSalida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				consultaDeSalida.cargarDatos();
 				consultaDeSalida.setVisible(true);
 			};
 		});
-		menuActividades.add(menuItemConsultaSalida);
-
-		JMenuItem menuItemCrearPaquete = new JMenuItem("Crear Paquete de Actividades Turisticas");
+		menuSalidas.add(menuItemConsultaSalida);
+		
+		JMenuItem menuItemIngresarInscripcion = new JMenuItem("Alta de Inscripcion a Salida Turistica");
+		menuItemIngresarInscripcion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Muestro el InternalFrame para ingresar inscripcion
+				creInscrInternalFrame.limpiarFormulario();
+				creInscrInternalFrame.cargarDepartamentos();
+				creInscrInternalFrame.cargarTuristas();
+				creInscrInternalFrame.setVisible(true);
+			}
+		});
+		menuSalidas.add(menuItemIngresarInscripcion);
+		
+		// -----------MENU PAQUETES-----------
+		
+		JMenu menuPaquetes = new JMenu("Paquetes");
+		menuBar.add(menuPaquetes);
+		
+		JMenuItem menuItemCrearPaquete = new JMenuItem("Alta de Paquete de Actividades Turisticas");
 		menuItemCrearPaquete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Muestro el InternalFrame para crear paquete
@@ -303,7 +313,16 @@ public class Principal {
 				crearPaquete.setVisible(true);
 			}
 		});
-		menuActividades.add(menuItemCrearPaquete);
+		menuPaquetes.add(menuItemCrearPaquete);
+		
+		JMenuItem menuItemConsultarPaquete = new JMenuItem("Consulta de Paquete de Actividades Turisticas");
+		menuItemConsultarPaquete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consultarPaquete.cargarDatosIniciales();
+				consultarPaquete.setVisible(true);
+			}
+		});
+		menuPaquetes.add(menuItemConsultarPaquete);
 
 		JMenuItem menuItemAgregarActividadAPaquete = new JMenuItem("Agregar Actividad a Paquete");
 		menuItemAgregarActividadAPaquete.addActionListener(new ActionListener() {
@@ -315,15 +334,6 @@ public class Principal {
 				agregarActividadPaquete.setVisible(true);
 			}
 		});
-		menuActividades.add(menuItemAgregarActividadAPaquete);
-
-		JMenuItem menuItemConsultarPaquete = new JMenuItem("Consultar Paquete de Actividades Turisticas");
-		menuItemConsultarPaquete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				consultarPaquete.cargarDatosIniciales();
-				consultarPaquete.setVisible(true);
-			}
-		});
-		menuActividades.add(menuItemConsultarPaquete);
+		menuPaquetes.add(menuItemAgregarActividadAPaquete);
 	}
 }

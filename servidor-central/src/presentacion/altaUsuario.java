@@ -102,7 +102,7 @@ public class altaUsuario extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Registrar un Usuario");
+		setTitle("Alta de Usuario");
 
 		String prov = "Proveedor";
 		String tur = "Turista";
