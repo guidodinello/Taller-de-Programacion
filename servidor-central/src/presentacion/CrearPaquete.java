@@ -224,7 +224,7 @@ public class CrearPaquete extends JInternalFrame{
 				
 				JOptionPane.showMessageDialog(this, "El paquete ha sido creado con exito", "Crear Paquete de Actividades Turisticas", JOptionPane.INFORMATION_MESSAGE);
 				limpiarFormulario();
-	            setVisible(false);
+				setVisible(false);
 			} catch (YaExisteException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Inscripcion a Salida Turistica", JOptionPane.ERROR_MESSAGE);
 			}

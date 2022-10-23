@@ -42,11 +42,11 @@ public class altaActividadTuristica extends JInternalFrame {
 	private JTextField textField_4;
 	private JComboBox<String> comboBox;
 	private JComboBox<String> comboBox_1;
-	private JTextField textFieldCalendario;
 	private JInternalFrame f; //se muestra el calendario
 	private JTextField date;
 	DefaultListModel<String> listModel;
 	JList<String> listCat;
+	private JTextField textFieldCalendario;
 
 	/**
 	 * Launch the application.
@@ -80,7 +80,7 @@ public class altaActividadTuristica extends JInternalFrame {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{121, 33, 66, 108, 101, 0};
 		gridBagLayout.rowHeights = new int[]{22, 22, 20, 20, 20, 20, 20, 20, 14, 119, 23, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
@@ -248,11 +248,11 @@ public class altaActividadTuristica extends JInternalFrame {
 		});
 		
 		textFieldCalendario = new JTextField();
-		textFieldCalendario.setEditable(false);
 		GridBagConstraints gbc_textFieldCalendario = new GridBagConstraints();
-		gbc_textFieldCalendario.anchor = GridBagConstraints.NORTHWEST;
+		gbc_textFieldCalendario.gridwidth = 2;
 		gbc_textFieldCalendario.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldCalendario.gridx = 3;
+		gbc_textFieldCalendario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCalendario.gridx = 2;
 		gbc_textFieldCalendario.gridy = 7;
 		getContentPane().add(textFieldCalendario, gbc_textFieldCalendario);
 		textFieldCalendario.setColumns(10);
@@ -339,7 +339,6 @@ public class altaActividadTuristica extends JInternalFrame {
 				JOptionPane.showMessageDialog(this,
 						"Actividad Turística creada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 				setVisible(false);
-			
 			} catch(YaExisteException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Alta de Actividad Turistica", JOptionPane.ERROR_MESSAGE);
 			}
