@@ -386,10 +386,10 @@ public class ConsultaSalida extends JInternalFrame {
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				settear = false;
 				ComboBoxSelDepartamento.removeAllItems();
 				limpiarForm();
 				setVisible(false);
-				settear = false;
 				comboBox_1.removeAllItems();
 				comboBox_1.setEnabled(false);
 				comboBoxSal.removeAllItems();
