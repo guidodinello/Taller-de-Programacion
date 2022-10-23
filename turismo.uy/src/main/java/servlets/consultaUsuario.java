@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,13 +45,14 @@ public class consultaUsuario extends HttpServlet{
 	 protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	     String nombre = request.getParameter("Nombre");
 	     String apellido = request.getParameter("Apellido");
+	     String [] nac = request.getParameter("FechaNacimiento").split("-");
 	     ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 	     
 	     DTUsuario dtU = (DTUsuario) request.getSession().getAttribute("usuario_logueado");
 	     if(dtU instanceof DTTurista)
-	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, dtU.getFechaNac(), ((DTTurista)dtU).getNacionalidad(), "", "");
+	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), ((DTTurista)dtU).getNacionalidad(), "", "");
 	     else
-	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, dtU.getFechaNac(), "", ((DTProveedor)dtU).getDescripcion(), ((DTProveedor)dtU).getLinkSitioWeb());
+	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), "", ((DTProveedor)dtU).getDescripcion(), ((DTProveedor)dtU).getLinkSitioWeb());
 	     response.sendRedirect("consultaUsuario?STATE=INFO&&NICKNAME=" + dtU.getNickname());
 	 }
 	 
