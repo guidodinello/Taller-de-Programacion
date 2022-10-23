@@ -2,6 +2,7 @@ package presentacion;
 
 import java.util.Set;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.DTSalida;
+import datatypes.tipoInscripcion;
 import excepciones.InscriptionFailException;
 
 @SuppressWarnings("serial")
@@ -191,8 +193,21 @@ public class InscripcionSalidaTuristica extends JInternalFrame {
 			
 			Integer number = Integer.valueOf(cantTuristas);
 			
+//			String nomAct = fue seleccionada
+//      Set<DTPaquete> paqCompVig = new HashSet<DTPaquete>();
+//			JComboBox paqCompVig = new JComboBox<String>();
+//      DTPaquete p;
+//      for (DTCompra c : usuario.getCompras()) {
+//          if(c.getVigente()) {
+//              p = ICA.getInfoPaquete(c.getPaquete());
+//              if (p.getActividades().contains(nomAct) && c.disponiblesEnActividad(nomAct) > 0)
+//                  paqCompVig.addItem(p);
+//          }
+//      }
+			
 			try {
-				controlUsr.ingresarInscripcion(turista, salida.getNombre(), number, new GregorianCalendar());
+			  // tipo y nom paquete
+				controlUsr.ingresarInscripcion(turista, salida.getNombre(), number, new GregorianCalendar(), tipoInscripcion.general, "");
 				
 				JOptionPane.showMessageDialog(this, "La inscripcion se ha realizado con exito", "Inscripcion a Salida Turistica", JOptionPane.INFORMATION_MESSAGE);
 				limpiarFormulario();

@@ -36,7 +36,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	//Basicos
 	private JLabel LabelSelcUsuario;
 	private JComboBox<String> ComboBoxSelUsuario;
-	private JButton btnSelecUsuario = new JButton("Seleccionar");
 	private JLabel LabelInfoUsuario;
 	private JLabel LabelTipoUsuario;
 	private JTextField TextTipoUsuario;
@@ -56,7 +55,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private JTextField TextNacionalidad;
 	private JLabel LabelSalidasInscripto;
 	private JComboBox<DTSalida> ComboBoxSalidasInscripto;
-	private JButton btnVerSalidaTurista;
 	//Si el usuario es proveedor
 	private JLabel LabelDescripcion;
 	private JTextArea TextDescripcion;
@@ -64,13 +62,11 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private JTextField TextSitioWeb;
 	private JLabel LabelActividadesProveedor;
 	private JComboBox<DTActividad> ComboBoxActividadesProveedor;
-	private JButton btnVerActividad;
 	private JLabel LabelSalidasDeActividadesDelProveedor;
 	private JLabel DescripcionActividadProveedorLabel;
 	private JTextArea DescripcionActividadProveedorTextArea;
 	private JScrollPane DescripcionActividadProveedorScrollPane;
 	private JComboBox<String> ComboBoxSalidasDeActividadesDelProveedor;
-	private JButton btnVerSalidaProveedor;
 	//borrando
 	private boolean seteandoDatosIniciales = false;
 	//Datos que interesa conservar temporalmente
@@ -121,12 +117,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
         gbc_cBSelcUsuario.gridx = 2;
         gbc_cBSelcUsuario.gridy = 1;
         getContentPane().add(ComboBoxSelUsuario, gbc_cBSelcUsuario);
-        GridBagConstraints gbc_btnSelecUsuario = new GridBagConstraints();
-        gbc_btnSelecUsuario.anchor = GridBagConstraints.CENTER;
-        gbc_btnSelecUsuario.insets = new Insets(0, 0, 5, 5);
-        gbc_btnSelecUsuario.gridx = 3;
-        gbc_btnSelecUsuario.gridy = 1;
-        getContentPane().add(btnSelecUsuario, gbc_btnSelecUsuario);
         	        
         //label Informacion usuario
         LabelInfoUsuario = new JLabel("Informacion del usuario");
@@ -347,13 +337,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
         gbc_TextSitioWeb.gridwidth = 2;
         getContentPane().add(TextSitioWeb, gbc_TextSitioWeb);
         TextSitioWeb.setVisible(false);
-        
-        btnVerSalidaTurista = new JButton("Ver Detalles");
-        GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-        gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-        gbc_btnNewButton.gridx = 4;
-        gbc_btnNewButton.gridy = 10;
-        getContentPane().add(btnVerSalidaTurista, gbc_btnNewButton);
 	       
         //Label actividades
         LabelActividadesProveedor = new JLabel("Actividades que provee: ");
@@ -375,13 +358,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
         gbc_ComboBoxActividadesProveedor.gridy = 11;
         getContentPane().add(ComboBoxActividadesProveedor, gbc_ComboBoxActividadesProveedor);
         ComboBoxActividadesProveedor.setVisible(false);
-        
-        btnVerActividad = new JButton("Ver Detalles");
-        GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-        gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 0);
-        gbc_btnNewButton_1.gridx = 4;
-        gbc_btnNewButton_1.gridy = 11;
-        getContentPane().add(btnVerActividad, gbc_btnNewButton_1);
         
         DescripcionActividadProveedorLabel = new JLabel("Descripcion de la actividad: ");
         DescripcionActividadProveedorLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -422,13 +398,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
         gbc_ComboBoxSalidasDeActividadesDelProveedor.gridx = 2;
         gbc_ComboBoxSalidasDeActividadesDelProveedor.gridy = 13;
         getContentPane().add(ComboBoxSalidasDeActividadesDelProveedor, gbc_ComboBoxSalidasDeActividadesDelProveedor);
-        
-        btnVerSalidaProveedor = new JButton("Ver Detalles");
-        GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
-        gbc_btnNewButton_2.insets = new Insets(0, 0, 5, 0);
-        gbc_btnNewButton_2.gridx = 4;
-        gbc_btnNewButton_2.gridy = 13;
-        getContentPane().add(btnVerSalidaProveedor, gbc_btnNewButton_2);
         
         btnCerrar = new JButton("Cerrar");
         GridBagConstraints gbc_btnCerrar = new GridBagConstraints();
@@ -474,44 +443,42 @@ public class ConsultaDeUsuario extends JInternalFrame {
                 		dtAS.forEach((s)->{
         					seteandoDatosIniciales = true;
         					ComboBoxSalidasDeActividadesDelProveedor.addItem("Nombre: "+ s);
+        					pasarDatosConsultaActividad();
         					seteandoDatosIniciales = false;
         				});
-                		btnVerSalidaProveedor.setEnabled(true);
             		}else {
             			seteandoDatosIniciales = true;
     					ComboBoxSalidasDeActividadesDelProveedor.addItem("No tiene salidas");
     					seteandoDatosIniciales = false;
-            			btnVerSalidaProveedor.setEnabled(false);
             		}
 
             		DescripcionActividadProveedorTextArea.setText(dtA.getDescripcion());
-            		btnVerActividad.setEnabled(true);
         		}else {
 					seteandoDatosIniciales = true;
 					ComboBoxSalidasDeActividadesDelProveedor.addItem("No tiene salidas");
 					seteandoDatosIniciales = false;
-        			btnVerActividad.setEnabled(false);
-        			btnVerSalidaProveedor.setEnabled(false);
         		}
 
         	}
         });
         
-        btnVerSalidaTurista.addActionListener(new ActionListener() {
+        ComboBoxSalidasInscripto.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		pasarDatosConsultaSalidaTurista(e);	
+        		if(seteandoDatosIniciales) {
+        			return;
+        		}
+        		pasarDatosConsultaSalidaTurista(e);
+
         	}
         });
         
-        btnVerSalidaProveedor.addActionListener(new ActionListener() {
+        ComboBoxSalidasDeActividadesDelProveedor.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		pasarDatosConsultaSalidaProveedor(e);	
-        	}
-        });
-        
-        btnVerActividad.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		pasarDatosConsultaActividad();	
+        		if(seteandoDatosIniciales) {
+        			return;
+        		}
+        		pasarDatosConsultaSalidaProveedor(e);
+
         	}
         });
         
@@ -533,14 +500,12 @@ public class ConsultaDeUsuario extends JInternalFrame {
 			seteandoDatosIniciales = true;
         	ComboBoxSelUsuario.addItem("No hay usuarios registrados");
         	seteandoDatosIniciales = false;
-        	btnSelecUsuario.setEnabled(false);
 		}else {
 	        usuarios.forEach((u)->{
 	        	seteandoDatosIniciales = true;
 	        	ComboBoxSelUsuario.addItem(u);
 	        	seteandoDatosIniciales = false;
 	        });
-	        btnSelecUsuario.setEnabled(true);
 		}
         //Setea inicialmente las cosas de un usuario especifico en invisible
         visibleCamposTurista(false);
@@ -570,13 +535,13 @@ public class ConsultaDeUsuario extends JInternalFrame {
 					ComboBoxSalidasInscripto.addItem(dt);
 					seteandoDatosIniciales = false;
 				});
-				btnVerSalidaTurista.setEnabled(true);
+				
 			}else {
 				seteandoDatosIniciales = true;
 				DTSalida dt = new  DTSalida("No tiene salidas", null, null, 0, null, null, "");
 				ComboBoxSalidasInscripto.addItem(dt);
 				seteandoDatosIniciales = false;
-				btnVerSalidaTurista.setEnabled(false);
+				
 			}
 
 		}else {
@@ -594,18 +559,14 @@ public class ConsultaDeUsuario extends JInternalFrame {
 					ComboBoxActividadesProveedor.addItem(dt);
 					seteandoDatosIniciales = false;
 				});
-				btnVerActividad.setEnabled(true);
-				btnVerSalidaProveedor.setEnabled(false);
 			}else {
 				seteandoDatosIniciales = true;
 				DTActividad noTiene = new DTActividad("No tiene actividades", "", "" , "", null, 0, 0, null, null, "", estadoActividad.agregada);
 				ComboBoxActividadesProveedor.addItem(noTiene);
 				seteandoDatosIniciales = false;
-				btnVerActividad.setEnabled(false);
 				seteandoDatosIniciales = true;
 				ComboBoxSalidasDeActividadesDelProveedor.addItem("No tiene salidas");
 				seteandoDatosIniciales = false;
-				btnVerSalidaProveedor.setEnabled(false);
 			}
 
 			
@@ -634,7 +595,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		TextNacionalidad.setVisible(b);
 		LabelSalidasInscripto.setVisible(b);
 		ComboBoxSalidasInscripto.setVisible(b);
-		btnVerSalidaTurista.setVisible(b);
+		
 		
 	}
 	
@@ -647,11 +608,9 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		ComboBoxActividadesProveedor.setVisible(b);
 		LabelSalidasDeActividadesDelProveedor.setVisible(b);
 		ComboBoxSalidasDeActividadesDelProveedor.setVisible(b);
-		btnVerActividad.setVisible(b);
 		DescripcionActividadProveedorLabel.setVisible(b);
 		DescripcionActividadProveedorTextArea.setVisible(b);
 		DescripcionActividadProveedorScrollPane.setVisible(b);
-		btnVerSalidaProveedor.setVisible(b);
 	}
 	
 	private void limpiarCamposText() {
@@ -707,7 +666,8 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		String nombreActividad = ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex()).getNombre();
 		String nombreDepartamento = ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex()).getDepartamento();
 		String nombreSalida = (String) ComboBoxSalidasDeActividadesDelProveedor.getSelectedItem();
-			
+		nombreSalida = nombreSalida.substring(8);
+		System.out.println(nombreSalida);
 		ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
 
 	}

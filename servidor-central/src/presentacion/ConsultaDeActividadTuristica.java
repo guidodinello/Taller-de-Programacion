@@ -49,8 +49,6 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
   private JTextField textFieldDuracion;
   private JTextField textFieldCosto;
   private JButton btnCerrar;
-  private JButton btnConsultarPaquete;
-  private JButton btnConsultarSalida;
   private ConsultaPaquete consultaPaquete;
   private ConsultaSalida consultaSalida;
 
@@ -133,20 +131,6 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
       }
     });
 
-    btnConsultarPaquete = new JButton("Consultar");
-    btnConsultarPaquete.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        consultarPaquete();
-      }
-    });
-
-    btnConsultarSalida = new JButton("Consultar");
-    btnConsultarSalida.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        consultarSalida();
-      }
-    });
-
     comboBoxDepartamentos.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
         if (!borrandoFormularios) {
@@ -174,105 +158,109 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
         }
       }
     });
+    
+    comboBoxSalidas.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        if (!borrandoFormularios) {
+          consultarSalida();          
+        }
+      }
+    });
+    
+    comboBoxPaquetes.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        if (!borrandoFormularios) {
+          consultarPaquete();          
+        }
+      }
+    });
 
     // Layout
     GroupLayout groupLayout = new GroupLayout(getContentPane());
-    groupLayout.setHorizontalGroup(groupLayout
-        .createParallelGroup(
-            Alignment.TRAILING)
-        .addGroup(
-            groupLayout.createSequentialGroup().addContainerGap()
-                .addGroup(
-                    groupLayout.createParallelGroup(Alignment.LEADING, false)
-                        .addGroup(groupLayout.createSequentialGroup().addGap(6)
-                            .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-                                .addComponent(lblDepartamentos).addComponent(lblActividades)
-                                .addComponent(lblNombre).addComponent(lblCosto))
-                            .addGap(18)
-                            .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                                .addGroup(groupLayout.createSequentialGroup()
-                                    .addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, 61,
-                                        GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addComponent(lblDuracion, GroupLayout.PREFERRED_SIZE, 80,
-                                        GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addComponent(textFieldDuracion, GroupLayout.PREFERRED_SIZE, 85,
-                                        GroupLayout.PREFERRED_SIZE))
-                                .addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 246,
-                                    GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 246,
-                                    GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboBoxDepartamentos, GroupLayout.PREFERRED_SIZE,
-                                    246, GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(groupLayout.createSequentialGroup().addGap(22)
-                            .addGroup(groupLayout
-                                .createParallelGroup(Alignment.TRAILING).addComponent(lblDescr)
-                                .addComponent(
-                                    lblSalidas)
-                                .addComponent(lblPaquetes).addComponent(lblCategorias))
-                            .addPreferredGap(ComponentPlacement.UNRELATED)
-                            .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                                .addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-                                    .createParallelGroup(Alignment.LEADING, false)
-                                    .addComponent(comboBoxSalidas, 0, 247, Short.MAX_VALUE)
-                                    .addComponent(textAreaDescrScrollPane,
-                                        GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                        GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboBoxPaquetes, 0, GroupLayout.DEFAULT_SIZE,
-                                        Short.MAX_VALUE))
-                                    .addPreferredGap(ComponentPlacement.RELATED,
-                                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(btnConsultarPaquete)
-                                        .addComponent(btnConsultarSalida)))
-                                .addComponent(comboBoxCategorias, GroupLayout.PREFERRED_SIZE, 247,
-                                    GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addGroup(groupLayout.createSequentialGroup().addContainerGap(385, Short.MAX_VALUE)
-            .addComponent(btnCerrar, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
-            .addContainerGap()));
-    groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        .addGroup(groupLayout.createSequentialGroup().addGap(21)
-            .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(lblDepartamentos).addComponent(comboBoxDepartamentos,
-                    GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(ComponentPlacement.UNRELATED)
-            .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 33,
-                    GroupLayout.PREFERRED_SIZE)
-                .addComponent(lblActividades))
-            .addGap(18)
-            .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblNombre)
-                .addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                    GroupLayout.PREFERRED_SIZE))
-            .addGap(17)
-            .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblCosto)
-                .addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                    GroupLayout.PREFERRED_SIZE)
-                .addComponent(lblDuracion).addComponent(textFieldDuracion,
-                    GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                    GroupLayout.PREFERRED_SIZE))
-            .addGap(18)
-            .addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(lblDescr)
-                .addComponent(textAreaDescrScrollPane, GroupLayout.PREFERRED_SIZE,
-                    GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(ComponentPlacement.UNRELATED)
-            .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(comboBoxSalidas, GroupLayout.PREFERRED_SIZE, 33,
-                    GroupLayout.PREFERRED_SIZE)
-                .addComponent(lblSalidas).addComponent(btnConsultarSalida))
-            .addGap(16)
-            .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(comboBoxPaquetes, GroupLayout.PREFERRED_SIZE, 29,
-                    GroupLayout.PREFERRED_SIZE)
-                .addComponent(btnConsultarPaquete).addComponent(lblPaquetes))
-            .addGap(18)
-            .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(lblCategorias).addComponent(comboBoxCategorias,
-                    GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-            .addComponent(btnCerrar).addContainerGap()));
+    groupLayout.setHorizontalGroup(
+      groupLayout.createParallelGroup(Alignment.TRAILING)
+        .addGroup(groupLayout.createSequentialGroup()
+          .addContainerGap()
+          .addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+            .addGroup(groupLayout.createSequentialGroup()
+              .addGap(6)
+              .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+                .addComponent(lblDepartamentos)
+                .addComponent(lblActividades)
+                .addComponent(lblNombre)
+                .addComponent(lblCosto))
+              .addGap(18)
+              .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(groupLayout.createSequentialGroup()
+                  .addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(ComponentPlacement.RELATED)
+                  .addComponent(lblDuracion, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(ComponentPlacement.RELATED)
+                  .addComponent(textFieldDuracion, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+                .addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxDepartamentos, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)))
+            .addGroup(groupLayout.createSequentialGroup()
+              .addGap(22)
+              .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+                .addComponent(lblDescr)
+                .addComponent(lblSalidas)
+                .addComponent(lblPaquetes)
+                .addComponent(lblCategorias))
+              .addPreferredGap(ComponentPlacement.UNRELATED)
+              .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+                  .addComponent(comboBoxSalidas, 0, 247, Short.MAX_VALUE)
+                  .addComponent(textAreaDescrScrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                  .addComponent(comboBoxPaquetes, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(comboBoxCategorias, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))))
+          .addContainerGap(125, Short.MAX_VALUE))
+        .addGroup(groupLayout.createSequentialGroup()
+          .addContainerGap(397, Short.MAX_VALUE)
+          .addComponent(btnCerrar, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+          .addContainerGap())
+    );
+    groupLayout.setVerticalGroup(
+      groupLayout.createParallelGroup(Alignment.LEADING)
+        .addGroup(groupLayout.createSequentialGroup()
+          .addGap(21)
+          .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+            .addComponent(lblDepartamentos)
+            .addComponent(comboBoxDepartamentos, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
+          .addPreferredGap(ComponentPlacement.UNRELATED)
+          .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+            .addComponent(comboBoxActividades, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblActividades))
+          .addGap(18)
+          .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+            .addComponent(lblNombre)
+            .addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+          .addGap(17)
+          .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+            .addComponent(lblCosto)
+            .addComponent(textFieldCosto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblDuracion)
+            .addComponent(textFieldDuracion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+          .addGap(18)
+          .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+            .addComponent(lblDescr)
+            .addComponent(textAreaDescrScrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+          .addPreferredGap(ComponentPlacement.UNRELATED)
+          .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+            .addComponent(comboBoxSalidas, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblSalidas))
+          .addGap(16)
+          .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+            .addComponent(comboBoxPaquetes, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblPaquetes))
+          .addGap(18)
+          .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+            .addComponent(lblCategorias)
+            .addComponent(comboBoxCategorias, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+          .addPreferredGap(ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+          .addComponent(btnCerrar)
+          .addContainerGap())
+    );
     getContentPane().setLayout(groupLayout);
   }
 
@@ -376,9 +364,9 @@ public class ConsultaDeActividadTuristica extends JInternalFrame {
 
     DefaultComboBoxModel<String> model;
     model = new DefaultComboBoxModel<String>(arrCategorias);
-    comboBoxPaquetes.setModel(model);
+    comboBoxCategorias.setModel(model);
     borrandoFormularios = true;
-    comboBoxPaquetes.setSelectedItem(null);
+    comboBoxCategorias.setSelectedItem(null);
     borrandoFormularios = false;
     
   }
