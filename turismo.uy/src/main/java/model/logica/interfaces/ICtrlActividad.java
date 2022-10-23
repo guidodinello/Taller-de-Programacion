@@ -33,8 +33,7 @@ public interface ICtrlActividad{
 	public abstract void ingresarActividadAPaquete(String nombrePaquete,String nombreActividad);
 	public abstract DTPaquete getInfoPaquete(String paqueteSeleccionado);
 	public abstract Set<String> listarCategorias();
-	
-	public abstract <T> Set<T> filterSalidas(Function<SalidaTuristica, T> returnFunction, Predicate<SalidaTuristica> condition);
+	public abstract void cambiarEstadoActividad(estadoActividad estado, String nombreAct);
 	public abstract <T> Set<T> filterActividades(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition);
 	public abstract Set<DTActividad> getDTActividadesConfirmadas();
     public abstract Set<String> listarPaquetesCategoria(String categoria);
