@@ -16,10 +16,10 @@ public class SalidaTuristica{
 	    private int plazosDisponibles;
 	    private String img;
 		   
-	    public SalidaTuristica(String Sn, GregorianCalendar Ds,String SlugarSal, int CmaxT,GregorianCalendar Da,ActividadTuristica actividad, String img) {
-	        this.nombre = Sn;
-	        this.fechaSalida = Ds;
-	        this.fechaAlta= Da;
+	    public SalidaTuristica(String salidaNombre, GregorianCalendar dateSalida,String SlugarSal, int CmaxT,GregorianCalendar dateAct,ActividadTuristica actividad, String img) {
+	        this.nombre = salidaNombre;
+	        this.fechaSalida = dateSalida;
+	        this.fechaAlta= dateAct;
 	        this.cantidadMaximaDeTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.actividad = actividad;

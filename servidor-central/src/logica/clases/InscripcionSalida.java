@@ -44,13 +44,13 @@ public class InscripcionSalida{
 	}
 	
 	public DTSalida getDTSalida() {
-		String Sn = this.salida.getNombre();
-		GregorianCalendar Ds = this.salida.getfechaSalida();
-		GregorianCalendar Da = this.salida.getfechaAlta();
+		String salidaNombre = this.salida.getNombre();
+		GregorianCalendar dateSalida = this.salida.getfechaSalida();
+		GregorianCalendar dateAct = this.salida.getfechaAlta();
 		int CmaxT  = this.salida.getcantidadMaximaDeTuristas();
 		String SlugarSal = this.salida.getlugarSalida();
 		Set<String> SSturistas = this.salida.getTuristasInscriptos();
 		DTActividad actSalida = salida.getActividad().getDTActividad();
-		return new DTSalida(Sn,actSalida.getNombre(), actSalida.getDepartamento(), Ds, Da, CmaxT, SlugarSal, SSturistas, this.salida.getImg());
+		return new DTSalida(salidaNombre ,actSalida.getNombre(), actSalida.getDepartamento(), dateSalida, dateAct, CmaxT, SlugarSal, SSturistas, this.salida.getImg());
 	}
 }
