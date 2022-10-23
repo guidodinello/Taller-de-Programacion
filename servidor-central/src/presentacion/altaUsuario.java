@@ -92,7 +92,7 @@ public class altaUsuario extends JInternalFrame {
 	
 	private JFileChooser fileChooser; 
 	
-	private byte[] imgArrBytes;
+//	private byte[] imgArrBytes;
 
 	public altaUsuario(ICtrlUsuario icu) {
 		
@@ -431,19 +431,19 @@ public class altaUsuario extends JInternalFrame {
 				if (result == JFileChooser.APPROVE_OPTION) {
 				    File selectedFile = fileChooser.getSelectedFile();
 				 
-			        try {
-			        	FileInputStream fileStream = new FileInputStream(selectedFile);
-				        // Now creating byte array of same length as file
-				        imgArrBytes = new byte[(int)selectedFile.length()];
-				        // Reading file content to byte array
-				        // using standard read() method
-						fileStream.read(imgArrBytes);
-				        // lastly closing an instance of file input stream
-				        // to avoid memory leakage
-				        fileStream.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+//			        try {
+//			        	FileInputStream fileStream = new FileInputStream(selectedFile);
+//				        // Now creating byte array of same length as file
+//				        imgArrBytes = new byte[(int)selectedFile.length()];
+//				        // Reading file content to byte array
+//				        // using standard read() method
+//						fileStream.read(imgArrBytes);
+//				        // lastly closing an instance of file input stream
+//				        // to avoid memory leakage
+//				        fileStream.close();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
 				    //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 				    selectedImgPath.setText(selectedFile.getName());
 				}
@@ -503,7 +503,7 @@ public class altaUsuario extends JInternalFrame {
 		String email = this.textFieldEmail.getText();
 		String pass = this.textFieldContrasena.getText();
 		
-		String encodedImg = Base64.getEncoder().encodeToString(imgArrBytes);
+//		String encodedImg = Base64.getEncoder().encodeToString(imgArrBytes);
 		
 //		ENCODE : STRING TO BASE64
 //		byte[] fileContent = FileUtils.readFileToByteArray(new File(filePath));
@@ -530,7 +530,7 @@ public class altaUsuario extends JInternalFrame {
 					nacionalidad = this.textFieldNacionalidad.getText();
 				}
 
-				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, encodedImg, tipo, nacionalidad, descripcion,
+				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, selectedImgPath.getText(), tipo, nacionalidad, descripcion,
 						sitioWeb);
 
 				JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
@@ -601,6 +601,7 @@ public class altaUsuario extends JInternalFrame {
 		textFieldContrasena.setText("");
 		textFieldConfirmacionContrasena.setText("");
 		selectedDate.setText("");
+		selectedImgPath.setText("");
 		
 		textFieldSitioWeb.setText("");
 		textFieldDescripcion.setText("");
