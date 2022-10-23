@@ -53,12 +53,15 @@ public class consultaUsuario extends HttpServlet{
 	     
 	     DTUsuario dtU = (DTUsuario) request.getSession().getAttribute("usuario_logueado");
 	     if(dtU instanceof DTTurista) {
-	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), ((DTTurista)dtU).getNacionalidad(), "", "");
+	         String nacionalidad = request.getParameter("Nacionalidad");
+	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), nacionalidad, "", "");
 	         HandlerUsuarios hU = HandlerUsuarios.getInstance();
 	         Turista t = hU.getTuristaByNickname(dtU.getNickname());
 	         request.getSession().setAttribute("usuario_logueado", new DTTurista(t));
 	     } else {
-	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), "", ((DTProveedor)dtU).getDescripcion(), ((DTProveedor)dtU).getLinkSitioWeb());
+	         String descripcion = request.getParameter("Descripcion");
+	         String link = request.getParameter("Link");
+	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), "", descripcion, link);
 	         HandlerUsuarios hU = HandlerUsuarios.getInstance();
              Proveedor p = hU.getProveedorByNickname(dtU.getNickname());
              request.getSession().setAttribute("usuario_logueado", new DTProveedor(p));

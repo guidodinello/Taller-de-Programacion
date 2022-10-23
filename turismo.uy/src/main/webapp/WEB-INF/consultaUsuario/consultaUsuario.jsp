@@ -206,7 +206,7 @@
 															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
-																value="<%=miUsr.getEmail()%>">
+																placeholder="<%=miUsr.getEmail()%>">
 														</div>
 														<div class="col-auto">
 															<span id="passwordHelpInline" class="form-text">
@@ -230,8 +230,57 @@
 													</div>
 
 												</div>
+												
+												<% if(miUsr instanceof DTTurista){ %>
+												<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa-solid fa-flag prefix white-text"></i> <label
+																for="inputPassword6" class="col-form-label disabled'">Nacionalidad:</label>
+														</div>
+														<div class="col">
+															<input type="text" id="inputPassword6"
+																class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder="<%=((DTTurista)miUsr).getNacionalidad()%>">
+														</div>
+														<div class="col-auto">
+															<span id="passwordHelpInline" class="form-text">
+																No puede cambiar este campo. </span>
+														</div>
+													</div>
+												</fieldset>
+												<%} else{%>
+													<div class="row g-3 align-items-center pt-3">
+													<div class="col-auto">
+														<i class="fa fa-bookmark prefix white-text"></i> <label
+															for="Descripcion" class="col-form-label">Descripcion:</label>
+													</div>
+													<div class="col">
+														<input type="text" value="<%=((DTProveedor)miUsr).getDescripcion()%>"
+															name="Descripcion" class="form-control input-lg"
+															aria-describedby="passwordHelpInline">
+													</div>
 
-												<div class="mb-3">
+												</div>
+												
+												<div class="row g-3 align-items-center pt-3">
+													<div class="col-auto">
+														<i class="fa fa-window-restore"></i> <label
+															for="Link" class="col-form-label">Sitio Web:</label>
+													</div>
+													<div class="col-auto">
+														<input type="text" value=<%=((DTProveedor)miUsr).getLinkSitioWeb()%>
+															name="Link" class="form-control"
+															aria-describedby="passwordHelpInline">
+													</div>
+
+												</div>
+												
+												
+												<%} %>
+
+												<div class="mb-3 pt-3">
 													<button type="submit" class="btn btn-primary"
 														id="btnGuardar">Guardar cambios</button>
 												</div>
@@ -458,7 +507,7 @@
 																for="inputPassword6" class="col-form-label">Costo:</label>
 														</div>
 														<div class="col-auto">
-															<input type="password" id="inputPassword6"
+															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=sal.getCosto()%>">
@@ -544,7 +593,7 @@
 																for="inputPassword6" class="col-form-label">Costo:</label>
 														</div>
 														<div class="col-auto">
-															<input type="password" class="form-control disabled"
+															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=act.getCosto()%>">
 														</div>
@@ -558,7 +607,7 @@
 																for="inputPassword6" class="col-form-label">Ciudad:</label>
 														</div>
 														<div class="col-auto">
-															<input type="password" class="form-control disabled"
+															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=act.getNombreCiudad()%>">
 														</div>
@@ -589,7 +638,7 @@
 																for="inputPassword6" class="col-form-label">Estado:</label>
 														</div>
 														<div class="col-auto">
-															<input type="password" class="form-control disabled"
+															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=act.getestado()%>">
 														</div>
@@ -717,13 +766,13 @@
 															<div class="row g-3 align-items-center pt-3">
 																<div class="col-auto">
 																	<i class="fa fa-envelope prefix white-text"></i> <label
-																		for="inputPassword6" class="col-form-label disabled'">Email:</label>
+																		for="inputPassword6" class="col-form-label'">Email:</label>
 																</div>
 																<div class="col">
 																	<input type="text" id="inputPassword6"
-																		class="form-control disabled"
-																		aria-describedby="disabled"
-																		value="<%=Usr.getEmail()%>">
+																		class="form-control"
+																		aria-describedby="passwordHelpInLine"
+																		placeholder="<%=Usr.getEmail()%>">
 																</div>
 
 															</div>
@@ -746,6 +795,54 @@
 
 															</div>
 														</fieldset>
+														<%if(Usr instanceof DTTurista){ %>
+															<fieldset disabled>
+															<div class="row g-3 align-items-center pt-3">
+																<div class="col-auto">
+																	<i class="fa fa-envelope prefix white-text"></i> <label
+																		for="inputPassword6" class="col-form-label'">Nacionalidad:</label>
+																</div>
+																<div class="col">
+																	<input type="text" id="inputPassword6"
+																		class="form-control"
+																		aria-describedby="passwordHelpInLine"
+																		placeholder="<%=((DTTurista)Usr).getNacionalidad()%>">
+																</div>
+
+															</div>
+														</fieldset>
+														<%} else{ %>
+															<fieldset disabled>
+															<div class="row g-3 align-items-center pt-3">
+																<div class="col-auto">
+																	<i class="fa fa-bookmark prefix white-text"></i> <label
+																		for="inputPassword6" class="col-form-label'">Descripcion:</label>
+																</div>
+																<div class="col">
+																	<input type="text" id="inputPassword6"
+																		class="form-control"
+																		aria-describedby="passwordHelpInLine"
+																		placeholder="<%=((DTProveedor)Usr).getDescripcion()%>">
+																</div>
+
+															</div>
+														</fieldset>
+														<fieldset disabled>
+															<div class="row g-3 align-items-center pt-3">
+																<div class="col-auto">
+																	<i class="fa fa-window-restore"></i> <label
+																		for="inputPassword6" class="col-form-label'">Sitio Web:</label>
+																</div>
+																<div class="col">
+																	<input type="text" id="inputPassword6"
+																		class="form-control"
+																		aria-describedby="passwordHelpInLine"
+																		placeholder="<%=((DTProveedor)Usr).getLinkSitioWeb()%>">
+																</div>
+
+															</div>
+														</fieldset>
+														<%} %>
 													</form>
 												</div>
 											</div>
@@ -879,7 +976,7 @@
 																		for="inputPassword6" class="col-form-label">Costo:</label>
 																</div>
 																<div class="col-auto">
-																	<input type="password" class="form-control disabled"
+																	<input type="text" class="form-control disabled"
 																		aria-describedby="disabled"
 																		placeholder="<%=act.getCosto()%>">
 																</div>
@@ -893,7 +990,7 @@
 																		for="inputPassword6" class="col-form-label">Ciudad:</label>
 																</div>
 																<div class="col-auto">
-																	<input type="password" class="form-control disabled"
+																	<input type="text" class="form-control disabled"
 																		aria-describedby="disabled"
 																		placeholder="<%=act.getNombreCiudad()%>">
 																</div>
