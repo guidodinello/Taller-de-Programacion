@@ -140,6 +140,7 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().add(agregarActividadPaquete);
 
         consultarPaquete = new ConsultaPaquete(ICA);
+        consultarPaquete.setBounds(12, 6, 503, 365);
         consultarPaquete.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(consultarPaquete);
         
