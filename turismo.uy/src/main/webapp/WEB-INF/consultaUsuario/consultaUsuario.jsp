@@ -619,11 +619,11 @@
 																	placeholder="<%=Usr.getNickname()%>">
 															</div>
 															<div class="col-auto">
-																<span id="passwordHelpInline" class="form-text"> No puede
-																	cambiar este campo. </span>
+																
 															</div>
 														</div>
 													</fieldset>
+														<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
 															<i class="fa fa-user prefix white-text"></i> <label
@@ -636,7 +636,8 @@
 												     	 </div>
 												
 												    </div>
-												
+													</fieldset>
+													<fieldset disabled>
 												    <div class="row g-3 align-items-center pt-3">
 													      <div class="col-auto">
 													        <i class="fa fa-user prefix white-text"></i>
@@ -647,7 +648,7 @@
 													      </div>
 												
 												    </div>
-												
+													</fieldset>
 												    <fieldset disabled>
 													    <div class="row g-3 align-items-center pt-3">
 														      <div class="col-auto">
@@ -658,13 +659,11 @@
 														        <input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" value="<%=Usr.getEmail()%>">
 														      </div>
 														      <div class="col-auto">
-														        <span id="passwordHelpInline" class="form-text">
-														          No puede cambiar este campo.
-														        </span>
+
 														      </div>
 													    </div>
 												  	</fieldset>
-												
+												<fieldset disabled>
 												  <div class="row g-3 align-items-center pt-3">
 													    <div class="col-auto">
 													      <i class="fa fa-birthday-cake prefix white-text"></i>
@@ -679,6 +678,7 @@
 													    </div>
 													
 													  </div>
+													  </fieldset>
 												</form>
 					                            	</div>
 					          					</div>
