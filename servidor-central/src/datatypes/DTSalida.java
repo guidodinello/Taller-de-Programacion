@@ -27,31 +27,31 @@ public class DTSalida {
 	        
 	    }
 
-	 public DTSalida(String Sn, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas, String img) {
-	        this.nombre = Sn;
-	        this.fechaSalida = Ds;
-	        this.fechaAlta= Da;
+	 public DTSalida(String nomSalida, GregorianCalendar fechaSal, GregorianCalendar fechaAlta, int CmaxT, String SlugarSal, Set<String> SSturistas, String img) {
+	        this.nombre = nomSalida;
+	        this.fechaSalida = fechaSal;
+	        this.fechaAlta= fechaAlta;
 	        this.maxTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.turistasInscriptos = SSturistas;
 	        this.imgDir = img;
 	    }
 	 
-	 public DTSalida(String Sn,String actividad, String deptoAct, GregorianCalendar Ds, GregorianCalendar Da,int CmaxT,String SlugarSal,Set<String> SSturistas, String img) {
-	        this.nombre = Sn;
+	 public DTSalida(String nomSalida, String actividad, String deptoAct, GregorianCalendar fechaSal, GregorianCalendar fechaAlt, int CmaxT, String SlugarSal, Set<String> SSturistas, String img) {
+	        this.nombre = nomSalida;
 	        this.nombreActividad = actividad;
 	        this.nombreDepartamentoActividad = deptoAct;
 	        this.imgDir = img;
-	        this.fechaSalida = Ds;
-	        this.fechaAlta= Da;
+	        this.fechaSalida = fechaSal;
+	        this.fechaAlta= fechaAlt;
 	        this.maxTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.turistasInscriptos = SSturistas;
 	    }
 	 
    ////////////////////////SETTERS////////////////////////////////////////////////
-    public void setNombre(String Sn) {
-        nombre = Sn;
+    public void setNombre(String nomSalida) {
+        nombre = nomSalida;
     }
 
     public void setfechaSalida(GregorianCalendar Dsalida ) {

@@ -21,8 +21,8 @@ public class DTActividad {
 	
 
 	
-	public DTActividad(String n, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado) {
-		this.nombre = n;
+	public DTActividad(String nombre, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado) {
+		this.nombre = nombre;
 		this.descripcion = des;
 		this.departamento = departamento;
 		this.nombreCiudad =  nombCiudad;
@@ -83,7 +83,6 @@ public class DTActividad {
 		String dia = String.valueOf(fechaAlta.get(fechaAlta.DAY_OF_MONTH));
 		String mes = String.valueOf(fechaAlta.get(fechaAlta.MONTH) + 1);
 		String anio = String.valueOf(fechaAlta.get(fechaAlta.YEAR));
-		String hora = String.valueOf(fechaAlta.get(fechaAlta.HOUR));
 		String resultado =	dia + "/" + mes + "/" + anio;
 		return resultado;
 	}

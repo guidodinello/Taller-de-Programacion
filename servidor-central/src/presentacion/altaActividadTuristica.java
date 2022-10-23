@@ -233,7 +233,6 @@ public class altaActividadTuristica extends JInternalFrame {
 		gbc_lblNewLabel_5.gridx = 0;
 		gbc_lblNewLabel_5.gridy = 7;
 		getContentPane().add(lblNewLabel_5, gbc_lblNewLabel_5);
-		btnCalendario.setIcon(new ImageIcon(scaled_img));
 		btnCalendario.setEnabled(true);
 		GridBagConstraints gbc_btnCalendario = new GridBagConstraints();
 		gbc_btnCalendario.anchor = GridBagConstraints.NORTHWEST;
@@ -291,6 +290,7 @@ public class altaActividadTuristica extends JInternalFrame {
         ImageIcon icon = new ImageIcon(icon_path,"calendario");
         Image img = icon.getImage();
     	Image scaled_img = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;  
+		btnCalendario.setIcon(new ImageIcon(scaled_img));
 
         //maneja el calendario con iconito
 		date = new JTextField(20);

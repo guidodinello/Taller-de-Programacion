@@ -4,10 +4,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 
-import logica.clases.Compra;
-import logica.clases.Turista;
-import logica.handlers.HandlerUsuarios;
-
 import java.util.HashSet;
 
 import logica.clases.PaqueteTuristico;
@@ -24,13 +20,13 @@ public class HandlerPaquetes {
 	}
 	
 	public static HandlerPaquetes getInstance() {
-		if(instancia == null)
+		if (instancia == null)
 			instancia = new HandlerPaquetes();
 		return instancia;
 	}
 	
-	public void addPaquete(PaqueteTuristico pt) {
-		paquetes.put(pt.getNombre(), pt);
+	public void addPaquete(PaqueteTuristico paquete) {
+		paquetes.put(paquete.getNombre(), paquete);
 	}
 	
 	public PaqueteTuristico obtenerPaqueteTuristico(String nombre) {
@@ -42,21 +38,6 @@ public class HandlerPaquetes {
 	}
 	
 	public Set<PaqueteTuristico> getPaquetes(){
-	    /*Set<PaqueteTuristico> paq = new HashSet<PaqueteTuristico> (paquetes.values());
-        HandlerUsuarios hu = HandlerUsuarios.getInstance();
-         Set<Turista> turistas = hu.listarTuristas();
-         for (Turista t : turistas){
-             Set<Compra> compras =  t.getCompras();
-             if(compras != null)
-                 for (Compra i : compras) {
-                    PaqueteTuristico p =  i.getPaquete();
-                    if(paq.contains(p)) {
-                        paq.remove(p);
-                    }
-                 }
-             
-         }
-         return paq;*/
 	    Set<PaqueteTuristico> res = new HashSet<PaqueteTuristico>(paquetes.values());
 	    return res;
 	}

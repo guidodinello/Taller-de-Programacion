@@ -1,6 +1,5 @@
 package datatypes;
 
-import java.io.InputStream;
 import java.util.GregorianCalendar;
 import logica.clases.Usuario;
 

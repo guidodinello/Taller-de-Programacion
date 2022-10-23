@@ -23,16 +23,16 @@ public class HandlerDepartamentos{
 	};
 	
 	public static HandlerDepartamentos getInstance() {
-		if(HandlerDepartamentos.instancia == null) {
+		if (HandlerDepartamentos.instancia == null) {
 			HandlerDepartamentos.instancia = new HandlerDepartamentos();
 		}
 		return HandlerDepartamentos.instancia;
 	}
 	
 	//Pre: no existe un departamento con nombre d.getNombre
-	public void add(Departamento d) {
-		String nombreDepartamento = d.getNombre();
-		this.departamentos.put(nombreDepartamento, d);
+	public void add(Departamento dpto) {
+		String nombreDepartamento = dpto.getNombre();
+		this.departamentos.put(nombreDepartamento, dpto);
 	}
 	
 	public boolean existeDepartamento(String nombreDepartamento) {
@@ -50,9 +50,9 @@ public class HandlerDepartamentos{
 	
 	//Pre: la actividad tiene que estar en un departamento
 	//Pre: la actividad solo esta en un depto
-	public String getDeptoContains(ActividadTuristica n) {
+	public String getDeptoContains(ActividadTuristica actividad) {
 		return departamentos.entrySet().stream()
-			.filter(depto -> depto.getValue().getActividades().containsValue(n))
+			.filter(depto -> depto.getValue().getActividades().containsValue(actividad))
 			.findFirst().get().getValue().getNombre();
 	}
 	
