@@ -119,7 +119,7 @@ public class Principal {
         frmGestionDeTurismoUy.getContentPane().add(creInscrInternalFrame);
         
         crearActividadTuristica = new altaActividadTuristica(ICA, ICU);
-        crearActividadTuristica.setBounds(45, 71, 536, 272);
+        crearActividadTuristica.setBounds(45, 71, 480, 445);
         crearActividadTuristica.setVisible(false);
         frmGestionDeTurismoUy.getContentPane().add(crearActividadTuristica);
         
