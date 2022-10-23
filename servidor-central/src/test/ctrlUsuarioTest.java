@@ -29,6 +29,7 @@ import excepciones.CompraFailException;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import datatypes.DTActividad;
+import datatypes.DTCompra;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
@@ -750,6 +751,40 @@ public class ctrlUsuarioTest {
 		String paq1 = "paq1";
 		
 		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(turista1, "A Canelones", 2, new GregorianCalendar(), tipoInscripcion.paquete, paq1);});
+	}
+	
+	@Test
+	@Order(17)
+	void testSolicitarInfoUsuarioLueoDeIngresarCompras() {
+		String turista1 = "TestCompraTurista1";
+		String turista2 = "TestCompraTurista2";
+		String turista3 = "TestCompraTurista3";
+		
+		DTTurista usr1 = (DTTurista) controladorUsuario.getInfoBasicaUsuario(turista1);
+		DTTurista usr2 = (DTTurista) controladorUsuario.getInfoBasicaUsuario(turista2);
+		DTTurista usr3 = (DTTurista) controladorUsuario.getInfoBasicaUsuario(turista3);
+		
+		assertEquals(usr1.getCompras().isEmpty(), false);
+		assertEquals(usr2.getCompras().isEmpty(), false);
+		assertEquals(usr3.getCompras().isEmpty(), false);
+		
+		assertEquals(usr1.getImgDir(), "media/imagenes/usrPerfil.png");
+		assertEquals(usr2.getImgDir(), "media/imagenes/usrPerfil.png");
+		assertEquals(usr3.getImgDir(), "media/imagenes/usrPerfil.png");
+		
+	}
+	
+	@Test
+	@Order(18)
+	void testDTCompra() {
+		DTCompra dtc = new DTCompra("paq1", new GregorianCalendar(2000, 2, 2), 3, true, new HashMap<String, Integer>());
+		
+		assertEquals(dtc.getCantTuristas(), 3);
+		assertEquals(dtc.getPaquete(), "paq1");
+		assertEquals(dtc.getFechaCompra(), new GregorianCalendar(2000, 2, 2));
+		assertEquals(dtc.getVigente(), true);
+		assertEquals(dtc.tieneActividad("Actividad 1"), false);
+		
 	}
 	
 }
