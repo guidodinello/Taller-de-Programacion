@@ -62,7 +62,7 @@ public class ActividadTuristica{
 	public GregorianCalendar getFechaAlta() {
 		return fechaAlta;
 	}
-	public Set<String>getSalidasNombre() {
+	public Set<String> getSalidasNombre() {
 		return this.salidas.keySet();
 	}
 	
@@ -70,14 +70,14 @@ public class ActividadTuristica{
 		return this.imgDir;
 	}
 	
-	public void agregarSalida(SalidaTuristica s) {
-		salidas.put(s.getNombre(), s);
+	public void agregarSalida(SalidaTuristica salida) {
+		salidas.put(salida.getNombre(), salida);
 	}
 
 	public Set<DTSalida> getInfoBasicaSalidasVigentes(GregorianCalendar fechaSistema) {
 		Set<DTSalida> res = new HashSet<DTSalida>();
-		salidas.values().forEach((e) -> {
-			if(e.getfechaSalida().after(fechaSistema)) {
+		salidas.values().forEach(e -> {
+			if (e.getfechaSalida().after(fechaSistema)) {
 				Set<String> turistas = new HashSet<String>();
 				DTActividad dtAct = getDTActividad();
 				DTSalida actual = new DTSalida(e.getNombre(), dtAct.getNombre(), dtAct.getDepartamento(),  e.getfechaSalida(), e.getfechaAlta(), e.getcantidadMaximaDeTuristas(), e.getlugarSalida(), turistas, e.getImg());
@@ -88,28 +88,29 @@ public class ActividadTuristica{
 	}
 	
 	public DTActividad getDTActividad() {
-		String n = this.nombre;
+		String nombre = this.nombre;
 		String des =this.descripcion;
 		String nombreCiudad = this.nombreCiudad;
 		GregorianCalendar fechaAlta = this.fechaAlta;
 		int dura = this.duracionHs;
 		float costo = this.costoPorTurista;
 		Set<String> salidas = new HashSet<String>();
- 		this.salidas.forEach((key,value)->{
+ 		this.salidas.forEach((key, value)-> {
 			salidas.add(value.getNombre());
 		});
  		String imgDireccion = this.imgDir;
 		Set<String> categorias = getCategorias();
-		HandlerDepartamentos hD = HandlerDepartamentos.getInstance();
-		String nombreDepto = hD.getDeptoContains(this);
-		return new DTActividad(n, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado);
+		HandlerDepartamentos handlerDepartamentos = HandlerDepartamentos.getInstance();
+		String nombreDepto = handlerDepartamentos.getDeptoContains(this);
+		return new DTActividad(nombre, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado);
 	}
 
     public Set<String> getCategorias() {
         Set<String> res = new HashSet<String>();
-        HandlerCategorias hC = HandlerCategorias.getInstance();
-        Set<Categoria> categorias = hC.obtenerCategorias();
-        categorias.forEach((e)->{if(e.tieneActividad(nombre)) res.add(e.getNombre());});
+        HandlerCategorias handlerCategorias = HandlerCategorias.getInstance();
+        Set<Categoria> categorias = handlerCategorias.obtenerCategorias();
+        categorias.forEach(e -> {
+        	if ( e.tieneActividad(nombre)) res.add(e.getNombre()); });
         return res;
     }
 
