@@ -9,7 +9,7 @@ import logica.clases.SalidaTuristica;
  * Clase que contiene la coleccion global de Salidas Turisticas 
  */
 public class HandlerSalidas{
-    private Map<String, SalidaTuristica > salidasTuristicas;
+    private Map<String, SalidaTuristica> salidasTuristicas;
     private static HandlerSalidas instancia = null;
 
     private HandlerSalidas() {
@@ -29,7 +29,7 @@ public class HandlerSalidas{
     }
 
     public SalidaTuristica obtenerSalidaTuristica(String IDsal) {
-        return ((SalidaTuristica) salidasTuristicas.get(IDsal));
+        return (SalidaTuristica) salidasTuristicas.get(IDsal);
     }
 
     public SalidaTuristica[] getSalidas() {

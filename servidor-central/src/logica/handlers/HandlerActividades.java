@@ -30,13 +30,12 @@ public class HandlerActividades{
 		actividadesTuristicas.put(actividad.getNombre(), actividad);
 	}
 
-    
 	public ActividadTuristica obtenerActividadTuristica(String actividad) {
 		return actividadesTuristicas.get(actividad);
 	}
+	
 	public Set<ActividadTuristica> obtenerActividadesTuristicas() {
 	    return new HashSet<ActividadTuristica>(actividadesTuristicas.values());
-		//return (Set<ActividadTuristica>) actividadesTuristicas.values();
 	}
 	
 	public static void clear() {
