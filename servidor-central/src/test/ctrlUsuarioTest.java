@@ -518,8 +518,8 @@ public class ctrlUsuarioTest {
 		String nickT = "manuT1";
 		String nickP = "prov_nick";
 		
-		controladorUsuario.actualizarUsuario(nickT, "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), "wakandiano", null, null);
-		controladorUsuario.actualizarUsuario(nickP, "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), "", "usr_descripcion", "usr_stiioWeb");
+		controladorUsuario.actualizarUsuario(nickT, "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), "", "wakandiano", null, null);
+		controladorUsuario.actualizarUsuario(nickP, "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), "otra img", "", "usr_descripcion", "usr_stiioWeb");
 		
 		DTTurista duT =(DTTurista)controladorUsuario.getInfoBasicaUsuario(nickT);
 		DTProveedor duP = (DTProveedor)controladorUsuario.getInfoBasicaUsuario(nickP);

@@ -32,6 +32,7 @@
 	height: 210px;
 	object-fit: cover;
 }
+
 </style>
 </head>
 
@@ -89,7 +90,7 @@
 					<div class="row g-0">
 						<div class="" style="">
 							<img src="<%=miUsr.getImgDir()%>"
-								class="img-fluid rounded-start; max-width: 100px;" alt="...">
+								id="modificarImagenPerfil" class="img-fluid rounded-start; max-width: 100px;" alt="...">
 						</div>
 						<div class="col-md-8">
 							<div class="card-body">
@@ -230,7 +231,7 @@
 													</div>
 
 												</div>
-
+												<input type= "file" name="nuevaImagenPerfil" id = "inputNuevaImg"/>
 												<div class="mb-3">
 													<button type="submit" class="btn btn-primary"
 														id="btnGuardar">Guardar cambios</button>

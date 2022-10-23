@@ -20,7 +20,7 @@ public interface ICtrlUsuario {
 	public abstract void ingresarCompra(String nickname, String paquete, int cant, GregorianCalendar fecha) throws CompraFailException;
 	public abstract Set<String> listarTuristas();
 	public abstract Set<String> listarProveedores();
-	public abstract void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, String nacionalidad, String desc, String sitioWeb);
+	public abstract void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, String img, String nacionalidad, String desc, String sitioWeb);
 	public abstract Set<DTSalida> listarInfoSalidasTurista(String turista); 
 	public abstract Set<DTActividad> listarInfoCompletaActividadesProveedor(String proveedor);
 	public abstract Set<String> listarUsuarios();

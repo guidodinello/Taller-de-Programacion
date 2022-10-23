@@ -469,7 +469,7 @@ public class ActualizarUsuario extends JInternalFrame {
 				return;
 			}
 		}
-		ctrlUsuario.actualizarUsuario(dtU.getNickname(), newNombre, newApellido, fechaNac, newNacionalidad, newDescripcion, newSitioWeb);
+		ctrlUsuario.actualizarUsuario(dtU.getNickname(), newNombre, newApellido, fechaNac, "",newNacionalidad, newDescripcion, newSitioWeb);
 		JOptionPane.showMessageDialog(this,
 				"Usuario actualizado con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 		cancelar();
