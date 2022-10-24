@@ -38,7 +38,6 @@ public class altaUsuario extends HttpServlet {
         try {
             /*Si existe un archivo con el mismo nombre lo eliminamos*/
             File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+req.getParameter("Nickname")+ "_usr" +ext);
-            System.out.println(file);
             if(file.delete())
                 System.out.println("deleted");
             
@@ -48,7 +47,6 @@ public class altaUsuario extends HttpServlet {
             
             String na = req.getParameter("Nickname")+ "_usr" + ext;
             InputStream ab = p.getInputStream(); 
-            System.out.println(dir);
             
             if(ab != null) {
                 File img = new File(fil, na);

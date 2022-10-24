@@ -91,7 +91,7 @@
 							<img src="<%=miUsr.getImgDir()%>"
 								id="modificarImagenPerfil" class="img-fluid rounded-start; max-width: 100px;" alt="...">
 						</div>
-						<div class="col-md-8">
+						<div class="col-md-12">
 							<div class="card-body">
 
 								<h5 class="card-title"><%=miUsr.getNombre()%></h5>
@@ -174,7 +174,7 @@
 															for="Nombre" class="col-form-label">Nombre:</label>
 													</div>
 													<div class="col-auto">
-														<input type="text" value=<%=miUsr.getNombre()%>
+														<input type="text" value="<%=miUsr.getNombre()%>"
 															name="Nombre" class="form-control"
 															aria-describedby="passwordHelpInline"
 															placeholder="<%=miUsr.getNombre()%>">
@@ -188,7 +188,7 @@
 															for="Apellido" class="col-form-label">Apellido:</label>
 													</div>
 													<div class="col-auto">
-														<input type="text" value=<%=miUsr.getApellido()%>
+														<input type="text" value="<%=miUsr.getApellido()%>"
 															name="Apellido" class="form-control"
 															aria-describedby="passwordHelpInline"
 															placeholder="<%=miUsr.getApellido()%>">
@@ -257,16 +257,15 @@
 															for="Descripcion" class="col-form-label">Descripcion:</label>
 													</div>
 													<div class="col">
-														<input type="text" value="<%=((DTProveedor)miUsr).getDescripcion()%>"
-															name="Descripcion" class="form-control input-lg"
-															aria-describedby="passwordHelpInline">
+														<textarea name="Descripcion" class="form-control input-lg"
+															aria-describedby="passwordHelpInline"><%=((DTProveedor)miUsr).getDescripcion()%></textarea>
 													</div>
 
 												</div>
 												
 												<div class="row g-3 align-items-center pt-3">
 													<div class="col-auto">
-														<i class="fa fa-window-restore"></i> <label
+														<i class="fa fa-globe"></i> <label
 															for="Link" class="col-form-label">Sitio Web:</label>
 													</div>
 													<div class="col-auto">
@@ -333,7 +332,7 @@
 											<fieldset disabled>
 												<div class="row g-3 align-items-center pt-3">
 													<div class="col-auto">
-														<i class="fa fa-clock-o prefix white-text"></i> <label
+														<i class="fa fa-clock prefix white-text"></i> <label
 															for="inputPassword6" class="col-form-label disabled'">Hora:</label>
 													</div>
 													<div class="col-auto">
@@ -418,7 +417,7 @@
 												<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
-															<i class="fa fa-clock-o prefix white-text"></i> <label
+															<i class="fa fa-calendar prefix white-text"></i> <label
 																for="inputPassword6" class="col-form-label disabled'">Validez:</label>
 														</div>
 														<div class="col-auto">
@@ -504,7 +503,7 @@
 												<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
-															<i class="fa fa-money prefix white-text"></i> <label
+															<i class="fa-solid fa-money-bill" aria-hidden="true"></i> <label
 																for="inputPassword6" class="col-form-label">Costo:</label>
 														</div>
 														<div class="col-auto">
@@ -536,7 +535,7 @@
 												<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
-															<label for="inputPassword6"
+															<i class="fa fa-list prefix white-text"></i><label for="inputPassword6"
 																class="col-form-label disabled'">Tipo:</label>
 														</div>
 														<div class="col-auto">
@@ -576,7 +575,7 @@
 												<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
-															<i class="fa fa-clock-o prefix white-text"></i> <label
+															<i class="fa fa-clock prefix white-text"></i> <label
 																for="inputPassword6" class="col-form-label disabled'">Duracion:</label>
 														</div>
 														<div class="col-auto">
@@ -590,7 +589,7 @@
 												<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
-															<i class="fa fa-money prefix white-text"></i> <label
+															<i class="fa-solid fa-money-bill" aria-hidden="true"></i> <label
 																for="inputPassword6" class="col-form-label">Costo:</label>
 														</div>
 														<div class="col-auto">
@@ -674,7 +673,7 @@
 								<img src="<%=Usr.getImgDir()%>"
 									class="img-fluid rounded-start; max-height: 100px;" alt="...">
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-12">
 								<div class="card-body">
 
 									<h5 class="card-title"><%=Usr.getNombre()%></h5>
@@ -800,7 +799,7 @@
 															<fieldset disabled>
 															<div class="row g-3 align-items-center pt-3">
 																<div class="col-auto">
-																	<i class="fa fa-envelope prefix white-text"></i> <label
+																	<i class="fa-solid fa-flag prefix white-text"></i> <label
 																		for="inputPassword6" class="col-form-label'">Nacionalidad:</label>
 																</div>
 																<div class="col">
@@ -820,10 +819,10 @@
 																		for="inputPassword6" class="col-form-label'">Descripcion:</label>
 																</div>
 																<div class="col">
-																	<input type="text" id="inputPassword6"
+																	<textarea id="inputPassword6"
 																		class="form-control"
 																		aria-describedby="passwordHelpInLine"
-																		placeholder="<%=((DTProveedor)Usr).getDescripcion()%>">
+																		placeholder="<%=((DTProveedor)Usr).getDescripcion()%>"></textarea>
 																</div>
 
 															</div>
@@ -831,7 +830,7 @@
 														<fieldset disabled>
 															<div class="row g-3 align-items-center pt-3">
 																<div class="col-auto">
-																	<i class="fa fa-window-restore"></i> <label
+																	<i class="fa fa-globe"></i> <label
 																		for="inputPassword6" class="col-form-label'">Sitio Web:</label>
 																</div>
 																<div class="col">
@@ -891,7 +890,7 @@
 													<fieldset disabled>
 														<div class="row g-3 align-items-center pt-3">
 															<div class="col-auto">
-																<i class="fa fa-clock-o prefix white-text"></i> <label
+																<i class="fa fa-clock prefix white-text"></i> <label
 																	for="inputPassword6" class="col-form-label disabled'">Hora:</label>
 															</div>
 															<div class="col-auto">
@@ -959,7 +958,7 @@
 														<fieldset disabled>
 															<div class="row g-3 align-items-center pt-3">
 																<div class="col-auto">
-																	<i class="fa fa-clock-o prefix white-text"></i> <label
+																	<i class="fa fa-clock prefix white-text"></i> <label
 																		for="inputPassword6" class="col-form-label disabled'">Duracion:</label>
 																</div>
 																<div class="col-auto">
@@ -973,7 +972,7 @@
 														<fieldset disabled>
 															<div class="row g-3 align-items-center pt-3">
 																<div class="col-auto">
-																	<i class="fa fa-money prefix white-text"></i> <label
+																	<i class="fa-solid fa-money-bill" aria-hidden="true"></i> <label
 																		for="inputPassword6" class="col-form-label">Costo:</label>
 																</div>
 																<div class="col-auto">

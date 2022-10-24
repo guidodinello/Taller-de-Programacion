@@ -48,7 +48,6 @@ public class consultaUsuario extends HttpServlet{
         try {
             /*Si existe un archivo con el mismo nombre lo eliminamos*/
             File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+nick+ "_usr" +ext);
-            System.out.println(file);
             if(file.delete())
                 System.out.println("deleted");
             
@@ -58,7 +57,6 @@ public class consultaUsuario extends HttpServlet{
             
             String na = nick+ "_usr" + ext;
             InputStream ab = p.getInputStream(); 
-            System.out.println(dir);
             
             if(ab != null) {
                 File img = new File(fil, na);
@@ -106,8 +104,7 @@ public class consultaUsuario extends HttpServlet{
 	     }
 	     
 	     if(dtU instanceof DTTurista) {
-	         String nacionalidad = request.getParameter("Nacionalidad");
-	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, nacionalidad, "", "");
+	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, ((DTTurista)dtU).getNacionalidad(), "", "");
 	         HandlerUsuarios hU = HandlerUsuarios.getInstance();
 	         Turista t = hU.getTuristaByNickname(dtU.getNickname());
 	         request.getSession().setAttribute("usuario_logueado", new DTTurista(t));

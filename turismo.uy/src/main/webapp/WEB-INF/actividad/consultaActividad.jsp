@@ -46,7 +46,7 @@
 		            	<fieldset disabled>
 		                	<div class="row g-3 align-items-center pt-3">
 		                    	<div class="col-auto">
-		                        	<i class="fa fa-clock-o prefix white-text"></i>
+		                        	<i class="fa fa-clock prefix white-text"></i>
 		                        	<label for="inputPassword6" class="col-form-label disabled'">Duración:</label>
 		                        </div>
 		                        <div class="col-auto">
@@ -58,7 +58,7 @@
 		                <fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
 								<div class="col-auto">
-									<i class="fa fa-money prefix white-text"></i>
+									<i class="fa-solid fa-money-bill prefix white-text"></i>
 									<label for="inputPassword6" class="col-form-label">Costo:</label>
 								</div>
 								<div class="col-auto">
