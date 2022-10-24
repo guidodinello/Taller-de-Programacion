@@ -19,7 +19,6 @@ import datatypes.DTSalida;
 import logica.interfaces.ICtrlActividad;
 import java.awt.Color;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -40,7 +39,7 @@ public class ConsultaSalida extends JInternalFrame {
 	private JTextField textField_8;
 	private JTextField textField_9;
 	private JTextField textField_10;
-	private JRadioButton rdbtnNewRadioButton_1, rdbtnNewRadioButton, rdbtnDepto;
+	//private JRadioButton rdbtnDepto;
 	private JComboBox<String> ComboBoxSelDepartamento, comboBox_1, comboBoxSal, comboBoxTuristas;
 	private boolean settear;
 
@@ -57,7 +56,7 @@ public class ConsultaSalida extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consulta de Salida");
+		setTitle("Consulta de Salida Turistica");
 
 		setBounds(30, 30, 453, 431);
 
@@ -71,9 +70,6 @@ public class ConsultaSalida extends JInternalFrame {
 			ComboBoxSelDepartamento.addItem(d);
 		});
 
-		JRadioButton depto = new JRadioButton("Confirmar Depto.");
-		rdbtnDepto = depto;
-
 		///////////////// SELECCIONAR
 		///////////////// ACTIVIDAD//////////////////////////////////////////////
 
@@ -83,17 +79,11 @@ public class ConsultaSalida extends JInternalFrame {
 		comboBox_1 = new JComboBox<String>();
 		comboBox_1.setEnabled(false);
 
-		rdbtnNewRadioButton = new JRadioButton("Confirmar Act.");
-		rdbtnNewRadioButton.setEnabled(false);
-
 		JLabel lblNewLabel_1 = new JLabel("Seleccionar Salida Turistica:");
 		lblNewLabel_1.setEnabled(false);
 
 		comboBoxSal = new JComboBox<String>();
 		comboBoxSal.setEnabled(false);
-
-		rdbtnNewRadioButton_1 = new JRadioButton("Confirmar Salida");
-		rdbtnNewRadioButton_1.setEnabled(false);
 
 		JLabel lblNewLabel_2 = new JLabel("INFORMACION DE LA SALIDA:");
 
@@ -141,22 +131,19 @@ public class ConsultaSalida extends JInternalFrame {
 					.addComponent(LabelSelcDepartamento)
 					.addGap(5)
 					.addComponent(ComboBoxSelDepartamento, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(depto))
+					.addGap(146))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(67)
 					.addComponent(lblNewLabel)
 					.addGap(5)
 					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-					.addGap(13)
-					.addComponent(rdbtnNewRadioButton))
+					.addGap(137))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(30)
 					.addComponent(lblNewLabel_1)
 					.addGap(5)
 					.addComponent(comboBoxSal, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-					.addGap(7)
-					.addComponent(rdbtnNewRadioButton_1))
+					.addGap(143))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(129)
 					.addComponent(lblNewLabel_2))
@@ -202,28 +189,19 @@ public class ConsultaSalida extends JInternalFrame {
 					.addGap(15)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(LabelSelcDepartamento, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-						.addComponent(ComboBoxSelDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(2)
-							.addComponent(depto)))
+						.addComponent(ComboBoxSelDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(5)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(5)
 							.addComponent(lblNewLabel))
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(2)
-							.addComponent(rdbtnNewRadioButton)))
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(5)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(5)
 							.addComponent(lblNewLabel_1))
-						.addComponent(comboBoxSal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(2)
-							.addComponent(rdbtnNewRadioButton_1)))
+						.addComponent(comboBoxSal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
 					.addComponent(lblNewLabel_2)
 					.addGap(10)
@@ -266,50 +244,31 @@ public class ConsultaSalida extends JInternalFrame {
 		);
 		getContentPane().setLayout(groupLayout);
 		pack();
-
-		////////////////////////////////// Habilito actividad
-		////////////////////////////////// ///////////////////////////////////////////////////////
-
-		depto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (ComboBoxSelDepartamento.getSelectedIndex() == -1)
-					return;
-				if (depto.isSelected()) {
-					comboBox_1.setEnabled(true);
-					lblNewLabel.setEnabled(true);
-					lblNewLabel_1.setEnabled(true);
-					rdbtnNewRadioButton.setEnabled(true);
-
-					settear = false;
-					// comboBox_1.removeAllItems();
-					Set<String> actividades = iCS
-							.listarActividadesDepartamento(ComboBoxSelDepartamento.getSelectedItem().toString());
-					actividades.forEach((act) -> {
-						comboBox_1.addItem(act);
-
-					});
-					settear = true;
-				} else {
-					limpiarForm();
-					comboBox_1.removeAllItems();
-					comboBox_1.setEnabled(false);
-					comboBoxSal.removeAllItems();
-					comboBoxSal.setEnabled(false);
-					rdbtnNewRadioButton_1.setSelected(false);
-					rdbtnNewRadioButton_1.setEnabled(false);
-					rdbtnNewRadioButton.setEnabled(false);
-					rdbtnNewRadioButton.setSelected(false);
-					comboBoxTuristas.removeAllItems();
-
-				}
-			}
-
-		});
 		
 		ComboBoxSelDepartamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(depto.isSelected()) {
-					depto.setSelected(false);
+				
+				if(!settear)return;
+				limpiarForm();
+				settear = false;
+				comboBox_1.removeAllItems();
+				comboBoxSal.removeAllItems();
+				comboBox_1.setEnabled(true);
+				lblNewLabel.setEnabled(true);
+				lblNewLabel_1.setEnabled(true);
+				//rdbtnNewRadioButton.setEnabled(true);
+
+				
+				// comboBox_1.removeAllItems();
+				Set<String> actividades = iCS
+						.listarActividadesDepartamento(ComboBoxSelDepartamento.getSelectedItem().toString());
+				actividades.forEach((act) -> {
+					comboBox_1.addItem(act);
+
+				});
+				settear = true;
+				//if(depto.isSelected()) {
+					/*depto.setSelected(false);
 					limpiarForm();
 					comboBox_1.removeAllItems();
 					comboBox_1.setEnabled(false);
@@ -319,8 +278,8 @@ public class ConsultaSalida extends JInternalFrame {
 					rdbtnNewRadioButton_1.setEnabled(false);
 					rdbtnNewRadioButton.setEnabled(false);
 					rdbtnNewRadioButton.setSelected(false);
-					comboBoxTuristas.removeAllItems();
-				}
+					comboBoxTuristas.removeAllItems();*/
+				//}
 				
 			}
 			
@@ -328,7 +287,7 @@ public class ConsultaSalida extends JInternalFrame {
 		
 		
 		/// muestro salidas de esa actividad
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+		/*rdbtnNewRadioButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				if (!rdbtnNewRadioButton.isSelected()) {
@@ -366,10 +325,26 @@ public class ConsultaSalida extends JInternalFrame {
 					settear = true;
 				}
 			} 
-		});
+		});*/
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(rdbtnNewRadioButton.isSelected()) {
+				if(!settear)return;
+				//rdbtnNewRadioButton_1.setEnabled(true);
+				settear = false;
+				comboBoxSal.setEnabled(true);
+				comboBoxSal.removeAllItems();
+
+				Set<String> salidas = iCS.listarNombresSalidasDeActividad(comboBox_1.getSelectedItem().toString());
+				if (salidas.isEmpty())
+					return;
+				salidas.forEach((sal) -> {
+
+					comboBoxSal.addItem(sal);
+				});
+				comboBoxTuristas.removeAllItems();
+				settear = true;
+
+				/*if(rdbtnNewRadioButton.isSelected()) {
 					rdbtnNewRadioButton.setSelected(false);
 					rdbtnNewRadioButton_1.setSelected(false);
 					settear = false;
@@ -378,41 +353,19 @@ public class ConsultaSalida extends JInternalFrame {
 					comboBoxSal.removeAllItems();
 					comboBoxSal.setEnabled(false);
 					settear = true;
-				}
+				*/
 				
 			}
 			
 		});
 		comboBoxSal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(rdbtnNewRadioButton_1.isSelected()) {
-					rdbtnNewRadioButton_1.setSelected(false);
-					limpiarForm();
+				if(!settear)return;
+				//if(rdbtnNewRadioButton_1.isSelected()) {
+					//rdbtnNewRadioButton_1.setSelected(false);
+					//limpiarForm();
 					
-				}
-				
-			}
-			
-		});
-		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				if (!rdbtnNewRadioButton_1.isSelected()) {
-					limpiarForm();
-					rdbtnNewRadioButton_1.setEnabled(false);
-					rdbtnNewRadioButton.setEnabled(false);
-					rdbtnNewRadioButton.setSelected(false);
-					depto.setSelected(false);
-					comboBox_1.removeAllItems();
-					comboBoxSal.removeAllItems();
-					comboBoxSal.setEnabled(false);
-					comboBox_1.setEnabled(false);
-					comboBoxTuristas.removeAllItems();
-
-				}
-				if (!settear || comboBox_1.getSelectedIndex() == -1 || ComboBoxSelDepartamento.getSelectedIndex() == -1
-						|| comboBoxSal.getSelectedIndex() == -1)
-					return;
+				//}
 				DTSalida res = iCS.getInfoCompletaSalida(comboBoxSal.getSelectedItem().toString());
 				textField_2.setText(res.getNombre());
 				textField_8.setText(res.getlugarSalida());
@@ -426,10 +379,13 @@ public class ConsultaSalida extends JInternalFrame {
 				model = new DefaultComboBoxModel<String>(arrT);
 				comboBoxTuristas.setModel(model);
 				comboBoxTuristas.setEnabled(true);
+			
 			}
+			
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				settear = false;
 				ComboBoxSelDepartamento.removeAllItems();
 				limpiarForm();
 				setVisible(false);
@@ -437,12 +393,7 @@ public class ConsultaSalida extends JInternalFrame {
 				comboBox_1.setEnabled(false);
 				comboBoxSal.removeAllItems();
 				comboBoxSal.setEnabled(false);
-				rdbtnNewRadioButton_1.setSelected(false);
-				rdbtnNewRadioButton.setSelected(false);
-				depto.setSelected(false);
-				comboBoxTuristas.removeAllItems();
-				comboBoxTuristas.setEnabled(false);
-
+				settear = true;
 			}
 
 		});
@@ -451,22 +402,24 @@ public class ConsultaSalida extends JInternalFrame {
 
 	public void cargarDatos() {
 		ComboBoxSelDepartamento.setEnabled(true);
-		rdbtnDepto.setEnabled(true);
+		//rdbtnDepto.setEnabled(true);
 		comboBox_1.setEnabled(true);
-		rdbtnNewRadioButton.setEnabled(true);
+		//rdbtnNewRadioButton.setEnabled(true);
 		comboBoxSal.setEnabled(true);
-		rdbtnNewRadioButton_1.setEnabled(true);
+		//rdbtnNewRadioButton_1.setEnabled(true);
+		settear = false;
 		Set<String> departamentos = ctrlSalida.listarDepartamentos();
 		departamentos.forEach((d) -> {
 			ComboBoxSelDepartamento.addItem(d);
 		});
+		settear = true;
 
 	}
 
 	@SuppressWarnings("static-access")
 	public String fechaStringFormato(GregorianCalendar g, boolean conHora) {
 		String dia = String.valueOf(g.get(g.DAY_OF_MONTH));
-		String mes = String.valueOf(g.get(g.MONTH));
+		String mes = String.valueOf(g.get(g.MONTH) + 1);
 		String anio = String.valueOf(g.get(g.YEAR));
 		String hora = String.valueOf(g.get(g.HOUR));
 		String resultado = (conHora) ? dia + "/" + mes + "/" + anio + " " + hora + "hs" : dia + "/" + mes + "/" + anio;
@@ -484,19 +437,11 @@ public class ConsultaSalida extends JInternalFrame {
 	}
 
 	public void datosQueVienenDesdeOtroCasoDeUso(String departamento, String actividad, String salida) {
+		limpiarForm();
 		cargarDatos();
 		ComboBoxSelDepartamento.setSelectedItem(departamento);
-		rdbtnDepto.doClick();
-		ComboBoxSelDepartamento.setEnabled(false);
-		rdbtnDepto.setEnabled(false);
 		comboBox_1.setSelectedItem(actividad);
-		rdbtnNewRadioButton.doClick();
-		comboBox_1.setEnabled(false);
-		rdbtnNewRadioButton.setEnabled(false);
 		comboBoxSal.setSelectedItem(salida);
-		rdbtnNewRadioButton_1.doClick();
-		comboBoxSal.setEnabled(false);
-		rdbtnNewRadioButton_1.setEnabled(false);
 		setVisible(true);
 	}
 }

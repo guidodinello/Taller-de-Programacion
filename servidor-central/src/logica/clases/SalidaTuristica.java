@@ -3,7 +3,6 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
-//import datatypes.DTSalida;
 import logica.handlers.HandlerUsuarios;
 
 public class SalidaTuristica{
@@ -15,15 +14,17 @@ public class SalidaTuristica{
 	    private String lugarSalida;
 	    private ActividadTuristica actividad;
 	    private int plazosDisponibles;
+	    private String img;
 		   
-	    public SalidaTuristica(String Sn, GregorianCalendar Ds,String SlugarSal, int CmaxT,GregorianCalendar Da,ActividadTuristica actividad) {
-	        this.nombre = Sn;
-	        this.fechaSalida = Ds;
-	        this.fechaAlta= Da;
+	    public SalidaTuristica(String salidaNombre, GregorianCalendar dateSalida, String SlugarSal, int CmaxT, GregorianCalendar dateAct, ActividadTuristica actividad, String img) {
+	        this.nombre = salidaNombre;
+	        this.fechaSalida = dateSalida;
+	        this.fechaAlta= dateAct;
 	        this.cantidadMaximaDeTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.actividad = actividad;
 	        this.plazosDisponibles = cantidadMaximaDeTuristas;
+	        this.img = img;
 	    }
 
 	    public String getNombre() {
@@ -61,15 +62,19 @@ public class SalidaTuristica{
 		}
 		
 		public Set<String> getTuristasInscriptos(){
-			HandlerUsuarios hU = HandlerUsuarios.getInstance();
+			HandlerUsuarios handUsr = HandlerUsuarios.getInstance();
 			Set<String> resultado = new HashSet<String>();
-			Set<Turista> turistas = hU.listarTuristas();
-			turistas.forEach((t)->{
-				if(t.inscriptoSalida(this)) {
+			Set<Turista> turistas = handUsr.listarTuristas();
+			turistas.forEach( t-> {
+				if (t.inscriptoSalida(this)) {
 					resultado.add(t.getNombre());
 				}
 			});
 			return resultado;
+		}
+		
+		public String getImg() {
+		    return img;
 		}
 		
 }

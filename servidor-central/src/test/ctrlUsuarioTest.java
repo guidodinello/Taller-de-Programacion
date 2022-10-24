@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import java.util.Set;
 
 import logica.handlers.HandlerActividades;
+import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
 import logica.handlers.HandlerSalidas;
@@ -23,18 +25,22 @@ import logica.interfaces.Fabrica;
 import logica.interfaces.ICtrlUsuario;
 import logica.interfaces.ICtrlActividad;
 import datatypes.tipoUsuario;
+import excepciones.CompraFailException;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import datatypes.DTActividad;
+import datatypes.DTCompra;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
+import datatypes.estadoActividad;
+import datatypes.tipoInscripcion;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlUsuarioTest {
 	private static ICtrlUsuario controladorUsuario;
 	private static ICtrlActividad controladorActividad;
-	private static HandlerUsuarios hU;
+	private static HandlerUsuarios handlerU;
 	
 	public ctrlUsuarioTest() {
 	}
@@ -42,12 +48,13 @@ public class ctrlUsuarioTest {
 	public static void iniciar() {
 		//clear a los handler
 		HandlerActividades.clear();
+		HandlerCategorias.clear();
 		HandlerSalidas.clear();
 		HandlerDepartamentos.clear();
 		HandlerUsuarios.clear();
 		HandlerPaquetes.clear();
 		Fabrica fabrica = Fabrica.getInstance();
-		hU = HandlerUsuarios.getInstance();
+		handlerU = HandlerUsuarios.getInstance();
 		controladorUsuario = fabrica.getICtrlUsuario();
 		controladorActividad = fabrica.getICtrlActividad();
 			try {
@@ -139,73 +146,76 @@ public class ctrlUsuarioTest {
 			String linkP2 = "linkP2";
 			String linkP3 = "cris.com";
 			String linkP4 = "google.com";
+
+			String pass = "password";
+			String perfilImg = "imagen";
 			
-			controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, "", fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);
-			controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, "", fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);
-			controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, "", fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);
-			controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, "", fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );
-			controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, "", fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);
-			controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, "", fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);
-			controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, "", fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);
-			controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, "", fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);
+			controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, pass, fechaNac1, perfilImg, tipoUsuario.turista, nacionalidadT1, null, null);
+			controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, pass, fechaNac2, perfilImg, tipoUsuario.turista, nacionalidadT2, null, null);
+			controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, pass, fechaNac3, perfilImg, tipoUsuario.turista, nacionalidadT3, null, null);
+			controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, pass, fechaNac4, perfilImg, tipoUsuario.turista, nacionalidadT4, null, null );
+			controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, pass, fechaNac1, perfilImg, tipoUsuario.proveedor, null, descP1, linkP1);
+			controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, pass, fechaNac2, perfilImg, tipoUsuario.proveedor, null, descP2, linkP2);
+			controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, pass, fechaNac3, perfilImg, tipoUsuario.proveedor, null, descP3, linkP3);
+			controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, pass, fechaNac4, perfilImg, tipoUsuario.proveedor, null, descP4, linkP4);
 			
 			assertEquals(controladorUsuario.listarUsuarios().isEmpty(), false);
 			assertEquals(controladorUsuario.listarTuristas().isEmpty(), false);
 			assertEquals(controladorUsuario.listarProveedores().isEmpty(), false);
-			assertEquals(hU.getTuristaByNickname(nickT1).getNickname(), nickT1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getNickname(), nickT2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getNickname(), nickT3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getNickname(), nickT4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getNickname(), nickT1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getNickname(), nickT2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getNickname(), nickT3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getNickname(), nickT4);
 			
-			assertEquals(hU.getTuristaByNickname(nickT1).getEmail(), emailT1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getEmail(), emailT2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getEmail(), emailT3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getEmail(), emailT4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getEmail(), emailT1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getEmail(), emailT2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getEmail(), emailT3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getEmail(), emailT4);
 			
-			assertEquals(hU.getTuristaByNickname(nickT1).getNombre(), nombT1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getNombre(), nombT2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getNombre(), nombT3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getNombre(), nombT4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getNombre(), nombT1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getNombre(), nombT2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getNombre(), nombT3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getNombre(), nombT4);
 			
-			assertEquals(hU.getTuristaByNickname(nickT1).getFechaNac(), fechaNac1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getFechaNac(), fechaNac2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getFechaNac(), fechaNac3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getFechaNac(), fechaNac4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getFechaNac(), fechaNac1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getFechaNac(), fechaNac2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getFechaNac(), fechaNac3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getFechaNac(), fechaNac4);
 			
-			assertEquals(hU.getTuristaByNickname(nickT1).getNacionalidad(), nacionalidadT1);
-			assertEquals(hU.getTuristaByNickname(nickT2).getNacionalidad(), nacionalidadT2);
-			assertEquals(hU.getTuristaByNickname(nickT3).getNacionalidad(), nacionalidadT3);
-			assertEquals(hU.getTuristaByNickname(nickT4).getNacionalidad(), nacionalidadT4);
+			assertEquals(handlerU.getTuristaByNickname(nickT1).getNacionalidad(), nacionalidadT1);
+			assertEquals(handlerU.getTuristaByNickname(nickT2).getNacionalidad(), nacionalidadT2);
+			assertEquals(handlerU.getTuristaByNickname(nickT3).getNacionalidad(), nacionalidadT3);
+			assertEquals(handlerU.getTuristaByNickname(nickT4).getNacionalidad(), nacionalidadT4);
 
-			assertEquals(hU.getProveedorByNickname(nickP1).getNickname(), nickP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getNickname(), nickP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getNickname(), nickP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getNickname(), nickP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getNickname(), nickP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getNickname(), nickP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getNickname(), nickP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getNickname(), nickP4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getEmail(), emailP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getEmail(), emailP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getEmail(), emailP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getEmail(), emailP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getEmail(), emailP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getEmail(), emailP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getEmail(), emailP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getEmail(), emailP4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getNombre(), nombP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getNombre(), nombP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getNombre(), nombP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getNombre(), nombP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getNombre(), nombP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getNombre(), nombP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getNombre(), nombP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getNombre(), nombP4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getFechaNac(), fechaNac1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getFechaNac(), fechaNac2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getFechaNac(), fechaNac3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getFechaNac(), fechaNac4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getFechaNac(), fechaNac1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getFechaNac(), fechaNac2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getFechaNac(), fechaNac3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getFechaNac(), fechaNac4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getDescripcion(), descP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getDescripcion(), descP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getDescripcion(), descP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getDescripcion(), descP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getDescripcion(), descP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getDescripcion(), descP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getDescripcion(), descP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getDescripcion(), descP4);
 			
-			assertEquals(hU.getProveedorByNickname(nickP1).getSitioWeb(), linkP1);
-			assertEquals(hU.getProveedorByNickname(nickP2).getSitioWeb(), linkP2);
-			assertEquals(hU.getProveedorByNickname(nickP3).getSitioWeb(), linkP3);
-			assertEquals(hU.getProveedorByNickname(nickP4).getSitioWeb(), linkP4);
+			assertEquals(handlerU.getProveedorByNickname(nickP1).getSitioWeb(), linkP1);
+			assertEquals(handlerU.getProveedorByNickname(nickP2).getSitioWeb(), linkP2);
+			assertEquals(handlerU.getProveedorByNickname(nickP3).getSitioWeb(), linkP3);
+			assertEquals(handlerU.getProveedorByNickname(nickP4).getSitioWeb(), linkP4);
 			
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
@@ -276,15 +286,21 @@ public class ctrlUsuarioTest {
 		String linkP2 = "linkP2";
 		String linkP3 = "cris.com";
 		String linkP4 = "google.com";
+
+		String pass = "contrasena";
+		String imgPerfil = "imagen";
+
 		
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, "", fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);});
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, "", fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, "", fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, "", fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, "", fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, "", fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, "", fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, "", fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, pass, fechaNac1, imgPerfil,tipoUsuario.turista, nacionalidadT1, null, null);});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, pass, fechaNac2, imgPerfil,tipoUsuario.turista, nacionalidadT2, null, null);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, pass, fechaNac3, imgPerfil,tipoUsuario.turista, nacionalidadT3, null, null);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, pass, fechaNac4, imgPerfil,tipoUsuario.turista, nacionalidadT4, null, null );});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailT4, nombT4, apT4, pass, fechaNac4, imgPerfil,tipoUsuario.turista, nacionalidadT4, null, null );});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, pass, fechaNac1, imgPerfil,tipoUsuario.proveedor, null, descP1, linkP1);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, pass, fechaNac2, imgPerfil,tipoUsuario.proveedor, null, descP2, linkP2);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, pass, fechaNac3, imgPerfil,tipoUsuario.proveedor, null, descP3, linkP3);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, pass, fechaNac4, imgPerfil,tipoUsuario.proveedor, null, descP4, linkP4);});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailP4, nombP4, apP4, pass, fechaNac4, imgPerfil,tipoUsuario.proveedor, null, descP4, linkP4);});
 		
 		
 		
@@ -356,37 +372,48 @@ public class ctrlUsuarioTest {
 		String linkP3 = "cris.com";
 		String linkP4 = "google.com";
 		
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, "", fechaNac1, tipoUsuario.turista, nacionalidadT1, null, null);});
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, "", fechaNac2, tipoUsuario.turista, nacionalidadT2, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, "", fechaNac3, tipoUsuario.turista, nacionalidadT3, null, null);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, "", fechaNac4, tipoUsuario.turista, nacionalidadT4, null, null );});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, "", fechaNac1, tipoUsuario.proveedor, null, descP1, linkP1);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, "", fechaNac2, tipoUsuario.proveedor, null, descP2, linkP2);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, "", fechaNac3, tipoUsuario.proveedor, null, descP3, linkP3);});	
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, "", fechaNac4, tipoUsuario.proveedor, null, descP4, linkP4);});	
+		String pass = "contrasena";
+		String perfilImg = "imagen";
+
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT1, emailT1, nombT1, apT1, pass, fechaNac1, perfilImg, tipoUsuario.turista, nacionalidadT1, null, null);});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT2, emailT2, nombT2, apT2, pass, fechaNac2, perfilImg, tipoUsuario.turista, nacionalidadT2, null, null);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT3, emailT3, nombT3, apT3, pass, fechaNac3, perfilImg, tipoUsuario.turista, nacionalidadT3, null, null);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailT4, nombT4, apT4, pass, fechaNac4, perfilImg, tipoUsuario.turista, nacionalidadT4, null, null );});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickT4, emailP4, nombT4, apT4, pass, fechaNac4, perfilImg, tipoUsuario.turista, nacionalidadT4, null, null );});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP1, emailP1, nombP1, apP1, pass, fechaNac1, perfilImg, tipoUsuario.proveedor, null, descP1, linkP1);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP2, emailP2, nombP2, apP2, pass, fechaNac2, perfilImg, tipoUsuario.proveedor, null, descP2, linkP2);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP3, emailP3, nombP3, apP3, pass, fechaNac3, perfilImg, tipoUsuario.proveedor, null, descP3, linkP3);});	
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailP4, nombP4, apP4, pass, fechaNac4, perfilImg, tipoUsuario.proveedor, null, descP4, linkP4);});
+		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nickP4, emailT4, nombP4, apP4, pass, fechaNac4, perfilImg, tipoUsuario.proveedor, null, descP4, linkP4);});
 		
 	}
-	
 	@Test
 	@Order(4)
 	void testIngresarInscripcionOK() {
 		//seteo actividades y salidas
 		try {
-			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null);
-			controladorActividad.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null);
-			controladorActividad.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null);
+			Set<String> setString = new HashSet<String>();
+
+			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null, "", setString, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null, "", setString,  estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null, "", setString, estadoActividad.agregada);
 			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 4", "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
 					+ "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
-					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null);
+					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null, "", setString,  estadoActividad.agregada);
+			
+			controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, "Actividad 1");
+			controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, "Actividad 2");
+			controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, "Actividad 3");
+			controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, "Actividad 4");
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}
 		GregorianCalendar fecha = new GregorianCalendar(2023,8,30);
 		try {
-			controladorActividad.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1");
-			controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");
-			controladorActividad.altaSalidaTuristica("A Canelones", fecha, "Canelones", 10, new GregorianCalendar(1,1,1), "Actividad 2");
-			controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(1,1,3), "Actividad 3");
+			controladorActividad.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1", "imagen");
+			controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2", "imagen");
+			controladorActividad.altaSalidaTuristica("A Canelones", fecha, "Canelones", 10, new GregorianCalendar(1,1,1), "Actividad 2", "imagen");
+			controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(1,1,3), "Actividad 3", "imagen");
 		} catch (YaExisteException e1) {
 			e1.printStackTrace();
 		}
@@ -404,10 +431,14 @@ public class ctrlUsuarioTest {
 		String salida3 = "A Canelones";
 		int cant3 = 7;
 		
+		String paq1 = "";
+		String paq2 = "";
+		String paq3 = "";
+		
 		try {
-			controladorUsuario.ingresarInscripcion(nick1, salida1, cant1, new GregorianCalendar());
-			controladorUsuario.ingresarInscripcion(nick2, salida2, cant2, new GregorianCalendar(1,1,4));
-			controladorUsuario.ingresarInscripcion(nick1, salida3, cant3, new GregorianCalendar(1,1,2));
+			controladorUsuario.ingresarInscripcion(nick1, salida1, cant1, new GregorianCalendar(), tipoInscripcion.general, paq1);
+			controladorUsuario.ingresarInscripcion(nick2, salida2, cant2, new GregorianCalendar(1,1,4), tipoInscripcion.general, paq2);
+			controladorUsuario.ingresarInscripcion(nick1, salida3, cant3, new GregorianCalendar(1,1,2), tipoInscripcion.general, paq3);
 			
 			assertEquals(controladorUsuario.listarInfoSalidasTurista(nick1).isEmpty(), false);
 			assertEquals(controladorUsuario.listarInfoSalidasTurista(nick1).size(), 2);
@@ -434,9 +465,13 @@ public class ctrlUsuarioTest {
 		String salida3 = "A Canelones";
 		int cant3 = 7;
 		
-		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(nick1, salida1, cant1, new GregorianCalendar());});
-		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(nick2, salida2, cant2, new GregorianCalendar(1,1,4));});
-		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(nick1, salida3, cant3, new GregorianCalendar(1,1,2));});
+		String paq1 = "";
+		String paq2 = "";
+		String paq3 = "";
+		
+		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(nick1, salida1, cant1, new GregorianCalendar(), tipoInscripcion.general, paq1);});
+		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(nick2, salida2, cant2, new GregorianCalendar(1,1,4), tipoInscripcion.general, paq1);});
+		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(nick1, salida3, cant3, new GregorianCalendar(1,1,2), tipoInscripcion.general, paq1);});
 	}
 	
 	@Test
@@ -445,8 +480,9 @@ public class ctrlUsuarioTest {
 		String nick = "agus";
 		String salida = "Al Cerro";
 		int cant = 6;
+		String paq1 = "";
 		
-		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(nick, salida, cant, new GregorianCalendar());});
+		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(nick, salida, cant, new GregorianCalendar(), tipoInscripcion.general, paq1);});
 	}
 	
 	@Test
@@ -505,8 +541,8 @@ public class ctrlUsuarioTest {
 	@Test
 	@Order(10)
 	public void testlistarInfoSalidasTurista(){ 
-		String t = "eze";
-		Set<DTSalida> obtenido = controladorUsuario.listarInfoSalidasTurista(t);
+		String tur = "eze";
+		Set<DTSalida> obtenido = controladorUsuario.listarInfoSalidasTurista(tur);
 		
 		Map<String, DTSalida> esperado = new HashMap<String, DTSalida>();
 		
@@ -532,8 +568,8 @@ public class ctrlUsuarioTest {
 	@Test
 	@Order(11)
 	public void testlistarInfoCompletaActividadesProveedor() {
-		String p = "cris";
-		Set<DTActividad> obtenido = controladorUsuario.listarInfoCompletaActividadesProveedor(p);
+		String prov = "cris";
+		Set<DTActividad> obtenido = controladorUsuario.listarInfoCompletaActividadesProveedor(prov);
 		
 		Map<String, DTActividad> esperado = new HashMap<String, DTActividad>();
 		
@@ -568,158 +604,187 @@ public class ctrlUsuarioTest {
 		DTProveedor duP = (DTProveedor)controladorUsuario.getInfoBasicaUsuario(nickP);
 		
 		assertEquals(duT.getNickname(), nickT);
-		assertEquals(duT.getNombre(), hU.getTuristaByNickname(nickT).getNombre());
-		assertEquals(duT.getEmail(), hU.getTuristaByNickname(nickT).getEmail());
-		assertEquals(duT.getApellido(), hU.getTuristaByNickname(nickT).getApellido());
-		assertEquals(duT.getFechaNac(), hU.getTuristaByNickname(nickT).getFechaNac());
-		assertEquals(duT.getNacionalidad(), hU.getTuristaByNickname(nickT).getNacionalidad());
+		assertEquals(duT.getNombre(), handlerU.getTuristaByNickname(nickT).getNombre());
+		assertEquals(duT.getEmail(), handlerU.getTuristaByNickname(nickT).getEmail());
+		assertEquals(duT.getApellido(), handlerU.getTuristaByNickname(nickT).getApellido());
+		assertEquals(duT.getFechaNac(), handlerU.getTuristaByNickname(nickT).getFechaNac());
+		assertEquals(duT.getNacionalidad(), handlerU.getTuristaByNickname(nickT).getNacionalidad());
 		
-		assertEquals(duP.getNombre(), hU.getProveedorByNickname(nickP).getNombre());
-		assertEquals(duP.getEmail(), hU.getProveedorByNickname(nickP).getEmail());
-		assertEquals(duP.getApellido(), hU.getProveedorByNickname(nickP).getApellido());
-		assertEquals(duP.getFechaNac(), hU.getProveedorByNickname(nickP).getFechaNac());
-		assertEquals(duP.getDescripcion(), hU.getProveedorByNickname(nickP).getDescripcion());
-		assertEquals(duP.getLinkSitioWeb(), hU.getProveedorByNickname(nickP).getSitioWeb());
+		assertEquals(duP.getNombre(), handlerU.getProveedorByNickname(nickP).getNombre());
+		assertEquals(duP.getEmail(), handlerU.getProveedorByNickname(nickP).getEmail());
+		assertEquals(duP.getApellido(), handlerU.getProveedorByNickname(nickP).getApellido());
+		assertEquals(duP.getFechaNac(), handlerU.getProveedorByNickname(nickP).getFechaNac());
+		assertEquals(duP.getDescripcion(), handlerU.getProveedorByNickname(nickP).getDescripcion());
+		assertEquals(duP.getLinkSitioWeb(), handlerU.getProveedorByNickname(nickP).getSitioWeb());
 	}
 	
+	@Test
+	@Order(13)
+	void testIngresarCompraOk() {
+		//ingresarCompra(String nickname, String paquete, int cant, GregorianCalendar fecha)
+		String turista1 = "TestCompraTurista1";
+		String turista2 = "TestCompraTurista2";
+		String turista3 = "TestCompraTurista3";
+		
+		String email1 = "TestCompraEmail1";
+		String email2 = "TestCompraEmail2";
+		String email3 = "TestCompraEmail3";
+		
+		String nombreGenerico = "nombre";
+		String apellidoGenerico = "apellido";
+		GregorianCalendar fechaNacGenerica = new GregorianCalendar();
+		String imgPerfil = "media/imagenes/usrPerfil.png";
+		String nacionalidad = "nacionalidad";
+		String pass = "pass";
+		
+		String paq1 = "paq1";
+		String paq2 = "paq2";
+		String paq3 = "paq3";
+		
+		String desc1 = "descripcion 1";
+		String desc2 = "descripcion 2";
+		String desc3 = "descripcion 3";
+		
+		String img1 = "media/imagenes/paq1.png";
+		String img2 = "media/imagenes/paq2.png";
+		String img3 = "media/imagenes/paq3.png";
+		
+		String act1 = "Actividad 1";
+		String act2 = "Actividad 2";
+		String act3 = "Actividad 3";
+		String act4 = "Actividad 4";
 	
-	/*@Test
-	@Order(1)
-	void testAltaProveedorOK() {
-		String nick = "prov_nick";
-		String em = "prov_email";
-		String nom = "prov_nombre";
-		String ap = "prov_apellido";
-		GregorianCalendar fecha = new GregorianCalendar(2022, 12, 1);
-		tipoUsuario tipo = tipoUsuario.proveedor;
-		String nacio = "uruguaya";
-		String desc = "un proveedor";
-		String sitioweb = "google.com";
+		try {
+			controladorUsuario.altaUsuario(turista1, email1, nombreGenerico, apellidoGenerico, pass, fechaNacGenerica, imgPerfil, tipoUsuario.turista, nacionalidad, null, null);
+			controladorUsuario.altaUsuario(turista2, email2, nombreGenerico, apellidoGenerico, pass, fechaNacGenerica, imgPerfil, tipoUsuario.turista, nacionalidad, null, null);	
+			controladorUsuario.altaUsuario(turista3, email3, nombreGenerico, apellidoGenerico, pass, fechaNacGenerica, imgPerfil, tipoUsuario.turista, nacionalidad, null, null);
+			
+			//Dar de alta algunos paquetes
+			controladorActividad.crearPaquete(paq1, desc1, 2, 20, new GregorianCalendar(), img1);
+			controladorActividad.crearPaquete(paq2, desc2, 2, 20, new GregorianCalendar(), img2);
+			controladorActividad.crearPaquete(paq3, desc3, 2, 20, new GregorianCalendar(), img3);
+			
+			//Agregamos un par de actividades a los paquetes
+			controladorActividad.ingresarActividadAPaquete(paq1, act1);
+			controladorActividad.ingresarActividadAPaquete(paq1, act2);
+			
+			controladorActividad.ingresarActividadAPaquete(paq2, act1);
+			controladorActividad.ingresarActividadAPaquete(paq2, act2);
+			controladorActividad.ingresarActividadAPaquete(paq2, act3);
+			
+			controladorActividad.ingresarActividadAPaquete(paq3, act4);
+			
+			controladorUsuario.ingresarCompra(turista1, paq1, 1, new GregorianCalendar());
+			controladorUsuario.ingresarCompra(turista1, paq2, 2, new GregorianCalendar());
+			controladorUsuario.ingresarCompra(turista1, paq3, 1, new GregorianCalendar());
+			
+			controladorUsuario.ingresarCompra(turista2, paq2, 1, new GregorianCalendar());
+			controladorUsuario.ingresarCompra(turista3, paq3, 1, new GregorianCalendar());
+			
+			assertEquals(handlerU.getTuristaByNickname(turista1).getCompras().containsKey(paq1), true);
+			assertEquals(handlerU.getTuristaByNickname(turista1).getCompras().containsKey(paq2), true);
+			assertEquals(handlerU.getTuristaByNickname(turista1).getCompras().containsKey(paq3), true);
+			
+			assertEquals(handlerU.getTuristaByNickname(turista2).getCompras().containsKey(paq2), true);
+			assertEquals(handlerU.getTuristaByNickname(turista2).getCompras().containsKey(paq1), false);
+			assertEquals(handlerU.getTuristaByNickname(turista2).getCompras().containsKey(paq3), false);
+			
+			assertEquals(handlerU.getTuristaByNickname(turista3).getCompras().containsKey(paq3), true);
+			assertEquals(handlerU.getTuristaByNickname(turista3).getCompras().containsKey(paq1), false);
+			assertEquals(handlerU.getTuristaByNickname(turista3).getCompras().containsKey(paq2), false);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	@Order(14)
+	void testIngresarCompraFail() {
+		String turista1 = "TestCompraTurista1";
+		String turista2 = "TestCompraTurista2";
+		String turista3 = "TestCompraTurista3";
+		
+		String paq1 = "paq1";
+		String paq2 = "paq2";
+		String paq3 = "paq3";
+		
+		assertThrows(CompraFailException.class, ()->{controladorUsuario.ingresarCompra(turista1, paq1, 1, new GregorianCalendar());});
+		assertThrows(CompraFailException.class, ()->{controladorUsuario.ingresarCompra(turista1, paq2, 1, new GregorianCalendar());});
+		assertThrows(CompraFailException.class, ()->{controladorUsuario.ingresarCompra(turista1, paq3, 1, new GregorianCalendar());});
+		
+		assertThrows(CompraFailException.class, ()->{controladorUsuario.ingresarCompra(turista2, paq2, 1, new GregorianCalendar());});
+		assertThrows(CompraFailException.class, ()->{controladorUsuario.ingresarCompra(turista3, paq3, 1, new GregorianCalendar());});
+		
+	}
+	
+
+
+	@Test
+	@Order(15)
+	void testIngresarInscripcionPorPaqueteOk(){
+		
+		String turista1 = "TestCompraTurista1";
+		String turista2 = "TestCompraTurista2";
+		
+		String paq1 = "paq1";
+		String paq2 = "paq2";
 		
 		try {
-			controladorUsuario.altaUsuario(nick, em, nom, ap, fecha, tipo, nacio, desc, sitioweb);
-			DTUsuario du = controladorUsuario.getInfoBasicaUsuario(nick);
+			controladorUsuario.ingresarInscripcion(turista1, "A Centro", 1, new GregorianCalendar(), tipoInscripcion.paquete, paq1);
+			controladorUsuario.ingresarInscripcion(turista1, "A Palomeque", 1, new GregorianCalendar(), tipoInscripcion.paquete, paq1);
+			controladorUsuario.ingresarInscripcion(turista2, "Al Cerro", 1, new GregorianCalendar(), tipoInscripcion.paquete, paq2);
 			
-			assertEquals(du.getNickname(), nick);
-			assertEquals(du.getEmail(), em);
-			assertEquals(du.getFechaNac(), fecha);
-			assertEquals(du.getNombre(), nom);
-			assertEquals(du.getApellido(), ap);
-		} catch (YaExisteException e) {
-			fail(e.getMessage());
+			assertEquals(handlerU.getTuristaByNickname(turista1).getInfoInscripciones().isEmpty(), false);
+			assertEquals(handlerU.getTuristaByNickname(turista1).getInfoInscripciones().size() == 2, true);
+			assertEquals(handlerU.getTuristaByNickname(turista2).getInfoInscripciones().isEmpty(), false);
+			
+			
+		}catch(Exception e) {
 			e.printStackTrace();
-		};
-	}
-	
-	@Test
-	@Order(2)
-	void testAltaTuristaOK() {
-		String nick = "tur_nick";
-		String em = "tur_email";
-		String nom = "tur_nombre";
-		String ap = "tur_apellido";
-		GregorianCalendar fecha = new GregorianCalendar(2022, 12, 1);
-		tipoUsuario tipo = tipoUsuario.turista;
-		String nacio = "uruguaya";
-		String desc = "un proveedor";
-		String sitioweb = "google.com";
-		
-		try {
-			controladorUsuario.altaUsuario(nick, em, nom, ap, fecha, tipo, nacio, desc, sitioweb);
-			DTUsuario du = controladorUsuario.getInfoBasicaUsuario(nick);
-			
-			assertEquals(du.getNickname(), nick);
-			assertEquals(du.getEmail(), em);
-			assertEquals(du.getFechaNac(), fecha);
-			assertEquals(du.getNombre(), nom);
-			assertEquals(du.getApellido(), ap);
-			assertEquals(controladorUsuario.listarTuristas().contains(nick), true);
-		} catch (YaExisteException e) {
-			fail(e.getMessage());
-			e.printStackTrace();
-		};
-	}
-
-	@Test
-	@Order(3)
-	void testProveedorRepetido() {
-		String nick = "prov_nick";
-		String em = "prov_email";
-		String nom = "prov_nombre";
-		String ap = "prov_apellido";
-		GregorianCalendar fecha = new GregorianCalendar(2022, 12, 1);
-		tipoUsuario tipo = tipoUsuario.proveedor;
-		String nacio = "uruguaya";
-		String desc = "un proveedor";
-		String sitioweb = "google.com";
-		
-		assertThrows(YaExisteException.class, ()->{controladorUsuario.altaUsuario(nick, em, nom, ap, fecha, tipo, nacio, desc, sitioweb);});	
-	}
-
-	
-	@Test
-	@Order(10)
-	public void testactualizarUsuario() { 
-		controladorUsuario.actualizarUsuario("usr_nick", "usr_nombre", "usr_apellido", new GregorianCalendar(1,1,1), "", "usr_descripcion", "usr_stiioWeb");
-	}
-	
-	@Test
-	@Order(11)
-	public void testlistarInfoSalidasTurista(){ 
-		String t = "eze";
-		Set<DTSalida> obtenido = controladorUsuario.listarInfoSalidasTurista(t);
-		
-		Map<String, DTSalida> esperado = new HashMap<String, DTSalida>();
-		
-		esperado.put("A Canelones", controladorActividad.getInfoCompletaSalida("A Canelones"));
-		esperado.put("Al Cerro", controladorActividad.getInfoCompletaSalida("Al Cerro"));
-	
-	
-	
-		for (DTSalida dts : obtenido) {
-			DTSalida sal = esperado.get(dts.getNombre());
-			assertEquals(dts.getfechaSalida(), sal.getfechaSalida());
-			assertEquals(dts.getfechaAlta(), sal.getfechaAlta());
-			assertEquals(dts.getcantidadMaximaDeTuristas(), sal.getcantidadMaximaDeTuristas());
-			assertEquals(dts.getlugarSalida(), sal.getlugarSalida());
-			
-			for (String turistas : dts.getTuristasInscriptos()) {
-				assertEquals(sal.getTuristasInscriptos().contains(turistas), true);
-			}
 		}
+	}
+
+	@Test
+	@Order(16)
+	void testIngresarInscripcionPorPaqueteFail() {
+		String turista1 = "TestCompraTurista1";
+		String paq1 = "paq1";
 		
- 	}
-	
+		assertThrows(InscriptionFailException.class, ()->{controladorUsuario.ingresarInscripcion(turista1, "A Canelones", 2, new GregorianCalendar(), tipoInscripcion.paquete, paq1);});
+	}
 	
 	@Test
-	@Order(12)
-	public void listarInfoCompletaActividadesProveedor() {
-		String p = "cris";
-		Set<DTActividad> obtenido = controladorUsuario.listarInfoCompletaActividadesProveedor(p);
+	@Order(17)
+	void testSolicitarInfoUsuarioLueoDeIngresarCompras() {
+		String turista1 = "TestCompraTurista1";
+		String turista2 = "TestCompraTurista2";
+		String turista3 = "TestCompraTurista3";
 		
-		Map<String, DTActividad> esperado = new HashMap<String, DTActividad>();
+		DTTurista usr1 = (DTTurista) controladorUsuario.getInfoBasicaUsuario(turista1);
+		DTTurista usr2 = (DTTurista) controladorUsuario.getInfoBasicaUsuario(turista2);
+		DTTurista usr3 = (DTTurista) controladorUsuario.getInfoBasicaUsuario(turista3);
 		
-		esperado.put("Actividad 1", controladorActividad.getInfoActividad("Actividad 1"));
-		esperado.put("Actividad 2", controladorActividad.getInfoActividad("Actividad 2"));
-		esperado.put("Actividad 3", controladorActividad.getInfoActividad("Actividad 3"));
-		esperado.put("Actividad 4", controladorActividad.getInfoActividad("Actividad 4"));
+		assertEquals(usr1.getCompras().isEmpty(), false);
+		assertEquals(usr2.getCompras().isEmpty(), false);
+		assertEquals(usr3.getCompras().isEmpty(), false);
 		
-		for (DTActividad dta : obtenido) {
-			DTActividad act = esperado.get(dta.getNombre());
-			assertEquals(dta.getDescripcion(),act.getDescripcion());
-			assertEquals(dta.getDepartamento(),act.getDepartamento());
-			assertEquals(dta.getDuracionHs(),act.getDuracionHs());
-			assertEquals(dta.getCosto(),act.getCosto());
-			
-			for (String salida : dta.getSalidas()) {
-				assertEquals(act.getSalidas().contains(salida), true);
-			}
-
-			// no hay paquetes asique no se ejecuta
-//			for (String paquete : dta.getPaquetes()) {
-//				assertEquals(act.getPaquetes().contains(paquete), true);
-//			}
-		}
-	}*/
+		assertEquals(usr1.getImgDir(), "media/imagenes/usrPerfil.png");
+		assertEquals(usr2.getImgDir(), "media/imagenes/usrPerfil.png");
+		assertEquals(usr3.getImgDir(), "media/imagenes/usrPerfil.png");
+		
+	}
+	
+	@Test
+	@Order(18)
+	void testDTCompra() {
+		DTCompra dtc = new DTCompra("paq1", new GregorianCalendar(2000, 2, 2), 3, true, new HashMap<String, Integer>());
+		
+		assertEquals(dtc.getCantTuristas(), 3);
+		assertEquals(dtc.getPaquete(), "paq1");
+		assertEquals(dtc.getFechaCompra(), new GregorianCalendar(2000, 2, 2));
+		assertEquals(dtc.getVigente(), true);
+		assertEquals(dtc.tieneActividad("Actividad 1"), false);
+		
+	}
 	
 }

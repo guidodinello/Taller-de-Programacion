@@ -9,6 +9,8 @@ public class DTUsuario {
 	private GregorianCalendar fechaNac;
 	private String nombre;
 	private String apellido;
+    private String imgDir;
+
 	
 	public DTUsuario(Usuario usuario) {
 		nickname = usuario.getNickname();
@@ -16,6 +18,7 @@ public class DTUsuario {
 		fechaNac = usuario.getFechaNac();
 		nombre = usuario.getNombre();
 		apellido = usuario.getApellido();
+		imgDir = usuario.getImgDir();
 	}
 
 	public String getNickname() {
@@ -36,6 +39,10 @@ public class DTUsuario {
 
 	public String getApellido() {
 		return apellido;
+	}
+	
+	public String getImgDir() {
+	    return imgDir;
 	}
 	
 }

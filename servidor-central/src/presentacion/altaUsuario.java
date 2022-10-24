@@ -1,6 +1,7 @@
 package presentacion;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
@@ -13,11 +14,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
 import excepciones.YaExisteException;
 
+import java.util.Base64;
 import java.util.GregorianCalendar;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -33,60 +36,73 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
+import javax.swing.JFileChooser;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 @SuppressWarnings("serial")
 public class altaUsuario extends JInternalFrame {
 
 	private ICtrlUsuario ctrlUsr;
+	
+	private JInternalFrame f;
 
 	private JTextField textFieldNickName;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JTextField textFieldEmail;
+	private JTextField textFieldNacionalidad;
+	private JTextField textFieldSitioWeb;
+	private JTextField date;
+	private JTextField selectedDate;
+	private JTextField textFieldContrasena;
+	private JTextField textFieldConfirmacionContrasena;
+	private JTextField selectedImgPath;
+	
+	private JTextArea textFieldDescripcion;
 
 	private JRadioButton provBtn;
 	private JRadioButton turBtn;
 	private ButtonGroup BtnGroup;
 
-	private JTextField textFieldNacionalidad;
-	private JTextField textFieldSitioWeb;
-
 	private JLabel lblIngreseNickName;
 	private JLabel lblIngreseNombre;
 	private JLabel lblIngreseApellido;
 	private JLabel lblIngreseEmail;
-
+	private JLabel lblFechaDeNacimiento;
 	private JLabel lblIngreseTipoUsuario;
+	private JLabel lblConfirmarContrasea;
+	private JLabel lblContrasea;
 
 	private JButton btnAceptar;
 	private JButton btnCancelar;
+	private JButton calendarBtn;
 
+	private JPanel panel_fechaNac;
 	private JPanel turista_panel;
 	private JPanel proveedor_panel;
 	private JPanel blank_panel;
 	private JPanel panel;
-	private JButton calendarBtn;
+	private JPanel container;
+	
 	private GregorianCalendar fechaNac;
 
-	private JTextField date;
-	private JInternalFrame f;
-	private JTextField selectedDate;
-	private JPanel container;
 	private JScrollPane scrollPane;
-	private JTextArea textFieldDescripcion;
-	private JLabel lblConfirmarContrasea;
-	private JLabel lblContrasea;
-	private JTextField textFieldContrasena;
-	private JTextField textFieldConfirmacionContrasena;
+	
+	private JFileChooser fileChooser; 
+	
+//	private byte[] imgArrBytes;
 
 	public altaUsuario(ICtrlUsuario icu) {
-
+		
 		ctrlUsr = icu;
 
 		setIconifiable(true);
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Registrar un Usuario");
+		setTitle("Alta de Usuario");
 
 		String prov = "Proveedor";
 		String tur = "Turista";
@@ -162,9 +178,9 @@ public class altaUsuario extends JInternalFrame {
 
 		panel = new JPanel();
 
-		JPanel panel_fechaNac = new JPanel();
+		panel_fechaNac = new JPanel();
 
-		JLabel lblFechaDeNacimiento = new JLabel("<html><p>Fecha de Nacimiento</p></html>");
+		lblFechaDeNacimiento = new JLabel("<html><p>Fecha de Nacimiento</p></html>");
 		lblFechaDeNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
 
 		calendarBtn = new JButton("...");
@@ -195,6 +211,7 @@ public class altaUsuario extends JInternalFrame {
 								GroupLayout.PREFERRED_SIZE)
 						.addGap(6)));
 		panel_fechaNac.setLayout(gl_panel_fechaNac);
+		
 		calendarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				f.setVisible(true);
@@ -203,9 +220,9 @@ public class altaUsuario extends JInternalFrame {
 				if (!date.getText().isEmpty()) {
 					selectedDate.setText(date.getText());
 					int dia = Integer.parseInt(date.getText().substring(0, 2));
-					int mes = Integer.parseInt(date.getText().substring(3, 5))%12;
+					int mes = Integer.parseInt(date.getText().substring(3, 5));
 					int anio = Integer.parseInt(date.getText().substring(6, 10));
-					GregorianCalendar fechaNac = new GregorianCalendar(anio, mes, dia);
+					fechaNac = new GregorianCalendar(anio, mes-1, dia);
 				}
 			}
 		});
@@ -303,7 +320,7 @@ public class altaUsuario extends JInternalFrame {
 		
 		textFieldConfirmacionContrasena = new JTextField();
 		
-		JPanel panel_1 = new JPanel();
+		JPanel panel_img = new JPanel();
 		GroupLayout gl_container = new GroupLayout(container);
 		gl_container.setHorizontalGroup(
 			gl_container.createParallelGroup(Alignment.LEADING)
@@ -331,9 +348,9 @@ public class altaUsuario extends JInternalFrame {
 										.addComponent(textFieldApellido, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
 										.addComponent(textFieldConfirmacionContrasena, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE))
 									.addGap(18)
-									.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
-										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addGroup(gl_container.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(panel_img, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(panel_fechaNac, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 472, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_container.createSequentialGroup()
 							.addGap(39)
@@ -393,7 +410,7 @@ public class altaUsuario extends JInternalFrame {
 								.addComponent(turBtn))
 							.addGap(18))
 						.addGroup(gl_container.createSequentialGroup()
-							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panel_img, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -402,6 +419,61 @@ public class altaUsuario extends JInternalFrame {
 						.addComponent(btnCancelar))
 					.addContainerGap())
 		);
+		
+		JButton btnAddImage = new JButton("<html><p>Agregar<br> Imagen</p></html>");
+		btnAddImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				        "Images", "jpg", "jpeg", "png", "bmp", "raw");
+				fileChooser.setFileFilter(filter);
+				int result = fileChooser.showOpenDialog(getParent());
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+				 
+//			        try {
+//			        	FileInputStream fileStream = new FileInputStream(selectedFile);
+//				        // Now creating byte array of same length as file
+//				        imgArrBytes = new byte[(int)selectedFile.length()];
+//				        // Reading file content to byte array
+//				        // using standard read() method
+//						fileStream.read(imgArrBytes);
+//				        // lastly closing an instance of file input stream
+//				        // to avoid memory leakage
+//				        fileStream.close();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+				    //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				    selectedImgPath.setText(selectedFile.getName());
+				}
+			}
+		});
+		
+		selectedImgPath = new JTextField();
+		selectedImgPath.setHorizontalAlignment(SwingConstants.CENTER);
+		selectedImgPath.setEditable(false);
+		selectedImgPath.setColumns(10);
+		selectedImgPath.setBackground(new Color(200, 200, 200));
+		
+		GroupLayout gl_panel_img = new GroupLayout(panel_img);
+		gl_panel_img.setHorizontalGroup(
+			gl_panel_img.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_img.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(selectedImgPath, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addComponent(btnAddImage, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+		);
+		gl_panel_img.setVerticalGroup(
+			gl_panel_img.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_img.createSequentialGroup()
+					.addComponent(btnAddImage)
+					.addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+					.addComponent(selectedImgPath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		panel_img.setLayout(gl_panel_img);
 		container.setLayout(gl_container);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -430,7 +502,16 @@ public class altaUsuario extends JInternalFrame {
 		String apellido = this.textFieldApellido.getText();
 		String email = this.textFieldEmail.getText();
 		String pass = this.textFieldContrasena.getText();
-		String img = this.textFieldImg.getText();
+		
+//		String encodedImg = Base64.getEncoder().encodeToString(imgArrBytes);
+		
+//		ENCODE : STRING TO BASE64
+//		byte[] fileContent = FileUtils.readFileToByteArray(new File(filePath));
+//		String encodedString = Base64.getEncoder().encodeToString(fileContent);
+		
+//		DECODE : BASE64 TO STRING
+//		byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+//		FileUtils.writeByteArrayToFile(new File(outputFileName), decodedBytes);
 
 		String descripcion = "";
 		String sitioWeb = "";
@@ -449,8 +530,7 @@ public class altaUsuario extends JInternalFrame {
 					nacionalidad = this.textFieldNacionalidad.getText();
 				}
 
-				// agregar foto? ver que hacer con a fecha de nacimiento
-				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, img, tipo, nacionalidad, descripcion,
+				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, selectedImgPath.getText(), tipo, nacionalidad, descripcion,
 						sitioWeb);
 
 				JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
@@ -521,6 +601,7 @@ public class altaUsuario extends JInternalFrame {
 		textFieldContrasena.setText("");
 		textFieldConfirmacionContrasena.setText("");
 		selectedDate.setText("");
+		selectedImgPath.setText("");
 		
 		textFieldSitioWeb.setText("");
 		textFieldDescripcion.setText("");

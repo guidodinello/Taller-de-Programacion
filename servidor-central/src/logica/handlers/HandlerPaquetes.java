@@ -3,6 +3,7 @@ package logica.handlers;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
+
 import java.util.HashSet;
 
 import logica.clases.PaqueteTuristico;
@@ -19,13 +20,13 @@ public class HandlerPaquetes {
 	}
 	
 	public static HandlerPaquetes getInstance() {
-		if(instancia == null)
+		if (instancia == null)
 			instancia = new HandlerPaquetes();
 		return instancia;
 	}
 	
-	public void addPaquete(PaqueteTuristico pt) {
-		paquetes.put(pt.getNombre(), pt);
+	public void addPaquete(PaqueteTuristico paquete) {
+		paquetes.put(paquete.getNombre(), paquete);
 	}
 	
 	public PaqueteTuristico obtenerPaqueteTuristico(String nombre) {
@@ -37,7 +38,8 @@ public class HandlerPaquetes {
 	}
 	
 	public Set<PaqueteTuristico> getPaquetes(){
-		return new HashSet<PaqueteTuristico>(paquetes.values());
+	    Set<PaqueteTuristico> res = new HashSet<PaqueteTuristico>(paquetes.values());
+	    return res;
 	}
 	
 	public static void clear() {

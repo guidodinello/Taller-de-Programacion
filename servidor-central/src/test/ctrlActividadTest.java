@@ -1,6 +1,9 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.GregorianCalendar;
 import java.util.Set;
@@ -18,6 +21,7 @@ import datatypes.tipoUsuario;
 import excepciones.YaExisteException;
 
 import logica.handlers.HandlerActividades;
+import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
 import logica.handlers.HandlerSalidas;
@@ -28,11 +32,12 @@ import logica.interfaces.ICtrlUsuario;
 import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
+import datatypes.estadoActividad;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlActividadTest{
 	private static ICtrlActividad controladorActividad;
 	private static ICtrlUsuario controladorUsuario;
-	private static HandlerActividades hA;
+	private static HandlerActividades handlerA;
 	
 	public ctrlActividadTest() {}
 	
@@ -41,21 +46,25 @@ public class ctrlActividadTest{
 		Fabrica fabrica = Fabrica.getInstance();
 		//clear a los handler
 		HandlerActividades.clear();
+		HandlerCategorias.clear();
 		HandlerSalidas.clear();
 		HandlerDepartamentos.clear();
 		HandlerUsuarios.clear();
 		HandlerPaquetes.clear();
-		hA = HandlerActividades.getInstance();
+		handlerA = HandlerActividades.getInstance();
 		controladorActividad = fabrica.getICtrlActividad();
 		controladorUsuario = fabrica.getICtrlUsuario();
+
+		String imgPerfil = "imagen";
+
 		try {
-			controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", "", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
-			controladorUsuario.altaUsuario("agus", "agus@", "Agustin", "Franco", "", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
-			controladorUsuario.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", "", new GregorianCalendar(), tipoUsuario.turista, "uruguayo", null, null);
-			controladorUsuario.altaUsuario("manuT1", "emailT1", "nombreT1", "apellidT1", "", new GregorianCalendar(), tipoUsuario.turista, "uru", null, null);
-			controladorUsuario.altaUsuario("manuT2", "emailT2", "nombreT2", "apellidT2", "", new GregorianCalendar(), tipoUsuario.turista, "uru", null, null );
-			controladorUsuario.altaUsuario("manuP1", "emailP1", "nombreP1", "apellidP1", "", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "descManuP1", "linkP1" );
-			controladorUsuario.altaUsuario("manuP2", "emailP2", "nombreP2", "apellidP2", "", new GregorianCalendar(), tipoUsuario.proveedor, "uruguayo", "descManuP2", "linkP2" );
+			controladorUsuario.altaUsuario("cris", "cris@", "Cristian", "Gonzalez", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.proveedor, "uruguayo", "provee cosas", "cris.com");
+			controladorUsuario.altaUsuario("agus", "agus@", "Agustin", "Franco", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.turista, "uruguayo", null, null);
+			controladorUsuario.altaUsuario("eze", "eze@", "Ezequiel", "Medeiros", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.turista, "uruguayo", null, null);
+			controladorUsuario.altaUsuario("manuT1", "emailT1", "nombreT1", "apellidT1", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.turista, "uru", null, null);
+			controladorUsuario.altaUsuario("manuT2", "emailT2", "nombreT2", "apellidT2", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.turista, "uru", null, null );
+			controladorUsuario.altaUsuario("manuP1", "emailP1", "nombreP1", "apellidP1", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.proveedor, "uruguayo", "descManuP1", "linkP1" );
+			controladorUsuario.altaUsuario("manuP2", "emailP2", "nombreP2", "apellidP2", "password", new GregorianCalendar(), imgPerfil, tipoUsuario.proveedor, "uruguayo", "descManuP2", "linkP2" );
 		} catch (YaExisteException e2) {
 			e2.printStackTrace();
 		}
@@ -170,40 +179,52 @@ public class ctrlActividadTest{
 			GregorianCalendar fechaAct3 = new GregorianCalendar(2001, 3, 2);
 			GregorianCalendar fechaAct4 = new GregorianCalendar(2001, 3, 3);;
 			
+			String img = "imgDir";
+			Set<String> conjuntoCat = new HashSet<String>();
+			for (int i = 0; i < 5; i++) {
+				controladorActividad.altaCategoria("Categoria " + i);
+				conjuntoCat.add("Categoria " + i );
+			}
+
 			
-			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1);
-			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2);
-			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3);
-			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getNombre(),nombActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getNombre(),nombActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getNombre(),nombActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getNombre(),nombActividad4);
+			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, conjuntoCat, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, conjuntoCat, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, conjuntoCat, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, conjuntoCat, estadoActividad.agregada);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getNombre(),nombActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getNombre(),nombActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getNombre(),nombActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getNombre(),nombActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getDescripcion(),desActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getDescripcion(),desActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getDescripcion(),desActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getDescripcion(),desActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getDescripcion(),desActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getDescripcion(),desActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getDescripcion(),desActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getDescripcion(),desActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getDuracionHs(),duraHsActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getDuracionHs(),duraHsActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getDuracionHs(),duraHsActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getDuracionHs(),duraHsActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getDuracionHs(),duraHsActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getDuracionHs(),duraHsActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getDuracionHs(),duraHsActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getDuracionHs(),duraHsActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getCostoPorTurista(),costoActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getCostoPorTurista(),costoActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getCostoPorTurista(),costoActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getCostoPorTurista(),costoActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getCostoPorTurista(),costoActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getCostoPorTurista(),costoActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getCostoPorTurista(),costoActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getCostoPorTurista(),costoActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getNombreCiudad(),ciudadActividad1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getNombreCiudad(),ciudadActividad2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getNombreCiudad(),ciudadActividad3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getNombreCiudad(),ciudadActividad4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getNombreCiudad(),ciudadActividad1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getNombreCiudad(),ciudadActividad2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getNombreCiudad(),ciudadActividad3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getNombreCiudad(),ciudadActividad4);
 			
-			assertEquals(hA.obtenerActividadTuristica(nombActividad1).getFechaAlta(),fechaAct1);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad2).getFechaAlta(),fechaAct2);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad3).getFechaAlta(),fechaAct3);
-			assertEquals(hA.obtenerActividadTuristica(nombActividad4).getFechaAlta(),fechaAct4);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getFechaAlta(),fechaAct1);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getFechaAlta(),fechaAct2);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getFechaAlta(),fechaAct3);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getFechaAlta(),fechaAct4);
+			
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getEstado(), estadoActividad.agregada);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getEstado(), estadoActividad.agregada);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getEstado(), estadoActividad.agregada);
+			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getEstado(), estadoActividad.agregada);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -254,10 +275,13 @@ public class ctrlActividadTest{
 		GregorianCalendar fechaAct3 = new GregorianCalendar(2001, 3, 2);
 		GregorianCalendar fechaAct4 = new GregorianCalendar(2001, 3, 3);
 		
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4);});
+		String img = "imgDir";
+		Set<String> setString = new HashSet<String>();
+
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString, estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString, estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString, estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString, estadoActividad.agregada);});
 		
 	}
 	
@@ -297,19 +321,29 @@ public class ctrlActividadTest{
 	@Order(9)
 	void testGetInfoActividad() {
 		String actividad = "Actividad 1";
-		DTActividad da = controladorActividad.getInfoActividad(actividad);
+		DTActividad dtAct = controladorActividad.getInfoActividad(actividad);
 		
-		assertEquals(da.getNombre(), "Actividad 1");
-		assertEquals(da.getDescripcion(), "act1 d");
-		assertEquals(da.getDuracionHs(), 2);
-		assertEquals(da.getCosto(), 11);
+		assertEquals(dtAct.getNombre(), "Actividad 1");
+		assertEquals(dtAct.getDescripcion(), "act1 d");
+		assertEquals(dtAct.getDuracionHs(), 2);
+		assertEquals(dtAct.getCosto(), 11);
 		
 		actividad = "Actividad 2";
-		da = controladorActividad.getInfoActividad(actividad);
-		assertEquals(da.getNombre(), "Actividad 2");
-		assertEquals(da.getDescripcion(), "act2 d");
-		assertEquals(da.getDuracionHs(), 3);
-		assertEquals(da.getCosto(), 12);
+		dtAct = controladorActividad.getInfoActividad(actividad);
+		assertEquals(dtAct.getNombre(), "Actividad 2");
+		assertEquals(dtAct.getDescripcion(), "act2 d");
+		assertEquals(dtAct.getDuracionHs(), 3);
+		assertEquals(dtAct.getCosto(), 12);
+		assertEquals(dtAct.getestado(), estadoActividad.agregada);
+		assertEquals(dtAct.getCategorias().contains("Categoria 1"), true);
+		assertEquals(dtAct.getFechaAlta(), new GregorianCalendar(2000, 3, 2));
+		assertEquals(dtAct.getFechaAltaString(), "2/4/2000");
+		assertEquals(dtAct.getImgDir(), "imgDir");
+		assertEquals(dtAct.getNombreCiudad(), "Paso palomeque");
+		assertEquals(dtAct.toString(), "Nombre: Actividad 2");
+		
+		
+		
 	}
 	
 	//SALIDAS
@@ -336,12 +370,12 @@ public class ctrlActividadTest{
 	@Test
 	@Order(11)
 	void testAltaSalidasOk() {
-		GregorianCalendar fecha = new GregorianCalendar(2022,8,30);
+		GregorianCalendar fecha = new GregorianCalendar(2023,8,30);
 		try {
-			controladorActividad.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(), "Actividad 1");
-			controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");
-			controladorActividad.altaSalidaTuristica("A Canelones", new GregorianCalendar(2021, 1, 20), "Canelones", 10, new GregorianCalendar(), "Actividad 2");
-			controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(), "Actividad 3");
+			controladorActividad.altaSalidaTuristica("A Centro", fecha, "Centro", 10, new GregorianCalendar(2023, 5, 20), "Actividad 1", "imagen");
+			controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2", "imagen");
+			controladorActividad.altaSalidaTuristica("A Canelones", new GregorianCalendar(2021, 1, 20), "Canelones", 10, new GregorianCalendar(), "Actividad 2", "imagen");
+			controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(2023, 5, 20), "Actividad 3", "imagen");
 			
 		} catch (YaExisteException e1) {
 			e1.printStackTrace();
@@ -351,6 +385,11 @@ public class ctrlActividadTest{
 		assertEquals("Centro", nueva1.getlugarSalida());
 		assertEquals(10, nueva1.getcantidadMaximaDeTuristas());
 		assertEquals(nueva1.getTuristasInscriptos().isEmpty(),true);
+		assertEquals(nueva1.getNombreActividad(), "Actividad 1");
+		assertEquals(nueva1.getImgDir(), "imagen");
+		assertEquals(nueva1.getNombreDepartamentoActividad(), "Montevideo");
+		assertEquals(nueva1.toString(), "A Centro" + " - " + "Centro");
+		
 		
 		DTSalida nueva2 =  controladorActividad.getInfoCompletaSalida("A Palomeque");
 		assertEquals("A Palomeque", nueva2.getNombre());
@@ -376,10 +415,10 @@ public class ctrlActividadTest{
 	@Order(12)
 	void testAltaSalidaTuristicaFail() {
 		GregorianCalendar fecha = new GregorianCalendar(2022,8,30);
-		assertThrows(YaExisteException.class,()->{controladorActividad.altaSalidaTuristica("A Centro", new GregorianCalendar(), "Centro", 10, new GregorianCalendar(), "Actividad 1");});
-		assertThrows(YaExisteException.class,()->{controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2");});
-		assertThrows(YaExisteException.class,()->{controladorActividad.altaSalidaTuristica("A Canelones", new GregorianCalendar(2021, 1, 20), "Canelones", 10, new GregorianCalendar(), "Actividad 2");});
-		assertThrows(YaExisteException.class,()->{controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(), "Actividad 3");});
+		assertThrows(YaExisteException.class,()->{controladorActividad.altaSalidaTuristica("A Centro", new GregorianCalendar(2023, 5, 20), "Centro", 10, new GregorianCalendar(), "Actividad 1", "imagen");});
+		assertThrows(YaExisteException.class,()->{controladorActividad.altaSalidaTuristica("A Palomeque", fecha, "Palomeque", 10, new GregorianCalendar(), "Actividad 2", "imagen");});
+		assertThrows(YaExisteException.class,()->{controladorActividad.altaSalidaTuristica("A Canelones", new GregorianCalendar(2021, 1, 20), "Canelones", 10, new GregorianCalendar(), "Actividad 2", "imagen");});
+		assertThrows(YaExisteException.class,()->{controladorActividad.altaSalidaTuristica("Al Cerro", fecha, "Cerro Signorelli", 10, new GregorianCalendar(2023, 5, 20), "Actividad 3", "imagen");});
 	}
 	
 	@Test
@@ -465,11 +504,16 @@ public class ctrlActividadTest{
 		GregorianCalendar fechaAltaP3 = new GregorianCalendar(2000, 4, 2);
 		GregorianCalendar fechaAltaP4 = new GregorianCalendar(2015, 2, 2);
 		
+		String img1 = "media/imagenes/img1.png";
+		String img2 = "media/imagenes/img2.png";
+		String img3 = "media/imagenes/img3.png";
+		String img4 = "media/imagenes/img4.png";
+		
 		try {
-			controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1);
-			controladorActividad.crearPaquete(nombreP2, descP2, validezP2, descuentoP2, fechaAltaP2);
-			controladorActividad.crearPaquete(nombreP3, descP3, validezP3, descuentoP3, fechaAltaP3);
-			controladorActividad.crearPaquete(nombreP4, descP4, validezP4, descuentoP4, fechaAltaP4);
+			controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1, img1);
+			controladorActividad.crearPaquete(nombreP2, descP2, validezP2, descuentoP2, fechaAltaP2, img2);
+			controladorActividad.crearPaquete(nombreP3, descP3, validezP3, descuentoP3, fechaAltaP3, img3);
+			controladorActividad.crearPaquete(nombreP4, descP4, validezP4, descuentoP4, fechaAltaP4, img4);
 			
 			assertEquals(controladorActividad.listarPaquetes().isEmpty(), false);
 			assertEquals(controladorActividad.listarPaquetes().contains(nombreP1), true);
@@ -502,7 +546,11 @@ public class ctrlActividadTest{
 			assertEquals(controladorActividad.getInfoPaquete(nombreP2).getActividades().isEmpty(), true);
 			assertEquals(controladorActividad.getInfoPaquete(nombreP3).getActividades().isEmpty(), true);
 			assertEquals(controladorActividad.getInfoPaquete(nombreP4).getActividades().isEmpty(), true);
-			
+				
+			assertEquals(controladorActividad.getInfoPaquete(nombreP1).getImg(), img1);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP2).getImg(), img2);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP3).getImg(), img3);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP4).getImg(), img4);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -540,10 +588,15 @@ public class ctrlActividadTest{
 		GregorianCalendar fechaAltaP3 = new GregorianCalendar(2000, 4, 2);
 		GregorianCalendar fechaAltaP4 = new GregorianCalendar(2015, 2, 2);
 		
-		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1);});
-		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP2, descP2, validezP2, descuentoP2, fechaAltaP2);});
-		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP3, descP3, validezP3, descuentoP3, fechaAltaP3);});
-		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP4, descP4, validezP4, descuentoP4, fechaAltaP4);});
+		String img1 = "media/imagenes/img1.png";
+		String img2 = "media/imagenes/img2.png";
+		String img3 = "media/imagenes/img3.png";
+		String img4 = "media/imagenes/img4.png";
+		
+		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1, img1);});
+		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP2, descP2, validezP2, descuentoP2, fechaAltaP2, img2);});
+		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP3, descP3, validezP3, descuentoP3, fechaAltaP3, img3);});
+		assertThrows(YaExisteException.class,()->{controladorActividad.crearPaquete(nombreP4, descP4, validezP4, descuentoP4, fechaAltaP4, img4);});
 	
 	}
 	
@@ -609,6 +662,11 @@ public class ctrlActividadTest{
 		String nombreDepto1 = "Montevideo";
 		String nombreDepto2 = "Canelones";
 		String nombreDepto3 = "Artigas";
+		
+		controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, nombActividad1);
+		controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, nombActividad2);
+		controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, nombActividad3);
+		controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, nombActividad4);
 		
 		Set<String> actDept1MenosP1 = controladorActividad.listarActividadesDepartamentoMenosPaquete(nombreDepto1, nombreP1);
 		Set<String> actDept1MenosP2 = controladorActividad.listarActividadesDepartamentoMenosPaquete(nombreDepto1, nombreP2);
@@ -754,17 +812,108 @@ public class ctrlActividadTest{
 		
 	}
 	
+	@Test
+	@Order(22)
+	void testAltaCategoriaOk() {
+		try {
+			controladorActividad.altaCategoria("Categoria 22");
+			controladorActividad.altaCategoria("Categoria 23");
+			controladorActividad.altaCategoria("Categoria 24");
+			assertEquals(HandlerCategorias.getInstance().existeCategoria("Categoria 22"), true);
+			assertEquals(HandlerCategorias.getInstance().existeCategoria("Categoria 23"), true);
+			assertEquals(HandlerCategorias.getInstance().existeCategoria("Categoria 24"), true);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
+	@Test
+	@Order(23)
+	void testAltaCategoriaFail() {
+		assertThrows(YaExisteException.class,()  -> {controladorActividad.altaCategoria("Categoria 22");});
+		assertThrows(YaExisteException.class, () -> {controladorActividad.altaCategoria("Categoria 23");});
+		assertThrows(YaExisteException.class, () -> {controladorActividad.altaCategoria("Categoria 24");});
+	}
 	
+	@Test
+	@Order(24)
+	void testListarCategorias() {
+		Set<String> categorias = controladorActividad.listarCategorias();
+		
+		assertEquals(categorias.contains("Categoria 0"), true);
+		assertEquals(categorias.contains("Categoria 1"), true);
+		assertEquals(categorias.contains("Categoria 2"), true);
+		assertEquals(categorias.contains("Categoria 3"), true);
+		assertEquals(categorias.contains("Categoria 4"), true);
+		assertEquals(categorias.contains("Categoria 5"), false);
+		assertEquals(categorias.contains("Categoria 22"), true);
+		assertEquals(categorias.contains("Categoria 23"), true);
+		assertEquals(categorias.contains("Categoria 24"), true);
+		assertEquals(categorias.contains("Categoria 25"), false);
+	}
 	
+	@Test
+	@Order(25)
+	void testGetDTActividadesConfirmadas() {
+		Set<DTActividad> actividades = controladorActividad.getDTActividadesConfirmadas();
+		
+		assertEquals(actividades.isEmpty(), false);
+		assertEquals(actividades.size() == 4, true);
+		
+	}
 	
+	@Test
+	@Order(25)
+	void testListarPaquetesPorCategoria() {
+		String nombreP1 = "Paquete 1"; //Actividad 1, 2, 3, 4 con categorias: 0, 1, 2, 3 y 4
+		String nombreP2 = "Paquete 2"; //Act 2 y 3
+		String nombreP3 = "Paquete 3"; //Act 4
+		
+		Set<String> paquetes1 = controladorActividad.listarPaquetesCategoria("Categoria 0");
+		Set<String> paquetes2 = controladorActividad.listarPaquetesCategoria("Categoria 1");
+		Set<String> paquetes3 = controladorActividad.listarPaquetesCategoria("Categoria 2");
+		Set<String> paquetes4 = controladorActividad.listarPaquetesCategoria("Categoria 3");
+		Set<String> paquetes5 = controladorActividad.listarPaquetesCategoria("Categoria 4");
+		
+		assertEquals(paquetes1.contains(nombreP1), true);
+		assertEquals(paquetes1.contains(nombreP2), true);
+		assertEquals(paquetes1.contains(nombreP3), true);
+		
+		assertEquals(paquetes2.contains(nombreP1), true);
+		assertEquals(paquetes2.contains(nombreP2), true);
+		assertEquals(paquetes2.contains(nombreP3), true);
+		
+		assertEquals(paquetes3.contains(nombreP1), true);
+		assertEquals(paquetes3.contains(nombreP2), true);
+		assertEquals(paquetes3.contains(nombreP3), true);
+		
+		assertEquals(paquetes4.contains(nombreP1), true);
+		assertEquals(paquetes4.contains(nombreP2), true);
+		assertEquals(paquetes4.contains(nombreP3), true);
+	}
 	
+	@Test
+	@Order(26)
+	void testGetInfoActividadConPaqutes() {
+		DTActividad act1 = controladorActividad.getInfoActividad("Actividad 1");
+		DTActividad act2 = controladorActividad.getInfoActividad("Actividad 2");
+		
+		assertEquals(act1.getPaquetes().isEmpty(), false);
+		assertEquals(act2.getPaquetes().isEmpty(), false);
+		
+	}
 	
-	
-	
-	
-	
-	
+	@Test
+	@Order(27)
+	void testDTSalidaSinParametros() {
+		DTSalida sal = new DTSalida();
+		
+		assertEquals(sal.getNombre().isEmpty(), true);
+		assertEquals(sal.getcantidadMaximaDeTuristas(), 0);
+		assertEquals(sal.getlugarSalida().isEmpty(), true);
+		assertEquals(sal.getTuristasInscriptos(), null);
+		
+	}
 	
 	
 	

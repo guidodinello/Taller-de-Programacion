@@ -1,5 +1,6 @@
 package logica.interfaces;
-import logica.controladores.*;
+import logica.controladores.CtrlActividad;
+import logica.controladores.CtrlUsuario;
 
 public class Fabrica {
 	private static Fabrica instancia = null;
