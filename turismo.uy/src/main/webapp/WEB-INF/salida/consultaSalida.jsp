@@ -77,7 +77,7 @@
 		                <fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
 								<div class="col-auto">
-									<i class="fa fa-clock-o prefix white-text"></i>
+									<i class="fa fa-clock prefix white-text"></i>
 									<label for="inputPassword6" class="col-form-label">Hora:</label>
 								</div>
 								<div class="col-auto">

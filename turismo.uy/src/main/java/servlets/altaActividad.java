@@ -45,7 +45,6 @@ public class altaActividad extends HttpServlet {
             
             /*Si existe un archivo con el mismo nombre lo eliminamos*/
             File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+ na);
-            System.out.println(file);
             if(file.delete())
                 System.out.println("deleted");
             
@@ -54,8 +53,7 @@ public class altaActividad extends HttpServlet {
             File fil = new File(dir);
             
             
-            InputStream ab = p.getInputStream(); 
-            System.out.println(dir);
+            InputStream ab = p.getInputStream();
             
             if(ab != null) {
                 File img = new File(fil, na);

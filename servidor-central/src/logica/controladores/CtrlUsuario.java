@@ -110,12 +110,14 @@ public class CtrlUsuario implements ICtrlUsuario{
 		return res;
 	}
 	
-	public void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, String nacionalidad, String desc, String sitioWeb) { 
-		HandlerUsuarios handlerUsr = HandlerUsuarios.getInstance();
-		Usuario usuario = handlerUsr.getUsuarioByNickname(nickname);
+	public void actualizarUsuario(String nickname, String nombre, String apellido, GregorianCalendar fechaNac, String img, String nacionalidad, String desc, String sitioWeb) { 
+		HandlerUsuarios handlerU = HandlerUsuarios.getInstance();
+		Usuario usuario = handlerU.getUsuarioByNickname(nickname);
 		usuario.setNombre(nombre);
 		usuario.setApellido(apellido);
 		usuario.setFechaNac(fechaNac);
+		if (!img.isEmpty())
+		    usuario.setImg(img);
 		if (usuario instanceof Turista) {
 			((Turista) usuario).setNacionalidad(nacionalidad);
 		}else {

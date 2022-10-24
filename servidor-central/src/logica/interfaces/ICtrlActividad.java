@@ -1,7 +1,6 @@
 package logica.interfaces;
 import excepciones.YaExisteException;
 import logica.clases.ActividadTuristica;
-import logica.clases.SalidaTuristica;
 
 import java.util.Set;
 import java.util.function.Function;

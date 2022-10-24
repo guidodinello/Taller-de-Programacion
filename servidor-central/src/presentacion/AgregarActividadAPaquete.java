@@ -160,7 +160,7 @@ public class AgregarActividadAPaquete extends JInternalFrame{
 			controlAct.ingresarActividadAPaquete(comboBoxPaquetes.getSelectedItem().toString(), comboBoxActividades.getSelectedItem().toString());
 			JOptionPane.showMessageDialog(this, "La actividad se ha agregado correctamente", "Agregar Actividad a Paquete", JOptionPane.INFORMATION_MESSAGE);
 			limpiarFormulario();
-            setVisible(false);
+			setVisible(false);
 		}
 	}
 	

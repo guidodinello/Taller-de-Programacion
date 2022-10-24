@@ -6,4 +6,10 @@ $('#bologna-list a').on('click', function (e) {
 $("#btnGuardar").on("click", async function(e){
     e.preventDefault();
     $("#FormularioModificarDatos").submit(); 
-})
+});
+
+$("#inputNuevaImg").hide();
+
+$("#modificarImagenPerfil").on("click", function() {
+	$("#inputNuevaImg").trigger('click');
+});

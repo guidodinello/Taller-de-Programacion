@@ -248,7 +248,7 @@ public class ActualizarUsuario extends JInternalFrame {
         textFieldCalendario = new JTextField();
         GridBagConstraints gbc_textFieldCalendario = new GridBagConstraints();
         textFieldCalendario.setEditable(false);
-        gbc_textFieldCalendario.gridwidth = 2;
+        gbc_textFieldCalendario.gridwidth = 6;
         gbc_textFieldCalendario.insets = new Insets(0, 0, 5, 5);
         gbc_textFieldCalendario.fill = GridBagConstraints.HORIZONTAL;
         gbc_textFieldCalendario.gridx = 4;
@@ -469,7 +469,7 @@ public class ActualizarUsuario extends JInternalFrame {
 				return;
 			}
 		}
-		ctrlUsuario.actualizarUsuario(dtU.getNickname(), newNombre, newApellido, fechaNac, newNacionalidad, newDescripcion, newSitioWeb);
+		ctrlUsuario.actualizarUsuario(dtU.getNickname(), newNombre, newApellido, fechaNac, "",newNacionalidad, newDescripcion, newSitioWeb);
 		JOptionPane.showMessageDialog(this,
 				"Usuario actualizado con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
 		cancelar();

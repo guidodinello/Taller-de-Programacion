@@ -47,11 +47,9 @@ public class altaSalida extends HttpServlet {
         String dir = udi;
         try {
             String na = req.getParameter("nombre")+ "_sal" + ext; //nombre del archivo
-            System.out.println(na);
             
             /*Si existe un archivo con el mismo nombre lo eliminamos*/
             File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+ na);
-            System.out.println(file);
             if(file.delete())
                 System.out.println("deleted");
             
@@ -60,8 +58,7 @@ public class altaSalida extends HttpServlet {
             File fil = new File(dir);
             
             
-            InputStream ab = p.getInputStream(); 
-            System.out.println(dir);
+            InputStream ab = p.getInputStream();
             
             if(ab != null) {
                 File img = new File(fil, na);

@@ -213,8 +213,8 @@ public class CtrlActividad implements ICtrlActividad{
 	}
 	
 	public void cambiarEstadoActividad(estadoActividad estado, String nombreAct) {
-		HandlerActividades ha = HandlerActividades.getInstance();
-		ActividadTuristica act = ha.obtenerActividadTuristica(nombreAct);
+		HandlerActividades handlerAct = HandlerActividades.getInstance();
+		ActividadTuristica act = handlerAct.obtenerActividadTuristica(nombreAct);
 		act.setEstado(estado);
 	}
 	
