@@ -441,8 +441,13 @@ public class altaSalida extends JInternalFrame {
 					 JOptionPane.showMessageDialog(getContentPane(), "Cantidad de turistas debe ser positiva", " Registro invalido", JOptionPane.INFORMATION_MESSAGE);
 				 return;
 				 }
+				 
+				 int hora =(Integer) spinner.getValue();
+				 int minutos = (Integer) spinner_1.getValue();
+				 fechaNac.set(anio, mes, dia, hora, minutos);
 		
 				 try {
+					 
 					iCS.altaSalidaTuristica(textField_1.getText(), fechaNac, textField_2.getText(), (int)spinner_2.getValue(), new GregorianCalendar(),comboBox_1.getSelectedItem().toString(), "");
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida se ha creado con exito", "Registrar Salida", JOptionPane.INFORMATION_MESSAGE);
 					 settear = true;

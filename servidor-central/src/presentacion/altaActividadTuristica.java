@@ -433,6 +433,8 @@ public class altaActividadTuristica extends JInternalFrame {
 	}
 	
 	private void cargarCategorias() {
+		if(!listModel.isEmpty())
+			listModel.clear();
 		Set<String> categorias = IActividad.listarCategorias();
 		categorias.forEach(cate -> {
 			listModel.addElement(cate);
