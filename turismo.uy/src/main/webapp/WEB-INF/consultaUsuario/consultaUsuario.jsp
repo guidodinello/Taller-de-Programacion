@@ -336,7 +336,7 @@
 															for="inputPassword6" class="col-form-label disabled'">Hora:</label>
 													</div>
 													<div class="col-auto">
-														<input type="" class="form-control disabled"
+														<input type="text" class="form-control disabled"
 															aria-describedby="disabled"
 															placeholder=<%=new SimpleDateFormat("HH:mm").format(sal.getfechaSalida().getTime())%>>
 													</div>
@@ -352,7 +352,7 @@
 															: </label>
 													</div>
 													<div class="col-auto">
-														<input type="" class="form-control disabled"
+														<input type="text" class="form-control disabled"
 															aria-describedby="disabled"
 															placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaSalida().getTime())%>>
 													</div>
@@ -368,7 +368,7 @@
 															Alta: </label>
 													</div>
 													<div class="col-auto">
-														<input type="" class="form-control disabled"
+														<input type="text" class="form-control disabled"
 															aria-describedby="disabled"
 															placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaAlta().getTime())%>>
 													</div>
@@ -406,7 +406,7 @@
 																Turistas:</label>
 														</div>
 														<div class="col-auto">
-															<input type="" id="inputPassword6"
+															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=c.getCantTuristas()%>">
@@ -421,7 +421,7 @@
 																for="inputPassword6" class="col-form-label disabled'">Validez:</label>
 														</div>
 														<div class="col-auto">
-															<input type="" id="inputPassword6"
+															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=paq.getPeriodoValidez()%> dias">
@@ -429,6 +429,23 @@
 
 													</div>
 												</fieldset>
+												
+												<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa-solid fa-money-bill"></i> <label
+																for="inputPassword6" class="col-form-label disabled'">Costo:</label>
+														</div>
+														<div class="col-auto">
+															<input type="text" id="inputPassword6"
+																class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder="<%=paq.getCosto()*c.getCantTuristas()%> $">
+														</div>
+
+													</div>
+												</fieldset>
+												
 												<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
@@ -436,7 +453,7 @@
 																for="inputPassword6" class="col-form-label disabled'">Descuento:</label>
 														</div>
 														<div class="col-auto">
-															<input type="" id="inputPassword6"
+															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=paq.getDescuento()%> %">
@@ -453,10 +470,27 @@
 																Compra: </label>
 														</div>
 														<div class="col-auto">
-															<input type="" id="inputPassword6"
+															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(c.getFechaCompra().getTime())%>>
+														</div>
+
+													</div>
+												</fieldset>
+												
+												<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa fa-calendar prefix white-text"></i> <label
+																for="inputPassword6" class="col-form-label disabled'">Fecha
+																Vencimiento: </label>
+														</div>
+														<div class="col-auto">
+															<input type="text" id="inputPassword6"
+																class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(c.getFechaVencimiento().getTime())%>>
 														</div>
 
 													</div>
@@ -492,7 +526,7 @@
 																Turistas:</label>
 														</div>
 														<div class="col-auto">
-															<input type="" id="inputPassword6"
+															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=sal.getCantTuristas()%>">
@@ -523,7 +557,7 @@
 																inscripcion: </label>
 														</div>
 														<div class="col-auto">
-															<input type="" id="inputPassword6"
+															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getFechaAlta().getTime())%>>
@@ -539,7 +573,7 @@
 																class="col-form-label disabled'">Tipo:</label>
 														</div>
 														<div class="col-auto">
-															<input type="" id="inputPassword6"
+															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=sal.getTipo()%>">
@@ -579,7 +613,7 @@
 																for="inputPassword6" class="col-form-label disabled'">Duracion:</label>
 														</div>
 														<div class="col-auto">
-															<input type="" class="form-control disabled"
+															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=act.getDuracionHs()%>">
 														</div>
@@ -623,7 +657,7 @@
 																Alta: </label>
 														</div>
 														<div class="col-auto">
-															<input type="" class="form-control disabled"
+															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
 																placeholder="<%=act.getFechaAltaString()%>">
 														</div>
@@ -894,7 +928,7 @@
 																	for="inputPassword6" class="col-form-label disabled'">Hora:</label>
 															</div>
 															<div class="col-auto">
-																<input type="" class="form-control disabled"
+																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
 																	placeholder=<%=new SimpleDateFormat("HH:mm").format(sal.getfechaSalida().getTime())%>>
 															</div>
@@ -910,7 +944,7 @@
 																	: </label>
 															</div>
 															<div class="col-auto">
-																<input type="" class="form-control disabled"
+																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
 																	placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaSalida().getTime())%>>
 															</div>
@@ -926,7 +960,7 @@
 																	Alta: </label>
 															</div>
 															<div class="col-auto">
-																<input type="" class="form-control disabled"
+																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
 																	placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaAlta().getTime())%>>
 															</div>
@@ -962,7 +996,7 @@
 																		for="inputPassword6" class="col-form-label disabled'">Duracion:</label>
 																</div>
 																<div class="col-auto">
-																	<input type="" class="form-control disabled"
+																	<input type="text" class="form-control disabled"
 																		aria-describedby="disabled"
 																		placeholder="<%=act.getDuracionHs()%>">
 																</div>
@@ -1006,7 +1040,7 @@
 																		Alta: </label>
 																</div>
 																<div class="col-auto">
-																	<input type="" class="form-control disabled"
+																	<input type="text" class="form-control disabled"
 																		aria-describedby="disabled"
 																		placeholder="<%=act.getFechaAltaString()%>">
 																</div>

@@ -66,7 +66,7 @@
 		                        	<label for="inputPassword6" class="col-form-label disabled'">Dia:</label>
 		                        </div>
 		                        <div class="col-auto">
-		                        	<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
+		                        	<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
 		                        	<%= 
 									new SimpleDateFormat("dd/MM/yyyy").format(salida.getfechaSalida().getTime())
 									%>>
@@ -81,7 +81,7 @@
 									<label for="inputPassword6" class="col-form-label">Hora:</label>
 								</div>
 								<div class="col-auto">
-									<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
+									<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
 									<%= 
 									new SimpleDateFormat("HH:mm").format(salida.getfechaSalida().getTime())
 									%>>
@@ -97,7 +97,7 @@
 									<label for="inputPassword6" class="col-form-label">Cantidad Turistas maxima:</label>
 								</div>
 								<div class="col-auto">
-									<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= salida.getcantidadMaximaDeTuristas() %>">
+									<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= salida.getcantidadMaximaDeTuristas() %>">
 								</div>
 							              
 							</div>

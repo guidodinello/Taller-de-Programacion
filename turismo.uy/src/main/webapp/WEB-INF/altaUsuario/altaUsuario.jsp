@@ -142,7 +142,7 @@
 	                  
 	                  <div class="mb-4 text-start"  id="DescripcionRegistroDiv">
 	                      <label for="Descripcion" class ="form-label">Descripción general</label>
-	                      <textarea class="form-control" placeholder="Escribir una descripción" id="DescripcionRegistroText" style="height: 100px" aria-describedby="DescripcionTextNullValidate"></textarea>
+	                      <textarea name="Descripcion" class="form-control" placeholder="Escribir una descripción" id="DescripcionRegistroText" style="height: 100px" aria-describedby="DescripcionTextNullValidate"></textarea>
 	                      <div id="DescripcionNullValidate" class="invalid-feedback">
 	                          La descripción es un campo obligatorio.
 	                      </div>

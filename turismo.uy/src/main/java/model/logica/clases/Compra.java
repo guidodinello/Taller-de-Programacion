@@ -28,7 +28,7 @@ public class Compra {
     }
     
     public DTCompra getDT() {
-        return new DTCompra(paquete.getNombre(), fechaCompra, cantidadTuristas, estaVigente(new GregorianCalendar()), disponibles);
+        return new DTCompra(paquete.getNombre(), fechaCompra, vencimiento, cantidadTuristas, estaVigente(new GregorianCalendar()), disponibles);
     }
     
     public PaqueteTuristico getPaquete() {

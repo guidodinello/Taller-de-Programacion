@@ -38,6 +38,7 @@ public class altaUsuario extends HttpServlet {
         try {
             /*Si existe un archivo con el mismo nombre lo eliminamos*/
             File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+req.getParameter("Nickname")+ "_usr" +ext);
+            System.out.println(req.getServletContext().getRealPath("/"+rui)+"/"+req.getParameter("Nickname")+ "_usr" +ext);
             if(file.delete())
                 System.out.println("deleted");
             
