@@ -6,13 +6,15 @@ import java.util.Map;
 public class DTCompra {
 	private String paquete;
 	private GregorianCalendar fechaCompra;
+	private GregorianCalendar fechaVencimiento;
 	private int cantidadTuristas;
 	private boolean vigente;
 	private Map<String, Integer> disponibles;
 	
-	public DTCompra(String p, GregorianCalendar g, int c, boolean vig, Map<String, Integer> dis) {
+	public DTCompra(String p, GregorianCalendar g, GregorianCalendar f, int c, boolean vig, Map<String, Integer> dis) {
 		paquete = p;
 		fechaCompra = g;
+		fechaVencimiento = f;
 		cantidadTuristas = c;
 		vigente = vig;
 		disponibles = dis;
@@ -24,6 +26,11 @@ public class DTCompra {
 	public GregorianCalendar getFechaCompra() {
 		return fechaCompra;
 	}
+	
+	public GregorianCalendar getFechaVencimiento() {
+	    return fechaVencimiento;
+	}
+	
 	public int getCantTuristas() {
 		return cantidadTuristas;
 	}
