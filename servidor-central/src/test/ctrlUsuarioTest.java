@@ -777,11 +777,12 @@ public class ctrlUsuarioTest {
 	@Test
 	@Order(18)
 	void testDTCompra() {
-		DTCompra dtc = new DTCompra("paq1", new GregorianCalendar(2000, 2, 2), 3, true, new HashMap<String, Integer>());
+		DTCompra dtc = new DTCompra("paq1", new GregorianCalendar(2000, 2, 2), new GregorianCalendar(2000, 3, 2), 3, true, new HashMap<String, Integer>());
 		
 		assertEquals(dtc.getCantTuristas(), 3);
 		assertEquals(dtc.getPaquete(), "paq1");
 		assertEquals(dtc.getFechaCompra(), new GregorianCalendar(2000, 2, 2));
+		assertEquals(dtc.getFechaVencimiento(), new GregorianCalendar(2000, 3, 2));
 		assertEquals(dtc.getVigente(), true);
 		assertEquals(dtc.tieneActividad("Actividad 1"), false);
 		

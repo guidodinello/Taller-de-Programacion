@@ -65,7 +65,7 @@
 		                        	<label for="inputPassword6" class="col-form-label disabled'">Validez:</label>
 		                        </div>
 		                        <div class="col-auto">
-		                        	<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= paquete.getPeriodoValidez() %> dias">
+		                        	<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= paquete.getPeriodoValidez() %> dias">
 		                    	</div>
 		                    </div>
 						</fieldset>
@@ -77,7 +77,7 @@
 									<label for="inputPassword6" class="col-form-label">Descuento:</label>
 								</div>
 								<div class="col-auto">
-									<input type="password" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= paquete.getDescuento() %>%">
+									<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= paquete.getDescuento() %>%">
 								</div>
 							
 							</div>
