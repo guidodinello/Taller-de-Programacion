@@ -8,6 +8,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import datosdeprueba.CargarDatosDePrueba;
+import webservices.WebServices;
 
 //import logica.*;
 //import presentacion.*;
@@ -54,7 +55,9 @@ public class Principal {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-
+				WebServices p = new WebServices();
+				p.publicar();
+				
 				Principal window = new Principal();
 				window.frmGestionDeTurismoUy.setVisible(true);
 

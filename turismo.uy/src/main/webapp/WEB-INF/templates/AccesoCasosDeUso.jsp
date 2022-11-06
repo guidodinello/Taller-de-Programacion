@@ -1,6 +1,7 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
 <%@page import="servlets.altaUsuario" %>
 <%@page import="java.util.Set"%>
+<%@page import="java.util.List"%>
 <%@page import="model.datatypes.DTUsuario"%>
 <%@page import="model.datatypes.DTProveedor"%>
 <%@page import="model.datatypes.DTTurista"%>
@@ -70,7 +71,11 @@
 		        <div class="card-body">
 		              <ul class="list-group list-group-flush">
 		              	<%
-							Set<String> categorias = Fabrica.getInstance().getICtrlActividad().listarCategorias();
+		              		webservices.WebServicesService service = new webservices.WebServicesService();
+		              		webservices.WebServices port = service.getWebServicesPort();
+		              		List<String> categorias = port.listarCategorias().getItem();
+		              		
+							//Set<String> categorias = Fabrica.getInstance().getICtrlActividad().listarCategorias();
 							for (String categoria: categorias) {
 						%>
 		                	<a href="categoria?nombreCat=<%= categoria %>" class="list-group-item list-group-item-action"><%= categoria %></a>

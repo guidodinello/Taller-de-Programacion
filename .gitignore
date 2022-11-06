@@ -3,9 +3,7 @@
 
 # folders
 bin/
-#.settings/
-#.project
-#.classpath
+.settings/
 .metadata/ 
 build/
 .vscode/
