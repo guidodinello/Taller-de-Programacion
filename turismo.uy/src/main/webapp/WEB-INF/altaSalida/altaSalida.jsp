@@ -58,8 +58,8 @@
                                 <%} %>> Seleccione un Departamento</option>
                  					
                  				<%
-									Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
-									for (String depto: deptos) {
+                 				Set<String> deptos = (Set<String>) request.getAttribute("listadoDepartamentos");
+                 				for (String depto: deptos) {
 								%>
 									<option value="<%= depto %>" <%if(request.getAttribute("nombreDep") != null && request.getAttribute("nombreDep").equals(depto)){ 
 									%> selected="selected" <%} %>><%= depto %></option>

@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/angus-activation.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/angus-mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/FastInfoset.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/gmbal-api-only.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/ha-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jakarta.activation-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jakarta.annotation-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jakarta.mail-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jakarta.xml.bind-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jakarta.xml.soap-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jakarta.xml.ws-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jaxb-core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jaxb-jxc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jaxws-rt.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/jaxws-tools.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/management-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/mimepull.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/saaj-impl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/stax2-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/stax-ex.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/streambuffer.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/woodstox-core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/plugins/jaxws-eclipselink-plugin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/plugins/org.eclipse.persistence.asm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/plugins/org.eclipse.persistence.core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/plugins/org.eclipse.persistence.moxy.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/plugins/org.eclipse.persistence.sdo.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Desktop/Estudio/jaxwsTprogLightServer/jaxws-ri/lib/plugins/sdo-eclipselink-plugin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

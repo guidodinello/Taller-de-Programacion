@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Set;
@@ -16,12 +17,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import excepciones.YaExisteException;
 import model.datatypes.DTActividad;
 import model.datatypes.estadoActividad;
 import model.logica.interfaces.Fabrica;
 import model.logica.interfaces.ICtrlActividad;
+import webservices.YaExisteException_Exception;
 
 
 /**
@@ -35,6 +40,9 @@ public class altaSalida extends HttpServlet {
 	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
     private String udi = "media/imagenes/salDefault.png";
     private String rui = "media/imagenes/";
+    webservices.WebServicesService service = new webservices.WebServicesService();
+    webservices.WebServices port = service.getWebServicesPort();
+    
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -84,8 +92,7 @@ public class altaSalida extends HttpServlet {
     
     
     protected void cargarActividades(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {        
-        Set<String> nomAct = iA.listarActividadesDepartamento(request.getParameter("nombreDep"));
-                
+        List<String> nomAct = port.listarActividadesDepartamento(request.getParameter("nombreDep")).getItem();
         Set<String> nomActCon = new HashSet<String>();
         for(String act : nomAct) {
             DTActividad actual = iA.getInfoActividad(act);
@@ -102,6 +109,9 @@ public class altaSalida extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    request.setAttribute("fail", false);
+        
+	    Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
+	    request.setAttribute("listadoDepartamentos", deptos);
 	    
 	    if(request.getParameter("nombreDep") != null) {
 	       cargarActividades(request, response);
@@ -111,16 +121,24 @@ public class altaSalida extends HttpServlet {
 	}
 
 	/**
+	 * @throws YaExisteException_Exception 
+	 * @throws DatatypeConfigurationException 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException, YaExisteException_Exception, DatatypeConfigurationException {
         String actividad = request.getParameter("actividad");
         String nombre = request.getParameter("nombre");
         
         String[] setFecha = request.getParameter("fechaNuevaYUnica").split("-");
         Integer hora = Integer.parseInt(request.getParameter("hora")); 
         GregorianCalendar fecha = new GregorianCalendar(Integer.parseInt(setFecha[0]), Integer.parseInt(setFecha[1])-1, Integer.parseInt(setFecha[2]), hora, 0);
+        
+        GregorianCalendar fechaDelDia = new GregorianCalendar();
+        
+        //paso a XMLGregorianCalendar
+        XMLGregorianCalendar xmlFecha= DatatypeFactory.newInstance().newXMLGregorianCalendar(fecha);
+        XMLGregorianCalendar xmlFechaDelDia= DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaDelDia);
         
         String lugar = request.getParameter("lugar");
         Integer cantMaxTur = Integer.parseInt(request.getParameter("cantMaxTur"));        
@@ -134,12 +152,14 @@ public class altaSalida extends HttpServlet {
         }
         
         try {
-            iA.altaSalidaTuristica(nombre, fecha, lugar, cantMaxTur, new GregorianCalendar(), actividad, fd);
+            port.altaSalidaTuristica(nombre, xmlFecha, lugar, cantMaxTur, xmlFechaDelDia, actividad, fd);
             request.setAttribute("exito", "Has registrado con exito la salida: " + nombre);
             request.getRequestDispatcher("/index").forward(request, response);
-        }catch(YaExisteException e) {
+        }catch(YaExisteException_Exception e) {
             e.printStackTrace();
             request.setAttribute("SalidaFailedError", e.getMessage());
+            Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
+            request.setAttribute("listadoDepartamentos", deptos);
             request.getRequestDispatcher("/WEB-INF/altaSalida/altaSalida.jsp").forward(request, response);
         }
 	}
@@ -147,7 +167,21 @@ public class altaSalida extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    request.setCharacterEncoding("UTF-8");
 		// TODO Auto-generated method stub
-		processRequest(request, response);
+		try {
+            processRequest(request, response);
+        } catch (ServletException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (YaExisteException_Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (DatatypeConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 
 }

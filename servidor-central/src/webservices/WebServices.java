@@ -1,7 +1,9 @@
 package webservices;
 
+import java.util.GregorianCalendar;
 import java.util.Set;
 
+import excepciones.YaExisteException;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
@@ -37,5 +39,21 @@ public class WebServices {
     	String[] res = new String[lista.size()];
     	lista.toArray(res);
     	return res;
+    }
+    
+    @WebMethod
+    public String[] listarActividadesDepartamento(String depto) {
+    	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+    	Set<String> listado = ctrlAct.listarActividadesDepartamento(depto);
+    	String[] resu = new String[listado.size()];
+    	listado.toArray(resu);
+    	return resu;
+    }
+    
+    @WebMethod
+	public void altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal, int cantMaxTuristas, 
+			GregorianCalendar fechaAlta, String  actividad, String img) throws YaExisteException {
+    	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+    	ctrlAct.altaSalidaTuristica(nombreSal, fechaSal, lugarSal, cantMaxTuristas, fechaAlta, actividad, img);
     }
 }
