@@ -4,6 +4,9 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 
 import excepciones.YaExisteException;
+import datatypes.DTActividad;
+import datatypes.DTPaquete;
+import datatypes.DTSalida;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
@@ -55,5 +58,41 @@ public class WebServices {
 			GregorianCalendar fechaAlta, String  actividad, String img) throws YaExisteException {
     	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
     	ctrlAct.altaSalidaTuristica(nombreSal, fechaSal, lugarSal, cantMaxTuristas, fechaAlta, actividad, img);
+    }
+    
+    @WebMethod
+    public DTPaquete getInfoPaquete(String paq) {
+    	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+    	return ctrlAct.getInfoPaquete(paq);
+    }
+    
+    @WebMethod
+    public String[] listarPaquetesCategoria(String categoria) {
+    	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+    	Set<String> lista = ctrlAct.listarPaquetesCategoria(categoria);
+    	String[] res = new String[lista.size()];
+    	lista.toArray(res);
+    	return res;
+    }
+    
+    @WebMethod
+    public String[] listarPaquetes() {
+    	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+    	Set<String> lista = ctrlAct.listarPaquetes();
+    	String[] res = new String[lista.size()];
+    	lista.toArray(res);
+    	return res;
+    }
+    
+    @WebMethod
+    public DTActividad getInfoActividad(String actividad) {
+    	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+    	return ctrlAct.getInfoActividad(actividad);
+    }
+    
+    @WebMethod
+    public DTSalida getInfoCompletaSalida(String salida) {
+    	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+    	return ctrlAct.getInfoCompletaSalida(salida);
     }
 }

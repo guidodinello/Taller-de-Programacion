@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.categoria"%>
-<%@page import="model.datatypes.DTPaquete"%>
+<%@page import="webservices.DtPaquete"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Set"%>
 <!DOCTYPE html>
@@ -24,16 +24,16 @@
 	
 			<%	
 			@SuppressWarnings("unchecked") 
-			Set<DTPaquete> paquetes = (Set<DTPaquete>) request.getAttribute("datosPaquetes");
-			for (DTPaquete paq : paquetes) {
+			Set<DtPaquete> paquetes = (Set<DtPaquete>) request.getAttribute("datosPaquetes");
+			for (DtPaquete paq : paquetes) {
 			%>
 			<a class="text-decoration-none" href="paquete?nombrePaquete=<%=paq.getNombre()%>">
 						<div
 							class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
-							style="background-image: url('<%=paq.getImg()%>');">
+							style="background-image: url('<%=paq.getImgDir()%>');">
 							<div class="row g-0 mask card-color">
 								<div class="col-md-4 align-self-center">
-									<img src="<%=paq.getImg() %>"
+									<img src="<%=paq.getImgDir() %>"
 										class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 										alt="actividad Turistica: <%=paq.getNombre()%>">
 								</div>

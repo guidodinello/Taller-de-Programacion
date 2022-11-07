@@ -1,9 +1,14 @@
 package datatypes;
 
 import java.util.Set;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTActividad {
 	
 	private String nombre;
