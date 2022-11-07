@@ -26,6 +26,8 @@ import model.datatypes.DTActividad;
 import model.datatypes.estadoActividad;
 import model.logica.interfaces.Fabrica;
 import model.logica.interfaces.ICtrlActividad;
+import webservices.DtActividad;
+import webservices.EstadoActividad;
 import webservices.YaExisteException_Exception;
 
 
@@ -95,8 +97,8 @@ public class altaSalida extends HttpServlet {
         List<String> nomAct = port.listarActividadesDepartamento(request.getParameter("nombreDep")).getItem();
         Set<String> nomActCon = new HashSet<String>();
         for(String act : nomAct) {
-            DTActividad actual = iA.getInfoActividad(act);
-            if(actual.getestado() == estadoActividad.confirmada)
+            DtActividad actual = port.getInfoActividad(act);
+            if(actual.getEstado() == EstadoActividad.CONFIRMADA)
                 nomActCon.add(actual.getNombre());
         }
         request.setAttribute("nombreDep", request.getParameter("nombreDep"));
@@ -110,7 +112,7 @@ public class altaSalida extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    request.setAttribute("fail", false);
         
-	    Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
+	    List<String> deptos = port.listarDepartamentos().getItem();
 	    request.setAttribute("listadoDepartamentos", deptos);
 	    
 	    if(request.getParameter("nombreDep") != null) {
@@ -158,7 +160,7 @@ public class altaSalida extends HttpServlet {
         }catch(YaExisteException_Exception e) {
             e.printStackTrace();
             request.setAttribute("SalidaFailedError", e.getMessage());
-            Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
+            List<String> deptos = port.listarDepartamentos().getItem();
             request.setAttribute("listadoDepartamentos", deptos);
             request.getRequestDispatcher("/WEB-INF/altaSalida/altaSalida.jsp").forward(request, response);
         }

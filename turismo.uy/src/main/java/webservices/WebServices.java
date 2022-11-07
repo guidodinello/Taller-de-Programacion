@@ -35,8 +35,8 @@ public interface WebServices {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/listarCategoriasRequest", output = "http://webservices/WebServices/listarCategoriasResponse")
-    public StringArray listarCategorias();
+    @Action(input = "http://webservices/WebServices/listarDepartamentosRequest", output = "http://webservices/WebServices/listarDepartamentosResponse")
+    public StringArray listarDepartamentos();
 
     /**
      * 
@@ -50,6 +50,39 @@ public interface WebServices {
     public StringArray listarActividadesDepartamento(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/listarCategoriasRequest", output = "http://webservices/WebServices/listarCategoriasResponse")
+    public StringArray listarCategorias();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns webservices.DtActividad
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/getInfoActividadRequest", output = "http://webservices/WebServices/getInfoActividadResponse")
+    public DtActividad getInfoActividad(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/listarPaquetesRequest", output = "http://webservices/WebServices/listarPaquetesResponse")
+    public StringArray listarPaquetes();
 
     /**
      * 
@@ -83,5 +116,44 @@ public interface WebServices {
         String arg6)
         throws YaExisteException_Exception
     ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/listarPaquetesCategoriaRequest", output = "http://webservices/WebServices/listarPaquetesCategoriaResponse")
+    public StringArray listarPaquetesCategoria(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns webservices.DtSalida
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/getInfoCompletaSalidaRequest", output = "http://webservices/WebServices/getInfoCompletaSalidaResponse")
+    public DtSalida getInfoCompletaSalida(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns webservices.DtPaquete
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/getInfoPaqueteRequest", output = "http://webservices/WebServices/getInfoPaqueteResponse")
+    public DtPaquete getInfoPaquete(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
 
 }

@@ -45,6 +45,15 @@ public class WebServices {
     }
     
     @WebMethod
+    public String[] listarDepartamentos(){
+    	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+    	Set<String> listado = ctrlAct.listarDepartamentos();
+    	String[] resu = new String[listado.size()];
+    	listado.toArray(resu);
+    	return resu;
+    }
+    
+    @WebMethod
     public String[] listarActividadesDepartamento(String depto) {
     	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
     	Set<String> listado = ctrlAct.listarActividadesDepartamento(depto);
