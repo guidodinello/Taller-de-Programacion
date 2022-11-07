@@ -3,9 +3,12 @@ package datatypes;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
 //import logica.clases.SalidaTuristica;
 
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTSalida {
 	private String nombre;
 	private String nombreActividad;

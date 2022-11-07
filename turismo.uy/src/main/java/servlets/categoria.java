@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.logica.interfaces.Fabrica;
-import model.logica.interfaces.ICtrlActividad;
-import model.datatypes.DTPaquete;
+import webservices.DtPaquete;
 
 @WebServlet("/categoria")
 public class categoria extends HttpServlet {
@@ -23,13 +22,14 @@ public class categoria extends HttpServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
+        webservices.WebServicesService service = new webservices.WebServicesService();
+        webservices.WebServices port = service.getWebServicesPort();
         String name = (String) request.getParameter("nombreCat");
-        Set<String> paquetes = ctrlActividad.listarPaquetesCategoria(name);
+        List<String> paquetes = port.listarPaquetesCategoria(name).getItem();
         
-        Set<DTPaquete> dtPaq = new HashSet<DTPaquete>();
+        Set<DtPaquete> dtPaq = new HashSet<DtPaquete>();
         for(String paq : paquetes)
-            dtPaq.add(ctrlActividad.getInfoPaquete(paq));
+            dtPaq.add(port.getInfoPaquete(paq));
         
         request.setAttribute("datosPaquetes", dtPaq);
         

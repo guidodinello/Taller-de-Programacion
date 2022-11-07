@@ -4,6 +4,8 @@
 <%@page import="model.datatypes.DTPaquete"%>
 <%@page import="model.datatypes.DTActividad"%>
 <%@page import="model.datatypes.DTTurista"%>
+<%@page import="webservices.DtPaquete"%>
+<%@page import="webservices.DtActividad"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Set"%>
 <!DOCTYPE html>
@@ -18,8 +20,8 @@
 	<jsp:include page="/WEB-INF/templates/Navbar.jsp" />
 	
 	<% 
-	DTPaquete paquete = (DTPaquete) request.getAttribute("paquete");
-	Set<DTActividad> actividadesPaquete = (Set<DTActividad>) request.getAttribute("datosActividadPaquete");
+	DtPaquete paquete = (DtPaquete) request.getAttribute("paquete");
+	Set<DtActividad> actividadesPaquete = (Set<DtActividad>) request.getAttribute("datosActividadPaquete");
 	%>
 	
 	<div class="row mt-5 mt-lg-0 container-principal">
@@ -31,7 +33,7 @@
 			<div class="card mb-3" style="max-width: 800px;">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="<%= paquete.getImg() %>" class="img-fluid rounded-start" alt="...">
+						<img src="<%= paquete.getImgDir() %>" class="img-fluid rounded-start" alt="...">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
@@ -46,7 +48,7 @@
 							%>
 							<p class="card-text"><small class="text-muted">Fecha de alta: 
 								<%= 
-									new SimpleDateFormat("dd/MM/yyyy").format(paquete.getFechaAlta().getTime())
+									new SimpleDateFormat("dd/MM/yyyy").format(paquete.getFechaAlta().toGregorianCalendar().getTime())
 								%></small></p>
 						</div>
 					</div>
@@ -111,7 +113,7 @@
                     <ul class="list-group list-group-flush">
                         
                         <%
-                        	for(DTActividad actividad: actividadesPaquete){
+                        	for(DtActividad actividad: actividadesPaquete){
                         %>
                         
                         <div class="list-group-item p-1">

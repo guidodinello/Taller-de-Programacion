@@ -264,7 +264,7 @@ public class CargarDatosDePrueba {
     try {
       ica.crearPaquete("Disfrutar Rocha",
           "Actividades para hacer en familia y disfrutar arte y gastronomía", 60, 20,
-          new GregorianCalendar(2022, 7, 10), "tinyurl.com/3ppwdca4");
+          new GregorianCalendar(2022, 7, 10), "media/imagenes/Disfrutar Rocha_paq.jpg");
       ica.crearPaquete("Un día en Colonia",
           "Paseos por el casco histórico y se puede terminar con Almuerzo en la Plaza de Toros", 45,
           15, new GregorianCalendar(2022, 7, 1), "tinyurl.com/4yzrdt8b");

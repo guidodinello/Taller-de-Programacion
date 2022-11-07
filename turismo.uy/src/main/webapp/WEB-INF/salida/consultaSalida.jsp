@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.salida"%>
-<%@page import="model.datatypes.DTSalida"%>
+<%@page import="webservices.DtSalida"%>
 <%@page import="model.datatypes.DTActividad"%>
 <%@page import="model.datatypes.DTTurista"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -17,7 +17,7 @@
 <body>
     <jsp:include page="/WEB-INF/templates/Navbar.jsp" />
     
-    <% DTSalida salida = (DTSalida) request.getAttribute("salida"); %>
+    <% DtSalida salida = (DtSalida) request.getAttribute("salida"); %>
     
     <div class="row mt-5 mt-lg-0 container-principal">
     
@@ -38,7 +38,7 @@
 							
 							<div><a href="consultaActividad?nombreAct=<%= nombreActividad %>">Consulta de Actividad Turistica</a></div>
 							<%
-							if(session.getAttribute("usuario_logueado") instanceof DTTurista && salida.getfechaSalida().after(new GregorianCalendar())){
+							if(session.getAttribute("usuario_logueado") instanceof DTTurista && salida.getFechaSalida().toGregorianCalendar().after(new GregorianCalendar())){
 							%>
 							<div><a href="inscripcionSalida?nombreSalida=<%= salida.getNombre() %>">Inscripcion a Salida Turistica</a></div>
 							<%
@@ -46,7 +46,7 @@
 							%>
 							<p class="card-text"><small class="text-muted">Fecha de alta: 
 								<%= 
-									new SimpleDateFormat("dd/MM/yyyy").format(salida.getfechaAlta().getTime())
+									new SimpleDateFormat("dd/MM/yyyy").format(salida.getFechaAlta().toGregorianCalendar().getTime())
 								%>
 							</small></p>
 						</div>
@@ -68,7 +68,7 @@
 		                        <div class="col-auto">
 		                        	<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
 		                        	<%= 
-									new SimpleDateFormat("dd/MM/yyyy").format(salida.getfechaSalida().getTime())
+									new SimpleDateFormat("dd/MM/yyyy").format(salida.getFechaSalida().toGregorianCalendar().getTime())
 									%>>
 		                    	</div>
 		                    </div>
@@ -83,7 +83,7 @@
 								<div class="col-auto">
 									<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=
 									<%= 
-									new SimpleDateFormat("HH:mm").format(salida.getfechaSalida().getTime())
+									new SimpleDateFormat("HH:mm").format(salida.getFechaSalida().toGregorianCalendar().getTime())
 									%>>
 								</div>
 							
@@ -97,7 +97,7 @@
 									<label for="inputPassword6" class="col-form-label">Cantidad Turistas maxima:</label>
 								</div>
 								<div class="col-auto">
-									<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= salida.getcantidadMaximaDeTuristas() %>">
+									<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= salida.getMaxTuristas() %>">
 								</div>
 							              
 							</div>
@@ -110,7 +110,7 @@
 									<label for="inputPassword6" class="col-form-label disabled'">Lugar:</label>
 								</div>
 								<div class="col-md-8">
-									<input type="text" id="disabledTextInput" class="form-control" placeholder="<%= salida.getlugarSalida() %>">
+									<input type="text" id="disabledTextInput" class="form-control" placeholder="<%= salida.getLugarSalida() %>">
 								</div>
 							</div>
 						</fieldset>
