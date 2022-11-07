@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.departamento"%>
-<%@page import="model.datatypes.DTActividad"%>
+<%@page import="webservices.DtActividad"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Set"%>
 <!DOCTYPE html>
@@ -24,8 +24,8 @@
 	
 			<%	
 			@SuppressWarnings("unchecked") 
-			Set<DTActividad> actividades = (Set<DTActividad>) request.getAttribute("datosActividades");
-			for (DTActividad act : actividades) {
+			Set<DtActividad> actividades = (Set<DtActividad>) request.getAttribute("datosActividades");
+			for (DtActividad act : actividades) {
 			%>
 			<a class="text-decoration-none" href="consultaActividad?nombreAct=<%=act.getNombre()%>">
 						<div

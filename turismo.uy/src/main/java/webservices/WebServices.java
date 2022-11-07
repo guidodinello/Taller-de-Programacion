@@ -87,6 +87,19 @@ public interface WebServices {
     /**
      * 
      * @param arg0
+     * @return
+     *     returns webservices.DtSalida
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/getInfoCompletaSalidaRequest", output = "http://webservices/WebServices/getInfoCompletaSalidaResponse")
+    public DtSalida getInfoCompletaSalida(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
      * @param arg1
      * @param arg2
      * @param arg3
@@ -127,19 +140,6 @@ public interface WebServices {
     @WebResult(partName = "return")
     @Action(input = "http://webservices/WebServices/listarPaquetesCategoriaRequest", output = "http://webservices/WebServices/listarPaquetesCategoriaResponse")
     public StringArray listarPaquetesCategoria(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns webservices.DtSalida
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/getInfoCompletaSalidaRequest", output = "http://webservices/WebServices/getInfoCompletaSalidaResponse")
-    public DtSalida getInfoCompletaSalida(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
