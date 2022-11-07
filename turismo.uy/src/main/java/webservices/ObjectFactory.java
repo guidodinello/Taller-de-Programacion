@@ -44,6 +44,36 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DtPaquete }
+     * 
+     * @return
+     *     the new instance of {@link DtPaquete }
+     */
+    public DtPaquete createDtPaquete() {
+        return new DtPaquete();
+    }
+
+    /**
+     * Create an instance of {@link DtSalida }
+     * 
+     * @return
+     *     the new instance of {@link DtSalida }
+     */
+    public DtSalida createDtSalida() {
+        return new DtSalida();
+    }
+
+    /**
+     * Create an instance of {@link DtActividad }
+     * 
+     * @return
+     *     the new instance of {@link DtActividad }
+     */
+    public DtActividad createDtActividad() {
+        return new DtActividad();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link YaExisteException }{@code >}
      * 
      * @param value
