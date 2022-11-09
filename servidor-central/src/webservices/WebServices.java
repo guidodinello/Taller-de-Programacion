@@ -255,15 +255,5 @@ public class WebServices {
     	DTProveedor proveedor = new DTProveedor(p);
     	return proveedor;
     }
-     @WebMethod
-    public DTActividad getInfoActividad(String actividad){
-    	DTActividad datosActividad = ctrlAct.getInfoActividad(actividad);
-    	return datosActividad;
-    }
-     @WebMethod
-    public ActividadTuristica obtenerActividadTuristica(String actividad){
-    	HandlerActividades hA = HandlerActividades.getInstance();
-    	ActividadTuristica act = hA.obtenerActividadTuristica(actividad);
-    	return act;
-    }
+
 }
