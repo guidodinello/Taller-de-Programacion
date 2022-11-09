@@ -206,4 +206,64 @@ public class WebServices {
     public DTProveedor getDTProveedor() {
     	return new DTProveedor();
     }
+        @WebMethod
+    public 	DTActividad [] listarInfoCompletaActividadesProveedor(String nickname) {
+    	Set<DTActividad>  actividades =  ctrlUsr.listarInfoCompletaActividadesProveedor(nickname);
+    	int arraySize =actividades.size();
+    	DTActividad[] actividadesArray = new DTActividad[arraySize];
+    	actividadesArray = actividades.toArray(actividadesArray);
+    	return actividadesArray;
+    	
+    }
+        @WebMethod
+    public DTUsuario getInfoBasicaUsuario(String usr) {
+    	DTUsuario  usuario =  ctrlUsr.getInfoBasicaUsuario(usr) ;
+    	return usuario;
+    }
+    @WebMethod
+    public DTSalida []  listarInfoSalidasTurista(String nickname) {
+    	Set<DTSalida>  salidas =  ctrlUsr.listarInfoSalidasTurista(nickname);
+    	int arraySize =salidas.size();
+    	DTSalida[] salidasArray = new DTSalida[arraySize];
+    	salidasArray = salidas.toArray(salidasArray);
+    	return salidasArray;
+    	
+    }
+       @WebMethod
+    public String[] listarUsuarios() {
+    	Set<String > usuarios =  ctrlUsr.listarUsuarios();
+    	int arraySize = usuarios.size();
+    	String[] usuariosArray = new String[arraySize];
+    	usuariosArray = usuarios.toArray(usuariosArray);
+    	return usuariosArray;
+    }
+      @WebMethod
+    public DTTurista getInfoTurista(String nickname) {
+    	DTTurista turista = (DTTurista) ctrlUsr.getInfoBasicaUsuario(nickname);
+    	return turista;
+    }
+     @WebMethod
+    public void  actualizarUsuario(String nickname,String nombre,String apellido, GregorianCalendar date,String photo , String nacionalidad,String descripcion,String sitioWeb) {
+    	
+    	ctrlUsr.actualizarUsuario(nickname, nombre, apellido, date, photo, nacionalidad, "", "");
+	       
+    }
+    @WebMethod
+    public DTProveedor getProveedorByNickname(String nickname) {
+    	HandlerUsuarios hU = HandlerUsuarios.getInstance();
+    	Proveedor p = hU.getProveedorByNickname(nickname);
+    	DTProveedor proveedor = new DTProveedor(p);
+    	return proveedor;
+    }
+     @WebMethod
+    public DTActividad getInfoActividad(String actividad){
+    	DTActividad datosActividad = ctrlAct.getInfoActividad(actividad);
+    	return datosActividad;
+    }
+     @WebMethod
+    public ActividadTuristica obtenerActividadTuristica(String actividad){
+    	HandlerActividades hA = HandlerActividades.getInstance();
+    	ActividadTuristica act = hA.obtenerActividadTuristica(actividad);
+    	return act;
+    }
 }
