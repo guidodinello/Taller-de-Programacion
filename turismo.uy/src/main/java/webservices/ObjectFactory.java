@@ -44,13 +44,13 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtPaquete }
+     * Create an instance of {@link DtUsuario }
      * 
      * @return
-     *     the new instance of {@link DtPaquete }
+     *     the new instance of {@link DtUsuario }
      */
-    public DtPaquete createDtPaquete() {
-        return new DtPaquete();
+    public DtUsuario createDtUsuario() {
+        return new DtUsuario();
     }
 
     /**
@@ -61,6 +61,16 @@ public class ObjectFactory {
      */
     public DtSalida createDtSalida() {
         return new DtSalida();
+    }
+
+    /**
+     * Create an instance of {@link DtPaquete }
+     * 
+     * @return
+     *     the new instance of {@link DtPaquete }
+     */
+    public DtPaquete createDtPaquete() {
+        return new DtPaquete();
     }
 
     /**

@@ -12,9 +12,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Clase Java para dtPaquete complex type.
+ * <p>Java class for dtPaquete complex type.
  * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>{@code
  * <complexType name="dtPaquete">
@@ -66,7 +66,7 @@ public class DtPaquete {
     protected float costo;
 
     /**
-     * Obtiene el valor de la propiedad nombre.
+     * Gets the value of the nombre property.
      * 
      * @return
      *     possible object is
@@ -78,7 +78,7 @@ public class DtPaquete {
     }
 
     /**
-     * Define el valor de la propiedad nombre.
+     * Sets the value of the nombre property.
      * 
      * @param value
      *     allowed object is
@@ -90,7 +90,7 @@ public class DtPaquete {
     }
 
     /**
-     * Obtiene el valor de la propiedad descripcion.
+     * Gets the value of the descripcion property.
      * 
      * @return
      *     possible object is
@@ -102,7 +102,7 @@ public class DtPaquete {
     }
 
     /**
-     * Define el valor de la propiedad descripcion.
+     * Sets the value of the descripcion property.
      * 
      * @param value
      *     allowed object is
@@ -114,7 +114,7 @@ public class DtPaquete {
     }
 
     /**
-     * Obtiene el valor de la propiedad imgDir.
+     * Gets the value of the imgDir property.
      * 
      * @return
      *     possible object is
@@ -126,7 +126,7 @@ public class DtPaquete {
     }
 
     /**
-     * Define el valor de la propiedad imgDir.
+     * Sets the value of the imgDir property.
      * 
      * @param value
      *     allowed object is
@@ -138,7 +138,7 @@ public class DtPaquete {
     }
 
     /**
-     * Obtiene el valor de la propiedad periodoValidez.
+     * Gets the value of the periodoValidez property.
      * 
      */
     public int getPeriodoValidez() {
@@ -146,7 +146,7 @@ public class DtPaquete {
     }
 
     /**
-     * Define el valor de la propiedad periodoValidez.
+     * Sets the value of the periodoValidez property.
      * 
      */
     public void setPeriodoValidez(int value) {
@@ -154,7 +154,7 @@ public class DtPaquete {
     }
 
     /**
-     * Obtiene el valor de la propiedad descuento.
+     * Gets the value of the descuento property.
      * 
      */
     public float getDescuento() {
@@ -162,7 +162,7 @@ public class DtPaquete {
     }
 
     /**
-     * Define el valor de la propiedad descuento.
+     * Sets the value of the descuento property.
      * 
      */
     public void setDescuento(float value) {
@@ -170,7 +170,7 @@ public class DtPaquete {
     }
 
     /**
-     * Obtiene el valor de la propiedad fechaAlta.
+     * Gets the value of the fechaAlta property.
      * 
      * @return
      *     possible object is
@@ -182,7 +182,7 @@ public class DtPaquete {
     }
 
     /**
-     * Define el valor de la propiedad fechaAlta.
+     * Sets the value of the fechaAlta property.
      * 
      * @param value
      *     allowed object is
@@ -256,7 +256,7 @@ public class DtPaquete {
     }
 
     /**
-     * Obtiene el valor de la propiedad costo.
+     * Gets the value of the costo property.
      * 
      */
     public float getCosto() {
@@ -264,7 +264,7 @@ public class DtPaquete {
     }
 
     /**
-     * Define el valor de la propiedad costo.
+     * Sets the value of the costo property.
      * 
      */
     public void setCosto(float value) {

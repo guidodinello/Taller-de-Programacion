@@ -2,17 +2,20 @@
 <%@page import="servlets.altaUsuario" %>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>
-<%@page import="model.datatypes.DTUsuario"%>
-<%@page import="model.datatypes.DTProveedor"%>
-<%@page import="model.datatypes.DTTurista"%>
-<%@page import="model.logica.interfaces.Fabrica"%>
-<%@page import="model.logica.interfaces.ICtrlActividad"%>
+<%@page import="webservices.DtUsuario"%>
+<%@page import="webservices.DtProveedor"%>
+<%@page import="webservices.DtTurista"%>
 
+<%
+// Hay que cambiarlo despues
+webservices.WebServicesService service = new webservices.WebServicesService();
+webservices.WebServices port = service.getWebServicesPort();
+%>
 
 <div class="col-sm-3 mt-5 mt-lg-0">
 	<%
-	DTUsuario usr = (DTUsuario) session.getAttribute("usuario_logueado");
-	if (usr instanceof DTTurista) {
+	DtUsuario usr = (DtUsuario) session.getAttribute("usuario_logueado");
+	if (usr instanceof DtTurista) {
 	%>
 		<div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
                 <div class="card-header ">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i></div>
@@ -24,7 +27,7 @@
                 </div>
           </div>
 	<%
-	}else if (usr instanceof DTProveedor){
+	}else if (usr instanceof DtProveedor){
 	%>
             <div class="card border-light mb-5 mx-auto text-center text-lg-start card-container">
                 <div class="card-header fw-semibold">Mi perfil <i class="fa fa-caret-right" aria-hidden="true"></i>
@@ -56,7 +59,7 @@
 		             <ul class="list-group list-group-flush">
 		             
 		             	<%
-							Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
+							List<String> deptos = port.listarDepartamentos().getItem();
 							for (String depto: deptos) {
 						%>
 		                	<a href="departamento?nombreDpto=<%= depto %>" class="list-group-item list-group-item-action"><%= depto %></a>
@@ -71,8 +74,7 @@
 		        <div class="card-body">
 		              <ul class="list-group list-group-flush">
 		              	<%
-		              		webservices.WebServicesService service = new webservices.WebServicesService();
-		              		webservices.WebServices port = service.getWebServicesPort();
+
 		              		List<String> categorias = port.listarCategorias().getItem();
 		              		
 							//Set<String> categorias = Fabrica.getInstance().getICtrlActividad().listarCategorias();
