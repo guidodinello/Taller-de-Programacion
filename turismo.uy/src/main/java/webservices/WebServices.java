@@ -30,24 +30,14 @@ public interface WebServices {
 
     /**
      * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/listarDepartamentosRequest", output = "http://webservices/WebServices/listarDepartamentosResponse")
-    public StringArray listarDepartamentos();
-
-    /**
-     * 
      * @param arg0
      * @return
      *     returns net.java.dev.jaxb.array.StringArray
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/listarActividadesDepartamentoRequest", output = "http://webservices/WebServices/listarActividadesDepartamentoResponse")
-    public StringArray listarActividadesDepartamento(
+    @Action(input = "http://webservices/WebServices/listarPaquetesCategoriaRequest", output = "http://webservices/WebServices/listarPaquetesCategoriaResponse")
+    public StringArray listarPaquetesCategoria(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
 
@@ -58,44 +48,8 @@ public interface WebServices {
      */
     @WebMethod
     @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/listarCategoriasRequest", output = "http://webservices/WebServices/listarCategoriasResponse")
-    public StringArray listarCategorias();
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns webservices.DtActividad
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/getInfoActividadRequest", output = "http://webservices/WebServices/getInfoActividadResponse")
-    public DtActividad getInfoActividad(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/listarPaquetesRequest", output = "http://webservices/WebServices/listarPaquetesResponse")
-    public StringArray listarPaquetes();
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns webservices.DtSalida
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/getInfoCompletaSalidaRequest", output = "http://webservices/WebServices/getInfoCompletaSalidaResponse")
-    public DtSalida getInfoCompletaSalida(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
+    @Action(input = "http://webservices/WebServices/listarActividadesConfirmadasRequest", output = "http://webservices/WebServices/listarActividadesConfirmadasResponse")
+    public StringArray listarActividadesConfirmadas();
 
     /**
      * 
@@ -134,19 +88,6 @@ public interface WebServices {
      * 
      * @param arg0
      * @return
-     *     returns net.java.dev.jaxb.array.StringArray
-     */
-    @WebMethod
-    @WebResult(partName = "return")
-    @Action(input = "http://webservices/WebServices/listarPaquetesCategoriaRequest", output = "http://webservices/WebServices/listarPaquetesCategoriaResponse")
-    public StringArray listarPaquetesCategoria(
-        @WebParam(name = "arg0", partName = "arg0")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
      *     returns webservices.DtPaquete
      */
     @WebMethod
@@ -155,5 +96,116 @@ public interface WebServices {
     public DtPaquete getInfoPaquete(
         @WebParam(name = "arg0", partName = "arg0")
         String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns webservices.DtSalida
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/getInfoCompletaSalidaRequest", output = "http://webservices/WebServices/getInfoCompletaSalidaResponse")
+    public DtSalida getInfoCompletaSalida(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns webservices.DtUsuario
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/getUsuarioByEmailRequest", output = "http://webservices/WebServices/getUsuarioByEmailResponse")
+    public DtUsuario getUsuarioByEmail(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns webservices.DtUsuario
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/getUsuarioByNickNameRequest", output = "http://webservices/WebServices/getUsuarioByNickNameResponse")
+    public DtUsuario getUsuarioByNickName(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @param arg1
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/verifiedUserPasswordRequest", output = "http://webservices/WebServices/verifiedUserPasswordResponse")
+    public boolean verifiedUserPassword(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0,
+        @WebParam(name = "arg1", partName = "arg1")
+        String arg1);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/listarDepartamentosRequest", output = "http://webservices/WebServices/listarDepartamentosResponse")
+    public StringArray listarDepartamentos();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns webservices.DtActividad
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/getInfoActividadRequest", output = "http://webservices/WebServices/getInfoActividadResponse")
+    public DtActividad getInfoActividad(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/listarActividadesDepartamentoRequest", output = "http://webservices/WebServices/listarActividadesDepartamentoResponse")
+    public StringArray listarActividadesDepartamento(
+        @WebParam(name = "arg0", partName = "arg0")
+        String arg0);
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/listarCategoriasRequest", output = "http://webservices/WebServices/listarCategoriasResponse")
+    public StringArray listarCategorias();
+
+    /**
+     * 
+     * @return
+     *     returns net.java.dev.jaxb.array.StringArray
+     */
+    @WebMethod
+    @WebResult(partName = "return")
+    @Action(input = "http://webservices/WebServices/listarPaquetesRequest", output = "http://webservices/WebServices/listarPaquetesResponse")
+    public StringArray listarPaquetes();
 
 }

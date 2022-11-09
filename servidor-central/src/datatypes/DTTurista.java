@@ -3,13 +3,19 @@ package datatypes;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import logica.clases.Compra;
 import logica.clases.Turista;
 
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTTurista extends DTUsuario {
 	private String nacionalidad;
 	private Set<DTCompra> compras;
+	
+	public DTTurista() {
+	  
+	}
 	
 	public DTTurista(Turista turista) {
 		super(turista);

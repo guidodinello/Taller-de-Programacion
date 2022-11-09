@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.iniciarSesion"%>
-<%@page import="model.logica.clases.Usuario"%>
 
 <!DOCTYPE html>
 <html>
