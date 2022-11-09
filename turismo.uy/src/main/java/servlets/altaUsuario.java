@@ -26,40 +26,11 @@ public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
 	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
-	private String udi = "media/imagenes/usuarioPerfil.png";
-	private String rui = "media/imagenes/";
 	
 	public altaUsuario() {
 		super();
 	}
 	
-    private String guardarImg(Part p, HttpServletRequest req, String ext) {
-        String dir = udi;
-        try {
-            /*Si existe un archivo con el mismo nombre lo eliminamos*/
-            File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+req.getParameter("Nickname")+ "_usr" +ext);
-            System.out.println(req.getServletContext().getRealPath("/"+rui)+"/"+req.getParameter("Nickname")+ "_usr" +ext);
-            if(file.delete())
-                System.out.println("deleted");
-            
-            
-            dir = req.getServletContext().getRealPath("/"+rui);
-            File fil = new File(dir);
-            
-            String na = req.getParameter("Nickname")+ "_usr" + ext;
-            InputStream ab = p.getInputStream(); 
-            
-            if(ab != null) {
-                File img = new File(fil, na);
-                dir = rui + na;
-                Files.copy(ab, img.toPath());       
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dir;
-    }
-
 	private String extencionValida(String fn) {
 	    String res = "";
 		for(String es : ext) {
@@ -73,33 +44,35 @@ public class altaUsuario extends HttpServlet {
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 		HttpSession ses = request.getSession();
+	    webservices.WebServicesService service = new webservices.WebServicesService();
+	    webservices.WebServices port = service.getWebServicesPort();
 		if(ses.getAttribute("usuario_logueado") != null) {
 			response.sendRedirect("index");
 			return;
 		}
+		 
 		String nic     = request.getParameter("Nickname");
 		String nom     = request.getParameter("Nombre");
 		String ape    = request.getParameter("Apellido");
 		String ema    = request.getParameter("Email");
-		String [] nac = request.getParameter("FechaNacimiento").split("-");
+		String nac = request.getParameter("FechaNacimiento");
 		String tU  = request.getParameter("TipoUsuario");
 		String pas     = request.getParameter("Contrasenia");
 		//Foto de perfil
 		Part p     = request.getPart("FotoPerfil");
-		String fd = udi;  //para guardar la direccion;
-		
+		byte [] fotoBin = null;  //guardar binario de la foto
 		if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
-		    fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
+		    fotoBin = p.getInputStream().readAllBytes();
 		}
 		
 		try {
 			if(tU.equals("Turista")) {
-				String nacionalidad = request.getParameter("Nacionalidad");
-				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd,tipoUsuario.turista, nacionalidad, "", "");
+			    String nacionalidad = request.getParameter("Nacionalidad");
+                port.altaUsuario(nic, nom, ape, ema, pas, nac, fotoBin, extencionValida(p.getSubmittedFileName()), "Turista", nacionalidad, "", "");
 			}else {
 				String des = request.getParameter("Descripcion");
 				String web = request.getParameter("LinkSitioWeb");
-				ctrlUsuario.altaUsuario(nic, ema, nom, ape, pas, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, tipoUsuario.proveedor, "", des, web);
+				port.altaUsuario(nic, nom, ape, ema, pas, nac, fotoBin, extencionValida(p.getSubmittedFileName()), "Turista", "", des, web);
 			}
 		    DTUsuario usr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nic);
             ses.setAttribute("usuario_logueado", usr);
@@ -115,6 +88,16 @@ public class altaUsuario extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
+	       webservices.WebServicesService service = new webservices.WebServicesService();
+	       webservices.WebServices port = service.getWebServicesPort();
+	       if(req.getParameter("existe") != null) {
+	            boolean existe = port.existeUsuario(req.getParameter("existe"));
+	            if(existe) {
+	                res.sendError(400);
+	                System.out.print(existe);
+	            }
+	            return;
+	        }
 			req.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(req, res);
 	}
 	

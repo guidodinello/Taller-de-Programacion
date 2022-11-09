@@ -3,6 +3,7 @@
 $("#NacionalidadRegistroDiv").hide();
 $("#DescripcionRegistroDiv").hide();
 $("#SitioWebRegistroDiv").hide();
+$("#DivAjaxUsuarioYaExiste").hide();
 
 /*Cuando selecciona un tipo de usuario*/
 $("#TipoUsuarioRegistroOption").on("mouseup", function(){
@@ -129,6 +130,21 @@ const formularioValidado = () => {
     return  nick && nomb && apel && email && fNac && contrasenia && campoExtra;
     
 }
+
+$("#NicknameRegistroText").on("keyup", async function(){
+	$.ajax({
+  		method: "GET",
+  		url: "altaUsuario",
+  		data: {existe:$("#NicknameRegistroText").val()},
+	}).fail(function( jqXHR, textStatus ) {
+  		$("#DivAjaxUsuarioYaExiste").show();
+  		$("#spanNicknameYaExisteAjax").text($("#NicknameRegistroText").val());
+  		
+  		
+	}).done(function( jqXHR, textStatus ) {
+  		$("#DivAjaxUsuarioYaExiste").hide();
+	})
+})
 
 /*Comportamiento de boton sumbit cuando no tiene todo lo requerido*/
 $("#btnRgistrarse").on("click", async function(e){

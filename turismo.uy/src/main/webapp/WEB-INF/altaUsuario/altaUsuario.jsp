@@ -48,6 +48,11 @@
 	                      <div id="NicknameRegistroTextNullValidate" class="invalid-feedback">
 	                          El campo Nickname es obligatorio.
 	                      </div>
+	                      <div id="DivAjaxUsuarioYaExiste">
+	                      	<i class="fa-solid fa-triangle-exclamation"></i>
+	                      	El usuario con el nickname <span id="spanNicknameYaExisteAjax"></span> ya existe.
+	                      	Sugerencias: <span id="spanNicknameSugerencia"></span>
+	                      </div>
 	                  </div>
 	                  
 	                  <div class="mb-4 text-start" id="NombreRegistroDiv">
