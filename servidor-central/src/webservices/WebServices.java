@@ -19,6 +19,7 @@ import logica.interfaces.Fabrica;
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public class WebServices {
+  ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
 	
 	private Endpoint endpoint = null;
     //Constructor
@@ -93,6 +94,17 @@ public class WebServices {
     	return res;
     }
     
+    @WebMethod(exclude = true)
+    public String[] setToArray(Set<String> set) {
+      String[] res = new String[set.size()];
+      return set.toArray(res);
+    }
+    
+    @WebMethod
+    public String[] listarActividadesConfirmadas() {
+      return setToArray(ctrlAct.listarActividadesConfirmadas());
+    }
+    
     @WebMethod
     public DTActividad getInfoActividad(String actividad) {
     	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
@@ -104,4 +116,5 @@ public class WebServices {
     	ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
     	return ctrlAct.getInfoCompletaSalida(salida);
     }
+    
 }

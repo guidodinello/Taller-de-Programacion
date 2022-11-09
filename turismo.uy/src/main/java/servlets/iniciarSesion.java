@@ -17,6 +17,10 @@ import model.datatypes.DTUsuario;
 import model.datatypes.DTTurista;
 import model.datatypes.DTProveedor;
 
+//import webservices.DtUsuario;
+//import webservices.DtTurista;
+//import webservices.DtProveedor;
+
 
 /**
  * Servlet implementation class iniciarSesion
@@ -24,7 +28,10 @@ import model.datatypes.DTProveedor;
 @WebServlet("/iniciarSesion")
 public class iniciarSesion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+    
+    webservices.WebServicesService service = new webservices.WebServicesService();
+    webservices.WebServices port = service.getWebServicesPort();
+	
     /**
      * Default constructor. 
      */

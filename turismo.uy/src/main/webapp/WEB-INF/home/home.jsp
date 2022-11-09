@@ -1,8 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.logica.interfaces.Fabrica"%>
-<%@page import="model.logica.interfaces.ICtrlActividad"%>
-<%@page import="model.datatypes.DTActividad"%>
-<%@page import="java.util.Set"%>
+<%@page import="webservices.DtActividad"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
 
 <!DOCTYPE html>
 <html>
@@ -47,8 +46,10 @@
 
 			<%
 			@SuppressWarnings("unchecked")
-			Set<DTActividad> actividadesConfirmadas = (Set<DTActividad>) request.getAttribute("act_confirmadas");
-			for (DTActividad act : actividadesConfirmadas) {
+			List<DtActividad> actividadesConfirmadas = (List<DtActividad>) request.getAttribute("act_confirmadas");
+			Iterator<DtActividad> itr = actividadesConfirmadas.iterator();
+			while (itr.hasNext()) {
+			  DtActividad act = itr.next();
 			%>
 			<a class="text-decoration-none" href="consultaActividad?nombreAct=<%=act.getNombre()%>">
 				<div

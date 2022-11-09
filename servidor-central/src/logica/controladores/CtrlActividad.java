@@ -200,7 +200,7 @@ public class CtrlActividad implements ICtrlActividad{
 			}
 		});
 		return resu;
-	}
+	} 
 	
 	public Set<String> listarCategorias(){
 		Set<String> resultado = new HashSet<String>();
@@ -228,14 +228,18 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public Set<DTActividad> getDTActividadesConfirmadas() {
-		Function<ActividadTuristica, DTActividad> dts = a -> { 
-		  return a.getDTActividad(); 
-		  };
-		Predicate<ActividadTuristica> confirmada = a -> { 
-		  return a.getEstado().equals(estadoActividad.confirmada); 
-		};                                                          
-		return filterActividades(dts, confirmada);
+  public Set<String> listarActividadesConfirmadas(){
+    return filterActividades(
+        a -> { return a.getNombre(); },
+        a -> { return a.getEstado().equals(estadoActividad.confirmada); }
+    ); 
+  }
+	
+	public Set<DTActividad> getDTActividadesConfirmadas() {                                    
+    return filterActividades(
+        a -> { return a.getDTActividad(); },
+        a -> { return a.getEstado().equals(estadoActividad.confirmada); }
+    );
 	}
 
     public Set<String> listarPaquetesCategoria(String categoria) {

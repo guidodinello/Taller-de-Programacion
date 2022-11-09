@@ -34,6 +34,7 @@ public interface ICtrlActividad{
 	public abstract Set<String> listarCategorias();
 	public abstract void cambiarEstadoActividad(estadoActividad estado, String nombreAct);
 	public abstract <T> Set<T> filterActividades(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition);
+	public abstract Set<String> listarActividadesConfirmadas();
 	public abstract Set<DTActividad> getDTActividadesConfirmadas();
-    public abstract Set<String> listarPaquetesCategoria(String categoria);
+  public abstract Set<String> listarPaquetesCategoria(String categoria);
 }
