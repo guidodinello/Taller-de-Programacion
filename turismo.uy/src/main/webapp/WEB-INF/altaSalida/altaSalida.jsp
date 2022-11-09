@@ -2,6 +2,7 @@
 <%@page import="servlets.altaSalida" %>
 
 <%@page import="java.util.Set"%>
+<%@page import="java.util.List"%>
 
 <%@page import="model.logica.interfaces.Fabrica"%>
 <%@page import="model.logica.interfaces.ICtrlActividad"%>
@@ -58,8 +59,8 @@
                                 <%} %>> Seleccione un Departamento</option>
                  					
                  				<%
-									Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
-									for (String depto: deptos) {
+                 				List<String> deptos = (List<String>)request.getAttribute("listadoDepartamentos");
+                 				for (String depto: deptos) {
 								%>
 									<option value="<%= depto %>" <%if(request.getAttribute("nombreDep") != null && request.getAttribute("nombreDep").equals(depto)){ 
 									%> selected="selected" <%} %>><%= depto %></option>

@@ -3,7 +3,7 @@
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Set"%>
-<%@page import="model.datatypes.DTSalida"%>
+<%@page import="webservices.DtSalida"%>
 
 <!DOCTYPE html>
 <html>
@@ -24,9 +24,9 @@
 
 			<%
 			@SuppressWarnings("unchecked")
-			Set<DTSalida> salidas = (Set<DTSalida>) request.getAttribute("salidas");
+			Set<DtSalida> salidas = (Set<DtSalida>) request.getAttribute("salidas");
 		   	
-			for (DTSalida s : salidas) {
+			for (DtSalida s : salidas) {
 			    
 			%>
 				<a href="inscripcionSalida?nombreSalida=<%= s.getNombre() %>" class="text-decoration-none">
@@ -44,8 +44,8 @@
 									<h5 class="card-title"><%=s.getNombre()%></h5>
 									<p class="card-text"><%=s.getNombreActividad()%></p>
 									<p class="card-text"><%=s.getNombreDepartamentoActividad()%></p>
-									<p class="card-text">Fecha y Hora : <%=new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(s.getfechaSalida().getTime())%></p>
-									<p class="card-text"><%=s.getlugarSalida()%></p>
+									<p class="card-text">Fecha y Hora : <%=new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(s.getFechaSalida().toGregorianCalendar().getTime())%></p>
+									<p class="card-text"><%=s.getLugarSalida()%></p>
 								</div>
 							</div>
 						</div>

@@ -25,4 +25,7 @@ public interface ICtrlUsuario {
 	public abstract Set<DTActividad> listarInfoCompletaActividadesProveedor(String proveedor);
 	public abstract Set<String> listarUsuarios();
 	public abstract DTUsuario getInfoBasicaUsuario(String usr);
+	public abstract DTUsuario getUsuarioByEmail(String email);
+	public abstract DTUsuario getUsuarioByNickName(String nickname);
+	public abstract boolean verifiedUserPassword(String nick, String pass);
 }

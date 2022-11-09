@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.logica.interfaces.Fabrica;
-import model.logica.interfaces.ICtrlActividad;
-import model.datatypes.DTActividad;
-import model.datatypes.estadoActividad;
+import webservices.DtActividad;
+import webservices.EstadoActividad;
 
 @WebServlet("/departamento")
 public class departamento extends HttpServlet {
@@ -24,14 +23,15 @@ public class departamento extends HttpServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
+        webservices.WebServicesService service = new webservices.WebServicesService();
+        webservices.WebServices port = service.getWebServicesPort();
         String name = (String) request.getParameter("nombreDpto");
-        Set<String> actividades = ctrlActividad.listarActividadesDepartamento(name);
+        List<String> actividades = port.listarActividadesDepartamento(name).getItem();
         
-        Set<DTActividad> dtAct = new HashSet<DTActividad>();
+        Set<DtActividad> dtAct = new HashSet<DtActividad>();
         for(String act : actividades) {
-            DTActividad actual = ctrlActividad.getInfoActividad(act);
-            if(actual.getestado() == estadoActividad.confirmada)
+            DtActividad actual = port.getInfoActividad(act);
+            if(actual.getEstado() == EstadoActividad.CONFIRMADA)
                 dtAct.add(actual);
         }
         

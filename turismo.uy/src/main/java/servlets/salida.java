@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.logica.interfaces.ICtrlActividad;
-import model.logica.interfaces.Fabrica;
-
-import model.datatypes.DTSalida;
+import webservices.DtSalida;
 
 @WebServlet("/salida")
 public class salida extends HttpServlet {
@@ -22,9 +19,10 @@ public class salida extends HttpServlet {
 	}
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
-		ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
+	    webservices.WebServicesService service = new webservices.WebServicesService();
+        webservices.WebServices port = service.getWebServicesPort();
 		String name = (String) request.getParameter("nombreSalida");
-		DTSalida salidaT = ctrlActividad.getInfoCompletaSalida(name);
+		DtSalida salidaT = port.getInfoCompletaSalida(name);
 		String actividad = salidaT.getNombreActividad();
 		
 		request.setAttribute("salida", salidaT);

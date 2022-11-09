@@ -1,8 +1,12 @@
 package datatypes;
 
 import java.util.GregorianCalendar;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
 import logica.clases.Usuario;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTUsuario {
 	private String nickname;
 	private String email;
@@ -21,7 +25,11 @@ public class DTUsuario {
 		imgDir = usuario.getImgDir();
 	}
 
-	public String getNickname() {
+	public DTUsuario() {
+	  
+  }
+
+  public String getNickname() {
 		return nickname;
 	}
 	
