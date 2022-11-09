@@ -3,6 +3,8 @@ package webservices;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
+import excepciones.CompraFailException;
+import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import datatypes.DTActividad;
 import datatypes.DTPaquete;
@@ -10,6 +12,7 @@ import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
 import datatypes.DTUsuario;
+import datatypes.tipoInscripcion;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
@@ -110,5 +113,31 @@ public class WebServices {
     @WebMethod
     public boolean verifiedUserPassword(String usrNick, String attemptedPass) {
       return ctrlUsr.verifiedUserPassword(usrNick, attemptedPass);
+    }
+    
+    @WebMethod
+    public void ingresarCompra(String nickname, String paq, int cantTuristas, GregorianCalendar fechaCompra) throws CompraFailException {
+    	ctrlUsr.ingresarCompra(nickname, paq, cantTuristas, fechaCompra);
+    }
+    
+    @WebMethod
+    public DTSalida[] listarInfoSalidasVigentes(String actividad, GregorianCalendar fecha){
+    	Set<DTSalida> set = ctrlAct.listarInfoSalidasVigentes(actividad, fecha);
+    	return set.toArray(new DTSalida[set.size()]);
+    }
+    
+    @WebMethod
+    public void ingresarInscripcion(String nickname, String salida, int cantTuristas, GregorianCalendar fecha, tipoInscripcion tipo, String paquete) throws InscriptionFailException {
+    	ctrlUsr.ingresarInscripcion(nickname, salida, cantTuristas, fecha, tipo, paquete);
+    }
+    
+    @WebMethod
+    public DTTurista getDTTurista() {
+    	return new DTTurista();
+    }
+    
+    @WebMethod
+    public DTProveedor getDTProveedor() {
+    	return new DTProveedor();
     }
 }

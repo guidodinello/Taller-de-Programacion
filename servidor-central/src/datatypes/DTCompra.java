@@ -3,6 +3,10 @@ package datatypes;
 import java.util.GregorianCalendar;
 import java.util.Map;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTCompra {
 	private String paquete;
 	private GregorianCalendar fechaCompra;

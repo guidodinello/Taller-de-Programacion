@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="model.datatypes.DTSalida"%>
-<%@page import="model.datatypes.DTPaquete"%>
+<%@page import="webservices.DtSalida"%>
+<%@page import="webservices.DtPaquete"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -58,7 +58,7 @@
 						id="FormularioInscripcionSalida">
 
 						<%
-						DTSalida sal = (DTSalida) request.getAttribute("salida");
+						DtSalida sal = (DtSalida) request.getAttribute("salida");
 						%>
 						
 						<input type="hidden" name="nombreSalida" value="<%=sal.getNombre()%>" />
@@ -80,15 +80,15 @@
 												<div class="card-text">
 													<p>
 														Fecha y Hora:
-														<%=new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(sal.getfechaSalida().getTime())%>
+														<%=new SimpleDateFormat("dd/MM/yyyy - HH:mm").format(sal.getFechaSalida().toGregorianCalendar().getTime())%>
 													</p>
 													<p>
 														Cantidad máxima de turistas:
-														<%=sal.getcantidadMaximaDeTuristas()%>
+														<%=sal.getMaxTuristas()%>
 													</p>
 													<p>
 														Lugar:
-														<%=sal.getlugarSalida()%>,
+														<%=sal.getLugarSalida()%>,
 														<%=sal.getNombreDepartamentoActividad()%>
 													</p>
 												</div>
@@ -100,9 +100,9 @@
 
 						</div>
 						<%
-						Set<DTPaquete> paquetes = new HashSet<DTPaquete>();
+						Set<DtPaquete> paquetes = new HashSet<DtPaquete>();
 						if (request.getAttribute("paquetes") != null) {
-							paquetes = (Set<DTPaquete>)request.getAttribute("paquetes");
+							paquetes = (Set<DtPaquete>)request.getAttribute("paquetes");
 						}
 						%>
 						
@@ -139,7 +139,7 @@
 								defaultOptions="Seleccionar" disabled>
 								<option value="Seleccionar" selected disabled>Seleccionar paquete</option>
 								<%
-								for (DTPaquete paq : paquetes) {
+								for (DtPaquete paq : paquetes) {
 								%>
 									<option value="<%=paq.getNombre()%>"><%=paq.getNombre()%></option>
 								<%

@@ -3,7 +3,7 @@
 <%@page import="servlets.salida"%>
 <%@page import="model.datatypes.DTPaquete"%>
 <%@page import="model.datatypes.DTActividad"%>
-<%@page import="model.datatypes.DTTurista"%>
+<%@page import="webservices.DtTurista"%>
 <%@page import="webservices.DtPaquete"%>
 <%@page import="webservices.DtActividad"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -40,7 +40,7 @@
 							<h5 class="card-title"><%= paquete.getNombre() %></h5>
 							<p class="card-text"><%= paquete.getDescripcion() %></p>
 							<%
-							if(session.getAttribute("usuario_logueado") instanceof DTTurista && !(actividadesPaquete.isEmpty())){
+							if(session.getAttribute("usuario_logueado") instanceof DtTurista && !(actividadesPaquete.isEmpty())){
 							%>
 							<div><a href="paquete?nombrePaquete=<%= paquete.getNombre() %>&COMPRA=1">Comprar Paquete Turístico</a></div>
 							<%
