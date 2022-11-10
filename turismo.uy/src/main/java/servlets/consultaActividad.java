@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -11,39 +12,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.datatypes.DTActividad;
-import model.datatypes.DTPaquete;
-import model.datatypes.DTSalida;
-import model.datatypes.tipoUsuario;
-import model.logica.clases.ActividadTuristica;
-import model.logica.handlers.HandlerActividades;
-import model.logica.interfaces.Fabrica;
-import model.logica.interfaces.ICtrlActividad;
-import model.logica.interfaces.ICtrlUsuario;
+
+import webservices.DtSalida;
+import webservices.DtPaquete;
+import webservices.DtActividad;
+import webservices.ActividadTuristica;
 
 @WebServlet("/consultaActividad")
 public class consultaActividad extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
-	private ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
-	private HandlerActividades hA = HandlerActividades.getInstance();
 	
 	public consultaActividad() {
 		super();
 	}
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
-		ActividadTuristica actividad = hA.obtenerActividadTuristica(request.getParameter("nombreAct"));
-		DTActividad datosActividad = ctrlActividad.getInfoActividad(actividad.getNombre());
+		//ActividadTuristica actividad = hA.obtenerActividadTuristica(request.getParameter("nombreAct"));
+	    webservices.WebServicesService service = new webservices.WebServicesService();
+        webservices.WebServices port = service.getWebServicesPort();
+	    DtActividad datosActividad = port.getInfoActividad(request.getParameter("nombreAct"));
 		
-		Set<DTSalida> salidasActividad = new HashSet<DTSalida>();
+		Set<DtSalida> salidasActividad = new HashSet<DtSalida>();
 		for(String sal : datosActividad.getSalidas())
-		    salidasActividad.add(ctrlActividad.getInfoCompletaSalida(sal));
+		    salidasActividad.add(port.getInfoCompletaSalida(sal));
 		
-		Set<String> nombPaquetesActividad = datosActividad.getPaquetes();
-		Set<DTPaquete> paquetesActvidad = new HashSet<DTPaquete>(); 
+		List<String> nombPaquetesActividad = datosActividad.getPaquetes();
+		Set<DtPaquete> paquetesActvidad = new HashSet<DtPaquete>(); 
 		nombPaquetesActividad.forEach((e)->{
-			paquetesActvidad.add(ctrlActividad.getInfoPaquete(e));
+			paquetesActvidad.add(port.getInfoPaquete(e));
 		});
 		
 		request.setAttribute("datosPaqueteActividad", paquetesActvidad);
