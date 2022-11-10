@@ -206,4 +206,22 @@ public class CtrlUsuario implements ICtrlUsuario {
     String realPass = HandlerUsuarios.getInstance().getUsuarioByNickname(nick).getContrasena();
     return realPass.equals(pass);
   }
+  
+  // nickSeguidor comienza a seguir a nickSeguido.
+  // Si ya lo seguia, lo deja de seguir.
+  public void seguirUsuario(String nickSeguidor, String nickSeguido) {
+	  HandlerUsuarios hU = HandlerUsuarios.getInstance();
+	  Usuario seguido = hU.getUsuarioByNickname(nickSeguido);
+	  Usuario seguidor = hU.getUsuarioByNickname(nickSeguidor);
+	  
+	  if(seguido.tieneSeguidor(nickSeguidor)) {
+		  seguido.eliminarSeguidor(nickSeguidor);
+		  seguidor.eliminarSeguido(nickSeguido);
+	  }
+	  else {
+		  seguido.agregarSeguidor(seguidor);
+		  seguidor.agregarSeguido(seguido);
+	  }
+  }
+  
 }

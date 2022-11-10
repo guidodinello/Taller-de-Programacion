@@ -22,6 +22,7 @@ import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerCategorias;
 import logica.interfaces.ICtrlActividad;
 import logica.clases.SalidaTuristica;
+import logica.clases.Usuario;
 import logica.clases.Proveedor;
 import logica.handlers.HandlerSalidas;
 import logica.handlers.HandlerUsuarios;
@@ -253,5 +254,18 @@ public class CtrlActividad implements ICtrlActividad{
         }
         
         return res;
+    }
+    
+    public void leGusto(String nombreActividad, String nombreUsuario) {
+    	HandlerActividades hA = HandlerActividades.getInstance();
+    	ActividadTuristica act = hA.obtenerActividadTuristica(nombreActividad);
+    	
+    	if(!act.tieneFan(nombreUsuario)) {
+    		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+    		Usuario fan = hU.getUsuarioByNickname(nombreUsuario);
+    		act.agregarFan(fan);
+    	}
+    	else
+    		act.eliminarFan(nombreUsuario);
     }
 }

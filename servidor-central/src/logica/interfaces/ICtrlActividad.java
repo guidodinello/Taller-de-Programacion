@@ -36,5 +36,6 @@ public interface ICtrlActividad{
 	public abstract <T> Set<T> filterActividades(Function<ActividadTuristica, T> returnFunction, Predicate<ActividadTuristica> condition);
 	public abstract Set<String> listarActividadesConfirmadas();
 	public abstract Set<DTActividad> getDTActividadesConfirmadas();
-  public abstract Set<String> listarPaquetesCategoria(String categoria);
+	public abstract Set<String> listarPaquetesCategoria(String categoria);
+	public abstract void leGusto(String nombreActividad, String nombreUsuario);
 }

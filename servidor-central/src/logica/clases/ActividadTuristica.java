@@ -21,6 +21,7 @@ public class ActividadTuristica{
 	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
 	private String imgDir;
+	private Map<String, Usuario> likedBy;
 	
 	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, estadoActividad estado) {
 		this.nombre = nombre;
@@ -31,6 +32,7 @@ public class ActividadTuristica{
 		this.fechaAlta = fechaAlta;
 		this.estado = estado;
 		salidas = new HashMap<String, SalidaTuristica>();
+		likedBy = new HashMap<String, Usuario>();
 		this.imgDir = imgDir;
 	}
 	
@@ -57,6 +59,10 @@ public class ActividadTuristica{
 	
 	public String getNombreCiudad() {
 		return nombreCiudad;
+	}
+	
+	public Map<String, Usuario> getLikedBy(){
+		return likedBy;
 	}
 	
 	public GregorianCalendar getFechaAlta() {
@@ -102,7 +108,7 @@ public class ActividadTuristica{
 		Set<String> categorias = getCategorias();
 		HandlerDepartamentos handlerDepartamentos = HandlerDepartamentos.getInstance();
 		String nombreDepto = handlerDepartamentos.getDeptoContains(this);
-		return new DTActividad(nombre, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado);
+		return new DTActividad(nombre, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado, likedBy.keySet());
 	}
 
     public Set<String> getCategorias() {
@@ -113,5 +119,17 @@ public class ActividadTuristica{
         	if ( e.tieneActividad(nombre)) res.add(e.getNombre()); });
         return res;
     }
+
+	public boolean tieneFan(String nombreUsuario) {
+		return likedBy.containsKey(nombreUsuario);
+	}
+
+	public void agregarFan(Usuario fan) {
+		likedBy.put(fan.getNickname(), fan);
+	}
+
+	public void eliminarFan(String nombreUsuario) {
+		likedBy.remove(nombreUsuario);
+	}
 
 }

@@ -1,6 +1,7 @@
 package datatypes;
 
 import java.util.GregorianCalendar;
+import java.util.Set;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -14,6 +15,8 @@ public class DTUsuario {
 	private String nombre;
 	private String apellido;
     private String imgDir;
+    private Set<String> seguidores;
+    private Set<String> seguidos;
 
 	
 	public DTUsuario(Usuario usuario) {
@@ -23,6 +26,8 @@ public class DTUsuario {
 		nombre = usuario.getNombre();
 		apellido = usuario.getApellido();
 		imgDir = usuario.getImgDir();
+		seguidores = usuario.getSeguidores().keySet();
+		seguidos = usuario.getSeguidos().keySet();
 	}
 
 	public DTUsuario() {
@@ -51,6 +56,14 @@ public class DTUsuario {
 	
 	public String getImgDir() {
 	    return imgDir;
+	}
+	
+	public Set<String> getSeguidores(){
+		return seguidores;
+	}
+	
+	public Set<String> getSeguidos(){
+		return seguidos;
 	}
 	
 }

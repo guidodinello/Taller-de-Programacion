@@ -29,6 +29,7 @@ import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
 import excepciones.YaExisteException;
+import logica.clases.Proveedor;
 import logica.clases.Usuario;
 import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
@@ -200,11 +201,6 @@ public class WebServices {
     @WebMethod
     public DTTurista getDTTurista() {
     	return new DTTurista();
-    }
-    
-    @WebMethod
-    public DTProveedor getDTProveedor() {
-    	return new DTProveedor();
     }
         @WebMethod
     public 	DTActividad [] listarInfoCompletaActividadesProveedor(String nickname) {

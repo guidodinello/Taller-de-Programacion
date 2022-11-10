@@ -28,4 +28,5 @@ public interface ICtrlUsuario {
 	public abstract DTUsuario getUsuarioByEmail(String email);
 	public abstract DTUsuario getUsuarioByNickName(String nickname);
 	public abstract boolean verifiedUserPassword(String nick, String pass);
+	public abstract void seguirUsuario(String nickSeguidor, String nickSeguido);
 }
