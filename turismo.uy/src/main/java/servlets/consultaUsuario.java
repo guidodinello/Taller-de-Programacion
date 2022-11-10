@@ -1,11 +1,14 @@
 package servlets;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -15,15 +18,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
-import model.datatypes.DTUsuario;
-import model.datatypes.DTTurista;
-import model.datatypes.DTProveedor;
-import model.logica.clases.Turista;
-import model.logica.clases.Proveedor;
-import model.logica.handlers.HandlerUsuarios;
-import model.logica.interfaces.Fabrica;
-import model.logica.interfaces.ICtrlUsuario;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import webservices.DtProveedor;
+import webservices.DtTurista;
+import webservices.DtUsuario;
+import net.java.dev.jaxb.array.StringArray;
 
 @MultipartConfig
 @WebServlet("/consultaUsuario")
@@ -42,7 +43,7 @@ public class consultaUsuario extends HttpServlet{
 	public consultaUsuario() {
 		super();
 	}
-	
+	 
     private String guardarImg(Part p, HttpServletRequest req, String ext, String nick) {
         String dir = udi;
         try {
@@ -90,42 +91,88 @@ public class consultaUsuario extends HttpServlet{
 	 * @throws IOException      if an I/O error occurs
 	 */
 	 protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	     DTUsuario dtU = (DTUsuario) request.getSession().getAttribute("usuario_logueado");
+	     DtUsuario dtU = (DtUsuario) request.getSession().getAttribute("usuario_logueado");
 	     
 	     String nombre = request.getParameter("Nombre");
 	     String apellido = request.getParameter("Apellido");
 	     String [] nac = request.getParameter("FechaNacimiento").split("-");
-	     ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
+	     //ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 	     
 	     Part part     = request.getPart("nuevaImagenPerfil");
 	     String fd = "";
 	     if(part != null && !extencionValida(part.getSubmittedFileName()).isEmpty()) {
 	         fd = guardarImg(part, request ,extencionValida(part.getSubmittedFileName()), dtU.getNickname());
 	     }
+	     //TODO: when generated  dtUsuario change to dtTurista
 	     
-	     if(dtU instanceof DTTurista) {
-	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, ((DTTurista)dtU).getNacionalidad(), "", "");
-	         HandlerUsuarios hU = HandlerUsuarios.getInstance();
-	         Turista t = hU.getTuristaByNickname(dtU.getNickname());
-	         request.getSession().setAttribute("usuario_logueado", new DTTurista(t));
+	     if(dtU instanceof DtTurista) {
+             webservices.WebServicesService service = new webservices.WebServicesService();
+             webservices.WebServices port = service.getWebServicesPort();
+             Date date = new Date(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1,Integer.parseInt(nac[2]));
+           //Create XMLGregorianCalendar
+             GregorianCalendar c = new GregorianCalendar();
+
+             c.setTime(date);
+            
+             XMLGregorianCalendar xCal = null;
+            try {
+                xCal = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            } catch (DatatypeConfigurationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+          //TODO change DTTurista to DtTurista 
+            
+           port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fd, ((DtTurista)dtU).getNacionalidad(), "", "");
+	        // ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, ((DTTurista)dtU).getNacionalidad(), "", "");
+	        // HandlerUsuarios hU = HandlerUsuarios.getInstance();
+	         //Turista t = hU.getTuristaByNickname(dtU.getNickname());
+           
+          DtTurista t =  port.getInfoTurista(dtU.getNickname());
+	         request.getSession().setAttribute("usuario_logueado", t);
 	     } else {
 	         String descripcion = request.getParameter("Descripcion");
 	         String link = request.getParameter("Link");
-	         ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, "", descripcion, link);
-	         HandlerUsuarios hU = HandlerUsuarios.getInstance();
-             Proveedor p = hU.getProveedorByNickname(dtU.getNickname());
-             request.getSession().setAttribute("usuario_logueado", new DTProveedor(p));
+	         webservices.WebServicesService service = new webservices.WebServicesService();
+             webservices.WebServices port = service.getWebServicesPort();
+             Date date = new Date(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1,Integer.parseInt(nac[2]));
+             //Create XMLGregorianCalendar
+               GregorianCalendar c = new GregorianCalendar();
+
+               c.setTime(date);
+              
+               XMLGregorianCalendar xCal = null;
+              try {
+                  xCal = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+              } catch (DatatypeConfigurationException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+              }
+             port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fd, ((DtTurista)dtU).getNacionalidad(), "", "");
+             
+	       
+             DtProveedor p = port.getProveedorByNickname(dtU.getNickname());
+             request.getSession().setAttribute("usuario_logueado", p);
 	     }
 	     response.sendRedirect("consultaUsuario?STATE=INFO&&NICKNAME=" + dtU.getNickname());
 	 }
 	 
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		      throws ServletException, IOException {
-	            ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
-		        Set<DTUsuario> usuarios = new HashSet<DTUsuario>();
-				for(String u : ctrlUsr.listarUsuarios()) {
-					usuarios.add(ctrlUsr.getInfoBasicaUsuario(u));
-				};
+	            
+		        Set<DtUsuario> usuariosRes = new HashSet<DtUsuario>();
+		        webservices.WebServicesService service = new webservices.WebServicesService();
+		        webservices.WebServices port = service.getWebServicesPort();
+		        StringArray usuariosArray = port.listarUsuarios();
+		        List<String> usuariosList = usuariosArray.getItem();
+		        String[] usuarios = new String[usuariosList.size()];
+		        usuarios = usuariosList.toArray(usuarios);
+		        
+		        for(int i = 0; i <usuarios.length; i++) {
+		            usuariosRes.add(port.getInfoBasicaUsuario(usuarios[i]));
+		        }
+			
 		        String estado;
 		        if(request.getParameter("STATE") == null)
 		            estado = "";
@@ -134,30 +181,30 @@ public class consultaUsuario extends HttpServlet{
 		    switch (estado) {
 		      case "LISTAR":
 		        request.setAttribute("STATE", "LISTAR");
-		        request.setAttribute("USUARIOS", usuarios);
+		        request.setAttribute("USUARIOS", usuariosRes);
 		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);
 		        break;
 		      case "INFO":
-		        DTUsuario usuarioLogueado =
-		            (DTUsuario) request.getSession().getAttribute("usuario_logueado");
+		        DtUsuario usuarioLogueado =
+		            (DtUsuario) request.getSession().getAttribute("usuario_logueado");
 		        String nombreUsuario = (String) request.getParameter("NICKNAME");
 		        request.setAttribute("STATE", "INFO");
 		        //no estoy logueada 
 		        if(usuarioLogueado == null) {
-		            request.setAttribute("PERFIL_USUARIO", (DTUsuario)
-		                    ctrlUsr.getInfoBasicaUsuario(nombreUsuario));
+		            request.setAttribute("PERFIL_USUARIO", (DtUsuario)
+		                    port.getInfoBasicaUsuario(nombreUsuario));
 		        }
 		        //estoy logueada viendo otro perfil
 		        else if(!usuarioLogueado.getNickname().equals(nombreUsuario)){
-		        request.setAttribute("PERFIL_USUARIO", (DTUsuario)
-                        ctrlUsr.getInfoBasicaUsuario(nombreUsuario));
+		        request.setAttribute("PERFIL_USUARIO", (DtUsuario)
+                        port.getInfoBasicaUsuario(nombreUsuario));
 		      
 		        }
 		        //estoy logueada viendo mi perfil
 		        else{
-		            request.setAttribute("MI_PERFIL_USUARIO", (DTUsuario)
-                            ctrlUsr.getInfoBasicaUsuario(nombreUsuario));
+		            request.setAttribute("MI_PERFIL_USUARIO", (DtUsuario)
+                          port.getInfoBasicaUsuario(nombreUsuario));
 
 		        }
 		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
