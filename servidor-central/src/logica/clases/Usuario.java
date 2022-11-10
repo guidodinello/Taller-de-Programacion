@@ -21,7 +21,7 @@ public class Usuario {
         this.fechaNac = fechaNac;
         this.imgDir = imgDir;
         seguidores = new HashMap<String, Usuario>();
-        seguidores = new HashMap<String, Usuario>();
+        seguidos = new HashMap<String, Usuario>();
     }
 
     public String getNickname() {

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import webservices.DtSalida;
 import webservices.DtPaquete;
 import webservices.DtActividad;
-import webservices.ActividadTuristica;
 
 @WebServlet("/consultaActividad")
 public class consultaActividad extends HttpServlet {
