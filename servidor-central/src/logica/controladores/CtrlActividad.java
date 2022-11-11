@@ -278,4 +278,25 @@ public class CtrlActividad implements ICtrlActividad{
     	}
     	
     };
+
+    public Set<DTActividad> infoBusquedaActividades(String busqueda){
+    	Set<DTActividad> dtActs = new HashSet<DTActividad>();
+    	HandlerActividades hA = HandlerActividades.getInstance();
+    	for(ActividadTuristica actual: hA.obtenerActividadesTuristicas())
+    		if(actual.getEstado() == estadoActividad.confirmada && (actual.getDescripcion().contains(busqueda) || actual.getNombre().contains(busqueda)))
+    			dtActs.add(actual.getDTActividad());
+    	return dtActs;
+    }
+    
+    public Set<DTPaquete> infoBusquedaPaquetes(String busqueda){
+    	Set<DTPaquete> dtPaqs = new HashSet<DTPaquete>();
+    	HandlerPaquetes hP = HandlerPaquetes.getInstance();
+    	DTPaquete actual;
+    	for(PaqueteTuristico paq: hP.getPaquetes()) {
+    		actual = paq.getDTPaquete();
+    		if(!actual.getActividades().isEmpty() && (actual.getDescripcion().contains(busqueda)||actual.getNombre().contains(busqueda)))
+    			dtPaqs.add(actual);
+    	}
+    	return dtPaqs;
+    }
 }

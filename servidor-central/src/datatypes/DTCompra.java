@@ -24,6 +24,10 @@ public class DTCompra {
 		disponibles = dis;
 	}
 	
+	public DTCompra() {
+		
+	}
+	
 	public String getPaquete() {
 		return paquete;
 	}

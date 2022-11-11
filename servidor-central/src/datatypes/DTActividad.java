@@ -42,6 +42,10 @@ public class DTActividad {
 		this.likedBy = likedBy;
 	}
 
+	public DTActividad() {
+		
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

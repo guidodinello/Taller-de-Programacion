@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashSet;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
 import datatypes.DTUsuario;
+import datatypes.estadoActividad;
 import datatypes.tipoInscripcion;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
@@ -151,6 +153,19 @@ public class WebServices {
     }
     
     @WebMethod
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad,
+			String nickProv, GregorianCalendar fechaAlta, String imgDir, String categoriasString, estadoActividad estado) throws YaExisteException {
+    	
+    	Set<String> categorias = new HashSet<String>();
+    	String[] setCat = categoriasString.split("//");
+    	for(String cat : setCat) {
+    		categorias.add(cat);
+    	}
+    	ctrlAct.altaActividadTuristica(nomDep, nomActividad, desc, duraHs, costo, nombCiudad,
+    			nickProv, fechaAlta, imgDir, categorias, estado);
+    }
+    
+    @WebMethod
 	public void altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal, int cantMaxTuristas, 
 			GregorianCalendar fechaAlta, String  actividad, String img) throws YaExisteException {
     	ctrlAct.altaSalidaTuristica(nombreSal, fechaSal, lugarSal, cantMaxTuristas, fechaAlta, actividad, img);
@@ -262,4 +277,15 @@ public class WebServices {
     	return res;
     }
     
+    @WebMethod
+    public DTActividad[] busquedaTextoActividades(String busqueda) {
+    	Set<DTActividad> actividades = ctrlAct.infoBusquedaActividades(busqueda);
+    	return actividades.toArray(new DTActividad[actividades.size()]);
+    }
+    
+    @WebMethod
+    public DTPaquete[] busquedaTextoPaquetes(String busqueda) {
+    	Set<DTPaquete> paquetes = ctrlAct.infoBusquedaPaquetes(busqueda);
+    	return paquetes.toArray(new DTPaquete[paquetes.size()]);
+    }
 }

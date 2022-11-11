@@ -29,6 +29,10 @@ public class DTPaquete {
 		this.costo = costo;
 	}
 
+	public DTPaquete() {
+		
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

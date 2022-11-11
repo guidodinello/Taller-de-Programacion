@@ -9,6 +9,7 @@ import logica.clases.InscripcionSalida;
 import logica.handlers.HandlerSalidas;
 import logica.handlers.HandlerUsuarios;
 import datatypes.DTActividad;
+import datatypes.DTInscripcion;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
@@ -232,13 +233,10 @@ public class CtrlUsuario implements ICtrlUsuario {
   public byte[] obtenerComprobanteInscripcion(String nick, String salida) throws DocumentException, IOException {
 	  HandlerUsuarios hU = HandlerUsuarios.getInstance();
 	  Turista turista = hU.getTuristaByNickname(nick);
-	  InscripcionSalida inscSal = null;
 	  
-	  for(InscripcionSalida insc: turista.getInscripciones())
-		  if(insc.getSalida().getNombre().equals(salida))
-			  inscSal = insc;
+	  DTInscripcion dtInsc = turista.getInfoInscripcion(salida);
 	  
-	  return new ComprobanteInscripcion().generar(turista.getNombre(), inscSal.getSalida().getActividad().getNombre(), salida, inscSal.getFechaAlta(), inscSal.getCantTuristas());
+	  return new ComprobanteInscripcion().generar(dtInsc);
   }
   
 }
