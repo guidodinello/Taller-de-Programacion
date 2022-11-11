@@ -2,13 +2,13 @@ package webservices;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.GregorianCalendar;
 import java.util.Set;
+
+import com.itextpdf.text.DocumentException;
 
 import excepciones.CompraFailException;
 import excepciones.InscriptionFailException;
@@ -30,7 +30,8 @@ import jakarta.xml.ws.Endpoint;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
-import excepciones.YaExisteException;
+import logica.clases.ComprobanteInscripcion;
+import logica.clases.Configuracion;
 import logica.clases.Proveedor;
 import logica.clases.Usuario;
 import logica.handlers.HandlerUsuarios;
@@ -49,7 +50,8 @@ public class WebServices {
     //Operaciones las cuales quiero publicar
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9128/webservices", this);
+    	Configuracion config = Configuracion.getInstance();
+    	endpoint = Endpoint.publish(config.getPublishURL(), this);
     }
 
     @WebMethod(exclude = true)
@@ -266,5 +268,22 @@ public class WebServices {
     	DTProveedor proveedor = new DTProveedor(p);
     	return proveedor;
     }
-
+    
+    @WebMethod
+    public byte[] getFilePdf(String usuario, String salida) throws DocumentException, IOException {
+    	byte[] res = ctrlUsr.obtenerComprobanteInscripcion(usuario, salida);
+    	return res;
+    }
+    
+    @WebMethod
+    public DTActividad[] busquedaTextoActividades(String busqueda) {
+    	Set<DTActividad> actividades = ctrlAct.infoBusquedaActividades(busqueda);
+    	return actividades.toArray(new DTActividad[actividades.size()]);
+    }
+    
+    @WebMethod
+    public DTPaquete[] busquedaTextoPaquetes(String busqueda) {
+    	Set<DTPaquete> paquetes = ctrlAct.infoBusquedaPaquetes(busqueda);
+    	return paquetes.toArray(new DTPaquete[paquetes.size()]);
+    }
 }

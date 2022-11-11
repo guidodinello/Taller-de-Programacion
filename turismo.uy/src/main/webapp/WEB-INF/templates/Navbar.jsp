@@ -9,14 +9,16 @@
         </a>
 
         <div class="bg-light rounded rounded-pill shadow-sm mb-1 mb-lg-0">
+        <form method="POST" action="busquedaTexto" id="FormularioBusqueda" enctype="multipart/form-data">
         	<div class="input-group">
-            	<input type="search" placeholder="Tours" aria-describedby="button-addon1"
+            	<input type="search" name="busqueda" value="" placeholder="Actividades y Paquetes" aria-describedby="button-addon1"
                  	class="form-control border-0 bg-light">
                 <div class="input-group-append">
                 	<button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
                      	class="fa fa-search"></i></button>
                 </div>
         	</div>
+        	</form>
         </div>
         <% 
         if(session.getAttribute("usuario_logueado") == null ){

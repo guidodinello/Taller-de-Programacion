@@ -1,7 +1,10 @@
 package logica.interfaces;
 
+import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.Set;
+
+import com.itextpdf.text.DocumentException;
 
 import datatypes.DTActividad;
 import datatypes.DTSalida;
@@ -29,4 +32,5 @@ public interface ICtrlUsuario {
 	public abstract DTUsuario getUsuarioByNickName(String nickname);
 	public abstract boolean verifiedUserPassword(String nick, String pass);
 	public abstract void seguirUsuario(String nickSeguidor, String nickSeguido);
+	public abstract byte[] obtenerComprobanteInscripcion(String usuario, String salida) throws DocumentException, IOException;
 }

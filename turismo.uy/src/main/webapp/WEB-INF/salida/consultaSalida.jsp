@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.salida"%>
 <%@page import="webservices.DtSalida"%>
-<%@page import="model.datatypes.DTActividad"%>
-<%@page import="model.datatypes.DTTurista"%>
+<%@page import="webservices.DtTurista"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.GregorianCalendar"%>
 <!DOCTYPE html>
@@ -38,7 +37,7 @@
 							
 							<div><a href="consultaActividad?nombreAct=<%= nombreActividad %>">Consulta de Actividad Turistica</a></div>
 							<%
-							if(session.getAttribute("usuario_logueado") instanceof DTTurista && salida.getFechaSalida().toGregorianCalendar().after(new GregorianCalendar())){
+							if(session.getAttribute("usuario_logueado") instanceof DtTurista && salida.getFechaSalida().toGregorianCalendar().after(new GregorianCalendar())){
 							%>
 							<div><a href="inscripcionSalida?nombreSalida=<%= salida.getNombre() %>">Inscripcion a Salida Turistica</a></div>
 							<%

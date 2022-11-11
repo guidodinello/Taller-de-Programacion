@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Set;
 
 import java.util.HashSet;
+
+import datatypes.DTInscripcion;
 import datatypes.DTSalida;
 
 public class Turista extends Usuario {
@@ -59,4 +61,10 @@ public class Turista extends Usuario {
 	public Set<InscripcionSalida> getInscripciones() {
         return new HashSet<InscripcionSalida>(inscripciones.values());
     }
+	
+	public DTInscripcion getInfoInscripcion(String salida) {
+		InscripcionSalida insc = inscripciones.get(salida);
+		DTInscripcion res = new DTInscripcion(salida, insc.getSalida().getActividad().getNombre(), nombre + " " + apellido, insc.getFechaAlta(), insc.getSalida().getfechaSalida(), insc.getCantTuristas(), insc.getCosto(), insc.getTipo());
+		return res;
+	}
 }
