@@ -68,6 +68,42 @@ public class CargarDatosDePrueba {
     } catch (YaExisteException e) {
       e.printStackTrace();
     }
+    
+    //Seguidores
+    icu.seguirUsuario("lachiqui", "isabelita");
+    icu.seguirUsuario("lachiqui", "mastropiero");
+    icu.seguirUsuario("lachiqui", "washington");
+    icu.seguirUsuario("lachiqui", "eldiez");
+    icu.seguirUsuario("lachiqui", "meche");
+    icu.seguirUsuario("isabelita", "lachiqui");
+    icu.seguirUsuario("anibal", "waston");
+    icu.seguirUsuario("anibal", "eleven11");
+    icu.seguirUsuario("anibal", "bobesponja");
+    icu.seguirUsuario("anibal", "meche");
+    icu.seguirUsuario("waston", "isabelita");
+    icu.seguirUsuario("waston", "washington");
+    icu.seguirUsuario("elelvis", "bobesponja");
+    icu.seguirUsuario("elelvis", "tony");
+    icu.seguirUsuario("elelvis", "eldiez");
+    icu.seguirUsuario("eleven11", "lachiqui");
+    icu.seguirUsuario("eleven11", "waston");
+    icu.seguirUsuario("eleven11", "mastropiero");
+    icu.seguirUsuario("bobesponja", "anibal");
+    icu.seguirUsuario("bobesponja", "eleven11");
+    icu.seguirUsuario("tony", "chino");
+    icu.seguirUsuario("tony", "eldiez");
+    icu.seguirUsuario("chino", "elelvis");
+    icu.seguirUsuario("chino", "mastropiero");
+    icu.seguirUsuario("chino", "washington");
+    icu.seguirUsuario("chino", "meche");
+    icu.seguirUsuario("washington", "mastropiero");
+    icu.seguirUsuario("washington", "waston");
+    icu.seguirUsuario("eldiez", "tony");
+    icu.seguirUsuario("meche", "lachiqui");
+    icu.seguirUsuario("meche", "isabelita");
+    icu.seguirUsuario("meche", "waston");
+    icu.seguirUsuario("meche", "eleven11");
+    
 
     // Departamentos
     try {
@@ -256,9 +292,34 @@ public class CargarDatosDePrueba {
       ica.altaSalidaTuristica("Almuerzo en el Real 1", new GregorianCalendar(2022, 9, 30, 12, 0),
           "Restaurante de la Plaza de Toros", 10, new GregorianCalendar(2022, 9, 10),
           "Almuerzo en el Real de San Carlos", "");
+      ica.altaSalidaTuristica("Degusta Diciembre", new GregorianCalendar(2022, 11, 2, 17, 0),
+    		  "Sociedad Agropecuaria de Rocha", 20, new GregorianCalendar(2022, 10, 7), 
+    		  "Degusta", "tinyurl.com/yzz6b7et");
+      ica.altaSalidaTuristica("Teatro con Sabores 4", new GregorianCalendar(2022, 11, 3, 18, 0),
+    		  "Club Deportivo Unión", 30, new GregorianCalendar(2022, 10, 7),
+    		  "Teatro con Sabores", "");
     } catch (YaExisteException e) {
       e.printStackTrace();
     }
+    
+    //Favoritas
+    ica.leGusto("Degusta", "lachiqui");
+    ica.leGusto("Tour por Colonia del Sacramento", "lachiqui");
+    ica.leGusto("Tour por Colonia del Sacramento", "isabelita");
+    ica.leGusto("Almuerzo en el Real de San Carlos", "isabelita");
+    ica.leGusto("Almuerzo en el Real de San Carlos", "anibal");
+    ica.leGusto("Almuerzo en Valle del Lunarejo", "anibal");
+    ica.leGusto("Cabalgata en Valle del Lunarejo", "anibal");
+    ica.leGusto("Degusta", "waston");
+    ica.leGusto("Teatro con Sabores", "waston");
+    ica.leGusto("Tour por Colonia del Sacramento", "waston");
+    ica.leGusto("Almuerzo en el Real de San Carlos", "waston");
+    ica.leGusto("Cabalgata en Valle del Lunarejo", "elelvis");
+    ica.leGusto("Degusta", "eleven11");
+    ica.leGusto("Teatro con Sabores", "eleven11");
+    ica.leGusto("Tour por Colonia del Sacramento", "bobesponja");
+    ica.leGusto("Almuerzo en el Real de San Carlos", "bobesponja");
+    ica.leGusto("Teatro con Sabores", "tony");
 
     // Paquetes
     try {
@@ -271,6 +332,8 @@ public class CargarDatosDePrueba {
       ica.crearPaquete("Valle Del Lunarejo",
           "Visite un área protegida con un paisaje natural hermoso", 60, 15,
           new GregorianCalendar(2022, 8, 15), "tinyurl.com/mvteyv6y");
+      ica.crearPaquete("Rocha de Fiesta", "Para cerrar el año a lo grande en nuestro departamento más oceánico.", 45, 30, 
+    		  new GregorianCalendar(2022, 10, 7), "");
     } catch (YaExisteException e) {
       e.printStackTrace();
     }
@@ -279,9 +342,9 @@ public class CargarDatosDePrueba {
     ica.ingresarActividadAPaquete("Disfrutar Rocha", "Degusta");
     ica.ingresarActividadAPaquete("Disfrutar Rocha", "Teatro con Sabores");
     ica.ingresarActividadAPaquete("Un día en Colonia", "Tour por Colonia del Sacramento");
-    ica.ingresarActividadAPaquete("Un día en Colonia", "Almuerzo en el Real de San Carlos");
     ica.ingresarActividadAPaquete("Valle Del Lunarejo", "Almuerzo en Valle del Lunarejo");
     ica.ingresarActividadAPaquete("Valle Del Lunarejo", "Cabalgata en Valle del Lunarejo");
+    ica.ingresarActividadAPaquete("Rocha de Fiesta", "Degusta");
 
     // Compra Paquetes
     try {
@@ -331,19 +394,19 @@ public class CargarDatosDePrueba {
       icu.ingresarInscripcion("lachiqui", "Tour por Colonia del Sacramento 11-09", 5,
           new GregorianCalendar(2022, 8, 3), tipoInscripcion.paquete, "Un día en Colonia");
       icu.ingresarInscripcion("lachiqui", "Almuerzo 1", 5, new GregorianCalendar(2022, 8, 3),
-          tipoInscripcion.paquete, "Un día en Colonia");
+          tipoInscripcion.general, "");
       icu.ingresarInscripcion("waston", "Tour por Colonia del Sacramento 18-09", 1,
           new GregorianCalendar(2022, 8, 5), tipoInscripcion.paquete, "Un día en Colonia");
       icu.ingresarInscripcion("waston", "Almuerzo 2", 1, new GregorianCalendar(2022, 8, 5),
-          tipoInscripcion.paquete, "Un día en Colonia");
+          tipoInscripcion.general, "");
       icu.ingresarInscripcion("elelvis", "Tour por Colonia del Sacramento 30-10", 2,
           new GregorianCalendar(2022, 9, 2), tipoInscripcion.paquete, "Un día en Colonia");
       icu.ingresarInscripcion("elelvis", "Almuerzo en el Real 1", 2,
-          new GregorianCalendar(2022, 9, 11), tipoInscripcion.paquete, "Un día en Colonia");
+          new GregorianCalendar(2022, 9, 11), tipoInscripcion.general, "");
       icu.ingresarInscripcion("mastropiero", "Tour por Colonia del Sacramento 30-10", 4,
           new GregorianCalendar(2022, 9, 12), tipoInscripcion.paquete, "Un día en Colonia");
       icu.ingresarInscripcion("mastropiero", "Almuerzo en el Real 1", 4,
-          new GregorianCalendar(2022, 9, 12), tipoInscripcion.paquete, "Un día en Colonia");
+          new GregorianCalendar(2022, 9, 12), tipoInscripcion.general, "");
     } catch (InscriptionFailException e) {
       e.printStackTrace();
     }
