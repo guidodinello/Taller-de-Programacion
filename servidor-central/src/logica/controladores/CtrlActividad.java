@@ -12,7 +12,12 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 
 import excepciones.YaExisteException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import logica.clases.Departamento;
+import logica.clases.ActividadDao;
 import logica.clases.ActividadTuristica;
 import logica.clases.Categoria;
 import logica.clases.PaqueteTuristico;
@@ -273,6 +278,17 @@ public class CtrlActividad implements ICtrlActividad{
     	ActividadTuristica act = HandlerActividades.getInstance().obtenerActividadTuristica(nombreActividad);
     	if(!act.getInfoBasicaSalidasVigentes(new GregorianCalendar()).isEmpty()) {
     		//guardar en la base de datos
+    		
+    		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+    		EntityManager em = emf.createEntityManager();
+    		ActividadDao act = new ActividadDao("act", 1);
+    		
+    		EntityTransaction tx = em.getTransaction();
+    		tx.begin();
+    		em.persist(act);
+    		tx.commit();
+    		em.close();
+    		emf.close();*/
     	}else {
     		//tirar alguna exception
     	}
