@@ -21,6 +21,9 @@ public class busquedaTexto extends HttpServlet {
     webservices.WebServicesService service = new webservices.WebServicesService();
     webservices.WebServices port = service.getWebServicesPort();
     
+    List<DtActividad> acts;
+    List<DtPaquete> paqs;
+    
     public busquedaTexto() {
         super();
     }
@@ -29,6 +32,8 @@ public class busquedaTexto extends HttpServlet {
         String busqueda = request.getParameter("busqueda");
         List<DtActividad> actividades = port.busquedaTextoActividades(busqueda).getItem();
         List<DtPaquete> paquetes = port.busquedaTextoPaquetes(busqueda).getItem();
+        acts = actividades;
+        paqs = paquetes;
         
         request.setAttribute("datosActividades", actividades);
         request.setAttribute("datosPaquetes", paquetes);
@@ -40,5 +45,25 @@ public class busquedaTexto extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
         request.setCharacterEncoding("UTF-8");
         processRequest(request, response);
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
+        
+        if(request.getParameter("orden").contains("alfabetico")) {
+            paqs.sort((a,b) -> a.getNombre().toUpperCase().charAt(0) < b.getNombre().toUpperCase().charAt(0) ? -1 : 1);
+            acts.sort((a,b) -> a.getNombre().toUpperCase().charAt(0) < b.getNombre().toUpperCase().charAt(0) ? -1 : 1);
+            request.setAttribute("datosActividades", acts);
+            request.setAttribute("datosPaquetes", paqs);
+        } else {
+            paqs.sort((a,b) -> a.getFechaAlta().toGregorianCalendar().before(b.getFechaAlta().toGregorianCalendar()) ? 1 : -1);
+            acts.sort((a,b) -> a.getFechaAlta().toGregorianCalendar().before(b.getFechaAlta().toGregorianCalendar()) ? 1 : -1);
+            request.setAttribute("datosActividades", acts);
+            request.setAttribute("datosPaquetes", paqs);
+        }
+        
+        
+        
+        request.getRequestDispatcher("/WEB-INF/busqueda/busquedaActividadesPaquetes.jsp").
+        forward(request, response);
     }
 }

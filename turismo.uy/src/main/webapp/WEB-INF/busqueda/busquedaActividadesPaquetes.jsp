@@ -9,6 +9,7 @@
 <html lang="es">
 
 <head>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 	<jsp:include page="/WEB-INF/templates/Head.jsp" />
 	<title>Turismo.uy</title>
 </head>
@@ -21,15 +22,38 @@
 		
 		<jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp" />
 		
-		<div class="col-sm-8 text-center">
+		<div id="centralDiv" class="col-sm-8 text-center">
+		
+			<%
+			@SuppressWarnings("unchecked")
+			List<DtActividad> actividades = (List<DtActividad>) request.getAttribute("datosActividades");
+			
+			@SuppressWarnings("unchecked") 
+			List<DtPaquete> paquetes = (List<DtPaquete>) request.getAttribute("datosPaquetes");
+			%>
+			<form method="GET" action="busquedaTexto" id="FormOrdenar">
+				<div class="row g-3 mb-4 align-items-right mt-3">
+					<div class ="col-auto"><%=actividades.size() + paquetes.size() %> resultados</div>
+					
+					<div class="col mb-6" style="text-align: right">
+		            	<label for="orden" class ="form-label">Ordenar por: </label>
+		            </div>
+		            <div class="col-auto">
+						<select id ="orden" name ="orden" class="form-select non-empty">
+							<option value="Seleccionar" selected disabled> Elija una opción </option>
+							<option value="alfabetico">Alfababéticamente (ascendente)</option>
+							<option value="anio">Año (descendente)</option>
+						</select>
+					</div>
+				</div>
+			</form>
+			
 		
 			<div>
 				<h3>Actividades</h3>
 			</div>
 		
 			<%	
-			@SuppressWarnings("unchecked") 
-			List<DtActividad> actividades = (List<DtActividad>) request.getAttribute("datosActividades");
 			for (DtActividad act : actividades) {
 			%>
 			
@@ -62,8 +86,6 @@
 			</div>
 		
 			<%	
-			@SuppressWarnings("unchecked") 
-			List<DtPaquete> paquetes = (List<DtPaquete>) request.getAttribute("datosPaquetes");
 			for (DtPaquete paq : paquetes) {
 			%>
 			
@@ -95,6 +117,9 @@
 		
 	</div>
 
+	<jsp:include page="/WEB-INF/templates/Footer.jsp" />
+	
+	<script src="js/busquedaActividadesPaquetes.js"></script>
 </body>
 
 </html>

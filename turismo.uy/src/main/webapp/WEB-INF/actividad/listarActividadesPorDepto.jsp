@@ -8,6 +8,7 @@
 <html lang="es">
 
 <head>
+
 	<jsp:include page="/WEB-INF/templates/Head.jsp" />
 	<title>Turismo.uy</title>
 </head>
