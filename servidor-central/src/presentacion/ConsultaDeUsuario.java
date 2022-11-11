@@ -561,7 +561,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 				});
 			}else {
 				seteandoDatosIniciales = true;
-				DTActividad noTiene = new DTActividad("No tiene actividades", "", "" , "", null, 0, 0, null, null, "", estadoActividad.agregada, null);
+				DTActividad noTiene = new DTActividad("No tiene actividades", "", "" , "", null, 0, 0, null, null, "", estadoActividad.agregada, null, "");
 				ComboBoxActividadesProveedor.addItem(noTiene);
 				seteandoDatosIniciales = false;
 				seteandoDatosIniciales = true;
