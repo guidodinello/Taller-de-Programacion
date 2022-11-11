@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import datatypes.DTProveedor;
 import datatypes.DTSalida;
 import datatypes.DTTurista;
 import datatypes.DTUsuario;
+import datatypes.estadoActividad;
 import datatypes.tipoInscripcion;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
@@ -144,6 +146,19 @@ public class WebServices {
     @WebMethod
     public String[] listarActividadesConfirmadas() {
       return setToArray(ctrlAct.listarActividadesConfirmadas());
+    }
+    
+    @WebMethod
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad,
+			String nickProv, GregorianCalendar fechaAlta, String imgDir, String categoriasString, estadoActividad estado) throws YaExisteException {
+    	
+    	Set<String> categorias = new HashSet<String>();
+    	String[] setCat = categoriasString.split("//");
+    	for(String cat : setCat) {
+    		categorias.add(cat);
+    	}
+    	ctrlAct.altaActividadTuristica(nomDep, nomActividad, desc, duraHs, costo, nombCiudad,
+    			nickProv, fechaAlta, imgDir, categorias, estado);
     }
     
     @WebMethod
