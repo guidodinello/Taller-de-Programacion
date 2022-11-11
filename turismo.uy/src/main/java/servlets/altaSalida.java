@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
@@ -21,11 +20,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import excepciones.YaExisteException;
-import model.datatypes.DTActividad;
-import model.datatypes.estadoActividad;
-import model.logica.interfaces.Fabrica;
-import model.logica.interfaces.ICtrlActividad;
 import webservices.DtActividad;
 import webservices.EstadoActividad;
 import webservices.YaExisteException_Exception;
@@ -38,7 +32,6 @@ import webservices.YaExisteException_Exception;
 @WebServlet("/altaSalida")
 public class altaSalida extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ICtrlActividad iA = Fabrica.getInstance().getICtrlActividad();
 	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
     private String udi = "media/imagenes/salDefault.png";
     private String rui = "media/imagenes/";

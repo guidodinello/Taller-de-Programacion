@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.GregorianCalendar;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.Arrays;
 
 import javax.servlet.ServletException;
@@ -17,22 +18,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
-import excepciones.YaExisteException;
-import model.logica.interfaces.ICtrlActividad;
-import model.logica.interfaces.Fabrica;
-import model.datatypes.estadoActividad;
-import model.datatypes.DTProveedor;
+
+import webservices.DtProveedor;
+import webservices.EstadoActividad;
+import webservices.SetOfString;
+import webservices.YaExisteException_Exception;
+
 
 
 @MultipartConfig
 @WebServlet("/altaActividad")
 public class altaActividad extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
     private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
     private String udi = "media/imagenes/actDefault.jpg";
     private String rui = "media/imagenes/";
+    webservices.WebServicesService service = new webservices.WebServicesService();
+    webservices.WebServices port = service.getWebServicesPort();
     
     public altaActividad() {
         super();
@@ -78,9 +84,9 @@ public class altaActividad extends HttpServlet {
         return res;
     }
     
-    protected void processRequest(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
+    protected void processRequest(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException, YaExisteException_Exception, DatatypeConfigurationException {
         HttpSession ses = req.getSession();
-        DTProveedor prov = (DTProveedor) ses.getAttribute("usuario_logueado");
+        DtProveedor prov = (DtProveedor) ses.getAttribute("usuario_logueado");
         
         String dpt =(String) req.getParameter("Departamento");
         String nom =(String) req.getParameter("Nombre");
@@ -88,8 +94,13 @@ public class altaActividad extends HttpServlet {
         int dhs = Integer.parseInt(req.getParameter("Duracion"));
         float cos = Float.parseFloat(req.getParameter("Costo"));
         String ciu = req.getParameter("Ciudad");
-        Set<String> cat = new HashSet<String>(Arrays.asList(req.getParameterValues("Categorias")));
-       
+        //Set<String> cat = new HashSet<String>(Arrays.asList(req.getParameterValues("Categorias")));
+        List<String> cat = Arrays.asList((req.getParameterValues("Categorias")));
+        String aEnviarCat = "";
+        for(String cate : cat) {
+           aEnviarCat += cate + "//";
+        }
+        
         //Foto de la actividad
         String fd = udi;
         Part p = req.getPart("ImagenActividad");
@@ -99,10 +110,11 @@ public class altaActividad extends HttpServlet {
         }
         
         try {
-            ctrlAct.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), new GregorianCalendar(), fd, cat, estadoActividad.agregada);
+            XMLGregorianCalendar xmlFecha= DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
+            port.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), xmlFecha, fd, aEnviarCat, EstadoActividad.AGREGADA);
             req.setAttribute("exito", "La actividad "+ nom + " se ha dado de alta exitosamente");
             req.getRequestDispatcher("/index").forward(req, res);
-        } catch(YaExisteException e) {
+        } catch(YaExisteException_Exception e) {
             e.printStackTrace();
             req.setAttribute("AltaYaExiste", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/actividad/altaActividad.jsp").forward(req, res);
@@ -113,12 +125,12 @@ public class altaActividad extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
         HttpSession ses = request.getSession();
         
-        if(!(ses.getAttribute("usuario_logueado") instanceof DTProveedor)) {
+        if(!(ses.getAttribute("usuario_logueado") instanceof DtProveedor)) {
             response.sendRedirect("index");
             return;
         } else {
-        request.setAttribute("listaDepartamentos", ctrlAct.listarDepartamentos());
-        request.setAttribute("listaCategorias", ctrlAct.listarCategorias());
+        request.setAttribute("listaDepartamentos", port.listarDepartamentos().getItem());
+        request.setAttribute("listaCategorias", port.listarCategorias().getItem());
         
         request.getRequestDispatcher("/WEB-INF/actividad/altaActividad.jsp").forward(request, response);
         }
@@ -126,8 +138,22 @@ public class altaActividad extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException ,IOException {
         request.setCharacterEncoding("UTF-8");
-        request.setAttribute("listaDepartamentos", ctrlAct.listarDepartamentos());
-        request.setAttribute("listaCategorias", ctrlAct.listarCategorias());
-        processRequest(request, response);
+        request.setAttribute("listaDepartamentos", port.listarDepartamentos().getItem());
+        request.setAttribute("listaCategorias", port.listarCategorias().getItem());
+        try {
+            processRequest(request, response);
+        } catch (ServletException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (YaExisteException_Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (DatatypeConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
