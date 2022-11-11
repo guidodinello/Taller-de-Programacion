@@ -24,9 +24,10 @@ public class DTActividad {
 	private Set<String> paquetes;
 	private estadoActividad estado;
 	private Set<String> likedBy;
+	private String url;
 
 	
-	public DTActividad(String nombre, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado, Set<String> likedBy) {
+	public DTActividad(String nombre, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado, Set<String> likedBy, String url) {
 		this.nombre = nombre;
 		this.descripcion = des;
 		this.departamento = departamento;
@@ -40,6 +41,7 @@ public class DTActividad {
 		paquetes = new HashSet<String>();
 		this.imgDir = imgDir;
 		this.likedBy = likedBy;
+		this.url = url;
 	}
 
 	public DTActividad() {
@@ -117,7 +119,9 @@ public class DTActividad {
 		return "Nombre: " + getNombre();
 	}
 
-
+	public String getUrl() {
+		return url;
+	}
 
 	
 }

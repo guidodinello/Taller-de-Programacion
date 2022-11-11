@@ -20,10 +20,11 @@ public class ActividadTuristica{
 	private GregorianCalendar fechaAlta;
 	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
-	private String imgDir;
+	private String imgDir, url;
 	private Map<String, Usuario> likedBy;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, estadoActividad estado) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, String url, estadoActividad estado) {
+		this.url = url;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
@@ -108,7 +109,7 @@ public class ActividadTuristica{
 		Set<String> categorias = getCategorias();
 		HandlerDepartamentos handlerDepartamentos = HandlerDepartamentos.getInstance();
 		String nombreDepto = handlerDepartamentos.getDeptoContains(this);
-		return new DTActividad(nombre, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado, likedBy.keySet());
+		return new DTActividad(nombre, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado, likedBy.keySet(), url);
 	}
 
     public Set<String> getCategorias() {
@@ -130,6 +131,10 @@ public class ActividadTuristica{
 
 	public void eliminarFan(String nombreUsuario) {
 		likedBy.remove(nombreUsuario);
+	}
+	
+	public String getUrl() {
+		return url;
 	}
 
 }

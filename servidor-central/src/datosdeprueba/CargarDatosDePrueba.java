@@ -171,64 +171,64 @@ public class CargarDatosDePrueba {
       categorias.add(Cat4);
       descripcion = "Festival gastronómico de productos locales en Rocha";
       ica.altaActividadTuristica("Rocha", "Degusta", descripcion, 3, 800, "Rocha", "washington",
-          new GregorianCalendar(2022, 6, 20), "https://tinyurl.com/bdehz9bb", categorias,
+          new GregorianCalendar(2022, 6, 20), "https://tinyurl.com/bdehz9bb", categorias, "https://www.youtube.com/embed/zQjSMQ6uV1g",
           estadoActividad.confirmada);
       categorias.clear();
       categorias.add(Cat3);
       categorias.add(Cat4);
       descripcion = "En el mes aniversario del Club Deportivo Unión de Rocha te invitamos a una merienda deliciosa.";
       ica.altaActividadTuristica("Rocha", "Teatro con Sabores", descripcion, 3, 500, "Rocha",
-          "washington", new GregorianCalendar(2022, 6, 21), "https://tinyurl.com/58fnr5j7",
-          categorias, estadoActividad.confirmada);
+          "washington", new GregorianCalendar(2022, 6, 21), "https://tinyurl.com/58fnr5j7",categorias, "https://www.youtube.com/embed/Lxit3xvKShc", 
+          estadoActividad.confirmada);
       categorias.clear();
       categorias.add(Cat3);
       descripcion = "Con guía especializado y en varios idiomas. Varios circuitos posibles.";
       ica.altaActividadTuristica("Colonia", "Tour por Colonia del Sacramento", descripcion, 2, 400,
           "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 7, 1),
-          "https://tinyurl.com/3rp2vvjf", categorias, estadoActividad.confirmada);
+          "https://tinyurl.com/3rp2vvjf", categorias, "https://www.youtube.com/embed/zVDGjURCBz8", estadoActividad.confirmada);
       categorias.clear();
       categorias.add(Cat4);
       descripcion = "Restaurante en la renovada Plaza de Toros con menú internacional";
       ica.altaActividadTuristica("Colonia", "Almuerzo en el Real de San Carlos", descripcion, 2,
           800, "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 7, 1),
-          "https://tinyurl.com/2yeu66vb", categorias, estadoActividad.confirmada);
+          "https://tinyurl.com/2yeu66vb", categorias, "https://www.youtube.com/embed/wfyDxicM1PQ", estadoActividad.confirmada);
       categorias.clear();
       categorias.add(Cat2);
       categorias.add(Cat4);
       descripcion = "Almuerzo en la Posada con ticket fijo. Menú que incluye bebida y postre casero.";
       ica.altaActividadTuristica("Rivera", "Almuerzo en Valle del Lunarejo", descripcion, 2, 300,
           "Tranqueras", "eldiez", new GregorianCalendar(2022, 7, 1), "https://tinyurl.com/4yrs8y2c",
-          categorias, estadoActividad.confirmada);
+          categorias, "https://www.youtube.com/embed/5uaEdiQVEEE" , estadoActividad.confirmada);
       categorias.clear();
       categorias.add(Cat2);
       descripcion = "Cabalgata por el área protegida. Varios recorridos para elegir.";
       ica.altaActividadTuristica("Rivera", "Cabalgata en Valle del Lunarejo", descripcion, 2, 150,
           "Tranqueras", "eldiez", new GregorianCalendar(2022, 7, 1), "https://tinyurl.com/2vjd382t",
-          categorias, estadoActividad.confirmada);
+          categorias, "https://www.youtube.com/embed/dlUb22YfXDg", estadoActividad.confirmada);
       categorias.clear();
       categorias.add(Cat3);
       descripcion = "Recorrida por los principales atractivos de la ciudad";
       ica.altaActividadTuristica("Colonia", "Bus turístico Colonia", descripcion, 3, 600,
           "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 8, 1),
-          "https://tinyurl.com/bdzyrm93", categorias, estadoActividad.agregada);
+          "https://tinyurl.com/bdzyrm93", categorias, "https://www.youtube.com/embed/FCFoe4ibkk8",estadoActividad.agregada);
       categorias.clear();
       categorias.add(Cat3);
       descripcion = "Visita lugares exclusivos y relevantes";
       ica.altaActividadTuristica("Colonia", "Colonia Premium Tour", descripcion, 4, 2600,
           "Colonia del Sacramento", "meche", new GregorianCalendar(2022, 8, 3),
-          "https://tinyurl.com/284kr973", categorias, estadoActividad.rechazada);
+          "https://tinyurl.com/284kr973", categorias,"", estadoActividad.rechazada);
       categorias.clear();
       categorias.add(Cat5);
       categorias.add(Cat1);
       descripcion = "kitsurf - windsurf - kayakismo - canotaje en Rocha";
       ica.altaActividadTuristica("Rocha", "Deportes náuticos sin uso de motor", descripcion, 3,
           1200, "Rocha", "washington", new GregorianCalendar(2022, 8, 5),
-          "https://tinyurl.com/yck2a92h", categorias, estadoActividad.agregada);
+          "https://tinyurl.com/yck2a92h", categorias,"https://www.youtube.com/embed/a7Lfx4Flb28", estadoActividad.agregada);
       categorias.clear();
       categorias.add(Cat3);
       descripcion = "Rivera es un departamento de extraordinaria riqueza natural patrimonial y cultural con una ubicación geográfica privilegiada";
       ica.altaActividadTuristica("Rivera", "Descubre Rivera", descripcion, 2, 650, "Rivera",
-          "eldiez", new GregorianCalendar(2022, 8, 16), "https://tinyurl.com/y4vbc4xc", categorias,
+          "eldiez", new GregorianCalendar(2022, 8, 16), "https://tinyurl.com/y4vbc4xc", categorias,"",
           estadoActividad.rechazada);
     } catch (YaExisteException e) {
       e.printStackTrace();

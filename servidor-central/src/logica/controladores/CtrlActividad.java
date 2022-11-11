@@ -83,13 +83,13 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, estadoActividad estado) throws YaExisteException {
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, String url, estadoActividad estado) throws YaExisteException {
 		HandlerActividades handlerAct = HandlerActividades.getInstance();
 		if (handlerAct.existeActividad(nomActividad)){
 			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
 		}
 
-		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, imgDir, estado);
+		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, imgDir, url, estado);
 
 		HandlerDepartamentos handlerDpto = HandlerDepartamentos.getInstance();
 		handlerDpto.getDepto(nomDep).agregarActividad(resu);
