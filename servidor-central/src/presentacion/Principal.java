@@ -15,6 +15,7 @@ import webservices.WebServices;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 //import logica.controladores.*;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
@@ -53,11 +54,11 @@ public class Principal {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		WebServices p = new WebServices();
+		p.publicar();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				WebServices p = new WebServices();
-				p.publicar();
-				
 				Principal window = new Principal();
 				window.frmGestionDeTurismoUy.setVisible(true);
 

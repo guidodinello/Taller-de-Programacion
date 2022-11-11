@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.salida"%>
-<%@page import="model.datatypes.DTPaquete"%>
-<%@page import="model.datatypes.DTActividad"%>
 <%@page import="webservices.DtTurista"%>
 <%@page import="webservices.DtPaquete"%>
 <%@page import="webservices.DtActividad"%>

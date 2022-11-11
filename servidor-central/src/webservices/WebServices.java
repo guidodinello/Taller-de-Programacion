@@ -2,10 +2,7 @@ package webservices;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.GregorianCalendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -28,7 +25,7 @@ import jakarta.xml.ws.Endpoint;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
-import excepciones.YaExisteException;
+import logica.clases.Configuracion;
 import logica.clases.Proveedor;
 import logica.clases.Usuario;
 import logica.handlers.HandlerUsuarios;
@@ -47,7 +44,8 @@ public class WebServices {
     //Operaciones las cuales quiero publicar
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9128/webservices", this);
+    	Configuracion config = Configuracion.getInstance();
+    	endpoint = Endpoint.publish(config.getPublishURL(), this);
     }
 
     @WebMethod(exclude = true)
