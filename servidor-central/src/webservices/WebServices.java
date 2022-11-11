@@ -160,7 +160,7 @@ public class WebServices {
     		categorias.add(cat);
     	}
     	ctrlAct.altaActividadTuristica(nomDep, nomActividad, desc, duraHs, costo, nombCiudad,
-    			nickProv, fechaAlta, imgDir, categorias, estado);
+    			nickProv, fechaAlta, imgDir, categorias,"", estado);
     }
     
     @WebMethod
