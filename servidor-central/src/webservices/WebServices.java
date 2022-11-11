@@ -260,4 +260,15 @@ public class WebServices {
     	return res;
     }
     
+    @WebMethod
+    public DTActividad[] busquedaTextoActividades(String busqueda) {
+    	Set<DTActividad> actividades = ctrlAct.infoBusquedaActividades(busqueda);
+    	return actividades.toArray(new DTActividad[actividades.size()]);
+    }
+    
+    @WebMethod
+    public DTPaquete[] busquedaTextoPaquetes(String busqueda) {
+    	Set<DTPaquete> paquetes = ctrlAct.infoBusquedaPaquetes(busqueda);
+    	return paquetes.toArray(new DTPaquete[paquetes.size()]);
+    }
 }
