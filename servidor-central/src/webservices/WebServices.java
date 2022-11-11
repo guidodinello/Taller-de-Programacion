@@ -2,9 +2,12 @@ package webservices;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.GregorianCalendar;
 import java.util.Set;
+
+import com.itextpdf.text.DocumentException;
 
 import excepciones.CompraFailException;
 import excepciones.InscriptionFailException;
@@ -25,6 +28,7 @@ import jakarta.xml.ws.Endpoint;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
+import logica.clases.ComprobanteInscripcion;
 import logica.clases.Configuracion;
 import logica.clases.Proveedor;
 import logica.clases.Usuario;
@@ -250,5 +254,10 @@ public class WebServices {
     	return proveedor;
     }
     
-
+    @WebMethod
+    public byte[] getFilePdf(String usuario, String salida) throws DocumentException, IOException {
+    	byte[] res = ctrlUsr.obtenerComprobanteInscripcion(usuario, salida);
+    	return res;
+    }
+    
 }

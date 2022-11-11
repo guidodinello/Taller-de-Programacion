@@ -39,10 +39,9 @@ public class Configuracion{
 		
 		propiedades = applicationProps;
 		
-		System.out.println(filePath);
 		} catch(Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
+			System.out.println("Corroborar que la carpeta .turismoUy y .properties se encuentren en el Home del usuario");
 			publishURL = "http://localhost:9128/webservices";
 			filePath = "";
 			propiedades = null;

@@ -18,9 +18,14 @@ import datatypes.tipoInscripcion;
 import logica.handlers.HandlerPaquetes;
 import logica.clases.PaqueteTuristico;
 import logica.clases.Compra;
+import logica.clases.ComprobanteInscripcion;
 
+import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.Set;
+
+import com.itextpdf.text.DocumentException;
+
 import java.util.HashSet;
 
 import excepciones.YaExisteException;
@@ -222,6 +227,18 @@ public class CtrlUsuario implements ICtrlUsuario {
 		  seguido.agregarSeguidor(seguidor);
 		  seguidor.agregarSeguido(seguido);
 	  }
+  }
+  
+  public byte[] obtenerComprobanteInscripcion(String nick, String salida) throws DocumentException, IOException {
+	  HandlerUsuarios hU = HandlerUsuarios.getInstance();
+	  Turista turista = hU.getTuristaByNickname(nick);
+	  InscripcionSalida inscSal = null;
+	  
+	  for(InscripcionSalida insc: turista.getInscripciones())
+		  if(insc.getSalida().getNombre().equals(salida))
+			  inscSal = insc;
+	  
+	  return new ComprobanteInscripcion().generar(turista.getNombre(), inscSal.getSalida().getActividad().getNombre(), salida, inscSal.getFechaAlta(), inscSal.getCantTuristas());
   }
   
 }
