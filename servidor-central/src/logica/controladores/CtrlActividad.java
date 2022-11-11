@@ -268,4 +268,14 @@ public class CtrlActividad implements ICtrlActividad{
     	else
     		act.eliminarFan(nombreUsuario);
     }
+    
+    public void finalizarActividad(String nombreActividad) {
+    	ActividadTuristica act = HandlerActividades.getInstance().obtenerActividadTuristica(nombreActividad);
+    	if(!act.getInfoBasicaSalidasVigentes(new GregorianCalendar()).isEmpty()) {
+    		//guardar en la base de datos
+    	}else {
+    		//tirar alguna exception
+    	}
+    	
+    };
 }

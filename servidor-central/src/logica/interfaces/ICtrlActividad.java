@@ -38,4 +38,5 @@ public interface ICtrlActividad{
 	public abstract Set<DTActividad> getDTActividadesConfirmadas();
 	public abstract Set<String> listarPaquetesCategoria(String categoria);
 	public abstract void leGusto(String nombreActividad, String nombreUsuario);
+	public abstract void finalizarActividad(String nombreActividad);
 }

@@ -25,7 +25,7 @@ public class DTUsuario {
 		fechaNac = usuario.getFechaNac();
 		nombre = usuario.getNombre();
 		apellido = usuario.getApellido();
-		imgDir = usuario.getImgDir();
+		imgDir = "imagen?usr=" + usuario.getImgDir();
 		seguidores = usuario.getSeguidores().keySet();
 		seguidos = usuario.getSeguidos().keySet();
 	}

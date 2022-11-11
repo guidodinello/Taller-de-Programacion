@@ -66,10 +66,11 @@ public class WebServices {
     public void altaUsuario(String nic, String ema, String nomb, String ape, String pas, String nac, byte [] fotoBin, String ext , String tipo, String nacionalidad, String descripcion, String sitioWeb) throws Exception {
     	ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
     	String [] fechaNac = nac.split("-");
-    	String fotoDireccion = "media/imagenes/usuarioPerfil.png";
+    	String fotoDireccion = "usuarioPerfil.png";
     	if (fotoBin != null) {
     		 try {
-    			 String dir ="./files" + nic +"_usr" + ext;
+    			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
+    			 String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
     	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
     	         File file = new File(dir);
     	         if(file.delete())
@@ -79,7 +80,7 @@ public class WebServices {
     		 }catch (Exception e) {
     			 e.printStackTrace();
     	     }
-    		 fotoDireccion = "imagen?usr=" + nic;
+    		 fotoDireccion = nic + "_usr." + ext;
     	}
     	try {
     		if(tipo.equals("Turista")) {
@@ -107,7 +108,8 @@ public class WebServices {
     @WebMethod
     public byte [] getFileImg(String filename) {
     	try {
-        	File img = new File("./files/" + filename);
+    		String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + filename;
+        	File img = new File(dir);
         	FileInputStream streamer = new FileInputStream(img);
         	byte [] byteArray = new byte[streamer.available()];
             streamer.read(byteArray);
