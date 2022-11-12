@@ -341,8 +341,7 @@
 													<div class="col-auto">
 														<a style="text-decoration: none"
 															href="salida?nombreSalida=<%=sal.getNombre()%>"><%=sal.getNombre()%></a>
-														<a style="text-decoration: none"
-															href="pdf-downloader?nombreSalida=<%=sal.getNombre()%>&&nombreUsuario=<%=miUsr.getNombre()%>">Descargar Comprobante de Inscripcion</a>
+
 													</div>
 
 												</div>
