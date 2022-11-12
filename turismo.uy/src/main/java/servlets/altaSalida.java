@@ -33,8 +33,6 @@ import webservices.YaExisteException_Exception;
 public class altaSalida extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
-    private String udi = "media/imagenes/salDefault.png";
-    private String rui = "media/imagenes/";
     webservices.WebServicesService service = new webservices.WebServicesService();
     webservices.WebServices port = service.getWebServicesPort();
     
@@ -44,34 +42,6 @@ public class altaSalida extends HttpServlet {
      */
     public altaSalida() {
         super();
-    }
-
-    private String guardarImg(Part p, HttpServletRequest req, String ext) {
-        String dir = udi;
-        try {
-            String na = req.getParameter("nombre")+ "_sal" + ext; //nombre del archivo
-            
-            /*Si existe un archivo con el mismo nombre lo eliminamos*/
-            File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+ na);
-            if(file.delete())
-                System.out.println("deleted");
-            
-            
-            dir = req.getServletContext().getRealPath("/"+rui);
-            File fil = new File(dir);
-            
-            
-            InputStream ab = p.getInputStream();
-            
-            if(ab != null) {
-                File img = new File(fil, na);
-                dir = rui + na;
-                Files.copy(ab, img.toPath());       
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dir;
     }
     
     private String extencionValida(String fn) {
@@ -138,16 +108,15 @@ public class altaSalida extends HttpServlet {
         String lugar = request.getParameter("lugar");
         Integer cantMaxTur = Integer.parseInt(request.getParameter("cantMaxTur"));        
         
-      //Con esto agregas la imagen
-        String fd = udi;
-        Part p = request.getPart("fotoDeLaSalida"); //aca solo es poner el nombre de donde te viene la foto del form el file y listo fd es el string que pasas
-        
+      //Foto de perfil
+        Part p     = request.getPart("fotoDeLaSalida");
+        byte [] fotoBin = null;  //guardar binario de la foto
         if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
-            fd = guardarImg(p, request ,extencionValida(p.getSubmittedFileName()));
+            fotoBin = p.getInputStream().readAllBytes();
         }
         
         try {
-            port.altaSalidaTuristica(nombre, xmlFecha, lugar, cantMaxTur, xmlFechaDelDia, actividad, fd);
+            port.altaSalidaTuristica(nombre, xmlFecha, lugar, cantMaxTur, xmlFechaDelDia, actividad, fotoBin, extencionValida(p.getSubmittedFileName()));
             request.setAttribute("exito", "Has registrado con exito la salida: " + nombre);
             request.getRequestDispatcher("/index").forward(request, response);
         }catch(YaExisteException_Exception e) {

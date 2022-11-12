@@ -34,43 +34,12 @@ import webservices.YaExisteException_Exception;
 public class altaActividad extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
-    private String udi = "media/imagenes/actDefault.jpg";
-    private String rui = "media/imagenes/";
     webservices.WebServicesService service = new webservices.WebServicesService();
     webservices.WebServices port = service.getWebServicesPort();
     
     public altaActividad() {
         super();
     }
-    
-    private String guardarImg(Part p, HttpServletRequest req, String ext) {
-        String dir = udi;
-        try {
-            String na = req.getParameter("Nombre")+ "_act" + ext; //nombre del archivo
-            
-            /*Si existe un archivo con el mismo nombre lo eliminamos*/
-            File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+ na);
-            if(file.delete())
-                System.out.println("deleted");
-            
-            
-            dir = req.getServletContext().getRealPath("/"+rui);
-            File fil = new File(dir);
-            
-            
-            InputStream ab = p.getInputStream();
-            
-            if(ab != null) {
-                File img = new File(fil, na);
-                dir = rui + na;
-                Files.copy(ab, img.toPath());       
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dir;
-    }
-    
     
     private String extencionValida(String fn) {
         String res = "";
@@ -100,17 +69,15 @@ public class altaActividad extends HttpServlet {
            aEnviarCat += cate + "//";
         }
         
-        //Foto de la actividad
-        String fd = udi;
-        Part p = req.getPart("ImagenActividad");
-        
-        if(p !=null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
-            fd = guardarImg(p, req ,extencionValida(p.getSubmittedFileName()));
+        Part p     = req.getPart("ImagenActividad");
+        byte [] fotoBin = null;  //guardar binario de la foto
+        if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
+            fotoBin = p.getInputStream().readAllBytes();
         }
         
         try {
             XMLGregorianCalendar xmlFecha= DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
-            port.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), xmlFecha, fd, aEnviarCat, EstadoActividad.AGREGADA);
+            port.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), xmlFecha, fotoBin, extencionValida(p.getSubmittedFileName()), aEnviarCat, EstadoActividad.AGREGADA);
             req.setAttribute("exito", "La actividad "+ nom + " se ha dado de alta exitosamente");
             req.getRequestDispatcher("/index").forward(req, res);
         } catch(YaExisteException_Exception e) {
