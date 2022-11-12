@@ -1,13 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="servlets.consultaUsuario"%>
-<%@page import="model.datatypes.DTUsuario"%>
-<%@page import="model.datatypes.DTSalida"%>
-<%@page import="model.datatypes.DTCompra"%>
-<%@page import="model.datatypes.DTTurista"%>
-<%@page import="model.datatypes.DTActividad"%>
-<%@page import="model.datatypes.estadoActividad"%>
-<%@page import="model.datatypes.DTProveedor"%>
-<%@page import="model.datatypes.DTPaquete"%>
+<%@page import="webservices.DtUsuario"%>
+<%@page import="webservices.DtSalida"%>
+<%@page import="webservices.DtCompra"%>
+<%@page import="webservices.DtTurista"%>
+<%@page import="webservices.DtActividad"%>
+<%@page import="webservices.EstadoActividad"%>
+<%@page import="webservices.DtProveedor"%>
+<%@page import="webservices.DtPaquete"%>
+<%@page import="webservices.DtSalidaArray"%>
+<%@page import="webservices.DtActividadArray"%>
+
 <%@page import="model.logica.interfaces.ICtrlUsuario"%>
 <%@page import="model.logica.interfaces.ICtrlActividad"%>
 <%@page import="model.logica.interfaces.Fabrica"%>
@@ -17,6 +20,7 @@
 <%@page import="model.logica.clases.Turista"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.text.SimpleDateFormat"%>
 
@@ -44,7 +48,7 @@
 		<%
 		switch ((String) request.getAttribute("STATE")) {
 			case "LISTAR" : {
-				Set<DTUsuario> listaUsuarios = (Set<DTUsuario>) request.getAttribute("USUARIOS");
+				Set<DtUsuario> listaUsuarios = (Set<DtUsuario>) request.getAttribute("USUARIOS");
 				if (listaUsuarios.isEmpty()) {
 		%>
 		<h1>No hay usuarios.</h1>
@@ -53,7 +57,7 @@
 		%>
 		<div class="text-center col-sm-9">
 			<div class="row row-cols-3 gy-3">
-				<%for (DTUsuario usuario : listaUsuarios) {%>
+				<%for (DtUsuario usuario : listaUsuarios) {%>
 				<div class="col">
 					<a
 						href="consultaUsuario?STATE=INFO&&NICKNAME=<%=usuario.getNickname()%>">
@@ -77,8 +81,8 @@
 		break;
 		}
 		case "INFO" : {
-		DTUsuario Usr = (DTUsuario) request.getAttribute("PERFIL_USUARIO");
-		DTUsuario miUsr = (DTUsuario) request.getAttribute("MI_PERFIL_USUARIO");
+		DtUsuario Usr = (DtUsuario) request.getAttribute("PERFIL_USUARIO");
+		DtUsuario miUsr = (DtUsuario) request.getAttribute("MI_PERFIL_USUARIO");
 		//mi perfil
 		if (miUsr != null) {
 		%>
@@ -115,7 +119,7 @@
 										href="#salidas" role="tab" aria-controls="salidas"
 										aria-selected="false">Salidas</a></li>
 									<%
-									if (miUsr instanceof DTTurista) {
+									if (miUsr instanceof DtTurista) {
 									%>
 
 									<li class="nav-item"><a class="nav-link nav-link-usr"
@@ -223,15 +227,15 @@
 													</div>
 													<div class="col-auto">
 														<input type="text" name="FechaNacimiento"
-															value=<%=new SimpleDateFormat("yyyy-MM-dd").format(miUsr.getFechaNac().getTime())%>
+															value=<%=new SimpleDateFormat("yyyy-MM-dd").format(miUsr.getFechaNac().toGregorianCalendar().getTime())%>
 															class="form-control disabled" aria-describedby="disabled"
 															onfocus="(this.type='date')" onblur="(this.type='text')"
-															placeholder=<%=new SimpleDateFormat("yyyy-MM-dd").format(miUsr.getFechaNac().getTime())%>>
+															placeholder=<%=new SimpleDateFormat("yyyy-MM-dd").format(miUsr.getFechaNac().toGregorianCalendar().getTime())%>>
 													</div>
 
 												</div>
 												
-												<% if(miUsr instanceof DTTurista){ %>
+												<% if(miUsr instanceof DtTurista){ %>
 												<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
@@ -242,7 +246,7 @@
 															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder="<%=((DTTurista)miUsr).getNacionalidad()%>">
+																placeholder="<%=((DtTurista)miUsr).getNacionalidad()%>">
 														</div>
 														<div class="col-auto">
 															<span id="passwordHelpInline" class="form-text">
@@ -258,7 +262,7 @@
 													</div>
 													<div class="col">
 														<textarea name="Descripcion" class="form-control input-lg"
-															aria-describedby="passwordHelpInline"><%=((DTProveedor)miUsr).getDescripcion()%></textarea>
+															aria-describedby="passwordHelpInline"><%=((DtProveedor)miUsr).getDescripcion()%></textarea>
 													</div>
 
 												</div>
@@ -269,7 +273,7 @@
 															for="Link" class="col-form-label">Sitio Web:</label>
 													</div>
 													<div class="col-auto">
-														<input type="text" value=<%=((DTProveedor)miUsr).getLinkSitioWeb()%>
+														<input type="text" value=<%=((DtProveedor)miUsr).getSitioWeb()%>
 															name="Link" class="form-control"
 															aria-describedby="passwordHelpInline">
 													</div>
@@ -296,23 +300,36 @@
 											<%--C O N T E N I D O       D E      S A L I D A S --%>
 											<%
 											ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
-											Set<DTSalida> salidas = new HashSet<DTSalida>();
+											Set<DtSalida> salidas = new HashSet<DtSalida>();
 											Set<String> salidasNombre = new HashSet<String>();
 											ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
-
-											if (miUsr instanceof DTTurista) {
-												salidas = ctrlUsr.listarInfoSalidasTurista(miUsr.getNickname());
+											 webservices.WebServicesService service = new webservices.WebServicesService();
+								             webservices.WebServices port = service.getWebServicesPort();
+											if (miUsr instanceof DtTurista) {
+												DtSalidaArray salidasArray =  port.listarInfoSalidasTurista(miUsr.getNickname());
+												List <DtSalida> salidasList = salidasArray.getItem();
+												for(DtSalida salida : salidasList){
+													salidas.add(salida);
+												}
+											
+												
 											} else {
-												Set<DTActividad> act = ctrlUsr.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
-												for (DTActividad nomb : act) {
+												Set<DtActividad> actividades = new HashSet<DtActividad>();
+												DtActividadArray act = port.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
+												List <DtActividad> actList = act.getItem();
+												
+												for(DtActividad activ : actList){
+													actividades.add(activ);
+												}
+												for (DtActividad nomb : actividades) {
 													for (String sal : nomb.getSalidas()) {
-														salidas.add(ctrlAct.getInfoCompletaSalida(sal));
+														salidas.add(port.getInfoCompletaSalida(sal));
 													}
 
 												}
 
 											}
-											for (DTSalida sal : salidas) {
+											for (DtSalida sal : salidas) {
 											%>
 											<fieldset disabled>
 												<div class="row g-3 align-items-center pt-3">
@@ -324,7 +341,8 @@
 													<div class="col-auto">
 														<a style="text-decoration: none"
 															href="salida?nombreSalida=<%=sal.getNombre()%>"><%=sal.getNombre()%></a>
-
+														<a style="text-decoration: none"
+															href="pdf-downloader?nombreSalida=<%=sal.getNombre()%>&&nombreUsuario=<%=miUsr.getNombre()%>">Descargar Comprobante de Inscripcion</a>
 													</div>
 
 												</div>
@@ -338,7 +356,7 @@
 													<div class="col-auto">
 														<input type="text" class="form-control disabled"
 															aria-describedby="disabled"
-															placeholder=<%=new SimpleDateFormat("HH:mm").format(sal.getfechaSalida().getTime())%>>
+															placeholder=<%=new SimpleDateFormat("HH:mm").format(sal.getFechaSalida().toGregorianCalendar().getTime())%>>
 													</div>
 
 												</div>
@@ -354,7 +372,7 @@
 													<div class="col-auto">
 														<input type="text" class="form-control disabled"
 															aria-describedby="disabled"
-															placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaSalida().getTime())%>>
+															placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getFechaSalida().toGregorianCalendar().getTime())%>>
 													</div>
 
 												</div>
@@ -370,7 +388,7 @@
 													<div class="col-auto">
 														<input type="text" class="form-control disabled"
 															aria-describedby="disabled"
-															placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaAlta().getTime())%>>
+															placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getFechaAlta().toGregorianCalendar().getTime())%>>
 													</div>
 
 												</div>
@@ -382,7 +400,7 @@
 									<%--cierre salidas --%>
 
 									<%
-									if (miUsr instanceof DTTurista) {
+									if (miUsr instanceof DtTurista) {
 										ICtrlActividad ctrlA = Fabrica.getInstance().getICtrlActividad();
 									%>
 
@@ -391,9 +409,10 @@
 										aria-labelledby="paquetes-tab">
 										<div class="card-body">
 											<%
-											DTTurista Usuario = (DTTurista) miUsr;
-											for (DTCompra c : Usuario.getCompras()) {
-												DTPaquete paq = ctrlA.getInfoPaquete(c.getPaquete());
+											
+											DtTurista Usuario = (DtTurista) miUsr;
+											for (DtCompra c : Usuario.getCompras()) {
+												DtPaquete paq = port.getInfoPaquete(c.getPaquete());
 											%>
 											<form>
 												<a style="text-decoration: none; font-size: larger;"
@@ -409,7 +428,7 @@
 															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder="<%=c.getCantTuristas()%>">
+																placeholder="<%=c.getCantidadTuristas()%>">
 														</div>
 
 													</div>
@@ -440,7 +459,7 @@
 															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder="<%=paq.getCosto()*c.getCantTuristas()%> $">
+																placeholder="<%=paq.getCosto()*c.getCantidadTuristas()%> $">
 														</div>
 
 													</div>
@@ -473,7 +492,7 @@
 															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(c.getFechaCompra().getTime())%>>
+																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(c.getFechaCompra().toGregorianCalendar().getTime())%>>
 														</div>
 
 													</div>
@@ -490,7 +509,7 @@
 															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(c.getFechaVencimiento().getTime())%>>
+																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(c.getFechaVencimiento().toGregorianCalendar().getTime())%>>
 														</div>
 
 													</div>
@@ -597,9 +616,10 @@
 										aria-labelledby="actividades-tab">
 										<div class="card-body">
 											<%
-											ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
-											Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
-											for (DTActividad act : actividades) {
+											Set<DtActividad> actividades = new HashSet<DtActividad>();
+											DtActividadArray activ = port.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
+											List <DtActividad> actList = activ.getItem();
+											for (DtActividad act : actividades) {
 											%>
 											<a style="text-decoration: none; font-size: 24px;"
 												href="consultaActividad?nombreAct=<%=act.getNombre()%>"
@@ -659,7 +679,7 @@
 														<div class="col-auto">
 															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder="<%=act.getFechaAltaString()%>">
+																placeholder="<%=act.getFechaAlta()%>"><%--TODO: it was getFechaAltaString --%>
 														</div>
 
 													</div>
@@ -674,7 +694,7 @@
 														<div class="col-auto">
 															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder="<%=act.getestado()%>">
+																placeholder="<%=act.getEstado()%>">
 														</div>
 
 													</div>
@@ -730,7 +750,7 @@
 												href="#salidas" role="tab" aria-controls="salidas"
 												aria-selected="false">Salidas</a></li>
 											<%
-											if (Usr instanceof DTProveedor) {
+											if (Usr instanceof DtProveedor) {
 											%>
 											<li class="nav-item"><a class="nav-link nav-link-usr "
 												href="#actividades" role="tab" aria-controls="actividades"
@@ -824,12 +844,12 @@
 																		aria-describedby="disabled"
 																		onfocus="(this.type='date')"
 																		onblur="(this.type='text')"
-																		placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(Usr.getFechaNac().getTime())%>>
+																		placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(Usr.getFechaNac().toGregorianCalendar().getTime())%>>
 																</div>
 
 															</div>
 														</fieldset>
-														<%if(Usr instanceof DTTurista){ %>
+														<%if(Usr instanceof DtTurista){ %>
 															<fieldset disabled>
 															<div class="row g-3 align-items-center pt-3">
 																<div class="col-auto">
@@ -840,7 +860,7 @@
 																	<input type="text" id="inputPassword6"
 																		class="form-control"
 																		aria-describedby="passwordHelpInLine"
-																		placeholder="<%=((DTTurista)Usr).getNacionalidad()%>">
+																		placeholder="<%=((DtTurista)Usr).getNacionalidad()%>">
 																</div>
 
 															</div>
@@ -856,7 +876,7 @@
 																	<textarea id="inputPassword6"
 																		class="form-control"
 																		aria-describedby="passwordHelpInLine"
-																		placeholder="<%=((DTProveedor)Usr).getDescripcion()%>"></textarea>
+																		placeholder="<%=((DtProveedor)Usr).getDescripcion()%>"></textarea>
 																</div>
 
 															</div>
@@ -871,7 +891,7 @@
 																	<input type="text" id="inputPassword6"
 																		class="form-control"
 																		aria-describedby="passwordHelpInLine"
-																		placeholder="<%=((DTProveedor)Usr).getLinkSitioWeb()%>">
+																		placeholder="<%=((DtProveedor)Usr).getSitioWeb()%>">
 																</div>
 
 															</div>
@@ -888,23 +908,30 @@
 													<%--C O N T E N I D O       D E      S A L I D A S --%>
 													<%
 													ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
-													Set<DTSalida> salidas = new HashSet<DTSalida>();
+													Set<DtSalida> salidas = new HashSet<DtSalida>();
 													Set<String> salidasNombre = new HashSet<String>();
 													ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
-
-													if (Usr instanceof DTTurista) {
-														salidas = ctrlUsr.listarInfoSalidasTurista(Usr.getNickname());
+													 webservices.WebServicesService service = new webservices.WebServicesService();
+										             webservices.WebServices port = service.getWebServicesPort();
+													if (Usr instanceof DtTurista) {
+														DtSalidaArray sal =port.listarInfoSalidasTurista(Usr.getNickname());
+														List <DtSalida> salList = sal.getItem();
+														for(DtSalida s :salList){
+															salidas.add(s);
+														}
 													} else {
-														Set<DTActividad> act = ctrlUsr.listarInfoCompletaActividadesProveedor(Usr.getNickname());
-														for (DTActividad nomb : act) {
+														Set<DtActividad> actividades = new HashSet<DtActividad>();
+														DtActividadArray activ = port.listarInfoCompletaActividadesProveedor(Usr.getNickname());
+														List <DtActividad> actList = activ.getItem();
+														for (DtActividad nomb : actividades) {
 															for (String sal : nomb.getSalidas()) {
-																salidas.add(ctrlAct.getInfoCompletaSalida(sal));
+																salidas.add(port.getInfoCompletaSalida(sal));
 															}
 
 														}
 
 													}
-													for (DTSalida sal : salidas) {
+													for (DtSalida sal : salidas) {
 													%>
 													<fieldset disabled>
 														<div class="row g-3 align-items-center pt-3">
@@ -930,7 +957,7 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder=<%=new SimpleDateFormat("HH:mm").format(sal.getfechaSalida().getTime())%>>
+																	placeholder=<%=new SimpleDateFormat("HH:mm").format(sal.getFechaSalida().toGregorianCalendar().getTime())%>>
 															</div>
 
 														</div>
@@ -946,7 +973,7 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaSalida().getTime())%>>
+																	placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getFechaSalida().toGregorianCalendar().getTime())%>>
 															</div>
 
 														</div>
@@ -962,7 +989,7 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getfechaAlta().getTime())%>>
+																	placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getFechaAlta().toGregorianCalendar().getTime())%>>
 															</div>
 
 														</div>
@@ -973,16 +1000,20 @@
 											</div>
 											<%--cierre salidas --%>
 
-											<%if (Usr instanceof DTProveedor) {%>
+											<%if (Usr instanceof DtProveedor) {%>
 											<%--/////////////////////////// A C T I V I D A D E S  //////////////////////--%>
 											<div class="tab-pane" id="actividades" role="tabpanel"
 												aria-labelledby="actividades-tab">
 												<div class="card-body">
 													<%
-													ICtrlUsuario ctrlU = Fabrica.getInstance().getICtrlUsuario();
-													Set<DTActividad> actividades = ctrlU.listarInfoCompletaActividadesProveedor(Usr.getNickname());
-													for (DTActividad act : actividades) {
-														if (act.getestado() == estadoActividad.confirmada) {
+													Set<DtActividad> actividades = new HashSet<DtActividad>();
+													DtActividadArray activ = port.listarInfoCompletaActividadesProveedor(Usr.getNickname());
+													List <DtActividad> actList = activ.getItem();
+													for(DtActividad a : actList){
+														actividades.add(a);
+													}
+													for (DtActividad act : actividades) {
+														if (act.getEstado() == EstadoActividad.CONFIRMADA) {
 													%>
 													<a style="text-decoration: none; font-size: 24px;"
 														href="consultaActividad?nombreAct=<%=act.getNombre()%>"
@@ -1042,7 +1073,7 @@
 																<div class="col-auto">
 																	<input type="text" class="form-control disabled"
 																		aria-describedby="disabled"
-																		placeholder="<%=act.getFechaAltaString()%>">
+																		placeholder="<%=act.getFechaAlta()%>">
 																</div>
 
 															</div>
