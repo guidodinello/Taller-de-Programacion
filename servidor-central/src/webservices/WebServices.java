@@ -359,4 +359,16 @@ public class WebServices {
     public void agregarVisita(String nombre) {
     	ctrlAct.agregarVisita(nombre);
     }
+	  @WebMethod
+    public InscripcionSalida[] getInscripciones(String nickname) {
+    HandlerUsuarios hu = HandlerUsuarios.getInstance();
+	Usuario usr = hu.getUsuarioByNickname(nickname);
+	Turista tur = (Turista) usr;
+	Set<InscripcionSalida> sali = tur.getInscripciones();
+	int arraySize = sali.size();
+	InscripcionSalida[] salidaArray = new InscripcionSalida[arraySize];
+	salidaArray = sali.toArray(salidaArray);
+	return salidaArray;
+	
+    }
 }
