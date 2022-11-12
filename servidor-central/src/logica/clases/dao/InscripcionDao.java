@@ -64,4 +64,9 @@ public class InscripcionDao {
 	public void setSalida(SalidaDao sal) {
 		salidaId = sal;
 	}
+	
+	public TuristaDao getTurisita() {
+		return turistaId;
+	}
 }
+

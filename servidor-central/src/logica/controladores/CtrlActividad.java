@@ -305,23 +305,30 @@ public class CtrlActividad implements ICtrlActividad{
     	ActividadDao actDao = new ActividadDao(dtAct);
     	Set<SalidaTuristica> salidas = act.getSalidas();
     	salidas.forEach((sal)->{
-    		SalidaDao salDao = new SalidaDao(sal);
-    		salDao.setActividad(actDao);
-    		
-    		Set<String> turistasSal = sal.getTuristasInscriptos();
-    		turistasSal.forEach((tur)->{
-    			Turista turInstancia = HandlerUsuarios.getInstance().getTuristaByNickname(tur);
-    			UsuarioDao usrTurDao = new UsuarioDao(turInstancia);
-    			TuristaDao turDao = new TuristaDao(turInstancia);
-    			turDao.setUsuario(usrTurDao);
-    			
-    			InscripcionDao insDao = new InscripcionDao(turInstancia.getInfoInscripcion(nombreActividad));
-    			insDao.setTurista(turDao);
-    			insDao.setSalida(salDao);
-    			salDao.addIncripcion(insDao);
-    		});
-    		
-    		actDao.addSalida(salDao);
+    		if(sal != null) {
+        		SalidaDao salDao = new SalidaDao(sal);
+        		salDao.setActividad(actDao);
+        		
+        		Set<String> turistasSal = sal.getTuristasNicknameInscriptos();
+        		turistasSal.forEach((tur)->{
+        			Turista turInstancia = HandlerUsuarios.getInstance().getTuristaByNickname(tur);
+        			
+        			UsuarioDao usrTurDao = new UsuarioDao((Usuario) turInstancia);
+        			TuristaDao turDao = new TuristaDao(turInstancia);
+        			turDao.setUsuario(usrTurDao);
+        			
+        			InscripcionDao insDao = new InscripcionDao(turInstancia.getInfoInscripcion(sal.getNombre()));
+        			insDao.setTurista(turDao);
+        			insDao.setSalida(salDao);
+        			salDao.addIncripcion(insDao);
+        			turInstancia.eliminarIncripcionesDeActividad(nombreActividad);
+        		});
+        		System.out.println(salDao);
+        		actDao.addSalida(salDao);
+        		sal.eliminarActividad(nombreActividad);
+        		HandlerSalidas.getInstance().eliminarSalida(sal.getNombre());
+    		}
+
     	});
     	
     	/*El proveedor*/
@@ -344,6 +351,25 @@ public class CtrlActividad implements ICtrlActividad{
     	emf.close();
     	
     	
+    	/*Eliminar del programa las actividades*/
+    	HandlerCategorias hCat = HandlerCategorias.getInstance();
+    	Set<Categoria> categorias = hCat.obtenerCategorias();
+    	categorias.forEach((cat)->{
+    		cat.eliminarAcividad(nombreActividad);
+    	});
+    	HandlerDepartamentos hDep = HandlerDepartamentos.getInstance();
+    	Set<Departamento> departamentos = hDep.obtenerDepartamentos();
+    	departamentos.forEach((dep)->{
+    		dep.eliminarActividad(nombreActividad);
+    	});
+    	prov.eliminarActividad(nombreActividad);
+    	HandlerSalidas hSal = HandlerSalidas.getInstance();
+    	SalidaTuristica[] salidasDondeEliminar = hSal.getSalidas();
+    	for(SalidaTuristica salt: salidasDondeEliminar) {
+    		salt.eliminarActividad(nombreActividad);
+    	}
+    	HandlerActividades hAct = HandlerActividades.getInstance();
+    	hAct.eliminarActividad(nombreActividad);
     };
     
     public Set<ActividadDao> getActividadesFinalizada(String proveedor) {

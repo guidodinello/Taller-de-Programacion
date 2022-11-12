@@ -63,8 +63,8 @@ public class ProveedorDao {
 		usuarioId = usr;
 	}
 	
-	//public void addActividad(ActividadDao act) {
-	//	actividades.add(act);
-	//}
+	public UsuarioDao getUsuario() {
+		return usuarioId;
+	}
 	
 }

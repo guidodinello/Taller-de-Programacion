@@ -50,4 +50,8 @@ public class Proveedor extends Usuario {
 	public boolean proveeActividad(String act) {
 		return actividades.containsKey(act);
 	}
+	
+	public void eliminarActividad(String nombreActividad) {
+		actividades.remove(nombreActividad);
+	};
 }

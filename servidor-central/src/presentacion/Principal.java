@@ -4,6 +4,8 @@ import logica.clases.ActividadTuristica;
 import logica.clases.Proveedor;
 import logica.clases.dao.ActividadDao;
 import logica.clases.dao.ProveedorDao;
+import logica.clases.dao.SalidaDao;
+import logica.clases.dao.InscripcionDao;
 import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
@@ -27,6 +29,7 @@ import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Set;
 
 //import logica.controladores.*;
@@ -217,10 +220,18 @@ public class Principal {
 				Set<ActividadDao> lista = ICA.getActividadesFinalizada("eldiez");
 		    	for(ActividadDao act: lista) {
 		    		System.out.println(act.getDescripcion());
-		    		System.out.println(act.getFechaAlta());
-		    		System.out.println(act.getFechaBaja());
 		    		System.out.println(act.getNombre());
-		    		System.out.println(act.getProveedor());
+		    		System.out.println(act.getProveedor().getUsuario().getApellido());
+		    		List<SalidaDao> salidas = act.getSalidas();
+		    		for(SalidaDao sal : salidas) {
+		    			System.out.println(sal.getNombre());
+		    			List<InscripcionDao> inscripciones = sal.getInscripciones();
+		    			for(InscripcionDao ins: inscripciones) {
+		    				System.out.println(ins.getTurisita().getNacionalidad());
+		    				System.out.println(ins.getTurisita().getUsuario().getApellido());
+		    			}
+		    		}
+		    		System.out.println();
 				
 		    	}
 			}

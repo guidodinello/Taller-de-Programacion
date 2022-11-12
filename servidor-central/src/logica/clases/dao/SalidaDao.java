@@ -1,5 +1,6 @@
 package logica.clases.dao;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class SalidaDao {
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="inscripcionId")
-	private List<InscripcionDao> inscripciones;
+	private List<InscripcionDao> inscripciones = new ArrayList<InscripcionDao>();
 
 	public SalidaDao() {
 		
@@ -94,5 +95,9 @@ public class SalidaDao {
 	
 	public void setActividad(ActividadDao act) {
 		actividad = act;
+	}
+	
+	public List<InscripcionDao> getInscripciones(){
+		return inscripciones;
 	}
 }

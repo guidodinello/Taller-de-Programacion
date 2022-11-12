@@ -37,6 +37,10 @@ public class TuristaDao {
 		this.nacionalidad = nacionalidad;
 	}
 	
+	public UsuarioDao getUsuario() {
+		return usuarioId;
+	}
+	
 	
 	
 }

@@ -31,7 +31,7 @@ public class UsuarioDao {
 	
 	public UsuarioDao(Usuario usr) {
 		nickname = usr.getNickname();
-		email = usr.getNickname();
+		email = usr.getEmail();
 		nombre = usr.getNombre();
 		apellido = usr.getApellido();
 		fechaNac = usr.getFechaNac();

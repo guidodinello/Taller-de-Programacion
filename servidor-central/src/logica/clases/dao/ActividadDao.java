@@ -12,8 +12,10 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import logica.clases.ActividadTuristica;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Set;
 
 import datatypes.DTActividad;
 import datatypes.estadoActividad;
@@ -41,7 +43,7 @@ public class ActividadDao {
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="SalidaId")
-	private List<SalidaDao> salidas;
+	private List<SalidaDao> salidas = new ArrayList<SalidaDao>();
 	
 	public ActividadDao() {
 		
@@ -145,6 +147,10 @@ public class ActividadDao {
 	
 	public void addSalida(SalidaDao sal) {
 		salidas.add(sal);
+	}
+	
+	public List<SalidaDao> getSalidas(){
+		return salidas;
 	}
 	
 	

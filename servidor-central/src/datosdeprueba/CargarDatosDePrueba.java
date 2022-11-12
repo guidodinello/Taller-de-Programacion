@@ -417,9 +417,11 @@ public class CargarDatosDePrueba {
 
     
     try {
-    	ica.altaSalidaTuristica("Degusta Rivera", new GregorianCalendar(2000, 7, 20, 17, 0),
-                "Sociedad Agropecuaria de Rocha", 20, new GregorianCalendar(2022, 6, 21), "Descubre Rivera",
+    	ica.altaSalidaTuristica("Descubre Rivera", new GregorianCalendar(2000, 7, 20, 17, 0),
+                "Sociedad Agropecuaria de Rocha", 20, new GregorianCalendar(1998, 6, 21), "Descubre Rivera",
                 "tinyurl.com/4jwed4jx");
+    	icu.ingresarInscripcion("lachiqui", "Descubre Rivera", 4,
+    	          new GregorianCalendar(1999, 9, 12), tipoInscripcion.general, "");
     	
         ica.finalizarActividad("Descubre Rivera");
     }catch (Exception e){
