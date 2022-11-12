@@ -80,7 +80,10 @@ public class WebServices {
     	if (fotoBin != null) {
     		 try {
     			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
-    			 String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+    			 Configuracion config = Configuracion.getInstance();
+    			 
+    			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+    			 String dir = config.getFilePath() + nic + "_usr" + ext;
     	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
     	         File file = new File(dir);
     	         if(file.delete())
