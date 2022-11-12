@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.GregorianCalendar;
 
 import datatypes.DTActividad;
+import datatypes.DTPaquete;
 import datatypes.DTSalida;
 import datatypes.estadoActividad;
 import logica.handlers.HandlerDepartamentos;
+import logica.handlers.HandlerUsuarios;
 import logica.handlers.HandlerCategorias;
 
 import java.util.HashMap;
@@ -137,4 +139,16 @@ public class ActividadTuristica{
 		return url;
 	}
 
+	public String getProveedor() {
+		Set<Proveedor> proveedores = HandlerUsuarios.getInstance().listarProveedores();
+		String resu = "";
+		for (Proveedor prov : proveedores) {
+            if (prov.proveeActividad(this.nombre)) {
+            	resu = prov.getNickname();
+            	System.out.println(resu);
+            	return resu;
+            }
+        }
+		return resu;
+	}
 }

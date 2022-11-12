@@ -1,5 +1,11 @@
 package presentacion;
 
+import logica.clases.ActividadTuristica;
+import logica.clases.Proveedor;
+import logica.clases.dao.ActividadDao;
+import logica.clases.dao.ProveedorDao;
+import logica.handlers.HandlerActividades;
+import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
 
 import java.awt.EventQueue;
@@ -7,8 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-
+import datatypes.estadoActividad;
 import datosdeprueba.CargarDatosDePrueba;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import webservices.WebServices;
 
 //import logica.*;
@@ -16,6 +26,8 @@ import webservices.WebServices;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
+import java.util.Set;
 
 //import logica.controladores.*;
 import logica.interfaces.ICtrlActividad;
@@ -197,6 +209,25 @@ public class Principal {
 			}
 		});
 		menuSistema.add(menuCargarDatos);
+		
+		JMenuItem menuTESTDB = new JMenuItem("testDB");
+		menuTESTDB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//Proveedor prov = HandlerUsuarios.getInstance().getProveedorByNickname("eldiez");
+				//ProveedorDao eldiez = new ProveedorDao(prov);
+				Set<ActividadDao> lista = ICA.getActividadesFinalizada("eldiez");
+		    	for(ActividadDao act: lista) {
+		    		System.out.println(act.getDescripcion());
+		    		System.out.println(act.getFechaAlta());
+		    		System.out.println(act.getFechaBaja());
+		    		System.out.println(act.getNombre());
+		    		System.out.println(act.getProveedor());
+				
+		    	}
+			}
+		});
+		menuSistema.add(menuTESTDB);
+		
 
 		// -----------MENU USUARIO-----------
 
