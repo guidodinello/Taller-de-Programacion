@@ -1,7 +1,7 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
-<%@page import="model.datatypes.DTActividad" %>
-<%@page import="model.datatypes.DTSalida" %>
-<%@page import="model.datatypes.DTPaquete" %>
+<%@page import="webservices.DtActividad" %>
+<%@page import="webservices.DtSalida" %>
+<%@page import="webservices.DtPaquete" %>
 <%@page import="java.util.Set"%>
 
 
@@ -20,7 +20,7 @@
 			<div class="col-sm-6 text-center">
 			
 			<%
-				DTActividad actividad = (DTActividad) request.getAttribute("datosActividad");
+				DtActividad actividad = (DtActividad) request.getAttribute("datosActividad");
 			%>
 			
 			<div class="card mb-3" style="max-width: 800px;">
@@ -32,7 +32,7 @@
 						<div class="card-body">
 							<h5 class="card-title"><%= actividad.getNombre() %></h5>
 							<p class="card-text"><%= actividad.getDescripcion() %></p>
-							<p class="card-text"><small class="text-muted">Fecha alta: <%= actividad.getFechaAltaString()%> </small></p>
+							<p class="card-text"><small class="text-muted">Fecha alta: <%= actividad.getFechaAlta()%> </small></p><%--TODO getFechaAltaString --%>
 						</div>
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 								</div>
 								
 								<%
-									for(String categoria: actividad.getCategorias()){
+									for(String categoria: actividad.getNombCategorias()){
 								%>
 								<div class="col-auto">
 									<a href="categoria?nombreCat=<%= categoria %>" class="badge bg-secondary"><%= categoria %></a>
@@ -111,8 +111,8 @@
                     <ul class="list-group list-group-flush">
                     
                     <%
-                    	Set<DTSalida> salidasActividad = (Set<DTSalida>) request.getAttribute("datosSalidaActividad");
-						for(DTSalida salida: salidasActividad){
+                    	Set<DtSalida> salidasActividad = (Set<DtSalida>) request.getAttribute("datosSalidaActividad");
+						for(DtSalida salida: salidasActividad){
 					%>
                         <div class="list-group-item p-1">
                             <a class="text-decoration-none" href="salida?nombreSalida=<%= salida.getNombre() %>">
@@ -139,15 +139,15 @@
                     <ul class="list-group list-group-flush">
                     
                    <%
-                    	Set<DTPaquete> paquetesActividad = (Set<DTPaquete>) request.getAttribute("datosPaqueteActividad");
-						for(DTPaquete paquete: paquetesActividad){
+                    	Set<DtPaquete> paquetesActividad = (Set<DtPaquete>) request.getAttribute("datosPaqueteActividad");
+						for(DtPaquete paquete: paquetesActividad){
 					%>
                     
                         <div class="list-group-item p-1">
                             <a class="text-decoration-none" href="paquete?nombrePaquete=<%= paquete.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="<%= paquete.getImg() %>" class="img-fluid rounded-start" alt="...">
+                                        <img src="<%= paquete.getImgDir() %>" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
