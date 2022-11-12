@@ -288,4 +288,9 @@ public class WebServices {
     	Set<DTPaquete> paquetes = ctrlAct.infoBusquedaPaquetes(busqueda);
     	return paquetes.toArray(new DTPaquete[paquetes.size()]);
     }
+    
+    @WebMethod
+    public void agregarVisita(String nombre) {
+    	ctrlAct.agregarVisita(nombre);
+    }
 }
