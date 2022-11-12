@@ -173,21 +173,68 @@ public class WebServices {
     
     @WebMethod
 	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad,
-			String nickProv, GregorianCalendar fechaAlta, String imgDir, String categoriasString, estadoActividad estado) throws YaExisteException {
+			String nickProv, GregorianCalendar fechaAlta, byte [] fotoBin, String ext, String categoriasString, estadoActividad estado) throws YaExisteException {
     	
+    	//creamos set de categorias
     	Set<String> categorias = new HashSet<String>();
     	String[] setCat = categoriasString.split("//");
     	for(String cat : setCat) {
     		categorias.add(cat);
     	}
+    	
+    	//guardamos la imagen
+    	String fotoDireccion = "actDefault.jpg.png";
+    	if (fotoBin != null) {
+    		 try {
+    			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
+    			 Configuracion config = Configuracion.getInstance();
+    			 
+    			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+    			 String dir = config.getFilePath() + nomActividad + "_act" + ext;
+    	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
+    	         File file = new File(dir);
+    	         if(file.delete())
+    	        	 System.out.println("deleted");
+    	         File img = new File(dir);
+    	         Files.write(img.toPath(), fotoBin);
+    		 }catch (Exception e) {
+    			 e.printStackTrace();
+    	     }
+    		 fotoDireccion = nomActividad + "_act" + ext;
+    	}
+    	
+    	
     	ctrlAct.altaActividadTuristica(nomDep, nomActividad, desc, duraHs, costo, nombCiudad,
-    			nickProv, fechaAlta, imgDir, categorias,"", estado);
+    			nickProv, fechaAlta, fotoDireccion, categorias,"", estado);
     }
     
     @WebMethod
 	public void altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal, int cantMaxTuristas, 
-			GregorianCalendar fechaAlta, String  actividad, String img) throws YaExisteException {
-    	ctrlAct.altaSalidaTuristica(nombreSal, fechaSal, lugarSal, cantMaxTuristas, fechaAlta, actividad, img);
+			GregorianCalendar fechaAlta, String  actividad, byte [] fotoBin, String ext) throws YaExisteException {
+    	
+    	//guardamos la imagen
+    	String fotoDireccion = "salDefault.png";
+    	if (fotoBin != null) {
+    		 try {
+    			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
+    			 Configuracion config = Configuracion.getInstance();
+    			 
+    			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+    			 String dir = config.getFilePath() + nombreSal + "_sal" + ext;
+    	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
+    	         File file = new File(dir);
+    	         if(file.delete())
+    	        	 System.out.println("deleted");
+    	         File img = new File(dir);
+    	         Files.write(img.toPath(), fotoBin);
+    		 }catch (Exception e) {
+    			 e.printStackTrace();
+    	     }
+    		 fotoDireccion = nombreSal + "_sal" + ext;
+    	}
+    	
+    	
+    	ctrlAct.altaSalidaTuristica(nombreSal, fechaSal, lugarSal, cantMaxTuristas, fechaAlta, actividad, fotoDireccion);
     }
     
     @WebMethod
@@ -311,5 +358,17 @@ public class WebServices {
     @WebMethod
     public void agregarVisita(String nombre) {
     	ctrlAct.agregarVisita(nombre);
+    }
+	  @WebMethod
+    public InscripcionSalida[] getInscripciones(String nickname) {
+    HandlerUsuarios hu = HandlerUsuarios.getInstance();
+	Usuario usr = hu.getUsuarioByNickname(nickname);
+	Turista tur = (Turista) usr;
+	Set<InscripcionSalida> sali = tur.getInscripciones();
+	int arraySize = sali.size();
+	InscripcionSalida[] salidaArray = new InscripcionSalida[arraySize];
+	salidaArray = sali.toArray(salidaArray);
+	return salidaArray;
+	
     }
 }
