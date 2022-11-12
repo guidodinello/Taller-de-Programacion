@@ -10,14 +10,8 @@
 <%@page import="webservices.DtPaquete"%>
 <%@page import="webservices.DtSalidaArray"%>
 <%@page import="webservices.DtActividadArray"%>
+<%@page import="webservices.DtInscripcion"%>
 
-<%@page import="model.logica.interfaces.ICtrlUsuario"%>
-<%@page import="model.logica.interfaces.ICtrlActividad"%>
-<%@page import="model.logica.interfaces.Fabrica"%>
-<%@page import="model.logica.handlers.HandlerUsuarios"%>
-<%@page import="model.logica.clases.InscripcionSalida"%>
-<%@page import="model.logica.clases.Usuario"%>
-<%@page import="model.logica.clases.Turista"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
@@ -299,10 +293,9 @@
 										<div class="card-body">
 											<%--C O N T E N I D O       D E      S A L I D A S --%>
 											<%
-											ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 											Set<DtSalida> salidas = new HashSet<DtSalida>();
 											Set<String> salidasNombre = new HashSet<String>();
-											ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
+											
 											 webservices.WebServicesService service = new webservices.WebServicesService();
 								             webservices.WebServices port = service.getWebServicesPort();
 											if (miUsr instanceof DtTurista) {
@@ -341,7 +334,8 @@
 													<div class="col-auto">
 														<a style="text-decoration: none"
 															href="salida?nombreSalida=<%=sal.getNombre()%>"><%=sal.getNombre()%></a>
-
+														<a style="text-decoration: none"
+															href="pdf-downloader?nombreSalida=<%=sal.getNombre()%>&&nombreUsuario=<%=miUsr.getNickname()%>">Comprobante de Inscripción</a>
 													</div>
 
 												</div>
@@ -400,7 +394,6 @@
 
 									<%
 									if (miUsr instanceof DtTurista) {
-										ICtrlActividad ctrlA = Fabrica.getInstance().getICtrlActividad();
 									%>
 
 									<%--///////////////////PAQUETES/////////////////////////////////////////////////////--%>
@@ -527,15 +520,13 @@
 										<div class="card-body">
 
 											<%
-											HandlerUsuarios hu = HandlerUsuarios.getInstance();
-											Usuario usr = hu.getUsuarioByNickname(miUsr.getNickname());
-											Turista tur = (Turista) usr;
-											Set<InscripcionSalida> sali = tur.getInscripciones();
-											for (InscripcionSalida sal : sali) {
+											
+											List<DtInscripcion> sali = port.getInscripciones(miUsr.getNickname()).getItem();
+											for (DtInscripcion sal : sali) {
 											%>
 
 											<form>
-												<h4 class=" font-up font-bold py-2 white-text"><%=sal.getSalida().getNombre()%></h4>
+												<h4 class=" font-up font-bold py-2 white-text"><%=sal.getSalida()%></h4>
 												<fieldset disabled>
 													<div class="row g-3 align-items-center pt-3">
 														<div class="col-auto">
@@ -578,7 +569,7 @@
 															<input type="text" id="inputPassword6"
 																class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getFechaAlta().getTime())%>>
+																placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(sal.getFechaAlta().toGregorianCalendar().getTime())%>>
 														</div>
 
 													</div>
@@ -906,10 +897,8 @@
 												<div class="card-body">
 													<%--C O N T E N I D O       D E      S A L I D A S --%>
 													<%
-													ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 													Set<DtSalida> salidas = new HashSet<DtSalida>();
 													Set<String> salidasNombre = new HashSet<String>();
-													ICtrlActividad ctrlAct = Fabrica.getInstance().getICtrlActividad();
 													 webservices.WebServicesService service = new webservices.WebServicesService();
 										             webservices.WebServices port = service.getWebServicesPort();
 													if (Usr instanceof DtTurista) {

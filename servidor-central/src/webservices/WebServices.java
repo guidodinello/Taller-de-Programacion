@@ -16,6 +16,7 @@ import excepciones.CompraFailException;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import datatypes.DTActividad;
+import datatypes.DTInscripcion;
 import datatypes.DTPaquete;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;
@@ -34,7 +35,9 @@ import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
 import logica.clases.ComprobanteInscripcion;
 import logica.clases.Configuracion;
+import logica.clases.InscripcionSalida;
 import logica.clases.Proveedor;
+import logica.clases.Turista;
 import logica.clases.Usuario;
 import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
@@ -360,15 +363,17 @@ public class WebServices {
     	ctrlAct.agregarVisita(nombre);
     }
 	  @WebMethod
-    public InscripcionSalida[] getInscripciones(String nickname) {
+    public DTInscripcion[] getInscripciones(String nickname) {
     HandlerUsuarios hu = HandlerUsuarios.getInstance();
 	Usuario usr = hu.getUsuarioByNickname(nickname);
 	Turista tur = (Turista) usr;
-	Set<InscripcionSalida> sali = tur.getInscripciones();
-	int arraySize = sali.size();
-	InscripcionSalida[] salidaArray = new InscripcionSalida[arraySize];
-	salidaArray = sali.toArray(salidaArray);
-	return salidaArray;
+	Set<DTInscripcion> res = new HashSet<DTInscripcion>();
+	for(InscripcionSalida actual: tur.getInscripciones())
+		res.add(tur.getInfoInscripcion(actual.getSalida().getNombre()));
 	
+	int arraySize = res.size();
+	DTInscripcion[] salidaArray = new DTInscripcion[arraySize];
+	salidaArray = res.toArray(salidaArray);
+	return salidaArray;
     }
 }
