@@ -22,6 +22,7 @@ import jakarta.persistence.TypedQuery;
 import logica.clases.Departamento;
 import logica.clases.ActividadTuristica;
 import logica.clases.Categoria;
+import logica.clases.ContadorVisitas;
 import logica.clases.PaqueteTuristico;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
@@ -351,5 +352,10 @@ public class CtrlActividad implements ICtrlActividad{
     			dtPaqs.add(actual);
     	}
     	return dtPaqs;
+    }
+    
+    public void agregarVisita(String nombre) {
+    	ContadorVisitas cV = ContadorVisitas.getInstance();
+    	cV.agregar(nombre);
     }
 }

@@ -25,7 +25,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import webservices.DtProveedor;
 import webservices.EstadoActividad;
-import webservices.SetOfString;
 import webservices.YaExisteException_Exception;
 
 

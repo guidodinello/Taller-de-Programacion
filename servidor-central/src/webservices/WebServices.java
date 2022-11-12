@@ -51,7 +51,15 @@ public class WebServices {
     @WebMethod(exclude = true)
     public void publicar(){
     	Configuracion config = Configuracion.getInstance();
-    	endpoint = Endpoint.publish( config.getPublishURL(), this);
+    	if (endpoint == null)
+    	  endpoint = Endpoint.publish( config.getPublishURL(), this);    	  
+    }
+    
+    @WebMethod(exclude = true)
+    public void despublicar(){
+      Endpoint endp = getEndpoint();
+      if (endp != null)
+        endp.stop();
     }
 
     @WebMethod(exclude = true)
@@ -287,5 +295,10 @@ public class WebServices {
     public DTPaquete[] busquedaTextoPaquetes(String busqueda) {
     	Set<DTPaquete> paquetes = ctrlAct.infoBusquedaPaquetes(busqueda);
     	return paquetes.toArray(new DTPaquete[paquetes.size()]);
+    }
+    
+    @WebMethod
+    public void agregarVisita(String nombre) {
+    	ctrlAct.agregarVisita(nombre);
     }
 }

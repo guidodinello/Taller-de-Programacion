@@ -45,4 +45,5 @@ public interface ICtrlActividad{
 	public abstract Set<ActividadDao> getActividadesFinalizada(String proveedor);
 	public abstract Set<DTActividad> infoBusquedaActividades(String busqueda);
 	public abstract Set<DTPaquete> infoBusquedaPaquetes(String busqueda);
+	public abstract void agregarVisita(String nombre);
 }
