@@ -25,7 +25,6 @@ import model.datatypes.tipoUsuario;
 @WebServlet("/altaUsuario")
 public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
 	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
 	
 	public altaUsuario() {

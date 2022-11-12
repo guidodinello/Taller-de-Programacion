@@ -183,7 +183,7 @@ public class WebServices {
     	}
     	
     	//guardamos la imagen
-    	String fotoDireccion = "actDefault.jpg.png";
+    	String fotoDireccion = "actDefault.jpg";
     	if (fotoBin != null) {
     		 try {
     			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
@@ -324,9 +324,29 @@ public class WebServices {
     	return turista;
     }
      @WebMethod
-    public void  actualizarUsuario(String nickname,String nombre,String apellido, GregorianCalendar date,String photo , String nacionalidad,String descripcion,String sitioWeb) {
+    public void  actualizarUsuario(String nickname,String nombre,String apellido, GregorianCalendar date, byte [] fotoBin, String ext , String nacionalidad,String descripcion,String sitioWeb) {
     	
-    	ctrlUsr.actualizarUsuario(nickname, nombre, apellido, date, photo, nacionalidad, "", "");
+    	String fotoDireccion = ctrlUsr.getUsuarioByNickName(nickname).getImgDir();
+     	if (fotoBin != null) {
+     		 try {
+     			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
+     			 Configuracion config = Configuracion.getInstance();
+     			 
+     			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+     			 String dir = config.getFilePath() + nickname + "_usr" + ext;
+     	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
+     	         File file = new File(dir);
+     	         if(file.delete())
+     	        	 System.out.println("deleted");
+     	         File img = new File(dir);
+     	         Files.write(img.toPath(), fotoBin);
+     		 }catch (Exception e) {
+     			 e.printStackTrace();
+     	     }
+     		 fotoDireccion = nickname + "_usr" + ext;
+     	}
+     	
+    	ctrlUsr.actualizarUsuario(nickname, nombre, apellido, date, fotoDireccion, nacionalidad, "", "");
 	       
     }
     @WebMethod

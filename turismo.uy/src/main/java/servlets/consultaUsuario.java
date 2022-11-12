@@ -35,40 +35,12 @@ public class consultaUsuario extends HttpServlet{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
-	private String udi = "media/imagenes/usuarioPerfil.png";
-	private String rui = "media/imagenes/";
 	/**
      * @see HttpServlet#HttpServlet()
      */
 	public consultaUsuario() {
 		super();
 	}
-	 
-    private String guardarImg(Part p, HttpServletRequest req, String ext, String nick) {
-        String dir = udi;
-        try {
-            /*Si existe un archivo con el mismo nombre lo eliminamos*/
-            File file = new File(req.getServletContext().getRealPath("/"+rui)+"/"+nick+ "_usr" +ext);
-            if(file.delete())
-                System.out.println("deleted");
-            
-            
-            dir = req.getServletContext().getRealPath("/"+rui);
-            File fil = new File(dir);
-            
-            String na = nick+ "_usr" + ext;
-            InputStream ab = p.getInputStream(); 
-            
-            if(ab != null) {
-                File img = new File(fil, na);
-                dir = rui + na;
-                Files.copy(ab, img.toPath());       
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dir;
-    }
     
     private String extencionValida(String fn) {
         String res = "";
@@ -98,12 +70,12 @@ public class consultaUsuario extends HttpServlet{
 	     String [] nac = request.getParameter("FechaNacimiento").split("-");
 	     //ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
 	     
-	     Part part     = request.getPart("nuevaImagenPerfil");
-	     String fd = "";
-	     if(part != null && !extencionValida(part.getSubmittedFileName()).isEmpty()) {
-	         fd = guardarImg(part, request ,extencionValida(part.getSubmittedFileName()), dtU.getNickname());
-	     }
-	     //TODO: when generated  dtUsuario change to dtTurista
+	   //Foto de perfil
+	        Part p     = request.getPart("nuevaImagenPerfil");
+	        byte [] fotoBin = null;  //guardar binario de la foto
+	        if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
+	            fotoBin = p.getInputStream().readAllBytes();
+	        }
 	     
 	     if(dtU instanceof DtTurista) {
              webservices.WebServicesService service = new webservices.WebServicesService();
@@ -124,7 +96,7 @@ public class consultaUsuario extends HttpServlet{
             
           //TODO change DTTurista to DtTurista 
             
-           port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fd, ((DtTurista)dtU).getNacionalidad(), "", "");
+           port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fotoBin, extencionValida(p.getSubmittedFileName()), ((DtTurista)dtU).getNacionalidad(), "", "");
 	        // ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, ((DTTurista)dtU).getNacionalidad(), "", "");
 	        // HandlerUsuarios hU = HandlerUsuarios.getInstance();
 	         //Turista t = hU.getTuristaByNickname(dtU.getNickname());
@@ -149,11 +121,11 @@ public class consultaUsuario extends HttpServlet{
                   // TODO Auto-generated catch block
                   e.printStackTrace();
               }
-             port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fd, ((DtTurista)dtU).getNacionalidad(), "", "");
+             port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fotoBin, extencionValida(p.getSubmittedFileName()), ((DtTurista)dtU).getNacionalidad(), "", "");
              
 	       
-             DtProveedor p = port.getProveedorByNickname(dtU.getNickname());
-             request.getSession().setAttribute("usuario_logueado", p);
+             DtProveedor prov = port.getProveedorByNickname(dtU.getNickname());
+             request.getSession().setAttribute("usuario_logueado", prov);
 	     }
 	     response.sendRedirect("consultaUsuario?STATE=INFO&&NICKNAME=" + dtU.getNickname());
 	 }
