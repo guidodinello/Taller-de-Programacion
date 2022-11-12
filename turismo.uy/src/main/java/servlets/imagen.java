@@ -53,7 +53,7 @@ public class imagen extends HttpServlet {
         String fileNombreAct = request.getParameter("act");
         String fileNombreSal = request.getParameter("sal");
         String fileNombrePaq = request.getParameter("paq");
-        
+       
         if(fileNick != null) {
             mostrarIMG(request, response, port.getFileImg(fileNick));
         }

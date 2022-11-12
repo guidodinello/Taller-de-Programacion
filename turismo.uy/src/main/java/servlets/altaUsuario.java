@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import model.logica.interfaces.ICtrlUsuario;
+import webservices.DtUsuario;
 import model.logica.interfaces.Fabrica;
 import model.datatypes.DTUsuario;
 import model.datatypes.tipoUsuario;
@@ -68,13 +69,13 @@ public class altaUsuario extends HttpServlet {
 		try {
 			if(tU.equals("Turista")) {
 			    String nacionalidad = request.getParameter("Nacionalidad");
-                port.altaUsuario(nic, nom, ape, ema, pas, nac, fotoBin, extencionValida(p.getSubmittedFileName()), "Turista", nacionalidad, "", "");
+                port.altaUsuario(nic, ema, nom, ape, pas, nac, fotoBin, extencionValida(p.getSubmittedFileName()), "Turista", nacionalidad, "", "");
 			}else {
 				String des = request.getParameter("Descripcion");
 				String web = request.getParameter("LinkSitioWeb");
-				port.altaUsuario(nic, nom, ape, ema, pas, nac, fotoBin, extencionValida(p.getSubmittedFileName()), "Turista", "", des, web);
+				port.altaUsuario(nic, ema, nom, ape, pas, nac, fotoBin, extencionValida(p.getSubmittedFileName()), "Turista", "", des, web);
 			}
-		    DTUsuario usr = Fabrica.getInstance().getICtrlUsuario().getInfoBasicaUsuario(nic);
+		    DtUsuario usr = port.getUsuarioByNickName(nic);
             ses.setAttribute("usuario_logueado", usr);
 			response.sendRedirect("index?exito=Usuario registrado correctamente");
 			

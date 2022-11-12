@@ -43,7 +43,6 @@
 		<jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp" />
 
 		<div class="col-sm-8 text-center">
-
 			<%
 			@SuppressWarnings("unchecked")
 			List<DtActividad> actividadesConfirmadas = (List<DtActividad>) request.getAttribute("act_confirmadas");

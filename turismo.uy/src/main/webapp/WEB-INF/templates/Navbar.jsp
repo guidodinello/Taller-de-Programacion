@@ -1,5 +1,4 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
-<%@page import="servlets.altaUsuario" %>
 <%@page import="webservices.DtUsuario"%>
 
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top">

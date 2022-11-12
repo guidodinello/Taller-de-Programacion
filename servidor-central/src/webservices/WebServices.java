@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.GregorianCalendar;
 import java.util.Set;
@@ -74,13 +76,17 @@ public class WebServices {
     
     @WebMethod
     public void altaUsuario(String nic, String ema, String nomb, String ape, String pas, String nac, byte [] fotoBin, String ext , String tipo, String nacionalidad, String descripcion, String sitioWeb) throws Exception {
+    	System.out.println(nic + ema + nomb + ape + pas);
     	ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
     	String [] fechaNac = nac.split("-");
     	String fotoDireccion = "usuarioPerfil.png";
     	if (fotoBin != null) {
     		 try {
     			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
-    			 String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+    			 Configuracion config = Configuracion.getInstance();
+    			 
+    			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+    			 String dir = config.getFilePath() + nic + "_usr" + ext;
     	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
     	         File file = new File(dir);
     	         if(file.delete())
@@ -90,7 +96,7 @@ public class WebServices {
     		 }catch (Exception e) {
     			 e.printStackTrace();
     	     }
-    		 fotoDireccion = nic + "_usr." + ext;
+    		 fotoDireccion = nic + "_usr" + ext;
     	}
     	try {
     		if(tipo.equals("Turista")) {
@@ -119,10 +125,15 @@ public class WebServices {
     public byte [] getFileImg(String filename) {
     	try {
     		String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + filename;
+    		/*Path imgPath = Paths.get(dir);
+    		byte[] arrImg = Files.readAllBytes(imgPath);
+    		return arrImg;*/
+    		
         	File img = new File(dir);
         	FileInputStream streamer = new FileInputStream(img);
         	byte [] byteArray = new byte[streamer.available()];
             streamer.read(byteArray);
+            streamer.close();
         	return byteArray;
     	}catch(Exception e) {
     		e.printStackTrace();
