@@ -51,7 +51,15 @@ public class WebServices {
     @WebMethod(exclude = true)
     public void publicar(){
     	Configuracion config = Configuracion.getInstance();
-    	endpoint = Endpoint.publish( config.getPublishURL(), this);
+    	if (endpoint == null)
+    	  endpoint = Endpoint.publish( config.getPublishURL(), this);    	  
+    }
+    
+    @WebMethod(exclude = true)
+    public void despublicar(){
+      Endpoint endp = getEndpoint();
+      if (endp != null)
+        endp.stop();
     }
 
     @WebMethod(exclude = true)

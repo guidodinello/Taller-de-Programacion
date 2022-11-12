@@ -9,16 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.logica.clases.Usuario;
-import model.logica.clases.Turista;
-import model.logica.clases.Proveedor;
-import model.datatypes.DTUsuario;
-import model.datatypes.DTTurista;
-import model.datatypes.DTProveedor;
-
 import webservices.DtUsuario;
-//import webservices.DtTurista;
-//import webservices.DtProveedor;
 
 
 /**
@@ -62,12 +53,6 @@ public class iniciarSesion extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/sesion/iniciarSesion.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
-//			if(usr instanceof DtTurista) {
-//			    session.setAttribute("usuario_logueado", (DtTurista)usr);
-//			}
-//			else {
-//			    session.setAttribute("usuario_logueado", (DtProveedor)usr);
-//			}
 			session.setAttribute("usuario_logueado", usr);
 			response.sendRedirect("index");
 		}
