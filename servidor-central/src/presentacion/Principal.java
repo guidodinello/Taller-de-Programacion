@@ -48,6 +48,8 @@ public class Principal {
 	private AgregarActividadAPaquete agregarActividadPaquete;
 	private ConsultaPaquete consultarPaquete;
 	private aceptarRechazarActividad aceptarRechazarActividad;
+	
+	private WebServices webService = new WebServices();
 
 	private boolean yaSeCargaronLosDatosDePrueba;
 
@@ -55,9 +57,6 @@ public class Principal {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
-		WebServices p = new WebServices();
-		p.publicar();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -197,6 +196,22 @@ public class Principal {
 			}
 		});
 		menuSistema.add(menuCargarDatos);
+		
+    JMenuItem publicar = new JMenuItem("Publicar WS");
+    publicar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        webService.publicar();
+      }
+    });
+    menuSistema.add(publicar);
+    
+    JMenuItem despublicar = new JMenuItem("Despublicar WS");
+    despublicar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        webService.despublicar();
+      }
+    });
+    menuSistema.add(despublicar);
 
 		// -----------MENU USUARIO-----------
 
