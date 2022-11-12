@@ -55,7 +55,6 @@ public class imagen extends HttpServlet {
         String fileNombrePaq = request.getParameter("paq");
        
         if(fileNick != null) {
-            System.out.println(port.getFileImg(fileNick));
             mostrarIMG(request, response, port.getFileImg(fileNick));
         }
         if(fileNombreAct != null) {

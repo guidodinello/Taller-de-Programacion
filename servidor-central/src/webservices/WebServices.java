@@ -76,6 +76,7 @@ public class WebServices {
     
     @WebMethod
     public void altaUsuario(String nic, String ema, String nomb, String ape, String pas, String nac, byte [] fotoBin, String ext , String tipo, String nacionalidad, String descripcion, String sitioWeb) throws Exception {
+    	System.out.println(nic + ema + nomb + ape + pas);
     	ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
     	String [] fechaNac = nac.split("-");
     	String fotoDireccion = "usuarioPerfil.png";
@@ -95,7 +96,7 @@ public class WebServices {
     		 }catch (Exception e) {
     			 e.printStackTrace();
     	     }
-    		 fotoDireccion = nic + "_usr." + ext;
+    		 fotoDireccion = nic + "_usr" + ext;
     	}
     	try {
     		if(tipo.equals("Turista")) {
