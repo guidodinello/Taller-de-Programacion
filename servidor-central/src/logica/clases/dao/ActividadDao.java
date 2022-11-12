@@ -7,11 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import logica.clases.ActividadTuristica;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import datatypes.DTActividad;
 import datatypes.estadoActividad;
@@ -37,6 +39,9 @@ public class ActividadDao {
 	@JoinColumn(name="ProveedorDao_Id")
 	private ProveedorDao id_proveedor;
 	
+	@OneToMany(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="SalidaId")
+	private List<SalidaDao> salidas;
 	
 	public ActividadDao() {
 		
@@ -136,6 +141,10 @@ public class ActividadDao {
 	
 	public void setProveedor(ProveedorDao prov) {
 		id_proveedor = prov;
+	}
+	
+	public void addSalida(SalidaDao sal) {
+		salidas.add(sal);
 	}
 	
 	

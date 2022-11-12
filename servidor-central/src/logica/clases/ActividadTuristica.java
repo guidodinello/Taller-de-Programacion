@@ -151,4 +151,12 @@ public class ActividadTuristica{
         }
 		return resu;
 	}
+	
+	public Set<SalidaTuristica> getSalidas() {
+		 Set<SalidaTuristica> resultado = new HashSet<SalidaTuristica>();
+		 salidas.forEach((key, value)->{
+			 resultado.add(value);
+		 });
+		 return resultado;
+	}
 }
