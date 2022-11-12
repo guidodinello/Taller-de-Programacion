@@ -46,4 +46,8 @@ public class Proveedor extends Usuario {
 		});
 		return resultado;
 	}
+	
+	public boolean proveeActividad(String act) {
+		return actividades.containsKey(act);
+	}
 }

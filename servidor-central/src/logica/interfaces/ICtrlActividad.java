@@ -1,6 +1,8 @@
 package logica.interfaces;
 import excepciones.YaExisteException;
 import logica.clases.ActividadTuristica;
+import logica.clases.dao.ActividadDao;
+import logica.clases.dao.ProveedorDao;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -38,7 +40,10 @@ public interface ICtrlActividad{
 	public abstract Set<DTActividad> getDTActividadesConfirmadas();
 	public abstract Set<String> listarPaquetesCategoria(String categoria);
 	public abstract void leGusto(String nombreActividad, String nombreUsuario);
+	public abstract Set<String> listarActividadesSinSalidasVigentesNiPaquetes();
 	public abstract void finalizarActividad(String nombreActividad);
+	public abstract Set<ActividadDao> getActividadesFinalizada(String proveedor);
 	public abstract Set<DTActividad> infoBusquedaActividades(String busqueda);
 	public abstract Set<DTPaquete> infoBusquedaPaquetes(String busqueda);
+	public abstract void agregarVisita(String nombre);
 }

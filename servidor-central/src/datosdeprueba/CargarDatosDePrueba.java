@@ -8,6 +8,10 @@ import datatypes.tipoUsuario;
 import excepciones.CompraFailException;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
+import logica.clases.Proveedor;
+import logica.clases.dao.ActividadDao;
+import logica.clases.dao.ProveedorDao;
+import logica.handlers.HandlerUsuarios;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
 import datatypes.estadoActividad;
@@ -229,7 +233,7 @@ public class CargarDatosDePrueba {
       descripcion = "Rivera es un departamento de extraordinaria riqueza natural patrimonial y cultural con una ubicación geográfica privilegiada";
       ica.altaActividadTuristica("Rivera", "Descubre Rivera", descripcion, 2, 650, "Rivera",
           "eldiez", new GregorianCalendar(2022, 8, 16), "https://tinyurl.com/y4vbc4xc", categorias,"",
-          estadoActividad.rechazada);
+          estadoActividad.confirmada);
     } catch (YaExisteException e) {
       e.printStackTrace();
     }
@@ -411,5 +415,14 @@ public class CargarDatosDePrueba {
       e.printStackTrace();
     }
 
+    
+    	ica.finalizarActividad("Descubre Rivera");
+    
+    	
+    
+    
   }
+  
+  
+  
 }

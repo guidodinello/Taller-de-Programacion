@@ -10,16 +10,19 @@ import datatypes.estadoActividad;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
 
 import excepciones.YaExisteException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import logica.clases.Departamento;
-import logica.clases.ActividadDao;
 import logica.clases.ActividadTuristica;
 import logica.clases.Categoria;
+import logica.clases.ContadorVisitas;
 import logica.clases.PaqueteTuristico;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
@@ -28,6 +31,8 @@ import logica.handlers.HandlerCategorias;
 import logica.interfaces.ICtrlActividad;
 import logica.clases.SalidaTuristica;
 import logica.clases.Usuario;
+import logica.clases.dao.ActividadDao;
+import logica.clases.dao.ProveedorDao;
 import logica.clases.Proveedor;
 import logica.handlers.HandlerSalidas;
 import logica.handlers.HandlerUsuarios;
@@ -274,26 +279,59 @@ public class CtrlActividad implements ICtrlActividad{
     		act.eliminarFan(nombreUsuario);
     }
     
+    public Set<String> listarActividadesSinSalidasVigentesNiPaquetes(){
+    	HandlerActividades hAct = HandlerActividades.getInstance();
+    	Set<ActividadTuristica> actividades = hAct.obtenerActividadesTuristicas();
+    	Set<String> resultado = new HashSet<String>();
+    	actividades.forEach(act ->{
+    		boolean cond1 = act.getEstado().equals(estadoActividad.confirmada);
+    		boolean cond2 = act.getInfoBasicaSalidasVigentes(new GregorianCalendar()).isEmpty();
+    		boolean cond3 = act.getDTActividad().getPaquetes().isEmpty();
+    		if(cond1 && cond2 && cond3) {
+    			resultado.add(act.getNombre());
+    		}
+    	});
+    	return resultado;
+    }
+    
     public void finalizarActividad(String nombreActividad) {
     	ActividadTuristica act = HandlerActividades.getInstance().obtenerActividadTuristica(nombreActividad);
-    	if(!act.getInfoBasicaSalidasVigentes(new GregorianCalendar()).isEmpty()) {
-    		//guardar en la base de datos
+    	DTActividad dtAct = act.getDTActividad();
+    	Proveedor prov = HandlerUsuarios.getInstance().getProveedorByNickname(act.getProveedor());
+    	ActividadDao actDao = new ActividadDao(dtAct);
+    	ProveedorDao provDao = new ProveedorDao(prov);
+    	
+    	actDao.setProveedor(provDao);
+    	//provDao.addActividad(actDao);
+    	//guardar en la base de datos	
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+    	EntityManager eman = emf.createEntityManager();
     		
-    		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
-    		EntityManager em = emf.createEntityManager();
-    		ActividadDao act = new ActividadDao("act", 1);
-    		
-    		EntityTransaction tx = em.getTransaction();
-    		tx.begin();
-    		em.persist(act);
-    		tx.commit();
-    		em.close();
-    		emf.close();*/
-    	}else {
-    		//tirar alguna exception
-    	}
+    	EntityTransaction trans = eman.getTransaction();
+    	trans.begin();
+    	eman.persist(provDao);
+    	eman.persist(actDao);
+    	trans.commit();
+    	eman.close();
+    	emf.close();
+    	
+    	System.out.println(actDao.getProveedor().getId());
     	
     };
+    
+    public Set<ActividadDao> getActividadesFinalizada(String proveedor) {
+    	Set<ActividadDao> resultado = new HashSet<ActividadDao>();
+    	
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+		EntityManager em = emf.createEntityManager();
+    	//TypedQuery<ActividadDao> query = em.createQuery("SELECT prov.actividades FROM ProveedorDao prov WHERE prov.nickname = '" + proveedor + "'", ActividadDao.class);
+		Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.id_proveedor.id_proveedor = 'eldiez'");
+		List<ActividadDao> result = (List<ActividadDao>) query.getResultList();
+		for (ActividadDao act: result) {
+			resultado.add(act);
+		}
+    	return resultado;
+    }
 
     public Set<DTActividad> infoBusquedaActividades(String busqueda){
     	Set<DTActividad> dtActs = new HashSet<DTActividad>();
@@ -314,5 +352,10 @@ public class CtrlActividad implements ICtrlActividad{
     			dtPaqs.add(actual);
     	}
     	return dtPaqs;
+    }
+    
+    public void agregarVisita(String nombre) {
+    	ContadorVisitas cV = ContadorVisitas.getInstance();
+    	cV.agregar(nombre);
     }
 }
