@@ -915,7 +915,11 @@ public class ctrlActividadTest{
 		
 	}
 	
-	
+	@Test
+	@Order(28)
+	void testListarActividadesSinSalidasVigentesNiPaquetes() {
+		
+	}
 	
 	
 	

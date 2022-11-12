@@ -32,5 +32,9 @@ public class Categoria {
     public boolean tieneActividad(String nombre) {
         return actividades.containsKey(nombre);
     }
+    
+    public void eliminarAcividad(String nombreAct) {
+    	actividades.remove(nombreAct);
+    }
 	
 }

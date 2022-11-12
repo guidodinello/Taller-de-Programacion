@@ -42,4 +42,8 @@ public class HandlerActividades{
 		instancia = null;
 	}
 	
+	public void eliminarActividad(String nombreAct) {
+		actividadesTuristicas.remove(nombreAct);
+	}
+	
 }

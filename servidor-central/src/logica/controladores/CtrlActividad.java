@@ -30,9 +30,14 @@ import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerCategorias;
 import logica.interfaces.ICtrlActividad;
 import logica.clases.SalidaTuristica;
+import logica.clases.Turista;
 import logica.clases.Usuario;
 import logica.clases.dao.ActividadDao;
+import logica.clases.dao.InscripcionDao;
 import logica.clases.dao.ProveedorDao;
+import logica.clases.dao.SalidaDao;
+import logica.clases.dao.TuristaDao;
+import logica.clases.dao.UsuarioDao;
 import logica.clases.Proveedor;
 import logica.handlers.HandlerSalidas;
 import logica.handlers.HandlerUsuarios;
@@ -297,9 +302,40 @@ public class CtrlActividad implements ICtrlActividad{
     public void finalizarActividad(String nombreActividad) {
     	ActividadTuristica act = HandlerActividades.getInstance().obtenerActividadTuristica(nombreActividad);
     	DTActividad dtAct = act.getDTActividad();
-    	Proveedor prov = HandlerUsuarios.getInstance().getProveedorByNickname(act.getProveedor());
     	ActividadDao actDao = new ActividadDao(dtAct);
+    	Set<SalidaTuristica> salidas = act.getSalidas();
+    	salidas.forEach((sal)->{
+    		if(sal != null) {
+        		SalidaDao salDao = new SalidaDao(sal);
+        		salDao.setActividad(actDao);
+        		
+        		Set<String> turistasSal = sal.getTuristasNicknameInscriptos();
+        		turistasSal.forEach((tur)->{
+        			Turista turInstancia = HandlerUsuarios.getInstance().getTuristaByNickname(tur);
+        			
+        			UsuarioDao usrTurDao = new UsuarioDao((Usuario) turInstancia);
+        			TuristaDao turDao = new TuristaDao(turInstancia);
+        			turDao.setUsuario(usrTurDao);
+        			
+        			InscripcionDao insDao = new InscripcionDao(turInstancia.getInfoInscripcion(sal.getNombre()));
+        			insDao.setTurista(turDao);
+        			insDao.setSalida(salDao);
+        			salDao.addIncripcion(insDao);
+        			turInstancia.eliminarIncripcionesDeActividad(nombreActividad);
+        		});
+        		System.out.println(salDao);
+        		actDao.addSalida(salDao);
+        		sal.eliminarActividad(nombreActividad);
+        		HandlerSalidas.getInstance().eliminarSalida(sal.getNombre());
+    		}
+
+    	});
+    	
+    	/*El proveedor*/
+    	Proveedor prov = HandlerUsuarios.getInstance().getProveedorByNickname(act.getProveedor());
+    	UsuarioDao usr = new UsuarioDao(prov);
     	ProveedorDao provDao = new ProveedorDao(prov);
+    	provDao.setUsuario(usr);
     	
     	actDao.setProveedor(provDao);
     	//provDao.addActividad(actDao);
@@ -309,14 +345,31 @@ public class CtrlActividad implements ICtrlActividad{
     		
     	EntityTransaction trans = eman.getTransaction();
     	trans.begin();
-    	eman.persist(provDao);
     	eman.persist(actDao);
     	trans.commit();
     	eman.close();
     	emf.close();
     	
-    	System.out.println(actDao.getProveedor().getId());
     	
+    	/*Eliminar del programa las actividades*/
+    	HandlerCategorias hCat = HandlerCategorias.getInstance();
+    	Set<Categoria> categorias = hCat.obtenerCategorias();
+    	categorias.forEach((cat)->{
+    		cat.eliminarAcividad(nombreActividad);
+    	});
+    	HandlerDepartamentos hDep = HandlerDepartamentos.getInstance();
+    	Set<Departamento> departamentos = hDep.obtenerDepartamentos();
+    	departamentos.forEach((dep)->{
+    		dep.eliminarActividad(nombreActividad);
+    	});
+    	prov.eliminarActividad(nombreActividad);
+    	HandlerSalidas hSal = HandlerSalidas.getInstance();
+    	SalidaTuristica[] salidasDondeEliminar = hSal.getSalidas();
+    	for(SalidaTuristica salt: salidasDondeEliminar) {
+    		salt.eliminarActividad(nombreActividad);
+    	}
+    	HandlerActividades hAct = HandlerActividades.getInstance();
+    	hAct.eliminarActividad(nombreActividad);
     };
     
     public Set<ActividadDao> getActividadesFinalizada(String proveedor) {
@@ -324,8 +377,7 @@ public class CtrlActividad implements ICtrlActividad{
     	
     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
 		EntityManager em = emf.createEntityManager();
-    	//TypedQuery<ActividadDao> query = em.createQuery("SELECT prov.actividades FROM ProveedorDao prov WHERE prov.nickname = '" + proveedor + "'", ActividadDao.class);
-		Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.id_proveedor.id_proveedor = 'eldiez'");
+		Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.id_proveedor.usuarioId.nickname = '" + proveedor + "'");
 		List<ActividadDao> result = (List<ActividadDao>) query.getResultList();
 		for (ActividadDao act: result) {
 			resultado.add(act);

@@ -8,10 +8,13 @@ import java.util.Set;
 
 
 import datatypes.DTActividad;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import logica.clases.Proveedor;
 
@@ -20,7 +23,9 @@ import logica.clases.Proveedor;
 public class ProveedorDao {
 	
 	@Id
-	private String id_proveedor;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="usuarioId")
+	private UsuarioDao usuarioId;
 	
 	private String descripcion;
 	
@@ -34,7 +39,6 @@ public class ProveedorDao {
 	}
 	
 	public ProveedorDao(Proveedor prov) {
-		id_proveedor = prov.getNickname();
 		descripcion = prov.getDescripcion();
 		sitioWeb = prov.getSitioWeb();
 	}
@@ -55,12 +59,12 @@ public class ProveedorDao {
 		this.sitioWeb = sitioWeb;
 	}
 
-	public String getId() {
-		return id_proveedor;
+	public void setUsuario(UsuarioDao usr) {
+		usuarioId = usr;
 	}
 	
-	//public void addActividad(ActividadDao act) {
-	//	actividades.add(act);
-	//}
+	public UsuarioDao getUsuario() {
+		return usuarioId;
+	}
 	
 }

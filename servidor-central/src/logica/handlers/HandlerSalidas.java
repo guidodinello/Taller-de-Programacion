@@ -54,6 +54,10 @@ public class HandlerSalidas{
 		instancia = null;
 		
 	}
+	
+	public void eliminarSalida(String nombreSal) {
+		salidasTuristicas.remove(nombreSal);		
+	}
 
 
 }

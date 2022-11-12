@@ -44,4 +44,8 @@ public class Departamento{
 	public void agregarActividad(ActividadTuristica actividad) {
 		this.actividades.put(actividad.getNombre(), actividad);
 	}
+	
+	public void eliminarActividad(String nombreAct) {
+		actividades.remove(nombreAct);
+	}
 }
