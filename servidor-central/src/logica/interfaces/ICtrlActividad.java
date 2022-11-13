@@ -12,6 +12,8 @@ import datatypes.DTSalida;
 import datatypes.estadoActividad;
 import datatypes.DTPaquete;
 import java.util.GregorianCalendar;
+import java.util.Map;
+
 import datatypes.DTActividad;
 
 
@@ -46,4 +48,5 @@ public interface ICtrlActividad{
 	public abstract Set<DTActividad> infoBusquedaActividades(String busqueda);
 	public abstract Set<DTPaquete> infoBusquedaPaquetes(String busqueda);
 	public abstract void agregarVisita(String nombre);
+	public abstract Map<String, Integer> listarTop10Visitados();
 }

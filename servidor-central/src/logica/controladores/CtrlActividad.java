@@ -12,6 +12,7 @@ import datatypes.estadoActividad;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import excepciones.YaExisteException;
 import jakarta.persistence.EntityManager;
@@ -413,7 +414,7 @@ public class CtrlActividad implements ICtrlActividad{
     	cV.agregar(nombre);
     }
     
-    public TreeMap<String, Integer> listarTop10Visitados(){
+    public Map<String, Integer> listarTop10Visitados(){
     	ContadorVisitas cV = ContadorVisitas.getInstance();
     	return cV.getTop10();
     }

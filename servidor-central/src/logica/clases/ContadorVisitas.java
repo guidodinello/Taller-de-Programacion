@@ -1,21 +1,39 @@
 package logica.clases;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class ContadorVisitas {
-	//private Map<String, Integer> registro;
-	private TreeMap<String, Integer> registro;
+	private Map<String, Integer> registro;
+	//private TreeMap<String, Integer> registro;
 	private static ContadorVisitas instancia = null;
 	
 	private ContadorVisitas() {
-		registro = new TreeMap<String, Integer>(new Comparator<String>() {
-		    public int compare(String o1, String o2) {
-		        return o1.toLowerCase().compareTo(o2.toLowerCase());
-		    }
-		});
+		registro = new TreeMap<String, Integer>();
 	}
+	
+	private static <K, V extends Comparable<V> > Map<K, V>
+    valueSort(final Map<K, V> map){
+        Comparator<K> valueComparator = new Comparator<K>() {
+            
+                  public int compare(K k1, K k2){
+                      int comp = map.get(k1).compareTo(map.get(k2));
+                      if (comp == 0)
+                          return 1;
+                      else
+                          return comp;
+                  }
+            
+              };
+              
+        Map<K, V> sorted = new TreeMap<K, V>(valueComparator);
+        
+        sorted.putAll(map);
+        
+        return sorted;
+    }
 	
 	public static ContadorVisitas getInstance() {
 		if (instancia == null)
@@ -33,12 +51,9 @@ public class ContadorVisitas {
 		}
 	}
 	
-	public TreeMap<String, Integer> getTop10(){
-		TreeMap<String, Integer> res = new TreeMap<String, Integer>(new Comparator<String>() {
-		    public int compare(String o1, String o2) {
-		        return o1.toLowerCase().compareTo(o2.toLowerCase());
-		    }
-		});
+	public Map<String, Integer> getTop10(){
+		Map<String, Integer> res = new HashMap<String, Integer>();
+		res = valueSort(registro);
 		
 		int count = 0;
 		for (Map.Entry<String,Integer> entry:registro.entrySet()) {
@@ -50,6 +65,6 @@ public class ContadorVisitas {
 			
 		return res;
 	}
-	
-	
 }
+
+
