@@ -94,6 +94,7 @@ crossorigin="anonymous"></script>
 										if (!esFavorita) {
 										%>
 									<p class="my-auto me-4">Marcar como Favorito</p>
+									<p class="my-auto me-4"><%=usuariosConEstaActFavorita.size()%></p>
 									<div>
 										<i class="fa fa-regular fa-star fa-2x my-auto"></i>
 									</div>
@@ -102,6 +103,7 @@ crossorigin="anonymous"></script>
 										} else {
 										%>
 									<p class="my-auto me-4">Desmarcar de Favoritos</p>
+									<p class="my-auto me-4"><%=usuariosConEstaActFavorita.size()%></p>
 									<div>
 										<i class="fa fa-solid fa-star fa-2x my-auto"></i>
 									</div>
