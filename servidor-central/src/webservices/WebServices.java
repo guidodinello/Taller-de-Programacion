@@ -16,6 +16,7 @@ import excepciones.CompraFailException;
 import excepciones.InscriptionFailException;
 import excepciones.YaExisteException;
 import datatypes.DTActividad;
+import datatypes.DTInscripcion;
 import datatypes.DTPaquete;
 import datatypes.DTProveedor;
 import datatypes.DTSalida;
@@ -193,7 +194,7 @@ public class WebServices {
     	}
     	
     	//guardamos la imagen
-    	String fotoDireccion = "actDefault.jpg.png";
+    	String fotoDireccion = "actDefault.jpg";
     	if (fotoBin != null) {
     		 try {
     			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
@@ -334,9 +335,29 @@ public class WebServices {
     	return turista;
     }
      @WebMethod
-    public void  actualizarUsuario(String nickname,String nombre,String apellido, GregorianCalendar date,String photo , String nacionalidad,String descripcion,String sitioWeb) {
+    public void  actualizarUsuario(String nickname,String nombre,String apellido, GregorianCalendar date, byte [] fotoBin, String ext , String nacionalidad,String descripcion,String sitioWeb) {
     	
-    	ctrlUsr.actualizarUsuario(nickname, nombre, apellido, date, photo, nacionalidad, "", "");
+    	String fotoDireccion = ctrlUsr.getUsuarioByNickName(nickname).getImgDir();
+     	if (fotoBin != null) {
+     		 try {
+     			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
+     			 Configuracion config = Configuracion.getInstance();
+     			 
+     			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+     			 String dir = config.getFilePath() + nickname + "_usr" + ext;
+     	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
+     	         File file = new File(dir);
+     	         if(file.delete())
+     	        	 System.out.println("deleted");
+     	         File img = new File(dir);
+     	         Files.write(img.toPath(), fotoBin);
+     		 }catch (Exception e) {
+     			 e.printStackTrace();
+     	     }
+     		 fotoDireccion = nickname + "_usr" + ext;
+     	}
+     	
+    	ctrlUsr.actualizarUsuario(nickname, nombre, apellido, date, fotoDireccion, nacionalidad, "", "");
 	       
     }
     @WebMethod
@@ -369,17 +390,19 @@ public class WebServices {
     public void agregarVisita(String nombre) {
     	ctrlAct.agregarVisita(nombre);
     }
-    
-	@WebMethod
-    public InscripcionSalida[] getInscripciones(String nickname) {
+
+	  @WebMethod
+    public DTInscripcion[] getInscripciones(String nickname) {
     HandlerUsuarios hu = HandlerUsuarios.getInstance();
 	Usuario usr = hu.getUsuarioByNickname(nickname);
 	Turista tur = (Turista) usr;
-	Set<InscripcionSalida> sali = tur.getInscripciones();
-	int arraySize = sali.size();
-	InscripcionSalida[] salidaArray = new InscripcionSalida[arraySize];
-	salidaArray = sali.toArray(salidaArray);
-	return salidaArray;
+	Set<DTInscripcion> res = new HashSet<DTInscripcion>();
+	for(InscripcionSalida actual: tur.getInscripciones())
+		res.add(tur.getInfoInscripcion(actual.getSalida().getNombre()));
 	
+	int arraySize = res.size();
+	DTInscripcion[] salidaArray = new DTInscripcion[arraySize];
+	salidaArray = res.toArray(salidaArray);
+	return salidaArray;
     }
 }

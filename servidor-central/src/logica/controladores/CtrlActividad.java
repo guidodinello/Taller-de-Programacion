@@ -1,5 +1,6 @@
 package logica.controladores;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -409,5 +410,10 @@ public class CtrlActividad implements ICtrlActividad{
     public void agregarVisita(String nombre) {
     	ContadorVisitas cV = ContadorVisitas.getInstance();
     	cV.agregar(nombre);
+    }
+    
+    public TreeMap<String, Integer> listarTop10Visitados(){
+    	ContadorVisitas cV = ContadorVisitas.getInstance();
+    	return cV.getTop10();
     }
 }

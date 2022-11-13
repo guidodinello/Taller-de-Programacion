@@ -1,10 +1,6 @@
 package servlets;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,17 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import model.logica.interfaces.ICtrlUsuario;
 import webservices.DtUsuario;
-import model.logica.interfaces.Fabrica;
-import model.datatypes.DTUsuario;
-import model.datatypes.tipoUsuario;
 
 @MultipartConfig
 @WebServlet("/altaUsuario")
 public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
 	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
 	
 	public altaUsuario() {
