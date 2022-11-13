@@ -19,6 +19,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import webservices.ActividadDao;
 import webservices.DtActividad;
 import webservices.DtProveedor;
 import webservices.DtTurista;
@@ -179,8 +180,8 @@ public class consultaUsuario extends HttpServlet{
 
 		           if (usuarioLogueado instanceof DtProveedor) {
 		               System.out.println("instance of dtprov consulta usuario");
-		               request.setAttribute("mis_actividades_finalizadas", 
-		                       port.listarActividadesFinalizadasProveedor(nombreUsuario).getItem());
+		               List<ActividadDao> finalizadas = port.listarActividadesFinalizadasProveedor(nombreUsuario).getItem();
+		               request.setAttribute("mis_actividades_finalizadas", finalizadas);
 		               
 		               List<DtActividad> conf = port.listarInfoCompletaActividadesProveedor(nombreUsuario).getItem();
 		               
