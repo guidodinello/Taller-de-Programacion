@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import webservices.DtActividad;
+import webservices.DtUsuario;
 
 /**
  * Servlet implementation class index
@@ -33,7 +35,7 @@ public class index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<String> actividades = port.listarActividadesConfirmadas().getItem();
+	    List<String> actividades = port.listarActividadesConfirmadas().getItem();
         List<DtActividad> dtActs = new ArrayList<>();
         
         for(String act : actividades)
@@ -53,7 +55,12 @@ public class index extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    request.setCharacterEncoding("UTF-8");
-		doGet(request, response);
+	    
+	    port.marcarDesmarcarFav(
+	            (String)request.getParameter("usr"),
+	            (String)request.getParameter("act")
+	    );
+	    System.out.println((String)request.getParameter("usr"));
 	}
 
 }
