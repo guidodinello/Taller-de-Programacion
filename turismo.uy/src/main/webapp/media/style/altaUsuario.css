@@ -9,3 +9,12 @@
 #failAltaUsuario{
 	color: red;
 }
+
+
+#DivAjaxUsuarioYaExiste i{
+	color: #e8be17;
+}
+
+#DivAjaxUsuarioYaExisteEmail i{
+	color: #e8be17;
+}

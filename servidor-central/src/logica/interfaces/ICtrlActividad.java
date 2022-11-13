@@ -12,6 +12,8 @@ import datatypes.DTSalida;
 import datatypes.estadoActividad;
 import datatypes.DTPaquete;
 import java.util.GregorianCalendar;
+import java.util.Map;
+
 import datatypes.DTActividad;
 
 
@@ -40,10 +42,11 @@ public interface ICtrlActividad{
 	public abstract Set<DTActividad> getDTActividadesConfirmadas();
 	public abstract Set<String> listarPaquetesCategoria(String categoria);
 	public abstract void leGusto(String nombreActividad, String nombreUsuario);
-	public abstract Set<String> listarActividadesSinSalidasVigentesNiPaquetes();
+	public abstract Set<DTActividad> listarActividadesSinSalidasVigentesNiPaquetes(String nickProv);
 	public abstract void finalizarActividad(String nombreActividad);
 	public abstract Set<ActividadDao> getActividadesFinalizada(String proveedor);
 	public abstract Set<DTActividad> infoBusquedaActividades(String busqueda);
 	public abstract Set<DTPaquete> infoBusquedaPaquetes(String busqueda);
 	public abstract void agregarVisita(String nombre);
+	public abstract Map<String, Integer> listarTop10Visitados();
 }

@@ -77,6 +77,10 @@
 	                      <div id="EmailRegistroTextNullValidate" class="invalid-feedback">
 	                          El campo Email es obligatorio.
 	                      </div>
+	                      <div id="DivAjaxUsuarioYaExisteEmail">
+	                      		<i class="fa-solid fa-triangle-exclamation"></i>
+	                      		El usuario con el email <span id="spanEmailYaExisteAjax"></span> ya existe.
+	                      </div>
 	                  </div>
 	            
 	                  <div class="row g-3 align-items-center" id="FechaNacimientoRegistroDiv">

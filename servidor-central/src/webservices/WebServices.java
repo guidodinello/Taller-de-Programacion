@@ -117,12 +117,20 @@ public class WebServices {
     }
     
     @WebMethod
-    public boolean existeUsuario(String nick) {
+    public boolean existeUsuarioNick(String nick) {
     	Usuario usuario = HandlerUsuarios.getInstance().getUsuarioByNickname(nick);
     	if(usuario == null) {
     		return false;
     	}
     	return true;
+    }
+    
+    @WebMethod
+    public boolean existeUsuarioEmail(String email) {
+    	if(HandlerUsuarios.getInstance().existeUsuarioConEmail(email)) {
+    		return true;
+    	}
+    	return false;
     }
     
     @WebMethod
@@ -383,6 +391,7 @@ public class WebServices {
     public void agregarVisita(String nombre) {
     	ctrlAct.agregarVisita(nombre);
     }
+
 	  @WebMethod
     public DTInscripcion[] getInscripciones(String nickname) {
     HandlerUsuarios hu = HandlerUsuarios.getInstance();

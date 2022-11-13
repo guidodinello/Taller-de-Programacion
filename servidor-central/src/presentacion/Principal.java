@@ -212,32 +212,6 @@ public class Principal {
 		});
 		menuSistema.add(menuCargarDatos);
 		
-		JMenuItem menuTESTDB = new JMenuItem("testDB");
-		menuTESTDB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//Proveedor prov = HandlerUsuarios.getInstance().getProveedorByNickname("eldiez");
-				//ProveedorDao eldiez = new ProveedorDao(prov);
-				Set<ActividadDao> lista = ICA.getActividadesFinalizada("eldiez");
-		    	for(ActividadDao act: lista) {
-		    		System.out.println(act.getDescripcion());
-		    		System.out.println(act.getNombre());
-		    		System.out.println(act.getProveedor().getUsuario().getApellido());
-		    		List<SalidaDao> salidas = act.getSalidas();
-		    		for(SalidaDao sal : salidas) {
-		    			System.out.println(sal.getNombre());
-		    			List<InscripcionDao> inscripciones = sal.getInscripciones();
-		    			for(InscripcionDao ins: inscripciones) {
-		    				System.out.println(ins.getTurisita().getNacionalidad());
-		    				System.out.println(ins.getTurisita().getUsuario().getApellido());
-		    			}
-		    		}
-		    		System.out.println();
-				
-		    	}
-			}
-		});
-		menuSistema.add(menuTESTDB);
-		
     JMenuItem publicar = new JMenuItem("Publicar WS");
     publicar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
