@@ -107,20 +107,16 @@
 					%>
 					<div class="d-flex justify-content-between">
 						<div class="input-group mb-3 d-flex justify-content-center">
-							<form method="GET" action="Follows?seguidores=true&&usr=<%=miUsr.getNombre()%>">
-							  <button class="btn btn-primary" type="submit">
+							  <a href="Follows?seguidores=true&&usr=<%=miUsr.getNickname()%>" class="btn btn-primary">
 							  	Seguidores
-							  </button>
-							</form>
+							  </a>
 						  <span class="input-group-text"><%=seguidores.size()%></span>
 						</div>
 						
 						<div class="input-group mb-3 d-flex justify-content-center">
-							<form method="GET" action="Follows?seguidos=true&&usr=<%=miUsr.getNombre()%>">
-							  <button class="btn btn-primary" type="submit">
+							<a href="Follows?seguidos=true&&usr=<%=miUsr.getNickname()%>" class="btn btn-primary">
 							  	Seguidos
-							  </button>
-							 </form>
+							</a>
 						  <span class="input-group-text"><%=seguidos.size()%></span>
 						</div>
 					</div>

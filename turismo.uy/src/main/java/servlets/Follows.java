@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -41,10 +42,20 @@ public class Follows extends HttpServlet {
 	    DtUsuario usr = port.getUsuarioByNickName((String)request.getParameter("usr"));
 	 
 	    if (((String)request.getParameter("seguidores")).equals("true")) {
-	        List<String> seguidores = usr.getSeguidores();
+	        List<String> nickSeguidores = usr.getSeguidores();
+	        List<DtUsuario> seguidores = new ArrayList<DtUsuario>();
+	        for (String s : nickSeguidores) {
+	            seguidores.add(port.getUsuarioByNickName(s));
+	        }
 	        request.setAttribute("usuarios", seguidores);
 	    } else {
-	        List<String> seguidos = usr.getSeguidos();
+	        // TODO los seguidos tiran null por alguna razon
+	        List<String> nickSeguidos = usr.getSeguidos();
+	        List<DtUsuario> seguidos = new ArrayList<DtUsuario>();
+	           for (String s : nickSeguidos) {
+	               System.out.println(s);
+	                seguidos.add(port.getUsuarioByNickName(s));
+	            }
 	        request.setAttribute("usuarios", seguidos);
 	    }
         request.getRequestDispatcher("/WEB-INF/consultaUsuario/FollowList.jsp").forward(request,

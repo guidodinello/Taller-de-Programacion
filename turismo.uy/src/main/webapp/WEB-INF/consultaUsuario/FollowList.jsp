@@ -43,7 +43,7 @@
 		<jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp" />
 		
 		<% 
-		Set<DtUsuario> listaUsuarios = (Set<DtUsuario>) request.getAttribute("usuarios");
+		List<DtUsuario> listaUsuarios = (List<DtUsuario>) request.getAttribute("usuarios");
 		if (listaUsuarios.isEmpty()) {
 		%>
 			<h1>No hay usuarios.</h1>
