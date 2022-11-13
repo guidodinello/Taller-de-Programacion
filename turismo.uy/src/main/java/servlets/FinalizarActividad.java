@@ -31,7 +31,7 @@ public class FinalizarActividad extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	    
         HttpSession session = request.getSession();
-        String nickProv = (String)session.getAttribute("usuario_logueado"));
+        String nickProv = (String)session.getAttribute("usuario_logueado");
         
 	    request.setAttribute("actividades_finalizables", 
 		        port.listarActividadesFinalizablesProveedor(nickProv));

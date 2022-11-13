@@ -25,17 +25,17 @@
 		<div class="col-sm-8 text-center">
 	
 			<%	
-			@SuppressWarnings("unchecked") 
+			@SuppressWarnings("unchecked")
 			List<DtActividad> actividades = (List<DtActividad>) request.getAttribute("actividades_finalizables");
 			for (DtActividad act : actividades) {
 			%>
 			<a class="text-decoration-none" href="consultaActividad?nombreAct=<%=act.getNombre()%>">
 						<div
 							class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
-							style="background-image: url('<%=act.getImgDir()%>');">
+							style="background-image: url('');">
 							<div class="row g-0 mask card-color">
 								<div class="col-md-4 align-self-center">
-									<img src="<%=act.getImgDir()%>"
+									<img src=""
 										class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 										alt="actividad Turistica: <%=act.getNombre()%>">
 								</div>

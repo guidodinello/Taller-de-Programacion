@@ -59,7 +59,7 @@ public class CargarDatosDePrueba {
       // proveedores
       descripcion = "Hola! me llamo Washington y soy el encargado del portal de turismo del departamento de Rocha - Uruguay";
       icu.altaUsuario("washington", "washington@turismorocha.gub.uy", "Washington", "Rocha",
-          "asdfg654", new GregorianCalendar(1970, 8, 14), "https://tinyurl.com/3whe8372",
+          "asdfg654", new GregorianCalendar(1970, 8, 14), "washington_usr.jpg",
           tipoUsuario.proveedor, "", descripcion, "http://turismorocha.gub.uy/");
       descripcion = "Pablo es el presidente de la Sociedad de Fomento Turístico de Rivera (conocida como Socfomturriv)";
       icu.altaUsuario("eldiez", "eldiez@socfomturriv.org.uy", "Pablo", "Bengoechea", "ytrewq10",
