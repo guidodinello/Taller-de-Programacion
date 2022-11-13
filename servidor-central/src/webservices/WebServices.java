@@ -461,4 +461,9 @@ public class WebServices {
 	  public void followUnfollow(String nickSeguidor, String nickSeguido) {
 	    ctrlUsr.seguirUsuario(nickSeguidor, nickSeguido);
 	  }
+	  
+    @WebMethod
+    public void marcarDesmarcarFav(String usr, String act) {
+      ctrlAct.leGusto(act, usr);
+    }   
 }
