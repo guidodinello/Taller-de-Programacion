@@ -391,6 +391,21 @@ public class CtrlActividad implements ICtrlActividad{
     	return resultado;
     }
 
+    public Set<SalidaDao> getSalidasDeActividadesFinalizadas(String turista) {
+    	Set<SalidaDao> resultado = new HashSet<SalidaDao>();
+    	
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT insc FROM InscripcionDao insc WHERE insc.turistaId.usuarioId.nickname = '" + turista + "'");
+  		List<InscripcionDao> inscripciones = (List<InscripcionDao>) query.getResultList();
+  		for (InscripcionDao dao : inscripciones) {
+  		  resultado.add(dao.getSalida());
+  		}
+  		em.close();
+		  emf.close();
+    	return resultado;
+    }
+    
     public Set<DTActividad> infoBusquedaActividades(String busqueda){
     	Set<DTActividad> dtActs = new HashSet<DTActividad>();
     	HandlerActividades hA = HandlerActividades.getInstance();

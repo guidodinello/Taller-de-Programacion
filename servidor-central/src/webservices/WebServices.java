@@ -42,6 +42,7 @@ import logica.clases.Proveedor;
 import logica.clases.Turista;
 import logica.clases.Usuario;
 import logica.clases.dao.ActividadDao;
+import logica.clases.dao.SalidaDao;
 import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
 
@@ -435,6 +436,14 @@ public class WebServices {
 	    ActividadDao[] array = new ActividadDao[adao.size()];
 	    return adao.toArray(array);
     }
+	  
+	  @WebMethod
+	    public SalidaDao[] listarSalidasDeActividadesFinalizadasPorTurista(String nickTur) {
+		    Set<SalidaDao> adao = ctrlAct.getSalidasDeActividadesFinalizadas(nickTur);
+
+		    SalidaDao[] array = new SalidaDao[adao.size()];
+		    return adao.toArray(array);
+	    }
 	  
 	  @WebMethod
 	  public DTActividad[] listarActividadesFinalizablesProveedor(String nickProv) {
