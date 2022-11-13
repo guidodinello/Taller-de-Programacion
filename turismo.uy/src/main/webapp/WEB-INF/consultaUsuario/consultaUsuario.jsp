@@ -11,7 +11,7 @@
 <%@page import="webservices.DtSalidaArray"%>
 <%@page import="webservices.DtActividadArray"%>
 <%@page import="webservices.DtInscripcion"%>
-<%@page import="webservices.ActividadDao" %>
+<%@page import="webservices.ActividadDao"%>
 
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
@@ -322,16 +322,16 @@
 											
 												
 											} else {
-												Set<DtActividad> actividades = new HashSet<DtActividad>();
-												DtActividadArray act = port.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
-												List <DtActividad> actList = act.getItem();
+												List<DtActividad> act = port.listarInfoCompletaActividadesProveedor(miUsr.getNickname()).getItem();
+												System.out.println("actividades");
+												System.out.println(act);
 												
-												for(DtActividad activ : actList){
-													actividades.add(activ);
-												}
-												for (DtActividad nomb : actividades) {
+												for (DtActividad nomb : act) {
 													for (String sal : nomb.getSalidas()) {
-														salidas.add(port.getInfoCompletaSalida(sal));
+													  DtSalida dtsal = port.getInfoCompletaSalida(sal);
+													  System.out.println("salidas");
+													  System.out.println(dtsal);
+														salidas.add(dtsal);
 													}
 
 												}
@@ -785,7 +785,7 @@
 														<div class="col-auto">
 															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder="<%=ad.getFechaBaja()%>"><%--TODO: it was getFechaAltaString --%>
+																placeholder=""><%--TODO: it was getFechaAltaString --%>
 														</div>
 
 													</div>

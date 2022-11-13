@@ -4,6 +4,7 @@ import java.util.Set;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import logica.clases.dao.ActividadDao;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
@@ -26,6 +27,14 @@ public class DTActividad {
 	private Set<String> likedBy;
 	private String url;
 
+	public DTActividad(ActividadDao adao) {
+	  nombre = adao.getNombre();
+	  descripcion = adao.getDescripcion();
+	  estado = adao.getEstado();
+	  fechaAlta = adao.getFechaAlta();
+	  nombreCiudad = adao.getCiudad();
+	  costo = adao.getCosto();
+	}
 	
 	public DTActividad(String nombre, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado, Set<String> likedBy, String url) {
 		this.nombre = nombre;
@@ -69,6 +78,8 @@ public class DTActividad {
 	}
 	
 	public Set<String> getSalidas() {
+	  if (salidas == null)
+	    return new HashSet<String>();
 		return salidas;
 	}
 	

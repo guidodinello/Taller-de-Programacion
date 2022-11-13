@@ -177,13 +177,17 @@ public class consultaUsuario extends HttpServlet{
 		            request.setAttribute("MI_PERFIL_USUARIO", (DtUsuario)
                           port.getInfoBasicaUsuario(nombreUsuario));
 
+		           if (usuarioLogueado instanceof DtProveedor) {
+		               System.out.println("instance of dtprov consulta usuario");
+		               request.setAttribute("mis_actividades_finalizadas", 
+		                       port.listarActividadesFinalizadasProveedor(nombreUsuario).getItem());
+		               
+		               List<DtActividad> conf = port.listarInfoCompletaActividadesProveedor(nombreUsuario).getItem();
+		               
+		               request.setAttribute("mis_actividades_confirmadasYrechazadas", conf);
+		               
+		           }
 		            
-		           request.setAttribute("mis_actividades_finalizadas", 
-		                   port.listarActividadesFinalizadasProveedor(nombreUsuario));
-		           
-		           List<DtActividad> conf = port.listarInfoCompletaActividadesProveedor(nombreUsuario).getItem();
-		           		           
-		           request.setAttribute("mis_actividades_confirmadasYrechazadas", conf);
 		        }
 		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);

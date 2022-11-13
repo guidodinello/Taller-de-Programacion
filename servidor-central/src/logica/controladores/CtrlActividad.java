@@ -379,12 +379,14 @@ public class CtrlActividad implements ICtrlActividad{
     	Set<ActividadDao> resultado = new HashSet<ActividadDao>();
     	
     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.id_proveedor.usuarioId.nickname = '" + proveedor + "'");
-		List<ActividadDao> result = (List<ActividadDao>) query.getResultList();
-		for (ActividadDao act: result) {
-			resultado.add(act);
-		}
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.id_proveedor.usuarioId.nickname = '" + proveedor + "'");
+  		List<ActividadDao> result = (List<ActividadDao>) query.getResultList();
+  		for (ActividadDao dao : result) {
+  		  resultado.add(dao);
+  		}
+  		em.close();
+		  emf.close();
     	return resultado;
     }
 

@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -425,8 +427,13 @@ public class WebServices {
 	  @WebMethod
     public ActividadDao[] listarActividadesFinalizadasProveedor(String nickProv) {
 	    Set<ActividadDao> adao = ctrlAct.getActividadesFinalizada(nickProv);
-	    ActividadDao[] DaoArray = new ActividadDao[adao.size()];
-	    return adao.toArray(DaoArray);
+//	    Set<DTActividad> acts = new HashSet<DTActividad>();
+//	    for (ActividadDao dao : adao) {
+//	      acts.add(new DTActividad(dao));
+//	    }
+//	    DTActividad[] array = new DTActividad[acts.size()];
+	    ActividadDao[] array = new ActividadDao[adao.size()];
+	    return adao.toArray(array);
     }
 	  
 	  @WebMethod
