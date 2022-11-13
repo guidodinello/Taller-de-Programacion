@@ -133,14 +133,14 @@ const formularioValidado = () => {
 }
 
 const sugerirNick = () =>{
-	let numeroAleatorio = Math.random();
+	let numeroAleatorio = Math.floor(Math.random() * 1000);
 	let resultado =  $("#NicknameRegistroText").val() + numeroAleatorio.toString();
 	$.ajax({
   			method: "GET",
   			url: "altaUsuario",
   			data: {existe:$("#NicknameRegistroText").val() + numeroAleatorio.toString()},
 	}).fail(function(){
-		return sugerirNick();
+		sugerirNick();
 	})
 	return resultado;
 }
@@ -169,7 +169,7 @@ $("#EmailRegistroText").on("keyup", async function(){
 	$.ajax({
   		method: "GET",
   		url: "altaUsuario",
-  		data: {existe:$("#EmailRegistroText").val()},
+  		data: {existeEmail:$("#EmailRegistroText").val()},
 	}).fail(function( jqXHR, textStatus ) {
   		$("#DivAjaxUsuarioYaExisteEmail").show();
   		$(`#EmailRegistroDiv`).removeClass("mb-4");

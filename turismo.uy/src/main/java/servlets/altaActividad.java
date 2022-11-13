@@ -54,6 +54,7 @@ public class altaActividad extends HttpServlet {
         String dpt =(String) req.getParameter("Departamento");
         String nom =(String) req.getParameter("Nombre");
         String des =(String) req.getParameter("Descripcion");
+        String url =(String) req.getParameter("URLvideo");
         int dhs = Integer.parseInt(req.getParameter("Duracion"));
         float cos = Float.parseFloat(req.getParameter("Costo"));
         String ciu = req.getParameter("Ciudad");
@@ -72,7 +73,7 @@ public class altaActividad extends HttpServlet {
         
         try {
             XMLGregorianCalendar xmlFecha= DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
-            port.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), xmlFecha, fotoBin, extencionValida(p.getSubmittedFileName()), aEnviarCat, EstadoActividad.AGREGADA);
+            port.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), xmlFecha, fotoBin, extencionValida(p.getSubmittedFileName()), aEnviarCat, url, EstadoActividad.AGREGADA);
             req.setAttribute("exito", "La actividad "+ nom + " se ha dado de alta exitosamente");
             req.getRequestDispatcher("/index").forward(req, res);
         } catch(YaExisteException_Exception e) {
