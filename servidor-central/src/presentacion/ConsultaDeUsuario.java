@@ -667,7 +667,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		String nombreDepartamento = ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex()).getDepartamento();
 		String nombreSalida = (String) ComboBoxSalidasDeActividadesDelProveedor.getSelectedItem();
 		nombreSalida = nombreSalida.substring(8);
-		System.out.println(nombreSalida);
 		ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
 
 	}

@@ -145,7 +145,6 @@ public class ActividadTuristica{
 		for (Proveedor prov : proveedores) {
             if (prov.proveeActividad(this.nombre)) {
             	resu = prov.getNickname();
-            	System.out.println(resu);
             	return resu;
             }
         }

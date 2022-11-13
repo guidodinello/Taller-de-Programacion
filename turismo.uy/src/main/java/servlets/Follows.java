@@ -53,7 +53,6 @@ public class Follows extends HttpServlet {
 	        List<String> nickSeguidos = usr.getSeguidos();
 	        List<DtUsuario> seguidos = new ArrayList<DtUsuario>();
 	           for (String s : nickSeguidos) {
-	               System.out.println(s);
 	                seguidos.add(port.getUsuarioByNickName(s));
 	            }
 	        request.setAttribute("usuarios", seguidos);
@@ -66,12 +65,6 @@ public class Follows extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("LLEGO EL POST");
-          for (Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
-              String name = entry.getKey();
-              String value = entry.getValue()[0];
-              System.out.println(name + ": " + value);
-          }
 		    
         String action = (String)request.getParameter("action");
         String usr = (String)request.getParameter("usr");
