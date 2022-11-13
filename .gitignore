@@ -3,7 +3,6 @@
 
 # folders
 bin/
-.settings/
 .metadata/ 
 build/
 .vscode/
@@ -15,7 +14,7 @@ build/
 # files
 /servidor-central/.classpath
 /turismo.uy/.classpath
-/servidor-movil/.classpat
+/servidor-movil/.classpath
 .pmd
 .checkstyle
 .vscode

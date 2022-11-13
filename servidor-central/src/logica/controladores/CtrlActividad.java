@@ -293,7 +293,7 @@ public class CtrlActividad implements ICtrlActividad{
     	actividades.forEach(act ->{
     		boolean cond1 = act.getEstado().equals(estadoActividad.confirmada);
     		boolean cond2 = act.getInfoBasicaSalidasVigentes(new GregorianCalendar()).isEmpty();
-    		boolean cond3 = act.getDTActividad().getPaquetes().isEmpty();
+    		boolean cond3 = getInfoActividad(act.getNombre()).getPaquetes().isEmpty();
     		boolean cond4 = act.getProveedor().equals(nickProv);
      		if(cond1 && cond2 && cond3 && cond4) {
     			resultado.add(act.getDTActividad());

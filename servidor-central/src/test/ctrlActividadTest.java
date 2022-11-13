@@ -338,7 +338,7 @@ public class ctrlActividadTest{
 		assertEquals(dtAct.getCategorias().contains("Categoria 1"), true);
 		assertEquals(dtAct.getFechaAlta(), new GregorianCalendar(2000, 3, 2));
 		assertEquals(dtAct.getFechaAltaString(), "2/4/2000");
-		assertEquals(dtAct.getImgDir(), "imagenes?act=imgDir");
+		assertEquals(dtAct.getImgDir(), "imagen?act=imgDir");
 		assertEquals(dtAct.getNombreCiudad(), "Paso palomeque");
 		assertEquals(dtAct.toString(), "Nombre: Actividad 2");
 		

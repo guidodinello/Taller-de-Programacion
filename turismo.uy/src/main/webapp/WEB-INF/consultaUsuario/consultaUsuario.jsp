@@ -97,9 +97,15 @@
 								<%
 								List<String> seguidores = miUsr.getSeguidores();
 								%>
-								<button class="btn btn-primaty">
+								<button class="btn btn-primary">
 									<div>
 									Seguidores
+									</div>
+								
+								</button>
+								<button class="btn btn-primary">
+									<div>
+									Seguidos
 									</div>
 								
 								</button>

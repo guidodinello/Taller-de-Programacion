@@ -435,4 +435,9 @@ public class WebServices {
 	     DTActividad[] finalizablesArray = new DTActividad[finalizables.size()];
 	      return finalizables.toArray(finalizablesArray);
 	  }
+	  
+	  @WebMethod
+	  public void finalizarActividad(String act) {
+	    ctrlAct.finalizarActividad(act);
+	  }
 }

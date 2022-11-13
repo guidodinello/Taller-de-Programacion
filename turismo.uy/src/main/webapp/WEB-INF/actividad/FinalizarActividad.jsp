@@ -27,15 +27,19 @@
 			<%	
 			@SuppressWarnings("unchecked")
 			List<DtActividad> actividades = (List<DtActividad>) request.getAttribute("actividades_finalizables");
+			
+			if (actividades.size() == 0) {
+			  %><p>Usted no tiene actividades finalizables</p><%
+			}
+			
 			for (DtActividad act : actividades) {
 			%>
-			<a class="text-decoration-none" href="consultaActividad?nombreAct=<%=act.getNombre()%>">
 						<div
 							class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
-							style="background-image: url('');">
+							style="background-image: url('<%=act.getImgDir()%>');">
 							<div class="row g-0 mask card-color">
 								<div class="col-md-4 align-self-center">
-									<img src=""
+									<img src="<%=act.getImgDir()%>"
 										class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 										alt="actividad Turistica: <%=act.getNombre()%>">
 								</div>
@@ -43,11 +47,15 @@
 									<div class="card-body text-white">
 										<h5 class="card-title"><%=act.getNombre()%></h5>
 										<p class="card-text"><%=act.getDescripcion()%></p>
+										<form action="FinalizarActividad?act=<%=act.getNombre()%>" method="POST">
+											<input type="submit" class="btn btn-primary">
+												Finalizar
+											</input>
+										</form>
 									</div>
 								</div>
 							</div>
 						</div>
-					</a>
 			<%
 			}
 			%>
