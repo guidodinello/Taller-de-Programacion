@@ -2,7 +2,9 @@
 <%@page import="webservices.DtActividad" %>
 <%@page import="webservices.DtSalida" %>
 <%@page import="webservices.DtPaquete" %>
+<%@page import="webservices.DtUsuario" %>
 <%@page import="java.util.Set"%>
+<%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 
 <!doctype html>
@@ -87,7 +89,7 @@
 						<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
 								<div class="col-auto">
-									<i class="fa fa-building prefix white-text"></i>
+									<i class="fa fa-video prefix white-text"></i>
 									<label for="video" class="col-form-label">Video:</label>
 								</div>
 								<div class="col">
@@ -96,6 +98,46 @@
 							              
 							</div>
 						</fieldset>
+						
+						<fieldset disabled>
+							<div class="row g-3 align-items-center pt-3">
+								<div class="col-auto">
+									<i class="fa fa-star prefix white-text"></i>
+									<label for="favorita" class="col-form-label">Cantidad de veces marcada como Favorita :</label>
+								</div>
+								<div class="col">
+									<input type="text" name="favorita" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getLikedBy().size() %>>
+								</div>
+							</div>
+						</fieldset>
+						
+						<%
+						if (session.getAttribute("usuario_logueado") != null) {
+					  		DtUsuario usr = (DtUsuario)session.getAttribute("usuario_logueado");
+							List<String> usuariosConEstaActFavorita = actividad.getLikedBy();
+							Boolean esFavorita = false;
+							// si el usuario marco como favorita esta actividad
+							for (String u : usuariosConEstaActFavorita) {
+						  		if (usr.getNickname().equals(u)) {
+						  		  	esFavorita = true;
+						  		  	break;
+						  		}
+						  	}
+						 	if (esFavorita) {%>
+							 	<fieldset disabled>
+									<div class="row g-3 align-items-center pt-3">
+										<div class="col-auto">
+											<i class="fa fa-star prefix white-text"></i>
+											<label for="tufavorita" class="col-form-label">Para tí :</label>
+										</div>
+										<div class="col">
+											<input type="text" name="tufavorita" class="form-control disabled" aria-describedby="disabled" placeholder="Esta actividad la has marcado como favorita !">
+										</div>
+									</div>
+								</fieldset>
+						 <%	  
+						 	} // cierre if es favorita
+						 } // cierre if logueado %>
 		                
 						<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
