@@ -83,33 +83,41 @@
 		%>
 		<div class="col-sm-9 text-center" style="">
 			<div class="col-sm" style="margin-right: 12%;">
-				<div class="card mb-3"
-					style="max-width: 800px; width: 300px; margin-left: 280px;">
-					<div class="row g-0">
-						<div class="" style="">
-							<img src="<%=miUsr.getImgDir()%>"
-								id="modificarImagenPerfil" class="img-fluid rounded-start; max-width: 100px;" alt="...">
-						</div>
-						<div class="col-md-12">
-							<div class="card-body">
-
-								<h5 class="card-title"><%=miUsr.getNombre()%></h5>
-								<%
-								List<String> seguidores = miUsr.getSeguidores();
-								%>
-								<button class="btn btn-primary">
-									<div>
-									Seguidores
-									</div>
-								
-								</button>
-								<button class="btn btn-primary">
-									<div>
-									Seguidos
-									</div>
-								
-								</button>
+				<div class="d-flex justify-content-center">
+					<div class="card mb-3" style="max-width: 800px; width: 300px;">
+						<div class="row g-0">
+							<div class="" style="">
+								<img src="<%=miUsr.getImgDir()%>"
+									id="modificarImagenPerfil" class="img-fluid rounded-start; max-width: 100px;" alt="...">
 							</div>
+							<div class="col-md-12">
+								<div class="card-body">
+	
+									<h5 class="card-title"><%=miUsr.getNombre()%></h5>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">				
+					<%
+					List<String> seguidores = miUsr.getSeguidores();
+					List<String> seguidos = miUsr.getSeguidos();
+					%>
+					<div class="d-flex justify-content-between">
+						<div class="input-group mb-3 d-flex justify-content-center">
+							  <a href="Follows?seguidores=true&&usr=<%=miUsr.getNickname()%>" class="btn btn-primary">
+							  	Seguidores
+							  </a>
+						  <span class="input-group-text"><%=seguidores.size()%></span>
+						</div>
+						
+						<div class="input-group mb-3 d-flex justify-content-center">
+							<a href="Follows?seguidos=true&&usr=<%=miUsr.getNickname()%>" class="btn btn-primary">
+							  	Seguidos
+							</a>
+						  <span class="input-group-text"><%=seguidos.size()%></span>
 						</div>
 					</div>
 				</div>

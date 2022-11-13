@@ -1,6 +1,7 @@
 package datatypes;
 
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -59,10 +60,14 @@ public class DTUsuario {
 	}
 	
 	public Set<String> getSeguidores(){
+	  if (seguidores == null)
+	     return new HashSet<String>();
 		return seguidores;
 	}
 	
 	public Set<String> getSeguidos(){
+	  if (seguidos == null)
+      return new HashSet<String>();
 		return seguidos;
 	}
 	
