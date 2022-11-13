@@ -399,7 +399,7 @@ public class WebServices {
     }
 	  
 	  @WebMethod
-	  public DTActividad[] listarActividadesConfirmadas(String nickProv) {
+	  public DTActividad[] listarActividadesConfirmadasProveedor(String nickProv) {
 	    Set<DTActividad> dtas = ctrlAct.filterActividades(
 	        a -> { return a.getDTActividad(); },
 	        a-> { return a.getEstado().equals(estadoActividad.confirmada) &&
@@ -409,23 +409,18 @@ public class WebServices {
       DTActividad[] arrayDt = new DTActividad[dtas.size()];
       return dtas.toArray(arrayDt);
 	  }
-	  
-	  @WebMethod
-	  public DTActividad[] listarAgregadasRechazadas(String nickProv) {
-	     Set<DTActividad> dtas = ctrlAct.filterActividades(
-	          a -> { return a.getDTActividad(); },
-	          a-> { return !a.getEstado().equals(estadoActividad.confirmada) &&
-	                        a.getProveedor().equals(nickProv);
-	          }
-	      );
-	      DTActividad[] arrayDt = new DTActividad[dtas.size()];
-	      return dtas.toArray(arrayDt);
-	  }
  	  
 	  @WebMethod
-    public ActividadDao[] listarActividadesFinalizadas(String nickProv) {
+    public ActividadDao[] listarActividadesFinalizadasProveedor(String nickProv) {
 	    Set<ActividadDao> adao = ctrlAct.getActividadesFinalizada(nickProv);
 	    ActividadDao[] DaoArray = new ActividadDao[adao.size()];
 	    return adao.toArray(DaoArray);
     }
+	  
+	  @WebMethod
+	  public DTActividad[] listarActividadesFinalizablesProveedor(String nickProv) {
+	     Set<DTActividad> finalizables = ctrlAct.listarActividadesSinSalidasVigentesNiPaquetes(nickProv);
+	     DTActividad[] finalizablesArray = new DTActividad[finalizables.size()];
+	      return finalizables.toArray(finalizablesArray);
+	  }
 }

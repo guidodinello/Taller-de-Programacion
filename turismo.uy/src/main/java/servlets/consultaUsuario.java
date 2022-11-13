@@ -19,7 +19,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import datatypes.DTActividad;
 import webservices.DtActividad;
 import webservices.DtProveedor;
 import webservices.DtTurista;
@@ -180,14 +179,11 @@ public class consultaUsuario extends HttpServlet{
 
 		            
 		           request.setAttribute("mis_actividades_finalizadas", 
-		                   port.listarActividadesFinalizadas(nombreUsuario));
+		                   port.listarActividadesFinalizadasProveedor(nombreUsuario));
 		           
-		           DtActividad[] conf = port.listarActividadesConfirmadas(nombreUsuario);
-		           DtActividad[] rechazadas = port.listarAgregadasRechazadas(nombreUsuario);
-		           
-		           DtActividad[] juntos = ArrayConcatUtil.concatWithCollection(conf, rechazadas); 
-		           
-		           request.setAttribute("mis_actividades_confirmadasYrechazadas", juntos);
+		           List<DtActividad> conf = port.listarInfoCompletaActividadesProveedor(nombreUsuario).getItem();
+		           		           
+		           request.setAttribute("mis_actividades_confirmadasYrechazadas", conf);
 		        }
 		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);
