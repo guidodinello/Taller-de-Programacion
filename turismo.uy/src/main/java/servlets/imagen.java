@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import webservices.DtActividad;
-import webservices.DtUsuario;
+
 
 /**
  * Servlet implementation class imagen

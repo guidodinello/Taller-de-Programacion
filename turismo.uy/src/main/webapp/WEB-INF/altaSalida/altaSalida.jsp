@@ -4,8 +4,6 @@
 <%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>
 
-<%@page import="model.logica.interfaces.Fabrica"%>
-<%@page import="model.logica.interfaces.ICtrlActividad"%>
 
 
 <!DOCTYPE html>

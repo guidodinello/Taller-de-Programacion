@@ -7,13 +7,19 @@ bin/
 .metadata/ 
 build/
 .vscode/
+/turismo.uy/src/main/java/webservices/
+/turismo.uy/src/main/java/net/
+/servidor-movil/src/main/java/net/
+/servidor-movil/src/main/java/webservices/
 
 # files
-.project
-.classpath
+/servidor-central/.classpath
+/turismo.uy/.classpath
+/servidor-movil/.classpat
 .pmd
 .checkstyle
 .vscode
+/servidor-central/dependency-reduced-pom.xml
 
 # extensions
 *.class
