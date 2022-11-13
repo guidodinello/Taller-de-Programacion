@@ -2,6 +2,7 @@ package logica.clases;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,7 +20,7 @@ public class ContadorVisitas {
         Comparator<K> valueComparator = new Comparator<K>() {
             
                   public int compare(K k1, K k2){
-                      int comp = map.get(k1).compareTo(map.get(k2));
+                      int comp = map.get(k2).compareTo(map.get(k1));
                       if (comp == 0)
                           return 1;
                       else
@@ -51,12 +52,13 @@ public class ContadorVisitas {
 		}
 	}
 	
-	public Map<String, Integer> getTop10(){
-		Map<String, Integer> res = new HashMap<String, Integer>();
-		res = valueSort(registro);
+	public LinkedHashMap<String, Integer> getTop10(){
+		Map<String, Integer> ordenados = new HashMap<String, Integer>();
+		LinkedHashMap<String, Integer> res = new LinkedHashMap<String, Integer>();
+		ordenados = valueSort(registro);
 		
 		int count = 0;
-		for (Map.Entry<String,Integer> entry:registro.entrySet()) {
+		for (Map.Entry<String,Integer> entry:ordenados.entrySet()) {
 		     if (count >= 10) break;
 
 		     res.put(entry.getKey(), entry.getValue());
@@ -66,5 +68,3 @@ public class ContadorVisitas {
 		return res;
 	}
 }
-
-
