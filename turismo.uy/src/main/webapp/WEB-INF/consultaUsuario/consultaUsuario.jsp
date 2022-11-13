@@ -323,14 +323,11 @@
 												
 											} else {
 												List<DtActividad> act = port.listarInfoCompletaActividadesProveedor(miUsr.getNickname()).getItem();
-												System.out.println("actividades");
-												System.out.println(act);
+					
 												
 												for (DtActividad nomb : act) {
 													for (String sal : nomb.getSalidas()) {
 													  DtSalida dtsal = port.getInfoCompletaSalida(sal);
-													  System.out.println("salidas");
-													  System.out.println(dtsal);
 														salidas.add(dtsal);
 													}
 

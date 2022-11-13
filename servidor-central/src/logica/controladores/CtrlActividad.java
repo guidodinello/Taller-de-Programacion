@@ -326,9 +326,7 @@ public class CtrlActividad implements ICtrlActividad{
         			salDao.addIncripcion(insDao);
         			turInstancia.eliminarIncripcionesDeActividad(nombreActividad);
         		});
-        		System.out.println(salDao);
         		actDao.addSalida(salDao);
-        		sal.eliminarActividad(nombreActividad);
         		HandlerSalidas.getInstance().eliminarSalida(sal.getNombre());
     		}
 
@@ -365,12 +363,15 @@ public class CtrlActividad implements ICtrlActividad{
     	departamentos.forEach((dep)->{
     		dep.eliminarActividad(nombreActividad);
     	});
+    	
     	prov.eliminarActividad(nombreActividad);
+    	
+    	Set<SalidaTuristica> salidasParaEliminar = act.getSalidas();
     	HandlerSalidas hSal = HandlerSalidas.getInstance();
-    	SalidaTuristica[] salidasDondeEliminar = hSal.getSalidas();
-    	for(SalidaTuristica salt: salidasDondeEliminar) {
-    		salt.eliminarActividad(nombreActividad);
+    	for(SalidaTuristica salt: salidasParaEliminar) {
+    		hSal.eliminarSalida(salt.getNombre());
     	}
+    	
     	HandlerActividades hAct = HandlerActividades.getInstance();
     	hAct.eliminarActividad(nombreActividad);
     };

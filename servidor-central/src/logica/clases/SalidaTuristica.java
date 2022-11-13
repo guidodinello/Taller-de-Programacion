@@ -89,8 +89,4 @@ public class SalidaTuristica{
 		    return img;
 		}
 		
-		public void eliminarActividad(String nombreAct) {
-			actividad = null;
-		}
-		
 }
