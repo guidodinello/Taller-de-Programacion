@@ -837,25 +837,67 @@
 
 			<%
 			} else {
+				DtUsuario usr_loggueado = (DtUsuario)request.getAttribute("usuario_logueado");
 			%>
+			<input type="hidden" id="usr" value="<%=usr_loggueado.getNickname()%>">
+			<input type="hidden" id="newFollower" value="<%=Usr.getNickname()%>">
+			
 			<div class="col-sm-9 text-center" style="">
 				<div class="col-sm" style="margin-right: 12%;">
-					<div class="card mb-3"
-						style="max-width: 800px; width: 200px; margin-left: 280px;">
-						<div class="row g-0">
-							<div class="" style="">
-								<img src="<%=Usr.getImgDir()%>"
-									class="img-fluid rounded-start; max-height: 100px;" alt="...">
-							</div>
-							<div class="col-md-12">
-								<div class="card-body">
-
-									<h5 class="card-title"><%=Usr.getNombre()%></h5>
-									<%--<p class="card-text"><%=miUsr.getEmail()%></p> --%>
+					<div class="d-flex justify-content-center">
+						<div class="card mb-3"
+							style="max-width: 800px; width: 200px;">
+							<div class="row g-0">
+								<div class="" style="">
+									<img src="<%=Usr.getImgDir()%>"
+										class="img-fluid rounded-start; max-height: 100px;" alt="...">
+								</div>
+								<div class="col-md-12">
+									<div class="card-body">
+	
+										<h5 class="card-title"><%=Usr.getNombre()%></h5>
+										<%--<p class="card-text"><%=miUsr.getEmail()%></p> --%>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<div class="row">				
+					<%
+					List<String> seguidores = Usr.getSeguidores();
+					List<String> seguidos = Usr.getSeguidos();
+					String usr_loggueadoNick = usr_loggueado.getNickname();
+					
+					Boolean isAFollower = false;
+					for (String nick : seguidores) {
+					  if (nick.equals(usr_loggueadoNick)) {
+					    isAFollower = true;
+					    break;
+					  }
+					}
+					%>
+					<input id="isAFollower" type="hidden" value="<%=isAFollower%>">
+					
+					<div class="d-flex justify-content-between">
+						<div class="input-group mb-3 d-flex justify-content-center">
+							  <a href="Follows?seguidores=true&&usr=<%=Usr.getNickname()%>" class="btn btn-primary">
+							  	Seguidores
+							  </a>
+						  <span id="cantSeguidores" class="input-group-text"><%=seguidores.size()%></span>
+						  <button id="followButton" class="input-group-text">
+						  	<i id="followIcon" class="fa fa-solid fa-plus"></i>
+						  </button>
+						</div>
+						
+						<div class="input-group mb-3 d-flex justify-content-center">
+							<a href="Follows?seguidos=true&&usr=<%=Usr.getNickname()%>" class="btn btn-primary">
+							  	Seguidos
+							</a>
+						  <span class="input-group-text"><%=seguidos.size()%></span>
+						</div>
+					</div>
+				</div>
+					
 					<div class="container" style="width: 650px;">
 						<div class="row">
 							<div class="">
@@ -1236,6 +1278,7 @@
 				integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
 				crossorigin="anonymous"></script>
 			<script src="js/perfilUsuario.js"></script>
+			<script src="js/follow.js"></script>
 </body>
 
 </html>

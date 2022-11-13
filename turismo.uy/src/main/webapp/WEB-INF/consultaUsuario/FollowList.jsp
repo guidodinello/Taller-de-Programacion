@@ -44,13 +44,15 @@
 		
 		<% 
 		List<DtUsuario> listaUsuarios = (List<DtUsuario>) request.getAttribute("usuarios");
-		if (listaUsuarios.isEmpty()) {
-		%>
-			<h1>No hay usuarios.</h1>
-		<%
-		} else {
 		%>
 		<div class="text-center col-sm-9">
+			<%
+			if (listaUsuarios.isEmpty()) {
+			%>
+				<h1>No hay usuarios.</h1>
+			<%
+			} else {
+			%>
 			<div class="row row-cols-3 gy-3">
 				<%for (DtUsuario usuario : listaUsuarios) {
 				%>
@@ -85,7 +87,6 @@
 			<script src="https://code.jquery.com/jquery-3.6.1.min.js"
 				integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
 				crossorigin="anonymous"></script>
-			<script src="js/perfilUsuario.js"></script>
 </body>
 
 </html>

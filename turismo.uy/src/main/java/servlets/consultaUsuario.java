@@ -160,6 +160,8 @@ public class consultaUsuario extends HttpServlet{
 		      case "INFO":
 		        DtUsuario usuarioLogueado =
 		            (DtUsuario) request.getSession().getAttribute("usuario_logueado");
+		        request.setAttribute("usuario_logueado", usuarioLogueado);
+		        
 		        String nombreUsuario = (String) request.getParameter("NICKNAME");
 		        request.setAttribute("STATE", "INFO");
 		        //no estoy logueada 

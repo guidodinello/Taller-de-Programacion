@@ -447,4 +447,9 @@ public class WebServices {
 	  public void finalizarActividad(String act) {
 	    ctrlAct.finalizarActividad(act);
 	  }
+	  
+	  @WebMethod
+	  public void followUnfollow(String nickSeguidor, String nickSeguido) {
+	    ctrlUsr.seguirUsuario(nickSeguidor, nickSeguido);
+	  }
 }

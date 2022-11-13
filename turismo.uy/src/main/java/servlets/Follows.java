@@ -33,15 +33,15 @@ public class Follows extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    for (Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
-	        String name = entry.getKey();
-	        String value = entry.getValue()[0];
-	        System.out.println(name + ": " + value);
-	    }
+//	    for (Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
+//	        String name = entry.getKey();
+//	        String value = entry.getValue()[0];
+//	        System.out.println(name + ": " + value);
+//	    }
 	    
 	    DtUsuario usr = port.getUsuarioByNickName((String)request.getParameter("usr"));
-	 
-	    if (((String)request.getParameter("seguidores")).equals("true")) {
+
+	    if (request.getParameter("seguidores") != null) {
 	        List<String> nickSeguidores = usr.getSeguidores();
 	        List<DtUsuario> seguidores = new ArrayList<DtUsuario>();
 	        for (String s : nickSeguidores) {
@@ -66,7 +66,17 @@ public class Follows extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		System.out.println("LLEGO EL POST");
+          for (Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
+              String name = entry.getKey();
+              String value = entry.getValue()[0];
+              System.out.println(name + ": " + value);
+          }
+		    
+        String action = (String)request.getParameter("action");
+        String usr = (String)request.getParameter("usr");
+        String newFollower = (String)request.getParameter("newFollower");
+		port.followUnfollow(usr, newFollower);
 	}
 
 }
