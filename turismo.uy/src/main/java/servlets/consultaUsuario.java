@@ -188,6 +188,14 @@ public class consultaUsuario extends HttpServlet{
 		               
 		           }
 		            
+		           request.setAttribute("mis_actividades_finalizadas", 
+		                   port.listarActividadesFinalizadasProveedor(nombreUsuario));
+		           
+		           if(request.getSession().getAttribute("usuario_logueado") instanceof DtProveedor) {
+		               List<DtActividad> conf = port.listarInfoCompletaActividadesProveedor(nombreUsuario).getItem();
+		           		           
+		           request.setAttribute("mis_actividades_confirmadasYrechazadas", conf);
+		           }
 		        }
 		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);

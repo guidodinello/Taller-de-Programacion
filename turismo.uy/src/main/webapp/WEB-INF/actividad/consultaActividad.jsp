@@ -3,7 +3,7 @@
 <%@page import="webservices.DtSalida" %>
 <%@page import="webservices.DtPaquete" %>
 <%@page import="java.util.Set"%>
-
+<%@page import="java.text.SimpleDateFormat"%>
 
 <!doctype html>
 <html>
@@ -32,7 +32,10 @@
 						<div class="card-body">
 							<h5 class="card-title"><%= actividad.getNombre() %></h5>
 							<p class="card-text"><%= actividad.getDescripcion() %></p>
-							<p class="card-text"><small class="text-muted">Fecha alta: <%= actividad.getFechaAlta()%> </small></p><%--TODO getFechaAltaString --%>
+							<p class="card-text"><small class="text-muted">Fecha alta:
+							<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(actividad.getFechaAlta().toGregorianCalendar().getTime())
+								%></small></p>
 						</div>
 					</div>
 				</div>

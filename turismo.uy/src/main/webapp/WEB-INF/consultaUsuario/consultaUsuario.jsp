@@ -683,7 +683,10 @@
 														<div class="col-auto">
 															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder="<%=act.getFechaAlta()%>"><%--TODO: it was getFechaAltaString --%>
+																placeholder="
+																<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(act.getFechaAlta().toGregorianCalendar().getTime())
+								%>">
 														</div>
 
 													</div>
@@ -770,7 +773,10 @@
 														<div class="col-auto">
 															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder="<%=ad.getFechaAlta()%>"><%--TODO: it was getFechaAltaString --%>
+																placeholder="
+																<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaAlta().toGregorianCalendar().getTime())
+								%>">
 														</div>
 
 													</div>
@@ -785,7 +791,10 @@
 														<div class="col-auto">
 															<input type="text" class="form-control disabled"
 																aria-describedby="disabled"
-																placeholder=""><%--TODO: it was getFechaAltaString --%>
+																placeholder="
+																<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaAlta().toGregorianCalendar().getTime())
+								%>">
 														</div>
 
 													</div>
@@ -1177,7 +1186,9 @@
 																<div class="col-auto">
 																	<input type="text" class="form-control disabled"
 																		aria-describedby="disabled"
-																		placeholder="<%=act.getFechaAlta()%>">
+																		placeholder="<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(act.getFechaAlta().toGregorianCalendar().getTime())
+								%>">
 																</div>
 
 															</div>
