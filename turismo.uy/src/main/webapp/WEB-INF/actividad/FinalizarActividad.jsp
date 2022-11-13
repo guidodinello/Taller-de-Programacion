@@ -48,9 +48,9 @@
 										<h5 class="card-title"><%=act.getNombre()%></h5>
 										<p class="card-text"><%=act.getDescripcion()%></p>
 										<form action="FinalizarActividad?act=<%=act.getNombre()%>" method="POST">
-											<input type="submit" class="btn btn-primary">
+											<button type="submit" class="btn btn-primary">
 												Finalizar
-											</input>
+											</button>
 										</form>
 									</div>
 								</div>
