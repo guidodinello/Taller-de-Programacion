@@ -39,7 +39,7 @@ public class DTActividad {
 		this.salidas = salidas;
 		this.estado = estado;
 		paquetes = new HashSet<String>();
-		this.imgDir = imgDir;
+		this.imgDir = "imagen?act=" + imgDir;
 		this.likedBy = likedBy;
 		this.url = url;
 	}

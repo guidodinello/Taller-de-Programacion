@@ -31,6 +31,7 @@
                             Actividad</a>
                         <a href="altaSalida" class="card-title list-group-item list-group-item-action">Alta de
                             Salida</a>
+                        <a href="finalizarActividad" class="card-title list-group-item list-group-item-action">Finalizar Actividad</a>
                     </ul>
                 </div>
             </div>

@@ -18,6 +18,8 @@ import javax.servlet.http.Part;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import webservices.DtActividad;
 import webservices.DtProveedor;
 import webservices.DtTurista;
 import webservices.DtUsuario;
@@ -175,6 +177,13 @@ public class consultaUsuario extends HttpServlet{
 		            request.setAttribute("MI_PERFIL_USUARIO", (DtUsuario)
                           port.getInfoBasicaUsuario(nombreUsuario));
 
+		            
+		           request.setAttribute("mis_actividades_finalizadas", 
+		                   port.listarActividadesFinalizadasProveedor(nombreUsuario));
+		           
+		           List<DtActividad> conf = port.listarInfoCompletaActividadesProveedor(nombreUsuario).getItem();
+		           		           
+		           request.setAttribute("mis_actividades_confirmadasYrechazadas", conf);
 		        }
 		        request.getRequestDispatcher("/WEB-INF/consultaUsuario/consultaUsuario.jsp").forward(request,
 		            response);

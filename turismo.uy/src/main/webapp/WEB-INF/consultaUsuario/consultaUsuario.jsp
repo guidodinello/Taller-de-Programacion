@@ -11,6 +11,7 @@
 <%@page import="webservices.DtSalidaArray"%>
 <%@page import="webservices.DtActividadArray"%>
 <%@page import="webservices.DtInscripcion"%>
+<%@page import="webservices.ActividadDao" %>
 
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
@@ -93,7 +94,15 @@
 							<div class="card-body">
 
 								<h5 class="card-title"><%=miUsr.getNombre()%></h5>
-								<%--<p class="card-text"><%=miUsr.getEmail()%></p> --%>
+								<%
+								List<String> seguidores = miUsr.getSeguidores();
+								%>
+								<button class="btn btn-primaty">
+									<div>
+									Seguidores
+									</div>
+								
+								</button>
 							</div>
 						</div>
 					</div>
@@ -606,10 +615,9 @@
 										aria-labelledby="actividades-tab">
 										<div class="card-body">
 											<%
-											Set<DtActividad> actividades = new HashSet<DtActividad>();
-											DtActividadArray activ = port.listarInfoCompletaActividadesProveedor(miUsr.getNickname());
-											List <DtActividad> actList = activ.getItem();
-											for (DtActividad act : actividades) {
+											
+											List<DtActividad> actList = (List<DtActividad>)request.getAttribute("mis_actividades_confirmadasYrechazadas");
+											for (DtActividad act : actList) {
 											%>
 											<a style="text-decoration: none; font-size: 24px;"
 												href="consultaActividad?nombreAct=<%=act.getNombre()%>"
@@ -693,6 +701,108 @@
 
 											</form>
 											<%}%>
+											<%
+											List<ActividadDao> finalizadas = (List<ActividadDao>)request.getAttribute("mis_actividades_finalizadas");
+											for (ActividadDao ad : finalizadas) {
+											  
+											%>
+											<a style="text-decoration: none; font-size: 24px;"
+												href="consultaActividad?nombreAct=<%=ad.getNombre()%>"
+												class="font-up font-bold"><%=ad.getNombre()%></a>
+											<form>
+
+												<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa fa-clock prefix white-text"></i> <label
+																for="inputPassword6" class="col-form-label disabled'">Duracion:</label>
+														</div>
+														<div class="col-auto">
+															<input type="text" class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder="<%=ad.getDuracion()%>">
+														</div>
+
+													</div>
+												</fieldset>
+												<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa-solid fa-money-bill" aria-hidden="true"></i> <label
+																for="inputPassword6" class="col-form-label">Costo:</label>
+														</div>
+														<div class="col-auto">
+															<input type="text" class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder="<%=ad.getCosto()%>">
+														</div>
+
+													</div>
+												</fieldset>
+												<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa fa-building prefix white-text"></i> <label
+																for="inputPassword6" class="col-form-label">Ciudad:</label>
+														</div>
+														<div class="col-auto">
+															<input type="text" class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder="<%=ad.getCiudad()%>">
+														</div>
+
+													</div>
+												</fieldset>
+
+												<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa fa-calendar prefix white-text"></i> <label
+																for="inputPassword6" class="col-form-label disabled'">Fecha
+																Alta: </label>
+														</div>
+														<div class="col-auto">
+															<input type="text" class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder="<%=ad.getFechaAlta()%>"><%--TODO: it was getFechaAltaString --%>
+														</div>
+
+													</div>
+												</fieldset>
+																								<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa fa-calendar prefix white-text"></i> <label
+																for="inputPassword6" class="col-form-label disabled'">Fecha
+																Baja: </label>
+														</div>
+														<div class="col-auto">
+															<input type="text" class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder="<%=ad.getFechaBaja()%>"><%--TODO: it was getFechaAltaString --%>
+														</div>
+
+													</div>
+												</fieldset>
+
+												<fieldset disabled>
+													<div class="row g-3 align-items-center pt-3">
+														<div class="col-auto">
+															<i class="fa fa-check prefix white-text"></i> <label
+																for="inputPassword6" class="col-form-label">Estado:</label>
+														</div>
+														<div class="col-auto">
+															<input type="text" class="form-control disabled"
+																aria-describedby="disabled"
+																placeholder="<%=ad.getEstado()%>">
+														</div>
+
+													</div>
+												</fieldset>
+
+
+											</form>
+											<% } %>
 										</div>
 									</div>
 
