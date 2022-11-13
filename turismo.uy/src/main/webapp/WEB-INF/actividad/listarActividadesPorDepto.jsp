@@ -2,8 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@page import="servlets.departamento"%>
 <%@page import="webservices.DtActividad"%>
+<%@page import="webservices.DtUsuario"%>
+<%@page import="webservices.DtTurista"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Set"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -43,6 +46,52 @@
 										<h5 class="card-title"><%=act.getNombre()%></h5>
 										<p class="card-text"><%=act.getDescripcion()%></p>
 									</div>
+																<%
+							// si hay un usuario logueado
+							if (session.getAttribute("usuario_logueado") != null) {
+								  	DtUsuario usr = (DtUsuario)session.getAttribute("usuario_logueado");
+								  	if (usr instanceof DtTurista) {
+										List<String> usuariosConEstaActFavorita = act.getLikedBy();
+										Boolean esFavorita = false;
+										// si el usuario marco como favorita esta actividad
+										for (String u : usuariosConEstaActFavorita) {
+										  	if (usr.getNickname().equals(u)) {
+										  	  	esFavorita = true;
+										  	  	break;
+										  	}
+										}
+							%>
+							<div class="card-body text-white position-absolute bottom-0 end-0 btn btn-info me-2 mb-2 px-3 py-2"
+								onclick="marcarDesmarcarFavoritos(this)"
+							>
+								<input type="hidden" name="esFav" value="<%=esFavorita%>">
+								<input type="hidden" name="act" value="<%=act.getNombre()%>">
+								<input type="hidden" name="usr" value="<%=usr.getNickname()%>">
+								<div class="d-flex justify-content-end">
+										<%
+										// y marco la actividad como favorita
+										if (!esFavorita) {
+										%>
+									<p class="my-auto me-4">Marcar como Favorito</p>
+									<p class="my-auto me-4"><%=usuariosConEstaActFavorita.size()%></p>
+									<div>
+										<i class="fa fa-regular fa-star fa-2x my-auto"></i>
+									</div>
+										<%
+										// sino
+										} else {
+										%>
+									<p class="my-auto me-4">Desmarcar de Favoritos</p>
+									<p class="my-auto me-4"><%=usuariosConEstaActFavorita.size()%></p>
+									<div>
+										<i class="fa fa-solid fa-star fa-2x my-auto"></i>
+									</div>
+										<% } %>
+								</div>
+							</div>
+							<%
+								} // ciera el if turista 
+							} // cierra el if logueado %>
 								</div>
 							</div>
 						</div>

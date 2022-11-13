@@ -3,6 +3,7 @@
 <%@page import="webservices.DtSalida" %>
 <%@page import="webservices.DtPaquete" %>
 <%@page import="webservices.DtUsuario" %>
+<%@page import="webservices.DtTurista" %>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -114,29 +115,31 @@
 						<%
 						if (session.getAttribute("usuario_logueado") != null) {
 					  		DtUsuario usr = (DtUsuario)session.getAttribute("usuario_logueado");
-							List<String> usuariosConEstaActFavorita = actividad.getLikedBy();
-							Boolean esFavorita = false;
-							// si el usuario marco como favorita esta actividad
-							for (String u : usuariosConEstaActFavorita) {
-						  		if (usr.getNickname().equals(u)) {
-						  		  	esFavorita = true;
-						  		  	break;
-						  		}
-						  	}
-						 	if (esFavorita) {%>
-							 	<fieldset disabled>
-									<div class="row g-3 align-items-center pt-3">
-										<div class="col-auto">
-											<i class="fa fa-star prefix white-text"></i>
-											<label for="tufavorita" class="col-form-label">Para tí :</label>
+					  		if (usr instanceof DtTurista) {
+								List<String> usuariosConEstaActFavorita = actividad.getLikedBy();
+								Boolean esFavorita = false;
+								// si el usuario marco como favorita esta actividad
+								for (String u : usuariosConEstaActFavorita) {
+							  		if (usr.getNickname().equals(u)) {
+							  		  	esFavorita = true;
+							  		  	break;
+							  		}
+							  	}
+							 	if (esFavorita) {%>
+								 	<fieldset disabled>
+										<div class="row g-3 align-items-center pt-3">
+											<div class="col-auto">
+												<i class="fa fa-star prefix white-text"></i>
+												<label for="tufavorita" class="col-form-label">Para tí :</label>
+											</div>
+											<div class="col">
+												<input type="text" name="tufavorita" class="form-control disabled" aria-describedby="disabled" placeholder="Esta actividad la has marcado como favorita !">
+											</div>
 										</div>
-										<div class="col">
-											<input type="text" name="tufavorita" class="form-control disabled" aria-describedby="disabled" placeholder="Esta actividad la has marcado como favorita !">
-										</div>
-									</div>
-								</fieldset>
-						 <%	  
-						 	} // cierre if es favorita
+									</fieldset>
+							 <%	  
+							 	} // cierre if es favorita
+					  		} // cierre es turista
 						 } // cierre if logueado %>
 		                
 						<fieldset disabled>

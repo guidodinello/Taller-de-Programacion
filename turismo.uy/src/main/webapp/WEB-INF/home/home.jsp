@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="webservices.DtActividad"%>
 <%@page import="webservices.DtUsuario"%>
+<%@page import="webservices.DtTurista"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
 
@@ -72,15 +73,16 @@ crossorigin="anonymous"></script>
 							// si hay un usuario logueado
 							if (session.getAttribute("usuario_logueado") != null) {
 								  	DtUsuario usr = (DtUsuario)session.getAttribute("usuario_logueado");
-									List<String> usuariosConEstaActFavorita = act.getLikedBy();
-									Boolean esFavorita = false;
-									// si el usuario marco como favorita esta actividad
-									for (String u : usuariosConEstaActFavorita) {
-									  	if (usr.getNickname().equals(u)) {
-									  	  	esFavorita = true;
-									  	  	break;
-									  	}
-									}
+								  	if (usr instanceof DtTurista) {
+										List<String> usuariosConEstaActFavorita = act.getLikedBy();
+										Boolean esFavorita = false;
+										// si el usuario marco como favorita esta actividad
+										for (String u : usuariosConEstaActFavorita) {
+										  	if (usr.getNickname().equals(u)) {
+										  	  	esFavorita = true;
+										  	  	break;
+										  	}
+										}
 							%>
 							<div class="card-body text-white position-absolute bottom-0 end-0 btn btn-info me-2 mb-2 px-3 py-2"
 								onclick="marcarDesmarcarFavoritos(this)"
@@ -110,7 +112,9 @@ crossorigin="anonymous"></script>
 										<% } %>
 								</div>
 							</div>
-							<% } // cierra el if logueado %>
+							<%
+								} // ciera el if turista 
+							} // cierra el if logueado %>
 						</div>
 					</div>
 				</div>
