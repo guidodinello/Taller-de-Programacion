@@ -286,16 +286,17 @@ public class CtrlActividad implements ICtrlActividad{
     		act.eliminarFan(nombreUsuario);
     }
     
-    public Set<String> listarActividadesSinSalidasVigentesNiPaquetes(){
+    public Set<DTActividad> listarActividadesSinSalidasVigentesNiPaquetes(String nickProv){
     	HandlerActividades hAct = HandlerActividades.getInstance();
     	Set<ActividadTuristica> actividades = hAct.obtenerActividadesTuristicas();
-    	Set<String> resultado = new HashSet<String>();
+    	Set<DTActividad> resultado = new HashSet<DTActividad>();
     	actividades.forEach(act ->{
     		boolean cond1 = act.getEstado().equals(estadoActividad.confirmada);
     		boolean cond2 = act.getInfoBasicaSalidasVigentes(new GregorianCalendar()).isEmpty();
     		boolean cond3 = act.getDTActividad().getPaquetes().isEmpty();
-    		if(cond1 && cond2 && cond3) {
-    			resultado.add(act.getNombre());
+    		boolean cond4 = act.getProveedor().equals(nickProv);
+     		if(cond1 && cond2 && cond3 && cond4) {
+    			resultado.add(act.getDTActividad());
     		}
     	});
     	return resultado;
