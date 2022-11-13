@@ -92,10 +92,10 @@ public class altaUsuario extends HttpServlet {
 	       webservices.WebServicesService service = new webservices.WebServicesService();
 	       webservices.WebServices port = service.getWebServicesPort();
 	       if(req.getParameter("existe") != null) {
-	            boolean existe = port.existeUsuario(req.getParameter("existe"));
-	            if(existe) {
+	            boolean existe = port.existeUsuarioNick(req.getParameter("existe"));
+	            boolean existe2 = port.existeUsuarioEmail(req.getParameter("existe"));
+	            if(existe || existe2) {
 	                res.sendError(400);
-	                System.out.print(existe);
 	            }
 	            return;
 	        }

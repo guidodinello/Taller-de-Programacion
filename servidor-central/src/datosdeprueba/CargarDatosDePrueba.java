@@ -233,7 +233,7 @@ public class CargarDatosDePrueba {
       descripcion = "Rivera es un departamento de extraordinaria riqueza natural patrimonial y cultural con una ubicación geográfica privilegiada";
       ica.altaActividadTuristica("Rivera", "Descubre Rivera", descripcion, 2, 650, "Rivera",
           "eldiez", new GregorianCalendar(2022, 8, 16), "https://tinyurl.com/y4vbc4xc", categorias,"",
-          estadoActividad.confirmada);
+          estadoActividad.rechazada);
     } catch (YaExisteException e) {
       e.printStackTrace();
     }
@@ -415,25 +415,6 @@ public class CargarDatosDePrueba {
       e.printStackTrace();
     }
 
-    
-    try {
-    	ica.altaSalidaTuristica("Descubre Rivera", new GregorianCalendar(2000, 7, 20, 17, 0),
-                "Sociedad Agropecuaria de Rocha", 20, new GregorianCalendar(1998, 6, 21), "Descubre Rivera",
-                "tinyurl.com/4jwed4jx");
-    	icu.ingresarInscripcion("lachiqui", "Descubre Rivera", 4,
-    	          new GregorianCalendar(1999, 9, 12), tipoInscripcion.general, "");
-    	
-        ica.finalizarActividad("Descubre Rivera");
-    }catch (Exception e){
-    	e.printStackTrace();
-    }
-
-    	
-    	
-    
-    
   }
-  
-  
-  
+
 }

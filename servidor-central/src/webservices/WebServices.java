@@ -34,7 +34,9 @@ import logica.interfaces.ICtrlUsuario;
 import datatypes.tipoUsuario;
 import logica.clases.ComprobanteInscripcion;
 import logica.clases.Configuracion;
+import logica.clases.InscripcionSalida;
 import logica.clases.Proveedor;
+import logica.clases.Turista;
 import logica.clases.Usuario;
 import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
@@ -113,12 +115,20 @@ public class WebServices {
     }
     
     @WebMethod
-    public boolean existeUsuario(String nick) {
+    public boolean existeUsuarioNick(String nick) {
     	Usuario usuario = HandlerUsuarios.getInstance().getUsuarioByNickname(nick);
     	if(usuario == null) {
     		return false;
     	}
     	return true;
+    }
+    
+    @WebMethod
+    public boolean existeUsuarioEmail(String email) {
+    	if(HandlerUsuarios.getInstance().existeUsuarioConEmail(email)) {
+    		return true;
+    	}
+    	return false;
     }
     
     @WebMethod
@@ -359,7 +369,8 @@ public class WebServices {
     public void agregarVisita(String nombre) {
     	ctrlAct.agregarVisita(nombre);
     }
-	  @WebMethod
+    
+	@WebMethod
     public InscripcionSalida[] getInscripciones(String nickname) {
     HandlerUsuarios hu = HandlerUsuarios.getInstance();
 	Usuario usr = hu.getUsuarioByNickname(nickname);

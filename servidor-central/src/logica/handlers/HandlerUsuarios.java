@@ -90,4 +90,8 @@ public class HandlerUsuarios {
 	public static void clear() {
 		instance = null;
 	}
+	
+	public boolean existeUsuarioConEmail(String email) {
+		return turistas.containsKey(email) || proveedores.containsKey(email);
+	}
 }
