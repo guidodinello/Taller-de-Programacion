@@ -93,7 +93,7 @@
 							<div class="card-body">
 
 								<h5 class="card-title"><%=miUsr.getNombre()%></h5>
-								<%--<p class="card-text"><%=miUsr.getEmail()%></p> --%>
+								<p class="card-text"><%=miUsr.getSeguidos(%></p>
 							</div>
 						</div>
 					</div>

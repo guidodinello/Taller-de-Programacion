@@ -39,6 +39,7 @@ import logica.clases.InscripcionSalida;
 import logica.clases.Proveedor;
 import logica.clases.Turista;
 import logica.clases.Usuario;
+import logica.clases.dao.ActividadDao;
 import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
 
@@ -395,5 +396,36 @@ public class WebServices {
 	DTInscripcion[] salidaArray = new DTInscripcion[arraySize];
 	salidaArray = res.toArray(salidaArray);
 	return salidaArray;
+    }
+	  
+	  @WebMethod
+	  public DTActividad[] listarActividadesConfirmadas(String nickProv) {
+	    Set<DTActividad> dtas = ctrlAct.filterActividades(
+	        a -> { return a.getDTActividad(); },
+	        a-> { return a.getEstado().equals(estadoActividad.confirmada) &&
+	                      a.getProveedor().equals(nickProv);
+	        }
+	    );
+      DTActividad[] arrayDt = new DTActividad[dtas.size()];
+      return dtas.toArray(arrayDt);
+	  }
+	  
+	  @WebMethod
+	  public DTActividad[] listarAgregadasRechazadas(String nickProv) {
+	     Set<DTActividad> dtas = ctrlAct.filterActividades(
+	          a -> { return a.getDTActividad(); },
+	          a-> { return !a.getEstado().equals(estadoActividad.confirmada) &&
+	                        a.getProveedor().equals(nickProv);
+	          }
+	      );
+	      DTActividad[] arrayDt = new DTActividad[dtas.size()];
+	      return dtas.toArray(arrayDt);
+	  }
+ 	  
+	  @WebMethod
+    public ActividadDao[] listarActividadesFinalizadas(String nickProv) {
+	    Set<ActividadDao> adao = ctrlAct.getActividadesFinalizada(nickProv);
+	    ActividadDao[] DaoArray = new ActividadDao[adao.size()];
+	    return adao.toArray(DaoArray);
     }
 }
