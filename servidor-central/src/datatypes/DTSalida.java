@@ -38,14 +38,14 @@ public class DTSalida {
 	        this.maxTuristas = CmaxT;
 	        this.lugarSalida = SlugarSal;
 	        this.turistasInscriptos = SSturistas;
-	        this.imgDir = img;
+	        this.imgDir = "imagen?sal=" + img;
 	    }
 	 
 	 public DTSalida(String nomSalida, String actividad, String deptoAct, GregorianCalendar fechaSal, GregorianCalendar fechaAlt, int CmaxT, String SlugarSal, Set<String> SSturistas, String img) {
 	        this.nombre = nomSalida;
 	        this.nombreActividad = actividad;
 	        this.nombreDepartamentoActividad = deptoAct;
-	        this.imgDir = img;
+	        this.imgDir = "imagen?sal=" + img;
 	        this.fechaSalida = fechaSal;
 	        this.fechaAlta= fechaAlt;
 	        this.maxTuristas = CmaxT;

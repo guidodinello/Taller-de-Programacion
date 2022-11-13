@@ -24,7 +24,7 @@ public class DTPaquete {
 		this.descuento = descuento;
 		this.fechaAlta = fechaAlta;
 		this.actividades = actividades;
-		this.imgDir = img;
+		this.imgDir = "imagen?paq=" +  img;
 		this.categorias = categorias;
 		this.costo = costo;
 	}

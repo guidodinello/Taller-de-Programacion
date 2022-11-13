@@ -63,8 +63,11 @@ public class WebServices {
     @WebMethod(exclude = true)
     public void despublicar(){
       Endpoint endp = getEndpoint();
-      if (endp != null)
+      if (endp != null) {
         endp.stop();
+        endpoint = null;
+      }
+      	
     }
 
     @WebMethod(exclude = true)
