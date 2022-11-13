@@ -83,6 +83,19 @@
 							              
 							</div>
 						</fieldset>
+						
+						<fieldset disabled>
+							<div class="row g-3 align-items-center pt-3">
+								<div class="col-auto">
+									<i class="fa fa-building prefix white-text"></i>
+									<label for="video" class="col-form-label">Video:</label>
+								</div>
+								<div class="col">
+									<input type="text" name="video" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getUrl() %>>
+								</div>
+							              
+							</div>
+						</fieldset>
 		                
 						<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">

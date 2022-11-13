@@ -190,7 +190,7 @@ public class WebServices {
     
     @WebMethod
 	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad,
-			String nickProv, GregorianCalendar fechaAlta, byte [] fotoBin, String ext, String categoriasString, estadoActividad estado) throws YaExisteException {
+			String nickProv, GregorianCalendar fechaAlta, byte [] fotoBin, String ext, String categoriasString, String urlVideo, estadoActividad estado) throws YaExisteException {
     	
     	//creamos set de categorias
     	Set<String> categorias = new HashSet<String>();
@@ -222,7 +222,7 @@ public class WebServices {
     	
     	
     	ctrlAct.altaActividadTuristica(nomDep, nomActividad, desc, duraHs, costo, nombCiudad,
-    			nickProv, fechaAlta, fotoDireccion, categorias,"", estado);
+    			nickProv, fechaAlta, fotoDireccion, categorias, urlVideo, estado);
     }
     
     @WebMethod
@@ -446,5 +446,10 @@ public class WebServices {
 	  @WebMethod
 	  public void finalizarActividad(String act) {
 	    ctrlAct.finalizarActividad(act);
+	  }
+	  
+	  @WebMethod
+	  public void followUnfollow(String nickSeguidor, String nickSeguido) {
+	    ctrlUsr.seguirUsuario(nickSeguidor, nickSeguido);
 	  }
 }

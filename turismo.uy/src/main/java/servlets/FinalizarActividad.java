@@ -40,8 +40,6 @@ public class FinalizarActividad extends HttpServlet {
         
         List<DtActividad> finalizables = port.listarActividadesFinalizablesProveedor(prov.getNickname()).getItem();
 	    
-        System.out.println(finalizables);
-	    
         request.setAttribute("actividades_finalizables", 
 		        finalizables);
 	    
