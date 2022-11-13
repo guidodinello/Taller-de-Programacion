@@ -3,6 +3,7 @@ import excepciones.YaExisteException;
 import logica.clases.ActividadTuristica;
 import logica.clases.dao.ActividadDao;
 import logica.clases.dao.ProveedorDao;
+import logica.clases.dao.SalidaDao;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -49,4 +50,5 @@ public interface ICtrlActividad{
 	public abstract Set<DTPaquete> infoBusquedaPaquetes(String busqueda);
 	public abstract void agregarVisita(String nombre);
 	public abstract Map<String, Integer> listarTop10Visitados();
+	public abstract Set<SalidaDao> getSalidasDeActividadesFinalizadas(String turista);
 }

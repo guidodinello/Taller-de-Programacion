@@ -68,5 +68,8 @@ public class InscripcionDao {
 	public TuristaDao getTurisita() {
 		return turistaId;
 	}
+	
+	public SalidaDao getSalida() { 
+		return salidaId;
+	}
 }
-
