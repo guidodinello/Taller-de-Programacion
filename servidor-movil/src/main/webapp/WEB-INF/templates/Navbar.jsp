@@ -4,8 +4,8 @@
   
   <nav class="navbar bg-blue d-flex navbar-light ">
   
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button style="    margin-left: 8px; " class=" ml-4 navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="ml-4 navbar-toggler-icon"></span>
     </button>
      <div class="container busq justify-content-center justify-content-lg-between"> 
    <a class="navbar-brand turismo ml-3" href="index">
@@ -15,28 +15,14 @@
         if(session.getAttribute("usuario_logueado") != null ){
         	DtUsuario usr = (DtUsuario) session.getAttribute("usuario_logueado");
         %>
-        <div style="width:80%"class="bg-light rounded rounded-pill shadow-sm mb-1 mb-lg-0">
-        <form method="POST" action="busquedaTexto" id="FormularioBusqueda" enctype="multipart/form-data">
-        	<div class="input-group">
-            	<input type="search" name="busqueda" value="" placeholder="Actividades y Paquetes" aria-describedby="button-addon1"
-                 	class="form-control border-0 bg-light">
-                <div class="input-group-append">
-                	<button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
-                     	class="fa fa-search"></i></button>
-                </div>
-        	</div>
-        	</form>
+       
+      <div style="display:flex; flex-direction:row">
+        <label style="color:black; width:120%; padding-top:10px; font-family: 'Prompt', sans-serif; "><%=usr.getNombre()%> </label>
+        <div style="width:100%!important; height:50px;" >
+        <img  style="width:80%; margin-left:50%; height:50px;" class=" logo-chico rounded" src="media/imagenes/logoChico.png"/>
         </div>
-        	<div class="collapse navbar-collapse flex-grow-0">
-        	<ul class="navbar-nav mr-0 mt-3 mt-lg-0">
-            	<li class="nav-item"> 
-                	<a class="white text-decoration-none" href="consultaUsuario?STATE=INFO&&NICKNAME=<%=usr.getNickname()%>">
-                    	<img class="me-2 rounded-circle usr-pic" src="<%= usr.getImgDir() %>">
-                    	<%= usr.getNombre() + " " + usr.getApellido()%>
-                    </a>
-                 </li>
-        	</ul>
         </div>
+        	
        <%} 
        else{%>
 		<div class="collapse navbar-collapse" id="navbar4" style="flex-grow:0;">
@@ -61,14 +47,14 @@
         }
     	%>
   </nav>
-  <div class="collapse " id="navbarToggleExternalContent">
+  <div class="ml-4 collapse " id="navbarToggleExternalContent">
     <div class="bg-blue collapse-nav navbar-text p-4">
     <% 
      if(session.getAttribute("usuario_logueado") != null ){
         	DtUsuario usr = (DtUsuario) session.getAttribute("usuario_logueado");
         %>
       <a class="text-muted" href="consultaActividad">Ver Actividades Turisticas</a>
-       <a class="text-muted" href="consultaSalida">Ver Salidas</a>
+       <a class="text-muted" href="listadoSalidas">Ver Salidas</a>
       <span class="text-muted"> <a class="text-muted" href="cerrarSesion">Cerrar Sesion</a></span>
       <%}
       else
