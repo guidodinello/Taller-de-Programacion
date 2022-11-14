@@ -56,11 +56,11 @@ public class index extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    request.setCharacterEncoding("UTF-8");
 	    
-	    port.marcarDesmarcarFav(
-	            (String)request.getParameter("usr"),
-	            (String)request.getParameter("act")
-	    );
-	    System.out.println((String)request.getParameter("usr"));
+	    //port.marcarDesmarcarFav(
+	    //        (String)request.getParameter("usr"),
+	    //        (String)request.getParameter("act")
+	    //);
+	    //System.out.println((String)request.getParameter("usr"));
 	}
 
 }

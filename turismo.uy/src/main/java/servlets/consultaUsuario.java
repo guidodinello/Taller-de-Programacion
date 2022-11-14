@@ -21,9 +21,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import webservices.ActividadDao;
 import webservices.DtActividad;
+import webservices.DtInscripcion;
 import webservices.DtProveedor;
 import webservices.DtTurista;
 import webservices.DtUsuario;
+import webservices.InscripcionDao;
 import net.java.dev.jaxb.array.StringArray;
 
 @MultipartConfig
@@ -190,6 +192,14 @@ public class consultaUsuario extends HttpServlet{
 		               List<DtActividad> conf = port.listarInfoCompletaActividadesProveedor(nombreUsuario).getItem();
 		               
 		               request.setAttribute("mis_actividades_confirmadasYrechazadas", conf);
+		               
+		           }else {
+		               
+		               List<InscripcionDao> InscDSalDActFin = port.listarSalidasDeActividadesFinalizadasPorTurista(nombreUsuario).getItem();
+		               request.setAttribute("mis_inscripciones_finalizadas", InscDSalDActFin);
+		               
+		               List<DtInscripcion> insc = port.getInscripciones(nombreUsuario).getItem();
+		               request.setAttribute("mis_inscripciones", insc);
 		               
 		           }
 		           

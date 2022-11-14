@@ -386,7 +386,7 @@ public class ctrlActividadTest{
 		assertEquals(10, nueva1.getcantidadMaximaDeTuristas());
 		assertEquals(nueva1.getTuristasInscriptos().isEmpty(),true);
 		assertEquals(nueva1.getNombreActividad(), "Actividad 1");
-		assertEquals(nueva1.getImgDir(), "imagen");
+		assertEquals(nueva1.getImgDir(), "imagen?sal=imagen");
 		assertEquals(nueva1.getNombreDepartamentoActividad(), "Montevideo");
 		assertEquals(nueva1.toString(), "A Centro" + " - " + "Centro");
 		
@@ -504,10 +504,10 @@ public class ctrlActividadTest{
 		GregorianCalendar fechaAltaP3 = new GregorianCalendar(2000, 4, 2);
 		GregorianCalendar fechaAltaP4 = new GregorianCalendar(2015, 2, 2);
 		
-		String img1 = "media/imagenes/img1.png";
-		String img2 = "media/imagenes/img2.png";
-		String img3 = "media/imagenes/img3.png";
-		String img4 = "media/imagenes/img4.png";
+		String img1 = "img1.png";
+		String img2 = "img2.png";
+		String img3 = "img3.png";
+		String img4 = "img4.png";
 		
 		try {
 			controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1, img1);
@@ -547,10 +547,10 @@ public class ctrlActividadTest{
 			assertEquals(controladorActividad.getInfoPaquete(nombreP3).getActividades().isEmpty(), true);
 			assertEquals(controladorActividad.getInfoPaquete(nombreP4).getActividades().isEmpty(), true);
 				
-			assertEquals(controladorActividad.getInfoPaquete(nombreP1).getImg(), img1);
-			assertEquals(controladorActividad.getInfoPaquete(nombreP2).getImg(), img2);
-			assertEquals(controladorActividad.getInfoPaquete(nombreP3).getImg(), img3);
-			assertEquals(controladorActividad.getInfoPaquete(nombreP4).getImg(), img4);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP1).getImg(), "imagen?paq="+img1);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP2).getImg(), "imagen?paq="+img2);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP3).getImg(), "imagen?paq="+img3);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP4).getImg(), "imagen?paq="+img4);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
