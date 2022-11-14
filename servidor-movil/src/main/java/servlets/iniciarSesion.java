@@ -53,7 +53,9 @@ public class iniciarSesion extends HttpServlet {
 		if (usr == null|| !(usr instanceof DtTurista) || !(port.verifiedUserPassword(usr.getNickname(), pass))) {
 			// Controlar en JSP y dar aviso de intento invalido
 			request.setAttribute("invalid_attempt", true);
-			request.getRequestDispatcher("/WEB-INF/iniciarSesion.jsp").forward(request, response);
+		
+			
+			 request.getRequestDispatcher("/WEB-INF/iniciarSesion.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("usuario_logueado", usr);
