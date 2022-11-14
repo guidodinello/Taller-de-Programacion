@@ -788,4 +788,34 @@ public class ctrlUsuarioTest {
 		
 	}
 	
+	
+	@Test
+	@Order(19)
+	void testVerifiedUserPassword() throws YaExisteException {
+		
+		String turista1 = "TestCompraTurista1";
+		
+		Boolean val1 = controladorUsuario.verifiedUserPassword(turista1,"pass");
+		Boolean val2 = controladorUsuario.verifiedUserPassword(turista1,"contraMal");
+
+		assertEquals(val1, true);
+		assertEquals(val2, false);
+	}
+	
+	@Test
+	@Order(20)
+	void testVseguirUsuario() throws YaExisteException {
+		
+		String turista1 = "TestCompraTurista1";
+		String turista2 = "TestCompraTurista2";
+		
+
+		controladorUsuario.seguirUsuario(turista1,turista2);
+		controladorUsuario.seguirUsuario(turista2,turista1);
+		controladorUsuario.seguirUsuario(turista1,turista2);
+		
+		assertEquals(handlerU.getTuristaByNickname(turista1).tieneSeguidor(turista2), false);
+		assertEquals(handlerU.getTuristaByNickname(turista2).tieneSeguidor(turista1), true);
+	}
+	
 }
