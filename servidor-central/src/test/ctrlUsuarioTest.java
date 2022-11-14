@@ -633,7 +633,7 @@ public class ctrlUsuarioTest {
 		String nombreGenerico = "nombre";
 		String apellidoGenerico = "apellido";
 		GregorianCalendar fechaNacGenerica = new GregorianCalendar();
-		String imgPerfil = "media/imagenes/usrPerfil.png";
+		String imgPerfil = "usrPerfil.png";
 		String nacionalidad = "nacionalidad";
 		String pass = "pass";
 		
@@ -645,9 +645,9 @@ public class ctrlUsuarioTest {
 		String desc2 = "descripcion 2";
 		String desc3 = "descripcion 3";
 		
-		String img1 = "media/imagenes/paq1.png";
-		String img2 = "media/imagenes/paq2.png";
-		String img3 = "media/imagenes/paq3.png";
+		String img1 = "paq1.png";
+		String img2 = "paq2.png";
+		String img3 = "paq3.png";
 		
 		String act1 = "Actividad 1";
 		String act2 = "Actividad 2";
@@ -768,9 +768,9 @@ public class ctrlUsuarioTest {
 		assertEquals(usr2.getCompras().isEmpty(), false);
 		assertEquals(usr3.getCompras().isEmpty(), false);
 		
-		assertEquals(usr1.getImgDir(), "media/imagenes/usrPerfil.png");
-		assertEquals(usr2.getImgDir(), "media/imagenes/usrPerfil.png");
-		assertEquals(usr3.getImgDir(), "media/imagenes/usrPerfil.png");
+		assertEquals(usr1.getImgDir(), "imagen?usr=usrPerfil.png");
+		assertEquals(usr2.getImgDir(), "imagen?usr=usrPerfil.png");
+		assertEquals(usr3.getImgDir(), "imagen?usr=usrPerfil.png");
 		
 	}
 	
@@ -814,8 +814,8 @@ public class ctrlUsuarioTest {
 		controladorUsuario.seguirUsuario(turista2,turista1);
 		controladorUsuario.seguirUsuario(turista1,turista2);
 		
-		assertEquals(handlerU.getTuristaByNickname(turista1).tieneSeguidor(turista2), false);
-		assertEquals(handlerU.getTuristaByNickname(turista2).tieneSeguidor(turista1), true);
+		assertEquals(handlerU.getTuristaByNickname(turista1).tieneSeguidor(turista2), true);
+		assertEquals(handlerU.getTuristaByNickname(turista2).tieneSeguidor(turista1), false);
 	}
 	
 }

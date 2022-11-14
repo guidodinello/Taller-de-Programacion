@@ -20,6 +20,7 @@ import datatypes.tipoUsuario;
 
 import excepciones.YaExisteException;
 import logica.clases.dao.ActividadDao;
+import logica.clases.dao.InscripcionDao;
 import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
@@ -33,6 +34,7 @@ import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
 import datatypes.estadoActividad;
+import datatypes.tipoInscripcion;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlActividadTest{
 	private static ICtrlActividad controladorActividad;
@@ -1005,28 +1007,25 @@ public class ctrlActividadTest{
 			controladorActividad.altaActividadTuristica(deptoActividad7, nombActividad7, desActividad7, duraHsActividad7, costoActividad7, ciudadActividad7, nickProvAct7, fechaAct1, img, setString,"", estadoActividad.confirmada);
 			controladorActividad.altaActividadTuristica(deptoActividad8, nombActividad8, desActividad8, duraHsActividad8, costoActividad8, ciudadActividad8, nickProvAct8, fechaAct1, img, setString,"", estadoActividad.confirmada);
 			
-			//Set<String> lista = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes();
+			Set<DTActividad> lista1 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct1);
+			Set<DTActividad> lista2 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct2);
 			
-//			assertEquals(lista.isEmpty(), false);
-//			assertEquals(lista.contains(nombActividad1), true);
-//			assertEquals(lista.contains(nombActividad2), false);
-//			assertEquals(lista.contains(nombActividad3), true);
-//			assertEquals(lista.contains(nombActividad4), false);
-//			assertEquals(lista.contains(nombActividad5), true);
-//			assertEquals(lista.contains(nombActividad6), true);
-//			assertEquals(lista.contains(nombActividad7), true);
-//			assertEquals(lista.contains(nombActividad8), true);
+			
+			assertEquals(lista1.isEmpty(), false);
+			assertEquals(lista2.isEmpty(), false);
+			assertEquals(lista1.size(), 4);
+			assertEquals(lista2.size(), 2);
 			
 			controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, nombActividad2);
 			controladorActividad.cambiarEstadoActividad(estadoActividad.rechazada, nombActividad4);
 			
-			//lista = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes();
+			lista1 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct1);
+			lista2 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct2);
 			
-//			assertEquals(lista.isEmpty(), false);
-//			assertEquals(lista.contains(nombActividad1), true);
-//			assertEquals(lista.contains(nombActividad2), true);
-//			assertEquals(lista.contains(nombActividad3), true);
-//			assertEquals(lista.contains(nombActividad4), false);
+			assertEquals(lista1.isEmpty(), false);
+			assertEquals(lista2.isEmpty(), false);
+			assertEquals(lista1.size(), 4);
+			assertEquals(lista2.size(), 3);
 			
 			/*Doy de altas salidas*/
 			//actividad 1
@@ -1057,7 +1056,7 @@ public class ctrlActividadTest{
 			String            nombreSal5 = "sal285";
 			GregorianCalendar     fecha5 = new GregorianCalendar(2000, 2, 2);
 			String                lugar5 = "lugar285";
-			int                    cant5 = 1;
+			int                    cant5 = 2;
 			GregorianCalendar fechaAlta5 = new GregorianCalendar(1999,2,2);
 			
 			String            nombreSal6 = "sal286";
@@ -1069,7 +1068,7 @@ public class ctrlActividadTest{
 			String            nombreSal9 = "sal289";
 			GregorianCalendar     fecha9 = new GregorianCalendar(2000, 2, 2);
 			String                lugar9 = "lugar289";
-			int                    cant9 = 1;
+			int                    cant9 = 2;
 			GregorianCalendar fechaAlta9 = new GregorianCalendar(1999,2,2);
 			
 			String            nombreSal10 = "sal2810";
@@ -1081,19 +1080,19 @@ public class ctrlActividadTest{
 			String            nombreSal11 = "sal2811";
 			GregorianCalendar     fecha11 = new GregorianCalendar(2000, 2, 2);
 			String                lugar11 = "lugar2811";
-			int                    cant11 = 1;
+			int                    cant11 = 2;
 			GregorianCalendar fechaAlta11 = new GregorianCalendar(1999,2,2);
 			
 			String            nombreSal12 = "sal2812";
 			GregorianCalendar     fecha12 = new GregorianCalendar(2000, 2, 2);
 			String                lugar12 = "lugar2812";
-			int                    cant12 = 1;
+			int                    cant12 = 2;
 			GregorianCalendar fechaAlta12 = new GregorianCalendar(1999,2,2);
 			//actividad 7
 			String            nombreSal13 = "sal2813";
 			GregorianCalendar     fecha13 = new GregorianCalendar(2000, 2, 2);
 			String                lugar13 = "lugar2813";
-			int                    cant13 = 1;
+			int                    cant13 = 2;
 			GregorianCalendar fechaAlta13 = new GregorianCalendar(1999,2,2);
 			
 			String            nombreSal14 = "sal2814";
@@ -1105,7 +1104,7 @@ public class ctrlActividadTest{
 			String            nombreSal15 = "sal2815";
 			GregorianCalendar     fecha15 = new GregorianCalendar(2000, 2, 2);
 			String                lugar15 = "lugar2815";
-			int                    cant15 = 1;
+			int                    cant15 = 2;
 			GregorianCalendar fechaAlta15 = new GregorianCalendar(1999,2,2);
 			
 			String            nombreSal16 = "sal2816";
@@ -1135,16 +1134,21 @@ public class ctrlActividadTest{
 			controladorActividad.altaSalidaTuristica(nombreSal15, fecha15, lugar15, cant15, fechaAlta15, nombActividad8, img);
 			controladorActividad.altaSalidaTuristica(nombreSal16, fecha16, lugar16, cant16, fechaAlta16, nombActividad8, img);
 			
-//			lista = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes();
-//			assertEquals(lista.isEmpty(), false);
-//			assertEquals(lista.contains(nombActividad1), false);
-//			assertEquals(lista.contains(nombActividad2), false);
-//			assertEquals(lista.contains(nombActividad3), true);
-//			assertEquals(lista.contains(nombActividad4), false);
-//			assertEquals(lista.contains(nombActividad5), true);
-//			assertEquals(lista.contains(nombActividad6), true);
-//			assertEquals(lista.contains(nombActividad7), true);
-//			assertEquals(lista.contains(nombActividad8), true);
+			String turista1 = "manuT1";
+			String turista2 = "manuT2";
+			controladorUsuario.ingresarInscripcion(turista1, nombreSal5, 1, new GregorianCalendar(2000, 1, 1), tipoInscripcion.general, "");
+			controladorUsuario.ingresarInscripcion(turista2, nombreSal5, 1, new GregorianCalendar(2000, 1, 1), tipoInscripcion.general, "");
+			controladorUsuario.ingresarInscripcion(turista2, nombreSal11, 1, new GregorianCalendar(2000, 1, 1), tipoInscripcion.general, "");
+				
+			
+			
+			lista1 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct1);
+			lista2 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct2);
+			
+			assertEquals(lista1.isEmpty(), false);
+			assertEquals(lista2.isEmpty(), false);
+			assertEquals(lista1.size(), 3);
+			assertEquals(lista2.size(), 2);
 			
 			controladorActividad.finalizarActividad(nombActividad3);
 			controladorActividad.finalizarActividad(nombActividad5);
@@ -1177,9 +1181,23 @@ public class ctrlActividadTest{
 		}
 		
 	}
-	
+
 	@Test
 	@Order(29)
+	void testGetInscrpicionesDeSalidasDeActividadesFinalizadas() {
+		String turista1 = "manuT1";
+		String turista2 = "manuT2";
+		
+		Set<InscripcionDao> list1 = controladorActividad.getInscripcionesDeSalidasDeActividadesFinalizadas(turista1);
+		Set<InscripcionDao> list2 = controladorActividad.getInscripcionesDeSalidasDeActividadesFinalizadas(turista2);
+		
+		assertEquals(list1.size(), 1);
+		assertEquals(list2.size(), 2);
+		
+	}
+	
+	@Test
+	@Order(30)
 	void testGetActividadesFinalizadas() {
 		String nickProv1 = "manuP1";
 		String nickProv2 = "manuP2";
@@ -1191,11 +1209,6 @@ public class ctrlActividadTest{
 		assertEquals(lista2.isEmpty(), false);
 		
 	}
-	
-	
-	
-	
-	
 	
 	
 	
