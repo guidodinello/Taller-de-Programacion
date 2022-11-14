@@ -19,6 +19,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import datatypes.tipoUsuario;
 
 import excepciones.YaExisteException;
+import logica.clases.Usuario;
 import logica.clases.dao.ActividadDao;
 import logica.clases.dao.InscripcionDao;
 import logica.handlers.HandlerActividades;
@@ -40,6 +41,7 @@ public class ctrlActividadTest{
 	private static ICtrlActividad controladorActividad;
 	private static ICtrlUsuario controladorUsuario;
 	private static HandlerActividades handlerA;
+	private static HandlerCategorias handlerC;
 	
 	public ctrlActividadTest() {}
 	
@@ -54,6 +56,7 @@ public class ctrlActividadTest{
 		HandlerUsuarios.clear();
 		HandlerPaquetes.clear();
 		handlerA = HandlerActividades.getInstance();
+		handlerC = HandlerCategorias.getInstance();
 		controladorActividad = fabrica.getICtrlActividad();
 		controladorUsuario = fabrica.getICtrlUsuario();
 
@@ -227,6 +230,10 @@ public class ctrlActividadTest{
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getEstado(), estadoActividad.agregada);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getEstado(), estadoActividad.agregada);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getEstado(), estadoActividad.agregada);
+			
+			assertEquals(handlerC.getCategoria("Categoria 0").getActividades().size(), 4);
+			assertEquals(handlerC.getCategoria("Categoria 1").listarActividades().size(), 4);
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -1209,8 +1216,6 @@ public class ctrlActividadTest{
 		assertEquals(lista2.isEmpty(), false);
 		
 	}
-	
-	
 	
 }
 
