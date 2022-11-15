@@ -30,17 +30,17 @@
           <div class="form-outline mb-4">
             <input class="form-control form-control-lg"  type="password" class="input" name="password"
 									id="ContraseniaIniciarSesionText" required/>
-            <label class="form-label" for="form1Example23">Contraseï¿½a</label>
+            <label class="form-label" for="form1Example23">Contraseña</label>
           </div>
 
-          <div class="d-flex justify-content-around align-items-center mb-4">
-            <!-- Checkbox -->
+        <!--   <div class="d-flex justify-content-around align-items-center mb-4">
+           
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
               <label class="form-check-label" for="form1Example3"> Remember me </label>
             </div>
             <a href="#!">Forgot password?</a>
-          </div>
+          </div> -->
 	<%
 						Boolean invalid_attempt = (Boolean) request.getAttribute("invalid_attempt");
 						if (invalid_attempt) {
@@ -48,7 +48,7 @@
 						<div class="alert alert-danger d-flex align-items-center"
 							role="alert">
 							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> El
-							nombre de usuario, el email o la contraseï¿½a son invalidas!
+							nombre de usuario, el email o la contraseña son invalidas!
 						</div>
 						<%
 						}

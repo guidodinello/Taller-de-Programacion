@@ -87,15 +87,17 @@
 							</div>
 						</fieldset>
 						
-						<fieldset disabled>
+					 	<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
 								<div class="col-auto">
 									<i class="fa fa-video prefix white-text"></i>
 									<label for="video" class="col-form-label">Video:</label>
 								</div>
+								<a href="<%=actividad.getUrl()%>" style=texto-decoration:none>
 								<div class="col">
 									<input type="text" name="video" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getUrl() %>>
 								</div>
+								</a>
 							              
 							</div>
 						</fieldset>
@@ -153,7 +155,7 @@
 									for(String categoria: actividad.getNombCategorias()){
 								%>
 								<div class="col-auto">
-									<a href="categoria?nombreCat=<%= categoria %>" class="badge bg-secondary"><%= categoria %></a>
+									<a href="#" class="badge bg-secondary"><%= categoria %></a>
 								</div>
 								<% } %>
 								
