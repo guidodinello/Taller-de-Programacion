@@ -1,20 +1,17 @@
-const inputs = document.querySelectorAll(".input");
+const form = document.getElementById("formularioInicioSesion");
+const nickEmail = document.getElementById("NicknameOEmailIniciarSesionText");
+const pass = document.getElementById("ContraseniaIniciarSesionText");
 
+pass.addEventListener("change", (e) => {
+    form.classList.add('was-validated');
+});
 
-function addcl(){
-    let parent = this.parentNode.parentNode;
-    parent.classList.add("focus");
-}
+nickEmail.addEventListener("change", (e) => {
+    form.classList.add('was-validated');
+});
 
-function remcl(){
-    let parent = this.parentNode.parentNode;
-    if(this.value == ""){
-        parent.classList.remove("focus");
-    }
-}
-
-
-inputs.forEach(input => {
-    input.addEventListener("focus", addcl);
-    input.addEventListener("blur", remcl);
+document.getElementById("btnIniciarSesion").addEventListener("click", (e) => {
+    form.classList.add('was-validated');
+    if (form.checkValidity())
+    	form.submit();
 });
