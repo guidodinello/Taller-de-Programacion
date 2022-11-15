@@ -12,6 +12,8 @@
 <%@page import="webservices.DtActividadArray"%>
 <%@page import="webservices.DtInscripcion"%>
 <%@page import="webservices.ActividadDao"%>
+<%@page import="webservices.InscripcionDao"%>
+<%@page import="webservices.SalidaDao"%>
 
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
@@ -541,7 +543,7 @@
 	
 												<%
 												
-												List<DtInscripcion> sali = port.getInscripciones(miUsr.getNickname()).getItem();
+												List<DtInscripcion> sali =(List<DtInscripcion>) request.getAttribute("mis_inscripciones");
 												for (DtInscripcion sal : sali) {
 												%>
 	
@@ -606,6 +608,63 @@
 																	class="form-control disabled"
 																	aria-describedby="disabled"
 																	placeholder="<%=sal.getTipo()%>">
+															</div>
+	
+														</div>
+													</fieldset>
+	
+												</form>
+												<%
+												}
+												List<InscripcionDao> saliFin =(List<InscripcionDao>) request.getAttribute("mis_inscripciones_finalizadas");
+												for (InscripcionDao salF : saliFin) {
+													
+												%>
+												<form>
+													<h4 class=" font-up font-bold py-2 white-text"><%=salF.getSalida().getNombre()%></h4>
+													<fieldset disabled>
+														<div class="row g-3 align-items-center pt-3">
+															<div class="col-auto">
+																<i class="fa fa-user prefix white-text"></i> <label
+																	for="inputPassword6" class="col-form-label disabled'">Cantidad
+																	Turistas:</label>
+															</div>
+															<div class="col-auto">
+																<input type="text" id="inputPassword6"
+																	class="form-control disabled"
+																	aria-describedby="disabled"
+																	placeholder="<%=salF.getCantidadTuristas()%>">
+															</div>
+	
+														</div>
+													</fieldset>
+													<fieldset disabled>
+														<div class="row g-3 align-items-center pt-3">
+															<div class="col-auto">
+																<i class="fa-solid fa-money-bill" aria-hidden="true"></i> <label
+																	for="inputPassword6" class="col-form-label">Costo:</label>
+															</div>
+															<div class="col-auto">
+																<input type="text" id="inputPassword6"
+																	class="form-control disabled"
+																	aria-describedby="disabled"
+																	placeholder="<%=salF.getCosto()%>">
+															</div>
+	
+														</div>
+													</fieldset>
+													<fieldset disabled>
+														<div class="row g-3 align-items-center pt-3">
+															<div class="col-auto">
+																<i class="fa fa-calendar prefix white-text"></i> <label
+																	for="inputPassword6" class="col-form-label disabled'">Fecha
+																	inscripcion: </label>
+															</div>
+															<div class="col-auto">
+																<input type="text" id="inputPassword6"
+																	class="form-control disabled"
+																	aria-describedby="disabled"
+																	placeholder=<%=new SimpleDateFormat("dd/MM/yyyy").format(salF.getFechaInscripcion().toGregorianCalendar().getTime())%>>
 															</div>
 	
 														</div>
@@ -688,10 +747,10 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder="
+																	placeholder=
 																	<%= 
-										new SimpleDateFormat("dd/MM/yyyy").format(act.getFechaAlta().toGregorianCalendar().getTime())
-									%>">
+														new SimpleDateFormat("dd/MM/yyyy").format(act.getFechaAlta().toGregorianCalendar().getTime())
+																	%>>
 															</div>
 	
 														</div>
@@ -721,7 +780,7 @@
 												  
 												%>
 												<a style="text-decoration: none; font-size: 24px;"
-													href="consultaActividad?nombreAct=<%=ad.getNombre()%>"
+													href="consultaActividad?nombreActFin=<%=ad.getNombre()%>"
 													class="font-up font-bold"><%=ad.getNombre()%></a>
 												<form>
 	
@@ -778,10 +837,10 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder="
+																	placeholder=
 																	<%= 
 										new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaAlta().toGregorianCalendar().getTime())
-									%>">
+									%>>
 															</div>
 	
 														</div>
@@ -796,10 +855,10 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder="
+																	placeholder=
 																	<%= 
-										new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaAlta().toGregorianCalendar().getTime())
-									%>">
+										new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaBaja().toGregorianCalendar().getTime())
+									%>>
 															</div>
 	
 														</div>
@@ -1095,10 +1154,9 @@
 															salidas.add(s);
 														}
 													} else {
-														Set<DtActividad> actividades = new HashSet<DtActividad>();
-														DtActividadArray activ = port.listarInfoCompletaActividadesProveedor(Usr.getNickname());
-														List <DtActividad> actList = activ.getItem();
-														for (DtActividad nomb : actividades) {
+														
+														List<DtActividad> activ = port.listarInfoCompletaActividadesProveedor(Usr.getNickname()).getItem();
+														for (DtActividad nomb : activ) {
 															for (String sal : nomb.getSalidas()) {
 																salidas.add(port.getInfoCompletaSalida(sal));
 															}
@@ -1248,9 +1306,9 @@
 																<div class="col-auto">
 																	<input type="text" class="form-control disabled"
 																		aria-describedby="disabled"
-																		placeholder="<%= 
+																		placeholder=<%= 
 									new SimpleDateFormat("dd/MM/yyyy").format(act.getFechaAlta().toGregorianCalendar().getTime())
-								%>">
+								%>>
 																</div>
 
 															</div>

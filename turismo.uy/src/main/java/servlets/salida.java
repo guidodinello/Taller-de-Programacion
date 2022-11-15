@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import webservices.DtSalida;
+import webservices.SalidaDao;
 
 @WebServlet("/salida")
 public class salida extends HttpServlet {
@@ -21,15 +22,28 @@ public class salida extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 	    webservices.WebServicesService service = new webservices.WebServicesService();
         webservices.WebServices port = service.getWebServicesPort();
-		String name = (String) request.getParameter("nombreSalida");
-		DtSalida salidaT = port.getInfoCompletaSalida(name);
-		String actividad = salidaT.getNombreActividad();
-		
-		request.setAttribute("salida", salidaT);
-		request.setAttribute("nombreActividadSalida", actividad);
-				
-		request.getRequestDispatcher("/WEB-INF/salida/consultaSalida.jsp").
-			forward(request, response);
+		if(request.getParameter("nombreSalida") != null) {
+		    String name = (String) request.getParameter("nombreSalida");
+	        DtSalida salidaT = port.getInfoCompletaSalida(name);
+	        String actividad = salidaT.getNombreActividad();
+	        
+	        request.setAttribute("salida", salidaT);
+	        request.setAttribute("nombreActividadSalida", actividad);
+	                
+	        request.getRequestDispatcher("/WEB-INF/salida/consultaSalida.jsp").
+	            forward(request, response);
+		}else if(request.getParameter("nombreSalidaFin") != null) {
+		    String name = (String) request.getParameter("nombreSalidaFin");
+            SalidaDao salidaT = port.getSalidaDeActividadFinalizada(name);
+            String actividad = salidaT.getActividad().getNombre();
+            
+            request.setAttribute("salida", salidaT);
+            request.setAttribute("nombreActividadSalida", actividad);
+                    
+            request.getRequestDispatcher("/WEB-INF/salida/consultaSalidaFinalizada.jsp").forward(request, response);
+		    
+		}
+        
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

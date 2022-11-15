@@ -47,8 +47,7 @@ public class paquete extends HttpServlet {
             port.ingresarCompra(tur.getNickname(), nomb, cantTuristas, fechaCompraXML);
             DtUsuario usuario = port.getUsuarioByNickName(tur.getNickname());
             session.setAttribute("usuario_logueado", usuario);
-            request.setAttribute("exito", "La compra del paquete "+ nomb + " se realizo exitosamente");
-            request.getRequestDispatcher("/index").forward(request, response);
+            response.sendRedirect("index?exito=Paquete comprado con exito");
         } catch(Exception e){
             e.printStackTrace();
             request.setAttribute("CompraFailError", e.getMessage());

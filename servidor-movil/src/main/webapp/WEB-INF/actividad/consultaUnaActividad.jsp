@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@page import="webservices.DtActividad"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@page contentType = "text/html" pageEncoding = "UTF-8"%>
+<%@page import="webservices.DtActividad" %>
+<%@page import="webservices.DtSalida" %>
+<%@page import="webservices.DtPaquete" %>
+<%@page import="webservices.DtUsuario" %>
+<%@page import="webservices.DtTurista" %>
 <%@page import="java.util.Set"%>
-
+<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
 
 <!doctype html>
 <html>
@@ -16,9 +18,9 @@
     <body>
 		<jsp:include page="/WEB-INF/templates/Navbar.jsp"/>
 		<div class="row mt-5 mt-lg-0" style="padding-top: 10%; max-width: 1600px; padding-left: 5%; padding-right: 5%;">
-			<jsp:include page="/WEB-INF/templates/AccesoCasosDeUso.jsp"/>
 			
-			<div class="col-sm-6 text-center">
+			
+			<div class="col-sm-8 text-center">
 			
 			<%
 				DtActividad actividad = (DtActividad) request.getAttribute("datosActividad");
@@ -33,7 +35,10 @@
 						<div class="card-body">
 							<h5 class="card-title"><%= actividad.getNombre() %></h5>
 							<p class="card-text"><%= actividad.getDescripcion() %></p>
-							<p class="card-text"><small class="text-muted">Fecha alta: <%= actividad.getFechaAlta()%> </small></p><%--TODO getFechaAltaString --%>
+							<p class="card-text"><small class="text-muted">Fecha alta:
+							<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(actividad.getFechaAlta().toGregorianCalendar().getTime())
+								%></small></p>
 						</div>
 					</div>
 				</div>
@@ -81,6 +86,61 @@
 							              
 							</div>
 						</fieldset>
+						
+						<fieldset disabled>
+							<div class="row g-3 align-items-center pt-3">
+								<div class="col-auto">
+									<i class="fa fa-video prefix white-text"></i>
+									<label for="video" class="col-form-label">Video:</label>
+								</div>
+								<div class="col">
+									<input type="text" name="video" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getUrl() %>>
+								</div>
+							              
+							</div>
+						</fieldset>
+						
+						<fieldset disabled>
+							<div class="row g-3 align-items-center pt-3">
+								<div class="col-auto">
+									<i class="fa fa-star prefix white-text"></i>
+									<label for="favorita" class="col-form-label">Cantidad de veces marcada como Favorita :</label>
+								</div>
+								<div class="col">
+									<input type="text" name="favorita" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getLikedBy().size() %>>
+								</div>
+							</div>
+						</fieldset>
+						
+						<%
+						if (session.getAttribute("usuario_logueado") != null) {
+					  		DtUsuario usr = (DtUsuario)session.getAttribute("usuario_logueado");
+					  		if (usr instanceof DtTurista) {
+								List<String> usuariosConEstaActFavorita = actividad.getLikedBy();
+								Boolean esFavorita = false;
+								// si el usuario marco como favorita esta actividad
+								for (String u : usuariosConEstaActFavorita) {
+							  		if (usr.getNickname().equals(u)) {
+							  		  	esFavorita = true;
+							  		  	break;
+							  		}
+							  	}
+							 	if (esFavorita) {%>
+								 	<fieldset disabled>
+										<div class="row g-3 align-items-center pt-3">
+											<div class="col-auto">
+												<i class="fa fa-star prefix white-text"></i>
+												<label for="tufavorita" class="col-form-label">Para tí :</label>
+											</div>
+											<div class="col">
+												<input type="text" name="tufavorita" class="form-control disabled" aria-describedby="disabled" placeholder="Esta actividad la has marcado como favorita !">
+											</div>
+										</div>
+									</fieldset>
+							 <%	  
+							 	} // cierre if es favorita
+					  		} // cierre es turista
+						 } // cierre if logueado %>
 		                
 						<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
@@ -116,7 +176,7 @@
 						for(DtSalida salida: salidasActividad){
 					%>
                         <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="salida?nombreSalida=<%= salida.getNombre() %>">
+                            <a class="text-decoration-none" href="unaSalida?nombreSalida=<%= salida.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
                                         <img src="<%= salida.getImgDir() %>" class="img-fluid rounded-start" alt="...">
@@ -145,7 +205,7 @@
 					%>
                     
                         <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="paquete?nombrePaquete=<%= paquete.getNombre() %>">
+                            <a class="text-decoration-none" href="#">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
                                         <img src="<%= paquete.getImgDir() %>" class="img-fluid rounded-start" alt="...">
@@ -167,11 +227,5 @@
 			
 			
         </div>
-        
-        <jsp:include page="/WEB-INF/templates/Footer.jsp"/>
-        
-        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-		<script src="js/altaUsuario.js"></script>
 	</body>
 </html>

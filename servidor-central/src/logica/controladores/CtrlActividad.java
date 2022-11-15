@@ -390,16 +390,51 @@ public class CtrlActividad implements ICtrlActividad{
 		  emf.close();
     	return resultado;
     }
-
-    public Set<SalidaDao> getSalidasDeActividadesFinalizadas(String turista) {
+    
+    public Set<SalidaDao> getSalidasFinalizadas(String nombreAct) {
     	Set<SalidaDao> resultado = new HashSet<SalidaDao>();
+    	
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT sal FROM SalidaDao sal WHERE sal.actividad.nombre = '" + nombreAct + "'");
+  		List<SalidaDao> result = (List<SalidaDao>) query.getResultList();
+  		for (SalidaDao dao : result) {
+  		  resultado.add(dao);
+  		}
+  		em.close();
+		  emf.close();
+    	return resultado;
+    }
+    
+    public ActividadDao getActividadFinalizada(String nombreActividad) {
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.nombre = '" + nombreActividad + "'");
+  		ActividadDao result = (ActividadDao) query.getSingleResult();
+  		em.close();
+		  emf.close();
+    	return result;
+    }
+    
+    public SalidaDao getSalidaDeActividadFinalizada(String nombreSalida) {
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT sal FROM SalidaDao sal WHERE sal.nombre = '" + nombreSalida + "'");
+  		SalidaDao result = (SalidaDao) query.getSingleResult();
+  		em.close();
+		  emf.close();
+    	return result;
+    }
+
+    public Set<InscripcionDao> getInscripcionesDeSalidasDeActividadesFinalizadas(String turista) {
+    	Set<InscripcionDao> resultado = new HashSet<InscripcionDao>();
     	
     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
   		EntityManager em = emf.createEntityManager();
   		Query query = em.createQuery("SELECT insc FROM InscripcionDao insc WHERE insc.turistaId.usuarioId.nickname = '" + turista + "'");
   		List<InscripcionDao> inscripciones = (List<InscripcionDao>) query.getResultList();
   		for (InscripcionDao dao : inscripciones) {
-  		  resultado.add(dao.getSalida());
+  		  resultado.add(dao);
   		}
   		em.close();
 		  emf.close();

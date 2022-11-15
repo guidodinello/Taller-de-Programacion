@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<%@page import="webservices.DtActividad"%>
-<%@page import="java.text.SimpleDateFormat"%>
+<%@page contentType = "text/html" pageEncoding = "UTF-8"%>
+<%@page import="webservices.ActividadDao" %>
+<%@page import="webservices.SalidaDao" %>
+<%@page import="webservices.DtTurista" %>
 <%@page import="java.util.Set"%>
-
+<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
 
 <!doctype html>
 <html>
@@ -21,19 +21,26 @@
 			<div class="col-sm-6 text-center">
 			
 			<%
-				DtActividad actividad = (DtActividad) request.getAttribute("datosActividad");
+				ActividadDao actividad = (ActividadDao) request.getAttribute("datosActividad");
 			%>
 			
 			<div class="card mb-3" style="max-width: 800px;">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="<%= actividad.getImgDir() %>" class="img-fluid rounded-start" alt="...">
+						<img src="imagen?act=actDefault.jpg" class="img-fluid rounded-start" alt="...">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
 							<h5 class="card-title"><%= actividad.getNombre() %></h5>
 							<p class="card-text"><%= actividad.getDescripcion() %></p>
-							<p class="card-text"><small class="text-muted">Fecha alta: <%= actividad.getFechaAlta()%> </small></p><%--TODO getFechaAltaString --%>
+							<p class="card-text"><small class="text-muted">Fecha alta:
+							<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(actividad.getFechaAlta().toGregorianCalendar().getTime())
+								%></small></p>
+							<p class="card-text"><small class="text-muted">Fecha de baja:
+							<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(actividad.getFechaBaja().toGregorianCalendar().getTime())
+								%></small></p>	
 						</div>
 					</div>
 				</div>
@@ -51,7 +58,7 @@
 		                        	<label for="inputPassword6" class="col-form-label disabled'">Duración:</label>
 		                        </div>
 		                        <div class="col-auto">
-		                        	<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= actividad.getDuracionHs()%> hs">
+		                        	<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder="<%= actividad.getDuracion()%> hs">
 		                    	</div>
 		                    </div>
 						</fieldset>
@@ -76,29 +83,12 @@
 									<label for="inputPassword6" class="col-form-label">Ciudad:</label>
 								</div>
 								<div class="col-auto">
-									<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getNombreCiudad() %>>
+									<input type="text" id="inputPassword6" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getCiudad() %>>
 								</div>
 							              
 							</div>
 						</fieldset>
-		                
-						<fieldset disabled>
-							<div class="row g-3 align-items-center pt-3">
-								<div class="col-auto">
-									<i class="fa fa-tags prefix white-text"></i>
-									<label for="inputPassword6" class="col-form-label disabled'">Categorias:</label>
-								</div>
-								
-								<%
-									for(String categoria: actividad.getNombCategorias()){
-								%>
-								<div class="col-auto">
-									<a href="categoria?nombreCat=<%= categoria %>" class="badge bg-secondary"><%= categoria %></a>
-								</div>
-								<% } %>
-								
-							</div>
-						</fieldset>
+						
 				
 		  			</form>
 				</div>
@@ -112,14 +102,14 @@
                     <ul class="list-group list-group-flush">
                     
                     <%
-                    	Set<DtSalida> salidasActividad = (Set<DtSalida>) request.getAttribute("datosSalidaActividad");
-						for(DtSalida salida: salidasActividad){
+                    	List<SalidaDao> salidasActividad = (List<SalidaDao>) request.getAttribute("datosSalidaActividad");
+						for(SalidaDao salida: salidasActividad){
 					%>
                         <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="salida?nombreSalida=<%= salida.getNombre() %>">
+                            <a class="text-decoration-none" href="salida?nombreSalidaFin=<%= salida.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="<%= salida.getImgDir() %>" class="img-fluid rounded-start" alt="...">
+                                        <img src="imagen?sal=salDefault.png" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">
@@ -131,35 +121,6 @@
                         </div>
  					<% } %>
  
-                    </ul>
-                </div>
-            </div>
-            <div class="card border-light mb-5 mx-auto text-center text-lg-start" style="max-width: 18rem; ">
-                <div class="card-header fw-semibold">PAQUETES ASOCIADOS</div>
-                <div class="card-body p-0">
-                    <ul class="list-group list-group-flush">
-                    
-                   <%
-                    	Set<DtPaquete> paquetesActividad = (Set<DtPaquete>) request.getAttribute("datosPaqueteActividad");
-						for(DtPaquete paquete: paquetesActividad){
-					%>
-                    
-                        <div class="list-group-item p-1">
-                            <a class="text-decoration-none" href="paquete?nombrePaquete=<%= paquete.getNombre() %>">
-                                <div class="row g-0 align-middle">
-                                    <div class="col-md-4">
-                                        <img src="<%= paquete.getImgDir() %>" class="img-fluid rounded-start" alt="...">
-                                    </div>
-                                    <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
-                                        <ul class="list-group list-group-flush">
-                                            <p class="list-group-item list-group-item-action"><%= paquete.getNombre() %></p>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <% } %>
-                        
                     </ul>
                 </div>
             </div>

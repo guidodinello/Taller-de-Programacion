@@ -31,6 +31,10 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import jakarta.xml.ws.Endpoint;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
@@ -42,6 +46,7 @@ import logica.clases.Proveedor;
 import logica.clases.Turista;
 import logica.clases.Usuario;
 import logica.clases.dao.ActividadDao;
+import logica.clases.dao.InscripcionDao;
 import logica.clases.dao.SalidaDao;
 import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
@@ -142,7 +147,8 @@ public class WebServices {
     @WebMethod
     public byte [] getFileImg(String filename) {
     	try {
-    		String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + filename;
+    		Configuracion config = Configuracion.getInstance();
+    		String dir = config.getFilePath() + File.separator + filename;
     		/*Path imgPath = Paths.get(dir);
     		byte[] arrImg = Files.readAllBytes(imgPath);
     		return arrImg;*/
@@ -438,8 +444,16 @@ public class WebServices {
     }
 	  
 	  @WebMethod
-	    public SalidaDao[] listarSalidasDeActividadesFinalizadasPorTurista(String nickTur) {
-		    Set<SalidaDao> adao = ctrlAct.getSalidasDeActividadesFinalizadas(nickTur);
+	    public InscripcionDao[] listarSalidasDeActividadesFinalizadasPorTurista(String nickTur) {
+		    Set<InscripcionDao> adao = ctrlAct.getInscripcionesDeSalidasDeActividadesFinalizadas(nickTur);
+
+		    InscripcionDao[] array = new InscripcionDao[adao.size()];
+		    return adao.toArray(array);
+	    }
+	  
+	  @WebMethod
+	    public SalidaDao[] listarSalidasFinalizadas(String nombreAct) {
+		    Set<SalidaDao> adao = ctrlAct.getSalidasFinalizadas(nombreAct);
 
 		    SalidaDao[] array = new SalidaDao[adao.size()];
 		    return adao.toArray(array);
@@ -465,5 +479,15 @@ public class WebServices {
     @WebMethod
     public void marcarDesmarcarFav(String usr, String act) {
       ctrlAct.leGusto(act, usr);
-    }   
+    }
+    
+    @WebMethod
+    public ActividadDao getActividadFinalizada(String nombreActividad) {
+    	return ctrlAct.getActividadFinalizada(nombreActividad);
+    }
+    
+    @WebMethod
+    public SalidaDao getSalidaDeActividadFinalizada(String nombreSalida) {
+    	return ctrlAct.getSalidaDeActividadFinalizada(nombreSalida);
+    }
 }

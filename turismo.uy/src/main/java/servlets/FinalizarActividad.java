@@ -53,8 +53,7 @@ public class FinalizarActividad extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String actividad = (String)request.getParameter("act");
 	    port.finalizarActividad(actividad);
-        request.setAttribute("exito", "La actividad " + actividad + " se ha finalizado con exito");
-        request.getRequestDispatcher("/index").forward(request, response);
+        response.sendRedirect("index?exito= La actividad " + actividad + " se ha finalizado con exito");
 	}
 
 }

@@ -97,6 +97,10 @@ public class SalidaDao {
 		actividad = act;
 	}
 	
+	public ActividadDao getActividad() {
+		return actividad;
+	}
+	
 	public List<InscripcionDao> getInscripciones(){
 		return inscripciones;
 	}
