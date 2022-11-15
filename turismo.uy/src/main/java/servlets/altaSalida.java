@@ -107,15 +107,19 @@ public class altaSalida extends HttpServlet {
         
       //Foto de perfil
         Part p     = request.getPart("fotoDeLaSalida");
+        String ext = "";
+
         byte [] fotoBin = null;  //guardar binario de la foto
         if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
             fotoBin = p.getInputStream().readAllBytes();
+            ext = extencionValida(p.getSubmittedFileName());
         }
-        
+        if(ext.equals("")) {
+            fotoBin = "No hay imagen".getBytes();
+        }
         try {
-            port.altaSalidaTuristica(nombre, xmlFecha, lugar, cantMaxTur, xmlFechaDelDia, actividad, fotoBin, extencionValida(p.getSubmittedFileName()));
-            request.setAttribute("exito", "Has registrado con exito la salida: " + nombre);
-            request.getRequestDispatcher("/index").forward(request, response);
+            port.altaSalidaTuristica(nombre, xmlFecha, lugar, cantMaxTur, xmlFechaDelDia, actividad, fotoBin, ext);
+            request.getRequestDispatcher("/index?exito=La salida fue registrada con exito\"").forward(request, response);
         }catch(YaExisteException_Exception e) {
             e.printStackTrace();
             request.setAttribute("SalidaFailedError", e.getMessage());

@@ -95,7 +95,7 @@ public class WebServices {
     	ICtrlUsuario ctrlUsuario = Fabrica.getInstance().getICtrlUsuario();
     	String [] fechaNac = nac.split("-");
     	String fotoDireccion = "usuarioPerfil.png";
-    	if (fotoBin != null) {
+    	if(!ext.equals("")){
     		 try {
     			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
     			 Configuracion config = Configuracion.getInstance();
@@ -123,8 +123,6 @@ public class WebServices {
     		e.printStackTrace();
     		throw e;
     	}
-
-    	
     }
     
     @WebMethod
@@ -206,60 +204,59 @@ public class WebServices {
     		categorias.add(cat);
     	}
     	
-    	//guardamos la imagen
+    	//ahora trabajamos con la img
     	String fotoDireccion = "actDefault.jpg";
-    	if (fotoBin != null) {
-    		 try {
-    			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
-    			 Configuracion config = Configuracion.getInstance();
-    			 
-    			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
-    			 String dir = config.getFilePath() + nomActividad + "_act" + ext;
-    	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
-    	         File file = new File(dir);
-    	         if(file.delete())
-    	        	 System.out.println("deleted");
-    	         File img = new File(dir);
-    	         Files.write(img.toPath(), fotoBin);
-    		 }catch (Exception e) {
-    			 e.printStackTrace();
-    	     }
-    		 fotoDireccion = nomActividad + "_act" + ext;
+    	if(!ext.equals("")){
+    		try {
+   			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
+   			 Configuracion config = Configuracion.getInstance();
+   			 
+   			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+   			 String dir = config.getFilePath() + nomActividad + "_act" + ext;
+   	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
+   	         File file = new File(dir);
+   	         if(file.delete())
+   	        	 System.out.println("deleted");
+   	         File img = new File(dir);
+   	         Files.write(img.toPath(), fotoBin);
+   		 }catch (Exception e) {
+   			 e.printStackTrace();
+   	     }
+   		 fotoDireccion = nomActividad + "_act" + ext;	 
     	}
-    	
-    	
+
     	ctrlAct.altaActividadTuristica(nomDep, nomActividad, desc, duraHs, costo, nombCiudad,
     			nickProv, fechaAlta, fotoDireccion, categorias, urlVideo, estado);
     }
+    
     
     @WebMethod
 	public void altaSalidaTuristica(String nombreSal, GregorianCalendar fechaSal, String lugarSal, int cantMaxTuristas, 
 			GregorianCalendar fechaAlta, String  actividad, byte [] fotoBin, String ext) throws YaExisteException {
     	
-    	//guardamos la imagen
     	String fotoDireccion = "salDefault.png";
-    	if (fotoBin != null) {
-    		 try {
-    			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
-    			 Configuracion config = Configuracion.getInstance();
-    			 
-    			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
-    			 String dir = config.getFilePath() + nombreSal + "_sal" + ext;
-    	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
-    	         File file = new File(dir);
-    	         if(file.delete())
-    	        	 System.out.println("deleted");
-    	         File img = new File(dir);
-    	         Files.write(img.toPath(), fotoBin);
-    		 }catch (Exception e) {
-    			 e.printStackTrace();
-    	     }
-    		 fotoDireccion = nombreSal + "_sal" + ext;
-    	}
-    	
-    	
+    	if(!ext.equals("")){
+    		try {
+     			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
+     			 Configuracion config = Configuracion.getInstance();
+     			 
+     			 //String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + nic +"_usr" + ext;
+     			 String dir = config.getFilePath() + nombreSal + "_sal" + ext;
+     	         /*Si existe un archivo con el mismo nombre lo eliminamos*/
+     	         File file = new File(dir);
+     	         if(file.delete())
+     	        	 System.out.println("deleted");
+     	         File img = new File(dir);
+     	         Files.write(img.toPath(), fotoBin);
+     		 }catch (Exception e) {
+     			 e.printStackTrace();
+     	     }
+     		 fotoDireccion = nombreSal + "_sal" + ext;	
+       	}
+
     	ctrlAct.altaSalidaTuristica(nombreSal, fechaSal, lugarSal, cantMaxTuristas, fechaAlta, actividad, fotoDireccion);
     }
+    
     
     @WebMethod
     public DTPaquete getInfoPaquete(String paq) {
@@ -347,11 +344,16 @@ public class WebServices {
     	DTTurista turista = (DTTurista) ctrlUsr.getInfoBasicaUsuario(nickname);
     	return turista;
     }
+      
      @WebMethod
-    public void  actualizarUsuario(String nickname,String nombre,String apellido, GregorianCalendar date, byte [] fotoBin, String ext , String nacionalidad,String descripcion,String sitioWeb) {
+    public void  actualizarUsuario(String nickname,String nombre,String apellido, GregorianCalendar date, byte [] fotoBin, String ext , String nacionalidad,String descripcion,String sitioWeb, String tipo) {
     	
-    	String fotoDireccion = ctrlUsr.getUsuarioByNickName(nickname).getImgDir();
-     	if (fotoBin != null) {
+    	DTUsuario usuario = ctrlUsr.getInfoBasicaUsuario(nickname);    	
+    	String fotoDireccion = usuario.getImgDir();
+    	String[] setImg = fotoDireccion.split("=");
+    	fotoDireccion = setImg[1];
+    	
+    	if(!ext.equals("")){
      		 try {
      			 //Guarda en la direccion /user/home/.turismoUy/img/nombreArchivo.ext
      			 Configuracion config = Configuracion.getInstance();
@@ -369,10 +371,14 @@ public class WebServices {
      	     }
      		 fotoDireccion = nickname + "_usr" + ext;
      	}
-     	
-    	ctrlUsr.actualizarUsuario(nickname, nombre, apellido, date, fotoDireccion, nacionalidad, "", "");
-	       
+    	if(tipo.equals("Turista")) {
+        	ctrlUsr.actualizarUsuario(nickname, nombre, apellido, date, fotoDireccion, nacionalidad, "", "");
+    	}else {
+        	ctrlUsr.actualizarUsuario(nickname, nombre, apellido, date, fotoDireccion, "", descripcion, sitioWeb);
+    	}     
     }
+     
+     
     @WebMethod
     public DTProveedor getProveedorByNickname(String nickname) {
     	HandlerUsuarios hU = HandlerUsuarios.getInstance();

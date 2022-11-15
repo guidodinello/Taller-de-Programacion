@@ -50,32 +50,37 @@ public class altaUsuario extends HttpServlet {
 		String nac = request.getParameter("FechaNacimiento");
 		String tU  = request.getParameter("TipoUsuario");
 		String pas     = request.getParameter("Contrasenia");
-		//Foto de perfil
-		Part p     = request.getPart("FotoPerfil");
-		byte [] fotoBin = null;  //guardar binario de la foto
-		if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
-		    fotoBin = p.getInputStream().readAllBytes();
-		}
 		
-		try {
-			if(tU.equals("Turista")) {
-			    String nacionalidad = request.getParameter("Nacionalidad");
-                port.altaUsuario(nic, ema, nom, ape, pas, nac, fotoBin, extencionValida(p.getSubmittedFileName()), "Turista", nacionalidad, "", "");
-			}else {
-				String des = request.getParameter("Descripcion");
-				String web = request.getParameter("LinkSitioWeb");
-				port.altaUsuario(nic, ema, nom, ape, pas, nac, fotoBin, extencionValida(p.getSubmittedFileName()), "Turista", "", des, web);
-			}
-		    DtUsuario usr = port.getUsuarioByNickName(nic);
-            ses.setAttribute("usuario_logueado", usr);
-			response.sendRedirect("index?exito=Usuario registrado correctamente");
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			request.setAttribute("UsuarioYaExiste", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(request, response);
-		}
-	
+		 
+		 Part p     = request.getPart("FotoPerfil");
+		 String ext = "";
+         byte [] fotoBin = null;  //guardar binario de la foto
+         if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
+             fotoBin = p.getInputStream().readAllBytes();
+             ext = extencionValida(p.getSubmittedFileName());
+         }
+         if(ext.equals("")) {
+             fotoBin = "No hay imagen".getBytes();
+         }
+         try {
+             if(tU.equals("Turista")) {
+                 String nacionalidad = request.getParameter("Nacionalidad");
+                 port.altaUsuario(nic, ema, nom, ape, pas, nac, fotoBin, ext, "Turista", nacionalidad, "", "");
+             }else {
+                 String des = request.getParameter("Descripcion");
+                 String web = request.getParameter("LinkSitioWeb");
+                 port.altaUsuario(nic, ema, nom, ape, pas, nac, fotoBin, ext, "Proveedor", "", des, web);
+             }
+             DtUsuario usr = port.getUsuarioByNickName(nic);
+             ses.setAttribute("usuario_logueado", usr);
+             response.sendRedirect("index?exito=Usuario registrado correctamente");
+             
+         }catch(Exception e) {
+             e.printStackTrace();
+             request.setAttribute("UsuarioYaExiste", e.getMessage());
+             request.getRequestDispatcher("/WEB-INF/altaUsuario/altaUsuario.jsp").forward(request, response);
+         }   
+		
 	}
 	
 	
@@ -104,7 +109,6 @@ public class altaUsuario extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException ,IOException {
 	    req.setCharacterEncoding("UTF-8");
 		processRequest(req, res);
-
 	}
 	
 }

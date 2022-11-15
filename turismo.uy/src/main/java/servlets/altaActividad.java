@@ -66,14 +66,20 @@ public class altaActividad extends HttpServlet {
         }
         
         Part p     = req.getPart("ImagenActividad");
+        String ext = "";
+
         byte [] fotoBin = null;  //guardar binario de la foto
         if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
             fotoBin = p.getInputStream().readAllBytes();
+            ext = extencionValida(p.getSubmittedFileName());
+        }
+        if(ext.equals("")) {
+            fotoBin = "No hay imagen".getBytes();
         }
         
         try {
             XMLGregorianCalendar xmlFecha= DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
-            port.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), xmlFecha, fotoBin, extencionValida(p.getSubmittedFileName()), aEnviarCat, url, EstadoActividad.AGREGADA);
+            port.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), xmlFecha, fotoBin, ext, aEnviarCat, url, EstadoActividad.AGREGADA);
             res.sendRedirect("index?exito=La actividad fue registrada con exito");
         } catch(YaExisteException_Exception e) {
             e.printStackTrace();

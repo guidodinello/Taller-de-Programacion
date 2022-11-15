@@ -74,10 +74,16 @@ public class consultaUsuario extends HttpServlet{
 	     
 	   //Foto de perfil
 	        Part p     = request.getPart("nuevaImagenPerfil");
+	        String ext = "";
+
 	        byte [] fotoBin = null;  //guardar binario de la foto
-	        if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
-	            fotoBin = p.getInputStream().readAllBytes();
-	        }
+	         if(p != null && !extencionValida(p.getSubmittedFileName()).isEmpty()) {
+	             fotoBin = p.getInputStream().readAllBytes();
+	             ext = extencionValida(p.getSubmittedFileName());
+	         }
+	         if(ext.equals("")) {
+	             fotoBin = "No hay imagen".getBytes();
+	         }
 	     
 	     if(dtU instanceof DtTurista) {
              webservices.WebServicesService service = new webservices.WebServicesService();
@@ -98,7 +104,7 @@ public class consultaUsuario extends HttpServlet{
             
           //TODO change DTTurista to DtTurista 
             
-           port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fotoBin, extencionValida(p.getSubmittedFileName()), ((DtTurista)dtU).getNacionalidad(), "", "");
+           port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fotoBin, ext, ((DtTurista)dtU).getNacionalidad(), "", "", "Turista");
 	        // ctrlUsr.actualizarUsuario(dtU.getNickname(), nombre, apellido, new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2])), fd, ((DTTurista)dtU).getNacionalidad(), "", "");
 	        // HandlerUsuarios hU = HandlerUsuarios.getInstance();
 	         //Turista t = hU.getTuristaByNickname(dtU.getNickname());
@@ -123,7 +129,7 @@ public class consultaUsuario extends HttpServlet{
                   // TODO Auto-generated catch block
                   e.printStackTrace();
               }
-             port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fotoBin, extencionValida(p.getSubmittedFileName()), ((DtTurista)dtU).getNacionalidad(), "", "");
+             port.actualizarUsuario(dtU.getNickname(), nombre, apellido, xCal , fotoBin, ext, "", descripcion, link,"Proveedor");
              
 	       
              DtProveedor prov = port.getProveedorByNickname(dtU.getNickname());
