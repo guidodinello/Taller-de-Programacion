@@ -87,18 +87,20 @@
 							</div>
 						</fieldset>
 						
-						<fieldset disabled>
+			<!-- 			<fieldset>
 							<div class="row g-3 align-items-center pt-3">
 								<div class="col-auto">
 									<i class="fa fa-video prefix white-text"></i>
 									<label for="video" class="col-form-label">Video:</label>
 								</div>
 								<div class="col">
-									<input type="text" name="video" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getUrl() %>>
+									<a href="#video" class="form-control disabled" aria-describedby="disabled" style="text-decoration: none">Ver video</a>
 								</div>
 							              
 							</div>
-						</fieldset>
+						</fieldset> -->
+						
+						
 						
 						<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
@@ -162,7 +164,17 @@
 				
 		  			</form>
 				</div>
+				
+				
 			</div>
+			
+			
+			<div style="margin-top: 80px" id="videoDiv">
+				<iframe id="video" width="100%" height="400px"
+					src="<%= actividad.getUrl() %>">
+				</iframe>
+			</div>
+			
 		</div>
 
 		<div class="col-sm-3">
