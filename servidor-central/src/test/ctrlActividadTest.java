@@ -22,6 +22,7 @@ import excepciones.YaExisteException;
 import logica.clases.Usuario;
 import logica.clases.dao.ActividadDao;
 import logica.clases.dao.InscripcionDao;
+import logica.clases.dao.SalidaDao;
 import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
@@ -1214,6 +1215,18 @@ public class ctrlActividadTest{
 		
 		assertEquals(lista1.isEmpty(), false);
 		assertEquals(lista2.isEmpty(), false);
+		
+		ActividadDao act = controladorActividad.getActividadFinalizada("Act283");
+		
+		assertEquals(act.getNombre().equals("Act283"), true);
+		
+		SalidaDao sal = controladorActividad.getSalidaDeActividadFinalizada("sal285");
+		
+		assertEquals(sal.getNombre().equals("sal285"), true);
+		
+		Set<SalidaDao> sals = controladorActividad.getSalidasFinalizadas("Act283");
+		
+		assertEquals(sals.size(), 2);
 		
 	}
 	

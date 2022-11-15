@@ -74,8 +74,7 @@ public class altaActividad extends HttpServlet {
         try {
             XMLGregorianCalendar xmlFecha= DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar());
             port.altaActividadTuristica(dpt, nom, des, dhs, cos, ciu, prov.getNickname(), xmlFecha, fotoBin, extencionValida(p.getSubmittedFileName()), aEnviarCat, url, EstadoActividad.AGREGADA);
-            req.setAttribute("exito", "La actividad "+ nom + " se ha dado de alta exitosamente");
-            req.getRequestDispatcher("/index").forward(req, res);
+            res.sendRedirect("index?exito=La actividad fue registrada con exito");
         } catch(YaExisteException_Exception e) {
             e.printStackTrace();
             req.setAttribute("AltaYaExiste", e.getMessage());

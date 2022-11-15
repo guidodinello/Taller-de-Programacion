@@ -31,6 +31,10 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import jakarta.xml.ws.Endpoint;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
@@ -447,6 +451,14 @@ public class WebServices {
 	    }
 	  
 	  @WebMethod
+	    public SalidaDao[] listarSalidasFinalizadas(String nombreAct) {
+		    Set<SalidaDao> adao = ctrlAct.getSalidasFinalizadas(nombreAct);
+
+		    SalidaDao[] array = new SalidaDao[adao.size()];
+		    return adao.toArray(array);
+	    }
+	  
+	  @WebMethod
 	  public DTActividad[] listarActividadesFinalizablesProveedor(String nickProv) {
 	     Set<DTActividad> finalizables = ctrlAct.listarActividadesSinSalidasVigentesNiPaquetes(nickProv);
 	     DTActividad[] finalizablesArray = new DTActividad[finalizables.size()];
@@ -466,5 +478,15 @@ public class WebServices {
     @WebMethod
     public void marcarDesmarcarFav(String usr, String act) {
       ctrlAct.leGusto(act, usr);
-    }   
+    }
+    
+    @WebMethod
+    public ActividadDao getActividadFinalizada(String nombreActividad) {
+    	return ctrlAct.getActividadFinalizada(nombreActividad);
+    }
+    
+    @WebMethod
+    public SalidaDao getSalidaDeActividadFinalizada(String nombreSalida) {
+    	return ctrlAct.getSalidaDeActividadFinalizada(nombreSalida);
+    }
 }

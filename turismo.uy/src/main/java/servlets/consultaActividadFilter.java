@@ -28,8 +28,9 @@ public class consultaActividadFilter extends HttpFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         
         String act = (String) req.getParameter("nombreAct");
-        
-        port.agregarVisita(act);
+        if(act != null) {
+            port.agregarVisita(act);
+        }
         
         chain.doFilter(request, response);
     }

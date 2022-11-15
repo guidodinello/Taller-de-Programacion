@@ -780,7 +780,7 @@
 												  
 												%>
 												<a style="text-decoration: none; font-size: 24px;"
-													href="consultaActividad?nombreAct=<%=ad.getNombre()%>"
+													href="consultaActividad?nombreActFin=<%=ad.getNombre()%>"
 													class="font-up font-bold"><%=ad.getNombre()%></a>
 												<form>
 	
