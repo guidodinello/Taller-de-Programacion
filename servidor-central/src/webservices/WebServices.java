@@ -143,7 +143,8 @@ public class WebServices {
     @WebMethod
     public byte [] getFileImg(String filename) {
     	try {
-    		String dir = System.getProperty("user.home") + File.separator +".turismoUy"+ File.separator + "img" + File.separator + filename;
+    		Configuracion config = Configuracion.getInstance();
+    		String dir = config.getFilePath() + File.separator + filename;
     		/*Path imgPath = Paths.get(dir);
     		byte[] arrImg = Files.readAllBytes(imgPath);
     		return arrImg;*/

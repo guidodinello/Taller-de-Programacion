@@ -87,18 +87,6 @@
 							</div>
 						</fieldset>
 						
-						<fieldset disabled>
-							<div class="row g-3 align-items-center pt-3">
-								<div class="col-auto">
-									<i class="fa fa-video prefix white-text"></i>
-									<label for="video" class="col-form-label">Video:</label>
-								</div>
-								<div class="col">
-									<input type="text" name="video" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getUrl() %>>
-								</div>
-							              
-							</div>
-						</fieldset>
 						
 						<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
@@ -106,7 +94,7 @@
 									<i class="fa fa-star prefix white-text"></i>
 									<label for="favorita" class="col-form-label">Cantidad de veces marcada como Favorita :</label>
 								</div>
-								<div class="col">
+								<div class="col-auto">
 									<input type="text" name="favorita" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getLikedBy().size() %>>
 								</div>
 							</div>
@@ -163,6 +151,11 @@
 		  			</form>
 				</div>
 			</div>
+			
+			<div>
+				<iframe src="<%=actividad.getUrl()%>" title="Video de la actividad<%=actividad.getNombre()%>"></iframe>
+			</div>
+			
 		</div>
 
 		<div class="col-sm-3">
