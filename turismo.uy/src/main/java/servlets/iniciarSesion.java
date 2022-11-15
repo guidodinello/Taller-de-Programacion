@@ -48,6 +48,8 @@ public class iniciarSesion extends HttpServlet {
 		if (usr == null)
 			usr = port.getUsuarioByNickName(nickOrEmail);
 		
+		System.out.println(usr == null);
+		
 		if (usr == null || !(port.verifiedUserPassword(usr.getNickname(), pass))) {
 			request.setAttribute("invalid_attempt", true);
 			request.getRequestDispatcher("/WEB-INF/sesion/iniciarSesion.jsp").forward(request, response);

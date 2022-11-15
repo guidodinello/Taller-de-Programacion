@@ -400,8 +400,8 @@ public class WebServices {
     }
     
     @WebMethod
-    public void agregarVisita(String nombre) {
-    	ctrlAct.agregarVisita(nombre);
+    public void agregarVisita(String nombre, boolean esActividad) {
+    	ctrlAct.agregarVisita(nombre, esActividad);
     }
 
 	  @WebMethod

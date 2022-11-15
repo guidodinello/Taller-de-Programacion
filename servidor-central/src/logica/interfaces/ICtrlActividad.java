@@ -51,7 +51,7 @@ public interface ICtrlActividad{
 	public abstract SalidaDao getSalidaDeActividadFinalizada(String nombreSalida);
 	public abstract Set<DTActividad> infoBusquedaActividades(String busqueda);
 	public abstract Set<DTPaquete> infoBusquedaPaquetes(String busqueda);
-	public abstract void agregarVisita(String nombre);
+	public abstract void agregarVisita(String nombre, boolean esActividad);
 	public abstract Map<String, Integer> listarTop10Visitados();
 	public abstract Set<InscripcionDao> getInscripcionesDeSalidasDeActividadesFinalizadas(String turista);
 	public abstract Set<SalidaDao> getSalidasFinalizadas(String nombreAct);

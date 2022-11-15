@@ -461,7 +461,7 @@ public class CtrlActividad implements ICtrlActividad{
     	Set<DTActividad> dtActs = new HashSet<DTActividad>();
     	HandlerActividades hA = HandlerActividades.getInstance();
     	for(ActividadTuristica actual: hA.obtenerActividadesTuristicas())
-    		if(actual.getEstado() == estadoActividad.confirmada && (actual.getDescripcion().contains(busqueda) || actual.getNombre().contains(busqueda)))
+    		if(actual.getEstado() == estadoActividad.confirmada && (actual.getDescripcion().toLowerCase().contains(busqueda.toLowerCase()) || actual.getNombre().toLowerCase().contains(busqueda.toLowerCase())))
     			dtActs.add(actual.getDTActividad());
     	return dtActs;
     }
@@ -472,15 +472,15 @@ public class CtrlActividad implements ICtrlActividad{
     	DTPaquete actual;
     	for(PaqueteTuristico paq: hP.getPaquetes()) {
     		actual = paq.getDTPaquete();
-    		if(!actual.getActividades().isEmpty() && (actual.getDescripcion().contains(busqueda)||actual.getNombre().contains(busqueda)))
+    		if(!actual.getActividades().isEmpty() && (actual.getDescripcion().toLowerCase().contains(busqueda.toLowerCase())||actual.getNombre().toLowerCase().contains(busqueda.toLowerCase())))
     			dtPaqs.add(actual);
     	}
     	return dtPaqs;
     }
     
-    public void agregarVisita(String nombre) {
+    public void agregarVisita(String nombre, boolean esActividad) {
     	ContadorVisitas cV = ContadorVisitas.getInstance();
-    	cV.agregar(nombre);
+    	cV.agregar(nombre, esActividad);
     }
     
     public Map<String, Integer> listarTop10Visitados(){

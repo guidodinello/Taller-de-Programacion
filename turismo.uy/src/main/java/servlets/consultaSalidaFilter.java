@@ -29,7 +29,7 @@ public class consultaSalidaFilter extends HttpFilter implements Filter {
         
         String sal = (String) req.getParameter("nombreSalida");
         if(sal != null) {
-            port.agregarVisita(sal);
+            port.agregarVisita(sal, false);
         }
         
         

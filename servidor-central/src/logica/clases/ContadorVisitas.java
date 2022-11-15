@@ -12,24 +12,29 @@ public class ContadorVisitas {
 	private static ContadorVisitas instancia = null;
 	
 	private ContadorVisitas() {
-		registro = new TreeMap<String, Integer>();
+		registro = new HashMap<String, Integer>();
 	}
 	
-	private static <K, V extends Comparable<V> > Map<K, V>
-    valueSort(final Map<K, V> map){
-        Comparator<K> valueComparator = new Comparator<K>() {
+	private Map<String, Integer> valueSort(Map<String, Integer> map){
+        Comparator<String> valueComparator = new Comparator<String>() {
             
-                  public int compare(K k1, K k2){
-                      int comp = map.get(k2).compareTo(map.get(k1));
-                      if (comp == 0)
-                          return 1;
-                      else
-                          return comp;
+				public int compare(String k1, String k2){
+                	  
+                	  Integer absK1 = map.get(k1);
+                	  Integer absK2 = map.get(k2);
+                	  
+                	  int i = absK1.intValue();
+                	  int j = absK2.intValue();
+                	  
+                	  if(Math.abs(i) > Math.abs(j))
+                		  return -1;
+                	  else
+                		  return 1;
                   }
             
               };
               
-        Map<K, V> sorted = new TreeMap<K, V>(valueComparator);
+        Map<String, Integer> sorted = new TreeMap<String, Integer>(valueComparator);
         
         sorted.putAll(map);
         
@@ -42,14 +47,28 @@ public class ContadorVisitas {
         return instancia;
 	}
 
-	public void agregar(String nombre) {
-		if(registro.containsKey(nombre)) {
-			int visitas = registro.get(nombre);
-			registro.put(nombre, visitas + 1);
+	public void agregar(String nombre, boolean esActividad) {
+		if(esActividad) {
+			
+			if(registro.containsKey(nombre)) {
+				int visitas = registro.get(nombre);
+				registro.put(nombre, visitas + 1);
+			}
+			else {
+				registro.put(nombre, 1);
+			}
+			
+		}else {
+			
+			if(registro.containsKey(nombre)) {
+				int visitas = registro.get(nombre);
+				registro.put(nombre, visitas - 1);
+			}
+			else {
+				registro.put(nombre, -1);
+			}
 		}
-		else {
-			registro.put(nombre, 1);
-		}
+		
 	}
 	
 	public LinkedHashMap<String, Integer> getTop10(){

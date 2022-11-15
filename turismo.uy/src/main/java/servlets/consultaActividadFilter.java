@@ -29,7 +29,7 @@ public class consultaActividadFilter extends HttpFilter implements Filter {
         
         String act = (String) req.getParameter("nombreAct");
         if(act != null) {
-            port.agregarVisita(act);
+            port.agregarVisita(act, true);
         }
         
         chain.doFilter(request, response);

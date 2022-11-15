@@ -63,6 +63,7 @@ public class Principal {
 	private AgregarActividadAPaquete agregarActividadPaquete;
 	private ConsultaPaquete consultarPaquete;
 	private aceptarRechazarActividad aceptarRechazarActividad;
+	private ListarTop10 listarTop10;
 	
 	private WebServices webService = new WebServices();
 
@@ -139,7 +140,7 @@ public class Principal {
 
 		consultaActividadInternalFrame = new ConsultaDeActividadTuristica(ICA);
 		consultaActividadInternalFrame.setSize(510, 462);
-		consultaActividadInternalFrame.setLocation(110, 11);
+		consultaActividadInternalFrame.setLocation(87, 30);
 		consultaActividadInternalFrame.setVisible(false);
 		frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
 
@@ -154,13 +155,18 @@ public class Principal {
 		frmGestionDeTurismoUy.getContentPane().add(agregarActividadPaquete);
 
 		consultarPaquete = new ConsultaPaquete(ICA);
-		consultarPaquete.setBounds(12, 6, 503, 365);
+		consultarPaquete.setBounds(22, 29, 503, 365);
 		consultarPaquete.setVisible(false);
 		frmGestionDeTurismoUy.getContentPane().add(consultarPaquete);
 
 		actualizarUsuario = new ActualizarUsuario(ICU);
 		actualizarUsuario.setVisible(false);
 		frmGestionDeTurismoUy.getContentPane().add(actualizarUsuario);
+		
+		listarTop10 = new ListarTop10(ICA);
+		listarTop10.setBounds(68, 11, 490, 251);
+		listarTop10.setVisible(false);
+		frmGestionDeTurismoUy.getContentPane().add(listarTop10);
 
 		// Esto tiene que ir al final de todo
 		consultaActividadInternalFrame.cargarVentanasConsulta(consultaDeSalida, consultarPaquete);
@@ -302,6 +308,14 @@ public class Principal {
 		});
 		menuActividades.add(menuItemConsultaActividadTuristica);
 
+		JMenuItem menuItemListarTop10 = new JMenuItem("Listar Top 10 visitadas");
+		menuItemListarTop10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listarTop10.cargarInformacion();
+				listarTop10.setVisible(true);
+			}
+		});
+		menuActividades.add(menuItemListarTop10);
 		
 		// -----------MENU SALIDAS-----------
 		JMenu menuSalidas = new JMenu("Salidas");
