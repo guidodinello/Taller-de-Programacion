@@ -747,10 +747,10 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder="
+																	placeholder=
 																	<%= 
-										new SimpleDateFormat("dd/MM/yyyy").format(act.getFechaAlta().toGregorianCalendar().getTime())
-									%>">
+														new SimpleDateFormat("dd/MM/yyyy").format(act.getFechaAlta().toGregorianCalendar().getTime())
+																	%>>
 															</div>
 	
 														</div>
@@ -837,10 +837,10 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder="
+																	placeholder=
 																	<%= 
 										new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaAlta().toGregorianCalendar().getTime())
-									%>">
+									%>>
 															</div>
 	
 														</div>
@@ -855,10 +855,10 @@
 															<div class="col-auto">
 																<input type="text" class="form-control disabled"
 																	aria-describedby="disabled"
-																	placeholder="
+																	placeholder=
 																	<%= 
 										new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaAlta().toGregorianCalendar().getTime())
-									%>">
+									%>>
 															</div>
 	
 														</div>
@@ -1307,9 +1307,9 @@
 																<div class="col-auto">
 																	<input type="text" class="form-control disabled"
 																		aria-describedby="disabled"
-																		placeholder="<%= 
+																		placeholder=<%= 
 									new SimpleDateFormat("dd/MM/yyyy").format(act.getFechaAlta().toGregorianCalendar().getTime())
-								%>">
+								%>>
 																</div>
 
 															</div>

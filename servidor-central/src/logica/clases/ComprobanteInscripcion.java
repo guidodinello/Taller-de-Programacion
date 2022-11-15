@@ -33,7 +33,8 @@ public class ComprobanteInscripcion{
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 
         // 2. Create PdfWriter
-        PdfWriter.getInstance(document, new FileOutputStream(insc.getSalida() + ".pdf"));
+        Configuracion config = Configuracion.getInstance();
+        PdfWriter.getInstance(document, new FileOutputStream(config.getFilePath() + insc.getSalida() + ".pdf"));
 
         // 3. Open document
         document.open();
@@ -75,7 +76,7 @@ public class ComprobanteInscripcion{
         document.close();
         
         // 6. Convert to byte[]
-        Path pdfPath = Paths.get(insc.getSalida() + ".pdf");
+        Path pdfPath = Paths.get(config.getFilePath() + insc.getSalida() + ".pdf");
         byte[] pdf = Files.readAllBytes(pdfPath);
         
         File f = new File(pdfPath.toString());

@@ -12,6 +12,9 @@ public class Configuracion{
 	
 	private Configuracion() {
 		homeDir = System.getProperty("user.home");
+		System.out.println(homeDir.contains("ens"));
+		if(homeDir.contains("ens"))
+			homeDir = "/ens/devel01/tpgr14";
 		
 		// create and load default properties
 		Properties defaultProps = new Properties();
@@ -42,7 +45,7 @@ public class Configuracion{
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("Corroborar que la carpeta .turismoUy y .properties se encuentren en el Home del usuario");
-			publishURL = "http://localhost:9128/webservices";
+			publishURL = "http://pcunix154:4242/webservices";
 			filePath = "";
 			propiedades = null;
 		}
