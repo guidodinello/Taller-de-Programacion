@@ -99,7 +99,6 @@ crossorigin="anonymous"></script>
 								</div>
 							</div>
 						</div>
-					</div>
 			<%
 			}
 			%>

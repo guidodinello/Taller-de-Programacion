@@ -88,11 +88,10 @@ public class consultaUsuario extends HttpServlet{
 	     if(dtU instanceof DtTurista) {
              webservices.WebServicesService service = new webservices.WebServicesService();
              webservices.WebServices port = service.getWebServicesPort();
-             Date date = new Date(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1,Integer.parseInt(nac[2]));
+            // Date date = new Date(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1,Integer.parseInt(nac[2]));
            //Create XMLGregorianCalendar
-             GregorianCalendar c = new GregorianCalendar();
+             GregorianCalendar c = new GregorianCalendar(Integer.parseInt(nac[0]), Integer.parseInt(nac[1])-1, Integer.parseInt(nac[2]));
 
-             c.setTime(date);
             
              XMLGregorianCalendar xCal = null;
             try {
@@ -116,11 +115,10 @@ public class consultaUsuario extends HttpServlet{
 	         String link = request.getParameter("Link");
 	         webservices.WebServicesService service = new webservices.WebServicesService();
              webservices.WebServices port = service.getWebServicesPort();
-             Date date = new Date(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1,Integer.parseInt(nac[2]));
+             GregorianCalendar c = new GregorianCalendar(Integer.parseInt(nac[0]),Integer.parseInt(nac[1])-1,Integer.parseInt(nac[2]));
              //Create XMLGregorianCalendar
-               GregorianCalendar c = new GregorianCalendar();
+               //GregorianCalendar c = new GregorianCalendar();
 
-               c.setTime(date);
               
                XMLGregorianCalendar xCal = null;
               try {

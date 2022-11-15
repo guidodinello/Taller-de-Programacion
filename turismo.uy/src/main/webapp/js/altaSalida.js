@@ -2,10 +2,11 @@
  * 
  */
  
- function cargarActividades(){
-	let nombreDep = document.getElementById('departamento').selectedOptions[0].value;
-	window.location.replace("http://localhost:8080/turismo.uy/altaSalida?nombreDep="+nombreDep);
-}
+$("#nombreDep").on("change", async function(){
+	if($(this).val() != ""){
+		$("#seleccionarDepto").submit();
+	}
+})
 
 function formularioValido(){
 	let dep = document.getElementById('departamento').selectedOptions[0].value;

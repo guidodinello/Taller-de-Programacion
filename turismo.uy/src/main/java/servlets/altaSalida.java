@@ -53,7 +53,7 @@ public class altaSalida extends HttpServlet {
     }
     
     
-    protected void cargarActividades(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {        
+    protected void cargarActividades(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException { 
         List<String> nomAct = port.listarActividadesDepartamento(request.getParameter("nombreDep")).getItem();
         Set<String> nomActCon = new HashSet<String>();
         for(String act : nomAct) {
@@ -119,7 +119,7 @@ public class altaSalida extends HttpServlet {
         }
         try {
             port.altaSalidaTuristica(nombre, xmlFecha, lugar, cantMaxTur, xmlFechaDelDia, actividad, fotoBin, ext);
-            request.getRequestDispatcher("/index?exito=La salida fue registrada con exito\"").forward(request, response);
+            response.sendRedirect("index?exito=La salida fue registrada con exito");
         }catch(YaExisteException_Exception e) {
             e.printStackTrace();
             request.setAttribute("SalidaFailedError", e.getMessage());
