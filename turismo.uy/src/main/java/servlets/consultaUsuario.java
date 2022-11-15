@@ -36,7 +36,7 @@ public class consultaUsuario extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
+	private String[] ext = {".icon", ".png", ".jpg", ".jpeg", ".webp"};
 	/**
      * @see HttpServlet#HttpServlet()
      */

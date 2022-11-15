@@ -59,7 +59,6 @@ public class consultaActividad extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		System.out.print(request.getParameter("departamentoSeleccionado"));
 		List<String> actividades = port.listarActividadesDepartamento(request.getParameter("departamentoSeleccionado")).getItem();
 		Set<DtActividad> dtActs = new HashSet<DtActividad>();
 		for(String act: actividades)

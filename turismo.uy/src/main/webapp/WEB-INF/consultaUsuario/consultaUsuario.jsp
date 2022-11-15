@@ -356,9 +356,7 @@
 														<div class="col-auto">
 															<a style="text-decoration: none"
 																href="salida?nombreSalida=<%=sal.getNombre()%>"><%=sal.getNombre()%></a>
-																-
-															<a style="text-decoration: none" class="link-success"
-																href="pdf-downloader?nombreSalida=<%=sal.getNombre()%>&&nombreUsuario=<%=miUsr.getNickname()%>">Comprobante de Inscripción</a>
+															
 														</div>
 	
 													</div>
@@ -550,6 +548,9 @@
 	
 												<form>
 													<h4 class=" font-up font-bold py-2 white-text"><%=sal.getSalida()%></h4>
+													<div>
+														<a style="text-decoration: none"
+															href="pdf-downloader?nombreSalida=<%=sal.getSalida()%>&&nombreUsuario=<%=miUsr.getNickname()%>">Comprobante de Inscripción</a></div>
 													<fieldset disabled>
 														<div class="row g-3 align-items-center pt-3">
 															<div class="col-auto">

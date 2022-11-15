@@ -17,7 +17,7 @@ import webservices.DtUsuario;
 @WebServlet("/altaUsuario")
 public class altaUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
+	private String[] ext = {".icon", ".png", ".jpg", ".jpeg", ".webp"};
 	
 	public altaUsuario() {
 		super();

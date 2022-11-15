@@ -28,7 +28,7 @@ import webservices.YaExisteException_Exception;
 @WebServlet("/altaActividad")
 public class altaActividad extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private String[] ext = {".icon", ".png", ".jpg", ".jpeg"};
+    private String[] ext = {".icon", ".png", ".jpg", ".jpeg", ".webp"};
     webservices.WebServicesService service = new webservices.WebServicesService();
     webservices.WebServices port = service.getWebServicesPort();
     

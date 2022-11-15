@@ -11,13 +11,13 @@
   </welcome-file-list>
   
   <!-- si el codigo de error es 500 redirige ahi -->
- <!-- <error-page>
+  <error-page>
     <error-code>500</error-code>
     <location>/WEB-INF/errorPages/404.jsp</location>
-</error-page> -->
+</error-page> 
   
   <!-- para cualquier otro codigo redirige a 404 -->
- <!--   <error-page>
+    <error-page>
   	<location>/WEB-INF/errorPages/404.jsp</location>
-  </error-page> -->
+  </error-page>
 </web-app> 

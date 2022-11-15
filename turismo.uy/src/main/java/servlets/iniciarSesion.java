@@ -50,7 +50,6 @@ public class iniciarSesion extends HttpServlet {
 	    else if (port.existeUsuarioEmail(nickOrEmail))
 	            usr = port.getUsuarioByEmail(nickOrEmail);
 		
-		System.out.println(usr == null);
 		
 		if (usr == null || !(port.verifiedUserPassword(usr.getNickname(), pass))) {
 			request.setAttribute("invalid_attempt", true);

@@ -445,7 +445,7 @@ public class altaSalida extends JInternalFrame {
 				 
 				 int hora =(Integer) spinner.getValue();
 				 int minutos = (Integer) spinner_1.getValue();
-				 fechaNac.set(anio, mes, dia, hora, minutos);
+				 fechaNac.set(anio, mes-1, dia, hora, minutos);
 		
 				 try {
 					 

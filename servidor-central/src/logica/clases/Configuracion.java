@@ -12,7 +12,6 @@ public class Configuracion{
 	
 	private Configuracion() {
 		homeDir = System.getProperty("user.home");
-		System.out.println(homeDir.contains("ens"));
 		if(homeDir.contains("ens"))
 			homeDir = "/ens/devel01/tpgr14";
 		

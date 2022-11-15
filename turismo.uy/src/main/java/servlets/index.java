@@ -61,7 +61,6 @@ public class index extends HttpServlet {
 	                (String)request.getParameter("usr"),
 	                (String)request.getParameter("act")
 	        );
-	        System.out.println((String)request.getParameter("usr"));
 	    }
 	    
 	}
