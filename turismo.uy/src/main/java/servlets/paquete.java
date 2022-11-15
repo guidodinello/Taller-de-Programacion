@@ -12,18 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
-import excepciones.CompraFailException;
-import model.logica.interfaces.ICtrlActividad;
-import model.logica.interfaces.ICtrlUsuario;
-import model.logica.interfaces.Fabrica;
-import model.logica.clases.Turista;
-import model.logica.handlers.HandlerUsuarios;
 
-import model.datatypes.DTPaquete;
-import model.datatypes.estadoActividad;
-import model.datatypes.DTActividad;
-import model.datatypes.DTTurista;
+import webservices.DtActividad;
+import webservices.DtPaquete;
+import webservices.DtTurista;
+import webservices.DtUsuario;
+import webservices.EstadoActividad;
 
 @MultipartConfig
 @WebServlet("/paquete")
@@ -35,21 +32,23 @@ public class paquete extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
-        ICtrlUsuario ctrlUsr = Fabrica.getInstance().getICtrlUsuario();
+        webservices.WebServicesService service = new webservices.WebServicesService();
+        webservices.WebServices port = service.getWebServicesPort();
+        
         HttpSession session = request.getSession();
-        DTTurista tur = (DTTurista) session.getAttribute("usuario_logueado");
+        DtTurista tur = (DtTurista) session.getAttribute("usuario_logueado");
         
         String nomb = (String) request.getParameter("nombrePaquete");
         int cantTuristas = Integer.parseInt(request.getParameter("Cantidad"));
         
         try {
-            ctrlUsr.ingresarCompra(tur.getNickname(), nomb, cantTuristas, new GregorianCalendar());
-            HandlerUsuarios hU = HandlerUsuarios.getInstance();
-            Turista t = hU.getTuristaByNickname(tur.getNickname());
-            session.setAttribute("usuario_logueado", new DTTurista(t));
-            request.setAttribute("exito", "La compra del paquete "+ nomb + " se realizo exitosamente");
-            request.getRequestDispatcher("/index").forward(request, response);
-        } catch(CompraFailException e){
+            GregorianCalendar fechaCompra = new GregorianCalendar();
+            XMLGregorianCalendar fechaCompraXML = DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaCompra);
+            port.ingresarCompra(tur.getNickname(), nomb, cantTuristas, fechaCompraXML);
+            DtUsuario usuario = port.getUsuarioByNickName(tur.getNickname());
+            session.setAttribute("usuario_logueado", usuario);
+            response.sendRedirect("index?exito=Paquete comprado con exito");
+        } catch(Exception e){
             e.printStackTrace();
             request.setAttribute("CompraFailError", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp").
@@ -58,11 +57,13 @@ public class paquete extends HttpServlet {
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
+        webservices.WebServicesService service = new webservices.WebServicesService();
+        webservices.WebServices port = service.getWebServicesPort();
+        
         if(request.getParameter("listar") != null) {
-            Set<DTPaquete> paquetes = new HashSet<DTPaquete>();
-            for(String paq : ctrlActividad.listarPaquetes()) {
-                DTPaquete actual = ctrlActividad.getInfoPaquete(paq);
+            Set<DtPaquete> paquetes = new HashSet<DtPaquete>();
+            for(String paq : port.listarPaquetes().getItem()) {
+                DtPaquete actual = port.getInfoPaquete(paq);
                 if(!actual.getActividades().isEmpty())
                     paquetes.add(actual);
             }
@@ -71,17 +72,17 @@ public class paquete extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/paquete/listadoPaquetes.jsp").forward(request, response);
         } else {
             String name = request.getParameter("nombrePaquete");
-            DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
+            DtPaquete paqueteT = port.getInfoPaquete(name);
             request.setAttribute("paquete", paqueteT);
             
-            if(request.getParameter("COMPRA") != null && request.getSession().getAttribute("usuario_logueado") instanceof DTTurista) {
+            if(request.getParameter("COMPRA") != null && request.getSession().getAttribute("usuario_logueado") instanceof DtTurista) {
                 request.getRequestDispatcher("/WEB-INF/paquete/compraPaquete.jsp").
                     forward(request, response);
             } else {
-                Set<DTActividad> datosActividades = new HashSet<DTActividad>();
+                Set<DtActividad> datosActividades = new HashSet<DtActividad>();
                 for(String actividad: paqueteT.getActividades()) {
-                    DTActividad actual = ctrlActividad.getInfoActividad(actividad);
-                    if(actual.getestado() == estadoActividad.confirmada)
+                    DtActividad actual = port.getInfoActividad(actividad);
+                    if(actual.getEstado() == EstadoActividad.CONFIRMADA)
                         datosActividades.add(actual);
                 }
                 
@@ -95,9 +96,10 @@ public class paquete extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        ICtrlActividad ctrlActividad = Fabrica.getInstance().getICtrlActividad();
+        webservices.WebServicesService service = new webservices.WebServicesService();
+        webservices.WebServices port = service.getWebServicesPort();
         String name = request.getParameter("nombrePaquete");
-        DTPaquete paqueteT = ctrlActividad.getInfoPaquete(name);
+        DtPaquete paqueteT = port.getInfoPaquete(name);
         request.setAttribute("paquete", paqueteT);
         processRequest(request, response);
     }

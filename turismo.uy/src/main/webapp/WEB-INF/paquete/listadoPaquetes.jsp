@@ -3,7 +3,7 @@
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Set"%>
-<%@page import="model.datatypes.DTPaquete"%>
+<%@page import="webservices.DtPaquete"%>
 
 <!DOCTYPE html>
 <html>
@@ -22,17 +22,17 @@
 		<div class="col-sm-8 text-center">
 			<%
 			@SuppressWarnings("unchecked")
-			Set<DTPaquete> paquetes = (Set<DTPaquete>) request.getAttribute("paquetes");  
+			Set<DtPaquete> paquetes = (Set<DtPaquete>) request.getAttribute("paquetes");  
 			
-			for (DTPaquete p : paquetes) {
+			for (DtPaquete p : paquetes) {
 			%>
 			<a href="paquete?nombrePaquete=<%= p.getNombre() %>&COMPRA=1" class="text-decoration-none">
 				<div
 					class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
-					style="background-image: url('<%=p.getImg()%>');">
+					style="background-image: url('<%=p.getImgDir()%>');">
 					<div class="row g-0 mask card-color">
 						<div class="col-md-4 align-self-center">
-							<img src="<%=p.getImg()%>"
+							<img src="<%=p.getImgDir()%>"
 								class="img-fluid p-2 p-lg-0 ps-lg-3 my-lg-3 rounded-3"
 								alt="paquete Turistico: <%=p.getNombre()%>">
 						</div>

@@ -73,6 +73,18 @@ public class SalidaTuristica{
 			return resultado;
 		}
 		
+		public Set<String> getTuristasNicknameInscriptos(){
+			HandlerUsuarios handUsr = HandlerUsuarios.getInstance();
+			Set<String> resultado = new HashSet<String>();
+			Set<Turista> turistas = handUsr.listarTuristas();
+			turistas.forEach( t-> {
+				if (t.inscriptoSalida(this)) {
+					resultado.add(t.getNickname());
+				}
+			});
+			return resultado;
+		}
+		
 		public String getImg() {
 		    return img;
 		}

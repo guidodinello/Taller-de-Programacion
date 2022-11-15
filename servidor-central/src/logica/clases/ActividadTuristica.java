@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.GregorianCalendar;
 
 import datatypes.DTActividad;
+import datatypes.DTPaquete;
 import datatypes.DTSalida;
 import datatypes.estadoActividad;
 import logica.handlers.HandlerDepartamentos;
+import logica.handlers.HandlerUsuarios;
 import logica.handlers.HandlerCategorias;
 
 import java.util.HashMap;
@@ -20,9 +22,11 @@ public class ActividadTuristica{
 	private GregorianCalendar fechaAlta;
 	private estadoActividad estado;
 	private Map<String, SalidaTuristica> salidas;
-	private String imgDir;
+	private String imgDir, url;
+	private Map<String, Usuario> likedBy;
 	
-	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, estadoActividad estado) {
+	public ActividadTuristica(String nombre, String descripcion, int duracionHs, float costoPorTurista, String nombreCiudad, GregorianCalendar fechaAlta, String imgDir, String url, estadoActividad estado) {
+		this.url = url;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionHs = duracionHs;
@@ -31,6 +35,7 @@ public class ActividadTuristica{
 		this.fechaAlta = fechaAlta;
 		this.estado = estado;
 		salidas = new HashMap<String, SalidaTuristica>();
+		likedBy = new HashMap<String, Usuario>();
 		this.imgDir = imgDir;
 	}
 	
@@ -57,6 +62,10 @@ public class ActividadTuristica{
 	
 	public String getNombreCiudad() {
 		return nombreCiudad;
+	}
+	
+	public Map<String, Usuario> getLikedBy(){
+		return likedBy;
 	}
 	
 	public GregorianCalendar getFechaAlta() {
@@ -102,7 +111,7 @@ public class ActividadTuristica{
 		Set<String> categorias = getCategorias();
 		HandlerDepartamentos handlerDepartamentos = HandlerDepartamentos.getInstance();
 		String nombreDepto = handlerDepartamentos.getDeptoContains(this);
-		return new DTActividad(nombre, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado);
+		return new DTActividad(nombre, des, nombreDepto, nombreCiudad, fechaAlta, dura, costo, salidas, categorias, imgDireccion, estado, likedBy.keySet(), url);
 	}
 
     public Set<String> getCategorias() {
@@ -114,4 +123,39 @@ public class ActividadTuristica{
         return res;
     }
 
+	public boolean tieneFan(String nombreUsuario) {
+		return likedBy.containsKey(nombreUsuario);
+	}
+
+	public void agregarFan(Usuario fan) {
+		likedBy.put(fan.getNickname(), fan);
+	}
+
+	public void eliminarFan(String nombreUsuario) {
+		likedBy.remove(nombreUsuario);
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public String getProveedor() {
+		Set<Proveedor> proveedores = HandlerUsuarios.getInstance().listarProveedores();
+		String resu = "";
+		for (Proveedor prov : proveedores) {
+            if (prov.proveeActividad(this.nombre)) {
+            	resu = prov.getNickname();
+            	return resu;
+            }
+        }
+		return resu;
+	}
+	
+	public Set<SalidaTuristica> getSalidas() {
+		 Set<SalidaTuristica> resultado = new HashSet<SalidaTuristica>();
+		 salidas.forEach((key, value)->{
+			 resultado.add(value);
+		 });
+		 return resultado;
+	}
 }

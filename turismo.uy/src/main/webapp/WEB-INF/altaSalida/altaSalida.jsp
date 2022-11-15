@@ -2,9 +2,8 @@
 <%@page import="servlets.altaSalida" %>
 
 <%@page import="java.util.Set"%>
+<%@page import="java.util.List"%>
 
-<%@page import="model.logica.interfaces.Fabrica"%>
-<%@page import="model.logica.interfaces.ICtrlActividad"%>
 
 
 <!DOCTYPE html>
@@ -48,30 +47,35 @@
 		     <div class="card mb-3 formularioRegistro shadow">
                 <div class="card-body">
                     <h5 class="card-title mb-3">Registrar Salida</h5>
-                    <form method="POST" action="altaSalida" enctype="multipart/form-data" id="formAltaSalida">
-
+                    
+					<form method="GET" action="altaSalida" enctype="multipart/form-data" id="seleccionarDepto">
                         <div class="mb-4 text-start needs-validate">
-                            <label for="dpto" class="form-label">Departamento donde se llevará a cabo la salida</label>
-                            <select id="departamento" name="departamento" class="form-select non-empty" required 
-                            onchange="if (this.selectedIndex) cargarActividades();">
-                                <option value="" disabled <%if(request.getAttribute("nombreDep") == null){ %>selected="selected"
-                                <%} %>> Seleccione un Departamento</option>
-                 					
-                 				<%
-									Set<String> deptos = Fabrica.getInstance().getICtrlActividad().listarDepartamentos();
-									for (String depto: deptos) {
-								%>
-									<option value="<%= depto %>" <%if(request.getAttribute("nombreDep") != null && request.getAttribute("nombreDep").equals(depto)){ 
-									%> selected="selected" <%} %>><%= depto %></option>
-								<%
-									}
-								%>
-                            </select>
+                        	<div>
+                        		<label for="nombreDep" class="form-label">Departamento donde se llevará a cabo la salida</label>
+                        	</div>
+                            <div>
+	                            <select id="nombreDep" name="nombreDep" class="form-select non-empty" required >
+	                                <option value="" disabled <%if(request.getAttribute("nombreDep") == null){ %>selected="selected"
+	                                <%} %>> Seleccione un Departamento</option>
+	                 					
+	                 				<%
+	                 				List<String> deptos = (List<String>)request.getAttribute("listadoDepartamentos");
+	                 				for (String depto: deptos) {
+									%>
+										<option value="<%= depto %>" <%if(request.getAttribute("nombreDep") != null && request.getAttribute("nombreDep").equals(depto)){ 
+										%> selected="selected" <%} %>><%= depto %></option>
+									<%
+										}
+									%>
+	                            </select>
+                            </div>
                           <div id="validarDepto" class="invalid-feedback">
 	                          Es obligatorio seleccionar un departamento.
 	                      </div>
                         </div>
-
+                       </form>
+                        
+				<form method="POST" action="altaSalida" enctype="multipart/form-data" id="formAltaSalida">
                         <div class="mb-4 text-start needs-validate">
                             <label for="ciudad">Actividad:</label>
                             <select id="actividad" name="actividad" class="form-select non-empty" required>

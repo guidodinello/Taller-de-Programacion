@@ -429,6 +429,7 @@ public class altaSalida extends JInternalFrame {
 				int diafa = act.getFechaAlta().get(fechaNac.DAY_OF_MONTH);
 				int mesfa = (act.getFechaAlta().get(fechaNac.MONTH) + 1);
 				int aniofa = (act.getFechaAlta().get(fechaNac.YEAR));
+				String img ="salDefault.png";
 				
 				if(aniofa > anio || (aniofa == anio && mesfa > mes) || (aniofa == anio && mesfa == mes && diafa>dia)) {
 					 JOptionPane.showMessageDialog(getContentPane(), "La fecha debe ser posterior al alta de la actividad ", " Registro invalido", JOptionPane.INFORMATION_MESSAGE);
@@ -444,11 +445,11 @@ public class altaSalida extends JInternalFrame {
 				 
 				 int hora =(Integer) spinner.getValue();
 				 int minutos = (Integer) spinner_1.getValue();
-				 fechaNac.set(anio, mes, dia, hora, minutos);
+				 fechaNac.set(anio, mes-1, dia, hora, minutos);
 		
 				 try {
 					 
-					iCS.altaSalidaTuristica(textField_1.getText(), fechaNac, textField_2.getText(), (int)spinner_2.getValue(), new GregorianCalendar(),comboBox_1.getSelectedItem().toString(), "");
+					iCS.altaSalidaTuristica(textField_1.getText(), fechaNac, textField_2.getText(), (int)spinner_2.getValue(), new GregorianCalendar(),comboBox_1.getSelectedItem().toString(), img);
 					 JOptionPane.showMessageDialog(getContentPane(), "La salida se ha creado con exito", "Registrar Salida", JOptionPane.INFORMATION_MESSAGE);
 					 settear = true;
 					 limpiarForm();

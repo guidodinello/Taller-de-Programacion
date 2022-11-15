@@ -1,9 +1,12 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
-<%@page import="model.datatypes.DTActividad" %>
-<%@page import="model.datatypes.DTSalida" %>
-<%@page import="model.datatypes.DTPaquete" %>
+<%@page import="webservices.DtActividad" %>
+<%@page import="webservices.DtSalida" %>
+<%@page import="webservices.DtPaquete" %>
+<%@page import="webservices.DtUsuario" %>
+<%@page import="webservices.DtTurista" %>
 <%@page import="java.util.Set"%>
-
+<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
 
 <!doctype html>
 <html>
@@ -20,7 +23,7 @@
 			<div class="col-sm-6 text-center">
 			
 			<%
-				DTActividad actividad = (DTActividad) request.getAttribute("datosActividad");
+				DtActividad actividad = (DtActividad) request.getAttribute("datosActividad");
 			%>
 			
 			<div class="card mb-3" style="max-width: 800px;">
@@ -32,7 +35,10 @@
 						<div class="card-body">
 							<h5 class="card-title"><%= actividad.getNombre() %></h5>
 							<p class="card-text"><%= actividad.getDescripcion() %></p>
-							<p class="card-text"><small class="text-muted">Fecha alta: <%= actividad.getFechaAltaString()%> </small></p>
+							<p class="card-text"><small class="text-muted">Fecha alta:
+							<%= 
+									new SimpleDateFormat("dd/MM/yyyy").format(actividad.getFechaAlta().toGregorianCalendar().getTime())
+								%></small></p>
 						</div>
 					</div>
 				</div>
@@ -80,6 +86,48 @@
 							              
 							</div>
 						</fieldset>
+						
+						<fieldset disabled>
+							<div class="row g-3 align-items-center pt-3">
+								<div class="col-auto">
+									<i class="fa fa-star prefix white-text"></i>
+									<label for="favorita" class="col-form-label">Cantidad de veces marcada como Favorita :</label>
+								</div>
+								<div class="col-auto">
+									<input type="text" name="favorita" class="form-control disabled" aria-describedby="disabled" placeholder=<%= actividad.getLikedBy().size() %>>
+								</div>
+							</div>
+						</fieldset>
+						
+						<%
+						if (session.getAttribute("usuario_logueado") != null) {
+					  		DtUsuario usr = (DtUsuario)session.getAttribute("usuario_logueado");
+					  		if (usr instanceof DtTurista) {
+								List<String> usuariosConEstaActFavorita = actividad.getLikedBy();
+								Boolean esFavorita = false;
+								// si el usuario marco como favorita esta actividad
+								for (String u : usuariosConEstaActFavorita) {
+							  		if (usr.getNickname().equals(u)) {
+							  		  	esFavorita = true;
+							  		  	break;
+							  		}
+							  	}
+							 	if (esFavorita) {%>
+								 	<fieldset disabled>
+										<div class="row g-3 align-items-center pt-3">
+											<div class="col-auto">
+												<i class="fa fa-star prefix white-text"></i>
+												<label for="tufavorita" class="col-form-label">Para tí :</label>
+											</div>
+											<div class="col">
+												<input type="text" name="tufavorita" class="form-control disabled" aria-describedby="disabled" placeholder="Esta actividad la has marcado como favorita !">
+											</div>
+										</div>
+									</fieldset>
+							 <%	  
+							 	} // cierre if es favorita
+					  		} // cierre es turista
+						 } // cierre if logueado %>
 		                
 						<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
@@ -89,7 +137,7 @@
 								</div>
 								
 								<%
-									for(String categoria: actividad.getCategorias()){
+									for(String categoria: actividad.getNombCategorias()){
 								%>
 								<div class="col-auto">
 									<a href="categoria?nombreCat=<%= categoria %>" class="badge bg-secondary"><%= categoria %></a>
@@ -101,7 +149,17 @@
 				
 		  			</form>
 				</div>
+				
+				
 			</div>
+			
+			
+			<div style="margin-top: 80px" id="videoDiv">
+				<iframe id="video" width="100%" height="400px"
+					src="<%= actividad.getUrl() %>">
+				</iframe>
+			</div>
+			
 		</div>
 
 		<div class="col-sm-3">
@@ -111,8 +169,8 @@
                     <ul class="list-group list-group-flush">
                     
                     <%
-                    	Set<DTSalida> salidasActividad = (Set<DTSalida>) request.getAttribute("datosSalidaActividad");
-						for(DTSalida salida: salidasActividad){
+                    	Set<DtSalida> salidasActividad = (Set<DtSalida>) request.getAttribute("datosSalidaActividad");
+						for(DtSalida salida: salidasActividad){
 					%>
                         <div class="list-group-item p-1">
                             <a class="text-decoration-none" href="salida?nombreSalida=<%= salida.getNombre() %>">
@@ -139,15 +197,15 @@
                     <ul class="list-group list-group-flush">
                     
                    <%
-                    	Set<DTPaquete> paquetesActividad = (Set<DTPaquete>) request.getAttribute("datosPaqueteActividad");
-						for(DTPaquete paquete: paquetesActividad){
+                    	Set<DtPaquete> paquetesActividad = (Set<DtPaquete>) request.getAttribute("datosPaqueteActividad");
+						for(DtPaquete paquete: paquetesActividad){
 					%>
                     
                         <div class="list-group-item p-1">
                             <a class="text-decoration-none" href="paquete?nombrePaquete=<%= paquete.getNombre() %>">
                                 <div class="row g-0 align-middle">
                                     <div class="col-md-4">
-                                        <img src="<%= paquete.getImg() %>" class="img-fluid rounded-start" alt="...">
+                                        <img src="<%= paquete.getImgDir() %>" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 pt-2 pt-lg-0 ps-lg-2 align-self-center">
                                         <ul class="list-group list-group-flush">

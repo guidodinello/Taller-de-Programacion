@@ -320,6 +320,7 @@ public class altaActividadTuristica extends JInternalFrame {
 		String costo =  this.textField_3.getText();
 		String nombCiudad = this.textField_4.getText();
 		List<String> cat = this.listCat.getSelectedValuesList();
+		String img = "actDefault.jpg";
 
 		if(checkFormulario()) {
 			int dia = Integer.parseInt(date.getText().substring(0,2));
@@ -334,7 +335,7 @@ public class altaActividadTuristica extends JInternalFrame {
 			
 			try {
 				IActividad.altaActividadTuristica(comboBox_1.getSelectedItem().toString(), nomActividad, desc, Integer.parseInt(duraHs), Float.parseFloat(costo), 
-						nombCiudad, comboBox.getSelectedItem().toString(), fecha, "", setCat, estadoActividad.confirmada);
+						nombCiudad, comboBox.getSelectedItem().toString(), fecha, img, setCat,"", estadoActividad.confirmada);
 				limpiarFormulario();
 				JOptionPane.showMessageDialog(this,
 						"Actividad Turística creada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);

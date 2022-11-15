@@ -19,7 +19,10 @@ import org.junit.jupiter.api.TestMethodOrder;
 import datatypes.tipoUsuario;
 
 import excepciones.YaExisteException;
-
+import logica.clases.Usuario;
+import logica.clases.dao.ActividadDao;
+import logica.clases.dao.InscripcionDao;
+import logica.clases.dao.SalidaDao;
 import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerCategorias;
 import logica.handlers.HandlerDepartamentos;
@@ -33,11 +36,13 @@ import datatypes.DTActividad;
 import datatypes.DTPaquete;
 import datatypes.DTSalida;
 import datatypes.estadoActividad;
+import datatypes.tipoInscripcion;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ctrlActividadTest{
 	private static ICtrlActividad controladorActividad;
 	private static ICtrlUsuario controladorUsuario;
 	private static HandlerActividades handlerA;
+	private static HandlerCategorias handlerC;
 	
 	public ctrlActividadTest() {}
 	
@@ -52,6 +57,7 @@ public class ctrlActividadTest{
 		HandlerUsuarios.clear();
 		HandlerPaquetes.clear();
 		handlerA = HandlerActividades.getInstance();
+		handlerC = HandlerCategorias.getInstance();
 		controladorActividad = fabrica.getICtrlActividad();
 		controladorUsuario = fabrica.getICtrlUsuario();
 
@@ -187,10 +193,10 @@ public class ctrlActividadTest{
 			}
 
 			
-			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, conjuntoCat, estadoActividad.agregada);
-			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, conjuntoCat, estadoActividad.agregada);
-			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, conjuntoCat, estadoActividad.agregada);
-			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, conjuntoCat, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, conjuntoCat, "", estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, conjuntoCat, "", estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, conjuntoCat, "", estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, conjuntoCat, "", estadoActividad.agregada);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad1).getNombre(),nombActividad1);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getNombre(),nombActividad2);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getNombre(),nombActividad3);
@@ -225,6 +231,10 @@ public class ctrlActividadTest{
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad2).getEstado(), estadoActividad.agregada);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad3).getEstado(), estadoActividad.agregada);
 			assertEquals(handlerA.obtenerActividadTuristica(nombActividad4).getEstado(), estadoActividad.agregada);
+			
+			assertEquals(handlerC.getCategoria("Categoria 0").getActividades().size(), 4);
+			assertEquals(handlerC.getCategoria("Categoria 1").listarActividades().size(), 4);
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -278,10 +288,10 @@ public class ctrlActividadTest{
 		String img = "imgDir";
 		Set<String> setString = new HashSet<String>();
 
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString, estadoActividad.agregada);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString, estadoActividad.agregada);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString, estadoActividad.agregada);});
-		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString, estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString,"", estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct2, img, setString,"", estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct3, img, setString,"", estadoActividad.agregada);});
+		assertThrows(YaExisteException.class, ()->{controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct4, img, setString,"", estadoActividad.agregada);});
 		
 	}
 	
@@ -338,7 +348,7 @@ public class ctrlActividadTest{
 		assertEquals(dtAct.getCategorias().contains("Categoria 1"), true);
 		assertEquals(dtAct.getFechaAlta(), new GregorianCalendar(2000, 3, 2));
 		assertEquals(dtAct.getFechaAltaString(), "2/4/2000");
-		assertEquals(dtAct.getImgDir(), "imgDir");
+		assertEquals(dtAct.getImgDir(), "imagen?act=imgDir");
 		assertEquals(dtAct.getNombreCiudad(), "Paso palomeque");
 		assertEquals(dtAct.toString(), "Nombre: Actividad 2");
 		
@@ -386,7 +396,7 @@ public class ctrlActividadTest{
 		assertEquals(10, nueva1.getcantidadMaximaDeTuristas());
 		assertEquals(nueva1.getTuristasInscriptos().isEmpty(),true);
 		assertEquals(nueva1.getNombreActividad(), "Actividad 1");
-		assertEquals(nueva1.getImgDir(), "imagen");
+		assertEquals(nueva1.getImgDir(), "imagen?sal=imagen");
 		assertEquals(nueva1.getNombreDepartamentoActividad(), "Montevideo");
 		assertEquals(nueva1.toString(), "A Centro" + " - " + "Centro");
 		
@@ -504,10 +514,10 @@ public class ctrlActividadTest{
 		GregorianCalendar fechaAltaP3 = new GregorianCalendar(2000, 4, 2);
 		GregorianCalendar fechaAltaP4 = new GregorianCalendar(2015, 2, 2);
 		
-		String img1 = "media/imagenes/img1.png";
-		String img2 = "media/imagenes/img2.png";
-		String img3 = "media/imagenes/img3.png";
-		String img4 = "media/imagenes/img4.png";
+		String img1 = "img1.png";
+		String img2 = "img2.png";
+		String img3 = "img3.png";
+		String img4 = "img4.png";
 		
 		try {
 			controladorActividad.crearPaquete(nombreP1, descP1, validezP1, descuentoP1, fechaAltaP1, img1);
@@ -547,10 +557,10 @@ public class ctrlActividadTest{
 			assertEquals(controladorActividad.getInfoPaquete(nombreP3).getActividades().isEmpty(), true);
 			assertEquals(controladorActividad.getInfoPaquete(nombreP4).getActividades().isEmpty(), true);
 				
-			assertEquals(controladorActividad.getInfoPaquete(nombreP1).getImg(), img1);
-			assertEquals(controladorActividad.getInfoPaquete(nombreP2).getImg(), img2);
-			assertEquals(controladorActividad.getInfoPaquete(nombreP3).getImg(), img3);
-			assertEquals(controladorActividad.getInfoPaquete(nombreP4).getImg(), img4);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP1).getImg(), "imagen?paq="+img1);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP2).getImg(), "imagen?paq="+img2);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP3).getImg(), "imagen?paq="+img3);
+			assertEquals(controladorActividad.getInfoPaquete(nombreP4).getImg(), "imagen?paq="+img4);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -915,16 +925,310 @@ public class ctrlActividadTest{
 		
 	}
 	
+	@Test
+	@Order(28)
+	void testListarActividadesSinSalidasVigentesNiPaquetesYFinalizarActividad() {
+		/*Acividad 1*/
+		String deptoActividad1 = "Montevideo";
+		String nombActividad1 = "Act281";
+		String desActividad1 = "Desc281";
+		int duraHsActividad1 = 1;
+		float costoActividad1 = 1;
+		String ciudadActividad1 = "Ciudad281";
+		String nickProvAct1 = "manuP1";
+		
+		/*Acividad 2*/
+		String deptoActividad2 = "Canelones";
+		String nombActividad2 = "Act282";
+		String desActividad2 = "Desc282";
+		int duraHsActividad2 = 2;
+		float costoActividad2 = 2;
+		String ciudadActividad2 = "Ciudad282";
+		String nickProvAct2 = "manuP2";
+		
+		/*Acividad 3*/
+		String deptoActividad3 = "Artigas";
+		String nombActividad3 = "Act283";
+		String desActividad3 = "Desc283";
+		int duraHsActividad3 = 1;
+		float costoActividad3 = 1;
+		String ciudadActividad3 = "Ciudad283";
+		String nickProvAct3 = "manuP1";
+		
+		/*Acividad 4*/
+		String deptoActividad4 = "Montevideo";
+		String nombActividad4 = "Act284";
+		String desActividad4 = "Desc284";
+		int duraHsActividad4 = 4;
+		float costoActividad4 = 4;
+		String ciudadActividad4 = "Ciudad284";
+		String nickProvAct4 = "manuP2";
+		
+		/*Acividad 5*/
+		String deptoActividad5 = "Montevideo";
+		String nombActividad5 = "Act285";
+		String desActividad5 = "Desc285";
+		int duraHsActividad5 = 1;
+		float costoActividad5 = 1;
+		String ciudadActividad5 = "Ciudad285";
+		String nickProvAct5 = "manuP1";
+		
+		/*Acividad 6*/
+		String deptoActividad6 = "Canelones";
+		String nombActividad6 = "Act286";
+		String desActividad6 = "Desc286";
+		int duraHsActividad6 = 2;
+		float costoActividad6 = 2;
+		String ciudadActividad6 = "Ciudad286";
+		String nickProvAct6 = "manuP2";
+		
+		/*Acividad 7*/
+		String deptoActividad7 = "Artigas";
+		String nombActividad7 = "Act287";
+		String desActividad7 = "Desc287";
+		int duraHsActividad7 = 1;
+		float costoActividad7 = 1;
+		String ciudadActividad7 = "Ciudad287";
+		String nickProvAct7 = "manuP1";
+		
+		/*Acividad 8*/
+		String deptoActividad8 = "Montevideo";
+		String nombActividad8 = "Act288";
+		String desActividad8 = "Desc288";
+		int duraHsActividad8 = 4;
+		float costoActividad8 = 4;
+		String ciudadActividad8 = "Ciudad288";
+		String nickProvAct8 = "manuP2";
+		
+		
+		GregorianCalendar fechaAct1 = new GregorianCalendar(2000, 2, 2);
+		String img = "img";
+		Set<String> setString = new HashSet<String>();
+		
+		try {
+			controladorActividad.altaActividadTuristica(deptoActividad1, nombActividad1, desActividad1, duraHsActividad1, costoActividad1, ciudadActividad1, nickProvAct1, fechaAct1, img, setString,"", estadoActividad.confirmada);
+			controladorActividad.altaActividadTuristica(deptoActividad2, nombActividad2, desActividad2, duraHsActividad2, costoActividad2, ciudadActividad2, nickProvAct2, fechaAct1, img, setString,"", estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad3, nombActividad3, desActividad3, duraHsActividad3, costoActividad3, ciudadActividad3, nickProvAct3, fechaAct1, img, setString,"", estadoActividad.confirmada);
+			controladorActividad.altaActividadTuristica(deptoActividad4, nombActividad4, desActividad4, duraHsActividad4, costoActividad4, ciudadActividad4, nickProvAct4, fechaAct1, img, setString,"", estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica(deptoActividad5, nombActividad5, desActividad5, duraHsActividad5, costoActividad5, ciudadActividad5, nickProvAct5, fechaAct1, img, setString,"", estadoActividad.confirmada);
+			controladorActividad.altaActividadTuristica(deptoActividad6, nombActividad6, desActividad6, duraHsActividad6, costoActividad6, ciudadActividad6, nickProvAct6, fechaAct1, img, setString,"", estadoActividad.confirmada);
+			controladorActividad.altaActividadTuristica(deptoActividad7, nombActividad7, desActividad7, duraHsActividad7, costoActividad7, ciudadActividad7, nickProvAct7, fechaAct1, img, setString,"", estadoActividad.confirmada);
+			controladorActividad.altaActividadTuristica(deptoActividad8, nombActividad8, desActividad8, duraHsActividad8, costoActividad8, ciudadActividad8, nickProvAct8, fechaAct1, img, setString,"", estadoActividad.confirmada);
+			
+			Set<DTActividad> lista1 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct1);
+			Set<DTActividad> lista2 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct2);
+			
+			
+			assertEquals(lista1.isEmpty(), false);
+			assertEquals(lista2.isEmpty(), false);
+			assertEquals(lista1.size(), 4);
+			assertEquals(lista2.size(), 2);
+			
+			controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, nombActividad2);
+			controladorActividad.cambiarEstadoActividad(estadoActividad.rechazada, nombActividad4);
+			
+			lista1 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct1);
+			lista2 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct2);
+			
+			assertEquals(lista1.isEmpty(), false);
+			assertEquals(lista2.isEmpty(), false);
+			assertEquals(lista1.size(), 4);
+			assertEquals(lista2.size(), 3);
+			
+			/*Doy de altas salidas*/
+			//actividad 1
+			String            nombreSal1 = "sal281";
+			GregorianCalendar     fecha1 = new GregorianCalendar(2000, 2, 2);
+			String                lugar1 = "lugar281";
+			int                    cant1 = 1;
+			GregorianCalendar fechaAlta1 = new GregorianCalendar(1999,2,2);
+			
+			String            nombreSal2 = "sal282";
+			GregorianCalendar     fecha2 = new GregorianCalendar(2023, 2, 2);
+			String                lugar2 = "lugar282";
+			int                    cant2 = 2;
+			GregorianCalendar fechaAlta2 = new GregorianCalendar(1999,2,2);
+			//actividad 2
+			String            nombreSal3 = "sal283";
+			GregorianCalendar     fecha3 = new GregorianCalendar(2023, 2, 2);
+			String                lugar3 = "lugar283";
+			int                    cant3 = 1;
+			GregorianCalendar fechaAlta3 = new GregorianCalendar(1999,2,2);
+			
+			String            nombreSal4 = "sal284";
+			GregorianCalendar     fecha4 = new GregorianCalendar(2023, 2, 2);
+			String                lugar4 = "lugar284";
+			int                    cant4 = 1;
+			GregorianCalendar fechaAlta4 = new GregorianCalendar(1999,2,2);
+			//actividad 3
+			String            nombreSal5 = "sal285";
+			GregorianCalendar     fecha5 = new GregorianCalendar(2000, 2, 2);
+			String                lugar5 = "lugar285";
+			int                    cant5 = 2;
+			GregorianCalendar fechaAlta5 = new GregorianCalendar(1999,2,2);
+			
+			String            nombreSal6 = "sal286";
+			GregorianCalendar     fecha6 = new GregorianCalendar(2000, 2, 2);
+			String                lugar6 = "lugar286";
+			int                    cant6 = 2;
+			GregorianCalendar fechaAlta6 = new GregorianCalendar(1999,2,2);
+			//actividad 5
+			String            nombreSal9 = "sal289";
+			GregorianCalendar     fecha9 = new GregorianCalendar(2000, 2, 2);
+			String                lugar9 = "lugar289";
+			int                    cant9 = 2;
+			GregorianCalendar fechaAlta9 = new GregorianCalendar(1999,2,2);
+			
+			String            nombreSal10 = "sal2810";
+			GregorianCalendar     fecha10 = new GregorianCalendar(2000, 2, 2);
+			String                lugar10 = "lugar2810";
+			int                    cant10 = 2;
+			GregorianCalendar fechaAlta10 = new GregorianCalendar(1999,2,2);
+			//actividad 6
+			String            nombreSal11 = "sal2811";
+			GregorianCalendar     fecha11 = new GregorianCalendar(2000, 2, 2);
+			String                lugar11 = "lugar2811";
+			int                    cant11 = 2;
+			GregorianCalendar fechaAlta11 = new GregorianCalendar(1999,2,2);
+			
+			String            nombreSal12 = "sal2812";
+			GregorianCalendar     fecha12 = new GregorianCalendar(2000, 2, 2);
+			String                lugar12 = "lugar2812";
+			int                    cant12 = 2;
+			GregorianCalendar fechaAlta12 = new GregorianCalendar(1999,2,2);
+			//actividad 7
+			String            nombreSal13 = "sal2813";
+			GregorianCalendar     fecha13 = new GregorianCalendar(2000, 2, 2);
+			String                lugar13 = "lugar2813";
+			int                    cant13 = 2;
+			GregorianCalendar fechaAlta13 = new GregorianCalendar(1999,2,2);
+			
+			String            nombreSal14 = "sal2814";
+			GregorianCalendar     fecha14 = new GregorianCalendar(2000, 2, 2);
+			String                lugar14 = "lugar2814";
+			int                    cant14 = 2;
+			GregorianCalendar fechaAlta14 = new GregorianCalendar(1999,2,2);
+			//actividad 8
+			String            nombreSal15 = "sal2815";
+			GregorianCalendar     fecha15 = new GregorianCalendar(2000, 2, 2);
+			String                lugar15 = "lugar2815";
+			int                    cant15 = 2;
+			GregorianCalendar fechaAlta15 = new GregorianCalendar(1999,2,2);
+			
+			String            nombreSal16 = "sal2816";
+			GregorianCalendar     fecha16 = new GregorianCalendar(2000, 2, 2);
+			String                lugar16 = "lugar2816";
+			int                    cant16 = 1;
+			GregorianCalendar fechaAlta16 = new GregorianCalendar(1999,2,2);
+			
+			controladorActividad.altaSalidaTuristica(nombreSal1, fecha1, lugar1, cant1, fechaAlta1, nombActividad1, img);
+			controladorActividad.altaSalidaTuristica(nombreSal2, fecha2, lugar2, cant2, fechaAlta2, nombActividad1, img);
+			
+			controladorActividad.altaSalidaTuristica(nombreSal3, fecha3, lugar3, cant3, fechaAlta3, nombActividad2, img);
+			controladorActividad.altaSalidaTuristica(nombreSal4, fecha4, lugar4, cant4, fechaAlta4, nombActividad2, img);
+			
+			controladorActividad.altaSalidaTuristica(nombreSal5, fecha5, lugar5, cant5, fechaAlta5, nombActividad3, img);
+			controladorActividad.altaSalidaTuristica(nombreSal6, fecha6, lugar6, cant6, fechaAlta6, nombActividad3, img);
+			
+			controladorActividad.altaSalidaTuristica(nombreSal9, fecha9, lugar9, cant9, fechaAlta9, nombActividad5, img);
+			controladorActividad.altaSalidaTuristica(nombreSal10, fecha10, lugar10, cant10, fechaAlta10, nombActividad5, img);
+		
+			controladorActividad.altaSalidaTuristica(nombreSal11, fecha11, lugar11, cant11, fechaAlta11, nombActividad6, img);
+			controladorActividad.altaSalidaTuristica(nombreSal12, fecha12, lugar12, cant12, fechaAlta12, nombActividad6, img);
+			
+			controladorActividad.altaSalidaTuristica(nombreSal13, fecha13, lugar13, cant13, fechaAlta13, nombActividad7, img);
+			controladorActividad.altaSalidaTuristica(nombreSal14, fecha14, lugar14, cant14, fechaAlta14, nombActividad7, img);
+			
+			controladorActividad.altaSalidaTuristica(nombreSal15, fecha15, lugar15, cant15, fechaAlta15, nombActividad8, img);
+			controladorActividad.altaSalidaTuristica(nombreSal16, fecha16, lugar16, cant16, fechaAlta16, nombActividad8, img);
+			
+			String turista1 = "manuT1";
+			String turista2 = "manuT2";
+			controladorUsuario.ingresarInscripcion(turista1, nombreSal5, 1, new GregorianCalendar(2000, 1, 1), tipoInscripcion.general, "");
+			controladorUsuario.ingresarInscripcion(turista2, nombreSal5, 1, new GregorianCalendar(2000, 1, 1), tipoInscripcion.general, "");
+			controladorUsuario.ingresarInscripcion(turista2, nombreSal11, 1, new GregorianCalendar(2000, 1, 1), tipoInscripcion.general, "");
+				
+			
+			
+			lista1 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct1);
+			lista2 = controladorActividad.listarActividadesSinSalidasVigentesNiPaquetes(nickProvAct2);
+			
+			assertEquals(lista1.isEmpty(), false);
+			assertEquals(lista2.isEmpty(), false);
+			assertEquals(lista1.size(), 3);
+			assertEquals(lista2.size(), 2);
+			
+			controladorActividad.finalizarActividad(nombActividad3);
+			controladorActividad.finalizarActividad(nombActividad5);
+			controladorActividad.finalizarActividad(nombActividad6);
+			controladorActividad.finalizarActividad(nombActividad7);
+			controladorActividad.finalizarActividad(nombActividad8);
+			
+			assertEquals(HandlerActividades.getInstance().existeActividad(nombActividad3), false);
+			assertEquals(HandlerActividades.getInstance().existeActividad(nombActividad5), false);
+			assertEquals(HandlerActividades.getInstance().existeActividad(nombActividad6), false);
+			assertEquals(HandlerActividades.getInstance().existeActividad(nombActividad7), false);
+			assertEquals(HandlerActividades.getInstance().existeActividad(nombActividad8), false);
+			
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal1), true);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal2), true);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal3), true);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal4), true);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal5), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal6), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal9), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal10), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal11), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal12), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal13), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal14), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal15), false);
+			assertEquals(HandlerSalidas.getInstance().existeSalida(nombreSal16), false);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Test
+	@Order(29)
+	void testGetInscrpicionesDeSalidasDeActividadesFinalizadas() {
+		String turista1 = "manuT1";
+		String turista2 = "manuT2";
+		
+		Set<InscripcionDao> list1 = controladorActividad.getInscripcionesDeSalidasDeActividadesFinalizadas(turista1);
+		Set<InscripcionDao> list2 = controladorActividad.getInscripcionesDeSalidasDeActividadesFinalizadas(turista2);
+		
+		assertEquals(list1.size(), 1);
+		assertEquals(list2.size(), 2);
+		
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Test
+	@Order(30)
+	void testGetActividadesFinalizadas() {
+		String nickProv1 = "manuP1";
+		String nickProv2 = "manuP2";
+		
+		Set<ActividadDao> lista1 = controladorActividad.getActividadesFinalizada(nickProv1);
+		Set<ActividadDao> lista2 = controladorActividad.getActividadesFinalizada(nickProv2);
+		
+		assertEquals(lista1.isEmpty(), false);
+		assertEquals(lista2.isEmpty(), false);
+		
+		ActividadDao act = controladorActividad.getActividadFinalizada("Act283");
+		
+		assertEquals(act.getNombre().equals("Act283"), true);
+		
+		SalidaDao sal = controladorActividad.getSalidaDeActividadFinalizada("sal285");
+		
+		assertEquals(sal.getNombre().equals("sal285"), true);
+		
+		Set<SalidaDao> sals = controladorActividad.getSalidasFinalizadas("Act283");
+		
+		assertEquals(sals.size(), 2);
+		
+	}
 	
 }
 

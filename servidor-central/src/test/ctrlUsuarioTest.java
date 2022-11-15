@@ -394,12 +394,12 @@ public class ctrlUsuarioTest {
 		try {
 			Set<String> setString = new HashSet<String>();
 
-			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null, "", setString, estadoActividad.agregada);
-			controladorActividad.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null, "", setString,  estadoActividad.agregada);
-			controladorActividad.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null, "", setString, estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 1", "act1 d", 2, 10, "Centro", "cris", null, "", setString,"", estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica("Canelones", "Actividad 2", "act2 d", 2, 10, "Paso palomeque", "cris", null, "", setString,"",  estadoActividad.agregada);
+			controladorActividad.altaActividadTuristica("Artigas", "Actividad 3", "act3 d", 2, 10, "Cerro Signorelli", "cris", null, "", setString,"", estadoActividad.agregada);
 			controladorActividad.altaActividadTuristica("Montevideo", "Actividad 4", "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
 					+ "descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga descripcion larga"
-					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null, "", setString,  estadoActividad.agregada);
+					+ "descripcion larga descripcion larga descripcion larga descripcion larga", 3, 420, "Centro", "cris", null, "", setString,"",  estadoActividad.agregada);
 			
 			controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, "Actividad 1");
 			controladorActividad.cambiarEstadoActividad(estadoActividad.confirmada, "Actividad 2");
@@ -633,7 +633,7 @@ public class ctrlUsuarioTest {
 		String nombreGenerico = "nombre";
 		String apellidoGenerico = "apellido";
 		GregorianCalendar fechaNacGenerica = new GregorianCalendar();
-		String imgPerfil = "media/imagenes/usrPerfil.png";
+		String imgPerfil = "usrPerfil.png";
 		String nacionalidad = "nacionalidad";
 		String pass = "pass";
 		
@@ -645,9 +645,9 @@ public class ctrlUsuarioTest {
 		String desc2 = "descripcion 2";
 		String desc3 = "descripcion 3";
 		
-		String img1 = "media/imagenes/paq1.png";
-		String img2 = "media/imagenes/paq2.png";
-		String img3 = "media/imagenes/paq3.png";
+		String img1 = "paq1.png";
+		String img2 = "paq2.png";
+		String img3 = "paq3.png";
 		
 		String act1 = "Actividad 1";
 		String act2 = "Actividad 2";
@@ -768,9 +768,9 @@ public class ctrlUsuarioTest {
 		assertEquals(usr2.getCompras().isEmpty(), false);
 		assertEquals(usr3.getCompras().isEmpty(), false);
 		
-		assertEquals(usr1.getImgDir(), "media/imagenes/usrPerfil.png");
-		assertEquals(usr2.getImgDir(), "media/imagenes/usrPerfil.png");
-		assertEquals(usr3.getImgDir(), "media/imagenes/usrPerfil.png");
+		assertEquals(usr1.getImgDir(), "imagen?usr=usrPerfil.png");
+		assertEquals(usr2.getImgDir(), "imagen?usr=usrPerfil.png");
+		assertEquals(usr3.getImgDir(), "imagen?usr=usrPerfil.png");
 		
 	}
 	
@@ -786,6 +786,36 @@ public class ctrlUsuarioTest {
 		assertEquals(dtc.getVigente(), true);
 		assertEquals(dtc.tieneActividad("Actividad 1"), false);
 		
+	}
+	
+	
+	@Test
+	@Order(19)
+	void testVerifiedUserPassword() throws YaExisteException {
+		
+		String turista1 = "TestCompraTurista1";
+		
+		Boolean val1 = controladorUsuario.verifiedUserPassword(turista1,"pass");
+		Boolean val2 = controladorUsuario.verifiedUserPassword(turista1,"contraMal");
+
+		assertEquals(val1, true);
+		assertEquals(val2, false);
+	}
+	
+	@Test
+	@Order(20)
+	void testVseguirUsuario() throws YaExisteException {
+		
+		String turista1 = "TestCompraTurista1";
+		String turista2 = "TestCompraTurista2";
+		
+
+		controladorUsuario.seguirUsuario(turista1,turista2);
+		controladorUsuario.seguirUsuario(turista2,turista1);
+		controladorUsuario.seguirUsuario(turista1,turista2);
+		
+		assertEquals(handlerU.getTuristaByNickname(turista1).tieneSeguidor(turista2), true);
+		assertEquals(handlerU.getTuristaByNickname(turista2).tieneSeguidor(turista1), false);
 	}
 	
 }

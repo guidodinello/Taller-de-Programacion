@@ -22,6 +22,10 @@ public class InscripcionSalida{
 		this.costo = costo;
 		this.tipo = tipo;
 	}
+	
+	public InscripcionSalida() {
+		
+	}
 
 	public int getCantTuristas() {
 		return cantTuristas;

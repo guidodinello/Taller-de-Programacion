@@ -3,6 +3,10 @@ package datatypes;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTPaquete {
 	private String nombre, descripcion, imgDir;
 	private int periodoValidez;
@@ -20,11 +24,15 @@ public class DTPaquete {
 		this.descuento = descuento;
 		this.fechaAlta = fechaAlta;
 		this.actividades = actividades;
-		this.imgDir = img;
+		this.imgDir = "imagen?paq=" +  img;
 		this.categorias = categorias;
 		this.costo = costo;
 	}
 
+	public DTPaquete() {
+		
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

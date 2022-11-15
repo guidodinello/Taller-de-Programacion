@@ -58,7 +58,6 @@ public class altaUsuario extends JInternalFrame {
 	private JTextField selectedDate;
 	private JTextField textFieldContrasena;
 	private JTextField textFieldConfirmacionContrasena;
-	private JTextField selectedImgPath;
 	
 	private JTextArea textFieldDescripcion;
 
@@ -319,8 +318,6 @@ public class altaUsuario extends JInternalFrame {
 		textFieldContrasena = new JTextField();
 		
 		textFieldConfirmacionContrasena = new JTextField();
-		
-		JPanel panel_img = new JPanel();
 		GroupLayout gl_container = new GroupLayout(container);
 		gl_container.setHorizontalGroup(
 			gl_container.createParallelGroup(Alignment.LEADING)
@@ -348,9 +345,7 @@ public class altaUsuario extends JInternalFrame {
 										.addComponent(textFieldApellido, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
 										.addComponent(textFieldConfirmacionContrasena, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE))
 									.addGap(18)
-									.addGroup(gl_container.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(panel_img, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(panel_fechaNac, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+									.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 472, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_container.createSequentialGroup()
 							.addGap(39)
@@ -394,24 +389,19 @@ public class altaUsuario extends JInternalFrame {
 								.addComponent(textFieldEmail, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(panel_fechaNac, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
 					.addGap(28)
-					.addGroup(gl_container.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_container.createSequentialGroup()
-							.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textFieldContrasena, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblContrasea))
-							.addGap(18)
-							.addGroup(gl_container.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblConfirmarContrasea, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldConfirmacionContrasena, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-							.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-								.addComponent(provBtn)
-								.addComponent(turBtn))
-							.addGap(18))
-						.addGroup(gl_container.createSequentialGroup()
-							.addComponent(panel_img, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textFieldContrasena, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblContrasea))
+					.addGap(18)
+					.addGroup(gl_container.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblConfirmarContrasea, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFieldConfirmacionContrasena, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+					.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblIngreseTipoUsuario, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(provBtn)
+						.addComponent(turBtn))
+					.addGap(18)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_container.createParallelGroup(Alignment.BASELINE)
@@ -419,61 +409,6 @@ public class altaUsuario extends JInternalFrame {
 						.addComponent(btnCancelar))
 					.addContainerGap())
 		);
-		
-		JButton btnAddImage = new JButton("<html><p>Agregar<br> Imagen</p></html>");
-		btnAddImage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
-				FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				        "Images", "jpg", "jpeg", "png", "bmp", "raw");
-				fileChooser.setFileFilter(filter);
-				int result = fileChooser.showOpenDialog(getParent());
-				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				 
-//			        try {
-//			        	FileInputStream fileStream = new FileInputStream(selectedFile);
-//				        // Now creating byte array of same length as file
-//				        imgArrBytes = new byte[(int)selectedFile.length()];
-//				        // Reading file content to byte array
-//				        // using standard read() method
-//						fileStream.read(imgArrBytes);
-//				        // lastly closing an instance of file input stream
-//				        // to avoid memory leakage
-//				        fileStream.close();
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-				    //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-				    selectedImgPath.setText(selectedFile.getName());
-				}
-			}
-		});
-		
-		selectedImgPath = new JTextField();
-		selectedImgPath.setHorizontalAlignment(SwingConstants.CENTER);
-		selectedImgPath.setEditable(false);
-		selectedImgPath.setColumns(10);
-		selectedImgPath.setBackground(new Color(200, 200, 200));
-		
-		GroupLayout gl_panel_img = new GroupLayout(panel_img);
-		gl_panel_img.setHorizontalGroup(
-			gl_panel_img.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_img.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(selectedImgPath, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addComponent(btnAddImage, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-		);
-		gl_panel_img.setVerticalGroup(
-			gl_panel_img.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_img.createSequentialGroup()
-					.addComponent(btnAddImage)
-					.addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-					.addComponent(selectedImgPath, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
-		panel_img.setLayout(gl_panel_img);
 		container.setLayout(gl_container);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -529,8 +464,8 @@ public class altaUsuario extends JInternalFrame {
 					tipo = tipoUsuario.turista;
 					nacionalidad = this.textFieldNacionalidad.getText();
 				}
-
-				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, selectedImgPath.getText(), tipo, nacionalidad, descripcion,
+				String img = "usuarioPerfil.png";
+				ctrlUsr.altaUsuario(nickname, email, nombre, apellido, pass, fechaNac, img, tipo, nacionalidad, descripcion,
 						sitioWeb);
 
 				JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
@@ -601,7 +536,6 @@ public class altaUsuario extends JInternalFrame {
 		textFieldContrasena.setText("");
 		textFieldConfirmacionContrasena.setText("");
 		selectedDate.setText("");
-		selectedImgPath.setText("");
 		
 		textFieldSitioWeb.setText("");
 		textFieldDescripcion.setText("");

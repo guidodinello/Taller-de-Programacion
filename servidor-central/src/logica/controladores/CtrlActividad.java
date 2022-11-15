@@ -1,5 +1,6 @@
 package logica.controladores;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -10,11 +11,21 @@ import datatypes.estadoActividad;
 
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 import excepciones.YaExisteException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import logica.clases.Departamento;
 import logica.clases.ActividadTuristica;
 import logica.clases.Categoria;
+import logica.clases.ContadorVisitas;
 import logica.clases.PaqueteTuristico;
 import logica.handlers.HandlerDepartamentos;
 import logica.handlers.HandlerPaquetes;
@@ -22,6 +33,14 @@ import logica.handlers.HandlerActividades;
 import logica.handlers.HandlerCategorias;
 import logica.interfaces.ICtrlActividad;
 import logica.clases.SalidaTuristica;
+import logica.clases.Turista;
+import logica.clases.Usuario;
+import logica.clases.dao.ActividadDao;
+import logica.clases.dao.InscripcionDao;
+import logica.clases.dao.ProveedorDao;
+import logica.clases.dao.SalidaDao;
+import logica.clases.dao.TuristaDao;
+import logica.clases.dao.UsuarioDao;
 import logica.clases.Proveedor;
 import logica.handlers.HandlerSalidas;
 import logica.handlers.HandlerUsuarios;
@@ -82,13 +101,27 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, estadoActividad estado) throws YaExisteException {
+	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, String url, estadoActividad estado) throws YaExisteException {
 		HandlerActividades handlerAct = HandlerActividades.getInstance();
+		
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+    EntityManager em = emf.createEntityManager();
+    Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.nombre = '" + nomActividad + "'");
+    
+    try {
+      ActividadDao result = (ActividadDao) query.getSingleResult();      
+      throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
+    } catch(NoResultException e) {
+    }
+    
+    em.close();
+    emf.close();
+    
 		if (handlerAct.existeActividad(nomActividad)){
 			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
 		}
 
-		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, imgDir, estado);
+		ActividadTuristica resu = new ActividadTuristica(nomActividad, desc, duraHs, costo, nombCiudad, fechaAlta, imgDir, url, estado);
 
 		HandlerDepartamentos handlerDpto = HandlerDepartamentos.getInstance();
 		handlerDpto.getDepto(nomDep).agregarActividad(resu);
@@ -200,7 +233,7 @@ public class CtrlActividad implements ICtrlActividad{
 			}
 		});
 		return resu;
-	}
+	} 
 	
 	public Set<String> listarCategorias(){
 		Set<String> resultado = new HashSet<String>();
@@ -228,14 +261,18 @@ public class CtrlActividad implements ICtrlActividad{
 		return res;
 	}
 	
-	public Set<DTActividad> getDTActividadesConfirmadas() {
-		Function<ActividadTuristica, DTActividad> dts = a -> { 
-		  return a.getDTActividad(); 
-		  };
-		Predicate<ActividadTuristica> confirmada = a -> { 
-		  return a.getEstado().equals(estadoActividad.confirmada); 
-		};                                                          
-		return filterActividades(dts, confirmada);
+  public Set<String> listarActividadesConfirmadas(){
+    return filterActividades(
+        a -> { return a.getNombre(); },
+        a -> { return a.getEstado().equals(estadoActividad.confirmada); }
+    ); 
+  }
+	
+	public Set<DTActividad> getDTActividadesConfirmadas() {                                    
+    return filterActividades(
+        a -> { return a.getDTActividad(); },
+        a -> { return a.getEstado().equals(estadoActividad.confirmada); }
+    );
 	}
 
     public Set<String> listarPaquetesCategoria(String categoria) {
@@ -249,5 +286,204 @@ public class CtrlActividad implements ICtrlActividad{
         }
         
         return res;
+    }
+    
+    public void leGusto(String nombreActividad, String nombreUsuario) {
+    	HandlerActividades hA = HandlerActividades.getInstance();
+    	ActividadTuristica act = hA.obtenerActividadTuristica(nombreActividad);
+    	
+    	if(!act.tieneFan(nombreUsuario)) {
+    		HandlerUsuarios hU = HandlerUsuarios.getInstance();
+    		Usuario fan = hU.getUsuarioByNickname(nombreUsuario);
+    		act.agregarFan(fan);
+    	}
+    	else
+    		act.eliminarFan(nombreUsuario);
+    }
+    
+    public Set<DTActividad> listarActividadesSinSalidasVigentesNiPaquetes(String nickProv){
+    	HandlerActividades hAct = HandlerActividades.getInstance();
+    	Set<ActividadTuristica> actividades = hAct.obtenerActividadesTuristicas();
+    	Set<DTActividad> resultado = new HashSet<DTActividad>();
+    	actividades.forEach(act ->{
+    		boolean cond1 = act.getEstado().equals(estadoActividad.confirmada);
+    		boolean cond2 = act.getInfoBasicaSalidasVigentes(new GregorianCalendar()).isEmpty();
+    		boolean cond3 = getInfoActividad(act.getNombre()).getPaquetes().isEmpty();
+    		boolean cond4 = act.getProveedor().equals(nickProv);
+     		if(cond1 && cond2 && cond3 && cond4) {
+    			resultado.add(act.getDTActividad());
+    		}
+    	});
+    	return resultado;
+    }
+    
+    public void finalizarActividad(String nombreActividad) {
+    	ActividadTuristica act = HandlerActividades.getInstance().obtenerActividadTuristica(nombreActividad);
+    	DTActividad dtAct = act.getDTActividad();
+    	ActividadDao actDao = new ActividadDao(dtAct);
+    	Set<SalidaTuristica> salidas = act.getSalidas();
+    	salidas.forEach((sal)->{
+    		if(sal != null) {
+        		SalidaDao salDao = new SalidaDao(sal);
+        		salDao.setActividad(actDao);
+        		
+        		Set<String> turistasSal = sal.getTuristasNicknameInscriptos();
+        		turistasSal.forEach((tur)->{
+        			Turista turInstancia = HandlerUsuarios.getInstance().getTuristaByNickname(tur);
+        			
+        			UsuarioDao usrTurDao = new UsuarioDao((Usuario) turInstancia);
+        			TuristaDao turDao = new TuristaDao(turInstancia);
+        			turDao.setUsuario(usrTurDao);
+        			
+        			InscripcionDao insDao = new InscripcionDao(turInstancia.getInfoInscripcion(sal.getNombre()));
+        			insDao.setTurista(turDao);
+        			insDao.setSalida(salDao);
+        			salDao.addIncripcion(insDao);
+        			turInstancia.eliminarIncripcionesDeActividad(nombreActividad);
+        		});
+        		actDao.addSalida(salDao);
+        		HandlerSalidas.getInstance().eliminarSalida(sal.getNombre());
+    		}
+
+    	});
+    	
+    	/*El proveedor*/
+    	Proveedor prov = HandlerUsuarios.getInstance().getProveedorByNickname(act.getProveedor());
+    	UsuarioDao usr = new UsuarioDao(prov);
+    	ProveedorDao provDao = new ProveedorDao(prov);
+    	provDao.setUsuario(usr);
+    	
+    	actDao.setProveedor(provDao);
+    	//provDao.addActividad(actDao);
+    	//guardar en la base de datos	
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+    	EntityManager eman = emf.createEntityManager();
+    		
+    	EntityTransaction trans = eman.getTransaction();
+    	trans.begin();
+    	eman.persist(actDao);
+    	trans.commit();
+    	eman.close();
+    	emf.close();
+    	
+    	
+    	/*Eliminar del programa las actividades*/
+    	HandlerCategorias hCat = HandlerCategorias.getInstance();
+    	Set<Categoria> categorias = hCat.obtenerCategorias();
+    	categorias.forEach((cat)->{
+    		cat.eliminarAcividad(nombreActividad);
+    	});
+    	HandlerDepartamentos hDep = HandlerDepartamentos.getInstance();
+    	Set<Departamento> departamentos = hDep.obtenerDepartamentos();
+    	departamentos.forEach((dep)->{
+    		dep.eliminarActividad(nombreActividad);
+    	});
+    	
+    	prov.eliminarActividad(nombreActividad);
+    	
+    	Set<SalidaTuristica> salidasParaEliminar = act.getSalidas();
+    	HandlerSalidas hSal = HandlerSalidas.getInstance();
+    	for(SalidaTuristica salt: salidasParaEliminar) {
+    		hSal.eliminarSalida(salt.getNombre());
+    	}
+    	
+    	HandlerActividades hAct = HandlerActividades.getInstance();
+    	hAct.eliminarActividad(nombreActividad);
+    };
+    
+    public Set<ActividadDao> getActividadesFinalizada(String proveedor) {
+    	Set<ActividadDao> resultado = new HashSet<ActividadDao>();
+    	
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.id_proveedor.usuarioId.nickname = '" + proveedor + "'");
+  		List<ActividadDao> result = (List<ActividadDao>) query.getResultList();
+  		for (ActividadDao dao : result) {
+  		  resultado.add(dao);
+  		}
+  		em.close();
+		  emf.close();
+    	return resultado;
+    }
+    
+    public Set<SalidaDao> getSalidasFinalizadas(String nombreAct) {
+    	Set<SalidaDao> resultado = new HashSet<SalidaDao>();
+    	
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT sal FROM SalidaDao sal WHERE sal.actividad.nombre = '" + nombreAct + "'");
+  		List<SalidaDao> result = (List<SalidaDao>) query.getResultList();
+  		for (SalidaDao dao : result) {
+  		  resultado.add(dao);
+  		}
+  		em.close();
+		  emf.close();
+    	return resultado;
+    }
+    
+    public ActividadDao getActividadFinalizada(String nombreActividad) {
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.nombre = '" + nombreActividad + "'");
+  		ActividadDao result = (ActividadDao) query.getSingleResult();
+  		em.close();
+		  emf.close();
+    	return result;
+    }
+    
+    public SalidaDao getSalidaDeActividadFinalizada(String nombreSalida) {
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT sal FROM SalidaDao sal WHERE sal.nombre = '" + nombreSalida + "'");
+  		SalidaDao result = (SalidaDao) query.getSingleResult();
+  		em.close();
+		  emf.close();
+    	return result;
+    }
+
+    public Set<InscripcionDao> getInscripcionesDeSalidasDeActividadesFinalizadas(String turista) {
+    	Set<InscripcionDao> resultado = new HashSet<InscripcionDao>();
+    	
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+  		EntityManager em = emf.createEntityManager();
+  		Query query = em.createQuery("SELECT insc FROM InscripcionDao insc WHERE insc.turistaId.usuarioId.nickname = '" + turista + "'");
+  		List<InscripcionDao> inscripciones = (List<InscripcionDao>) query.getResultList();
+  		for (InscripcionDao dao : inscripciones) {
+  		  resultado.add(dao);
+  		}
+  		em.close();
+		  emf.close();
+    	return resultado;
+    }
+    
+    public Set<DTActividad> infoBusquedaActividades(String busqueda){
+    	Set<DTActividad> dtActs = new HashSet<DTActividad>();
+    	HandlerActividades hA = HandlerActividades.getInstance();
+    	for(ActividadTuristica actual: hA.obtenerActividadesTuristicas())
+    		if(actual.getEstado() == estadoActividad.confirmada && (actual.getDescripcion().toLowerCase().contains(busqueda.toLowerCase()) || actual.getNombre().toLowerCase().contains(busqueda.toLowerCase())))
+    			dtActs.add(actual.getDTActividad());
+    	return dtActs;
+    }
+    
+    public Set<DTPaquete> infoBusquedaPaquetes(String busqueda){
+    	Set<DTPaquete> dtPaqs = new HashSet<DTPaquete>();
+    	HandlerPaquetes hP = HandlerPaquetes.getInstance();
+    	DTPaquete actual;
+    	for(PaqueteTuristico paq: hP.getPaquetes()) {
+    		actual = paq.getDTPaquete();
+    		if(!actual.getActividades().isEmpty() && (actual.getDescripcion().toLowerCase().contains(busqueda.toLowerCase())||actual.getNombre().toLowerCase().contains(busqueda.toLowerCase())))
+    			dtPaqs.add(actual);
+    	}
+    	return dtPaqs;
+    }
+    
+    public void agregarVisita(String nombre, boolean esActividad) {
+    	ContadorVisitas cV = ContadorVisitas.getInstance();
+    	cV.agregar(nombre, esActividad);
+    }
+    
+    public Map<String, Integer> listarTop10Visitados(){
+    	ContadorVisitas cV = ContadorVisitas.getInstance();
+    	return cV.getTop10();
     }
 }

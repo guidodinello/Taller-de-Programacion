@@ -1,8 +1,8 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
-<%@page import="model.datatypes.DTUsuario"%>
+<%@page import="webservices.DtUsuario"%>
 
 <%
-	DTUsuario usr = (DTUsuario) session.getAttribute("usuario_logueado");
+	DtUsuario usr = (DtUsuario) session.getAttribute("usuario_logueado");
 	if (usr == null) {
 	%>
 		<div class="footer row">

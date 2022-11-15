@@ -561,7 +561,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 				});
 			}else {
 				seteandoDatosIniciales = true;
-				DTActividad noTiene = new DTActividad("No tiene actividades", "", "" , "", null, 0, 0, null, null, "", estadoActividad.agregada);
+				DTActividad noTiene = new DTActividad("No tiene actividades", "", "" , "", null, 0, 0, null, null, "", estadoActividad.agregada, null, "");
 				ComboBoxActividadesProveedor.addItem(noTiene);
 				seteandoDatosIniciales = false;
 				seteandoDatosIniciales = true;
@@ -667,7 +667,6 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		String nombreDepartamento = ComboBoxActividadesProveedor.getItemAt(ComboBoxActividadesProveedor.getSelectedIndex()).getDepartamento();
 		String nombreSalida = (String) ComboBoxSalidasDeActividadesDelProveedor.getSelectedItem();
 		nombreSalida = nombreSalida.substring(8);
-		System.out.println(nombreSalida);
 		ventanaConsultaSalida.datosQueVienenDesdeOtroCasoDeUso(nombreDepartamento, nombreActividad, nombreSalida);
 
 	}

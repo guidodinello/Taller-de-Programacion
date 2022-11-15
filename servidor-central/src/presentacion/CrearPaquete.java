@@ -217,7 +217,7 @@ public class CrearPaquete extends JInternalFrame{
 			int periodoValidez = Integer.valueOf(textFieldPeriodoValidez.getText());
 			float descuento = Float.valueOf(textFieldDescuento.getText());
 			
-			String imagen = ""; // TODO hacer la carga del path proxima tarea
+			String imagen = "paqDefault.jpg"; 
 			
 			try {
 				controlAct.crearPaquete(nombre, descripcion, periodoValidez, descuento, fechaPaquete, imagen);

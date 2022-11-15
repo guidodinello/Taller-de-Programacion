@@ -1,6 +1,8 @@
 <%@page contentType = "text/html" pageEncoding = "UTF-8"%>
 <%@page import="servlets.altaActividad" %>
 <%@page import="java.util.Set"%>
+<%@page import="java.util.List"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -34,9 +36,9 @@
 		}
 		%>
 		
-		<% 
-		Set<String> deptos = (Set<String>) request.getAttribute("listaDepartamentos"); 
-		Set<String> cates = (Set<String>) request.getAttribute("listaCategorias");
+		<%
+		List<String> deptos = (List<String>)request.getAttribute("listaDepartamentos");
+		List<String> cates = (List<String>)request.getAttribute("listaCategorias");
 		%>
 		
 		<div class="row mt-5 mt-lg-0" style="padding-top: 10%; max-width: 1600px; padding-left: 5%; padding-right: 5%;">
@@ -113,6 +115,11 @@
 	                      		<div id="CiudadAltaActTextNullValidate" class="invalid-feedback">
 	                         		El campo Ciudad es obligatorio.
 	                      		</div>
+							</div>
+							
+							<div class="mb-4 text-start" id="CiudadAltaActDiv">
+								<label for="URLvideo" class = "form-label" id="URLvideoLabel">URL de video</label>
+								<input type="text" name="URLvideo" id="URLvideoText" value="" placeholder="Ingrese un URL de video" class ="form-control" aria-describedby="CiudadAltaActTextNullValidate" required>
 							</div>
 							
 							<div class="row g-3 align-items-center">

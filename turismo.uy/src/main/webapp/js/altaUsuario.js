@@ -3,6 +3,8 @@
 $("#NacionalidadRegistroDiv").hide();
 $("#DescripcionRegistroDiv").hide();
 $("#SitioWebRegistroDiv").hide();
+$("#DivAjaxUsuarioYaExiste").hide();
+$("#DivAjaxUsuarioYaExisteEmail").hide();
 
 /*Cuando selecciona un tipo de usuario*/
 $("#TipoUsuarioRegistroOption").on("mouseup", function(){
@@ -129,6 +131,57 @@ const formularioValidado = () => {
     return  nick && nomb && apel && email && fNac && contrasenia && campoExtra;
     
 }
+
+const sugerirNick = () =>{
+	let numeroAleatorio = Math.floor(Math.random() * 1000);
+	let resultado =  $("#NicknameRegistroText").val() + numeroAleatorio.toString();
+	$.ajax({
+  			method: "GET",
+  			url: "altaUsuario",
+  			data: {existe:$("#NicknameRegistroText").val() + numeroAleatorio.toString()},
+	}).fail(function(){
+		sugerirNick();
+	})
+	return resultado;
+}
+
+$("#NicknameRegistroText").on("keyup", async function(){
+	$.ajax({
+  		method: "GET",
+  		url: "altaUsuario",
+  		data: {existe:$("#NicknameRegistroText").val()},
+	}).fail(function( jqXHR, textStatus ) {
+  		$("#DivAjaxUsuarioYaExiste").show();
+  		$(`#NicknameRegistroDiv`).removeClass("mb-4");
+        $(`#NicknameRegistroDiv`).addClass("mb-0");
+  		$("#spanNicknameYaExisteAjax").text($("#NicknameRegistroText").val());
+  		
+  		$("#spanNicknameSugerencia").text(sugerirNick());
+  		
+	}).done(function( jqXHR, textStatus ) {
+  		$("#DivAjaxUsuarioYaExiste").hide();
+  		$(`#NicknameRegistroDiv`).addClass("mb-4");
+        $(`#NicknameRegistroDiv`).removeClass("mb-0");
+	})
+})
+
+$("#EmailRegistroText").on("keyup", async function(){
+	$.ajax({
+  		method: "GET",
+  		url: "altaUsuario",
+  		data: {existeEmail:$("#EmailRegistroText").val()},
+	}).fail(function( jqXHR, textStatus ) {
+  		$("#DivAjaxUsuarioYaExisteEmail").show();
+  		$(`#EmailRegistroDiv`).removeClass("mb-4");
+        $(`#EmailRegistroDiv`).addClass("mb-0");
+  		$("#spanEmailYaExisteAjax").text($("#EmailRegistroText").val());
+  		
+	}).done(function( jqXHR, textStatus ) {
+  		$("#DivAjaxUsuarioYaExisteEmail").hide();
+  		$(`#EmailRegistroDiv`).addClass("mb-4");
+        $(`#EmailRegistroDiv`).removeClass("mb-0");
+	})
+})
 
 /*Comportamiento de boton sumbit cuando no tiene todo lo requerido*/
 $("#btnRgistrarse").on("click", async function(e){

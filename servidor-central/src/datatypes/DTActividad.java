@@ -1,9 +1,15 @@
 package datatypes;
 
 import java.util.Set;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import logica.clases.dao.ActividadDao;
+
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DTActividad {
 	
 	private String nombre;
@@ -18,10 +24,19 @@ public class DTActividad {
 	private Set<String> salidas;
 	private Set<String> paquetes;
 	private estadoActividad estado;
-	
+	private Set<String> likedBy;
+	private String url;
 
+	public DTActividad(ActividadDao adao) {
+	  nombre = adao.getNombre();
+	  descripcion = adao.getDescripcion();
+	  estado = adao.getEstado();
+	  fechaAlta = adao.getFechaAlta();
+	  nombreCiudad = adao.getCiudad();
+	  costo = adao.getCosto();
+	}
 	
-	public DTActividad(String nombre, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado) {
+	public DTActividad(String nombre, String des, String departamento, String nombCiudad , GregorianCalendar fechaAlta, int dura, float costo, Set<String> salidas, Set<String> nombCat, String imgDir, estadoActividad estado, Set<String> likedBy, String url) {
 		this.nombre = nombre;
 		this.descripcion = des;
 		this.departamento = departamento;
@@ -33,9 +48,15 @@ public class DTActividad {
 		this.salidas = salidas;
 		this.estado = estado;
 		paquetes = new HashSet<String>();
-		this.imgDir = imgDir;
+		this.imgDir = "imagen?act=" + imgDir;
+		this.likedBy = likedBy;
+		this.url = url;
 	}
 
+	public DTActividad() {
+		
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -57,6 +78,8 @@ public class DTActividad {
 	}
 	
 	public Set<String> getSalidas() {
+	  if (salidas == null)
+	    return new HashSet<String>();
 		return salidas;
 	}
 	
@@ -95,6 +118,10 @@ public class DTActividad {
 		return nombreCiudad;
 	}
 	
+	public Set<String> getLikedBy(){
+		return likedBy;
+	}
+	
 	public void setPaquetes(Set<String> paquetes) {
 		this.paquetes = paquetes;
 	}
@@ -103,7 +130,9 @@ public class DTActividad {
 		return "Nombre: " + getNombre();
 	}
 
-
+	public String getUrl() {
+		return url;
+	}
 
 	
 }

@@ -1,5 +1,13 @@
 package presentacion;
 
+import logica.clases.ActividadTuristica;
+import logica.clases.Proveedor;
+import logica.clases.dao.ActividadDao;
+import logica.clases.dao.ProveedorDao;
+import logica.clases.dao.SalidaDao;
+import logica.clases.dao.InscripcionDao;
+import logica.handlers.HandlerActividades;
+import logica.handlers.HandlerUsuarios;
 import logica.interfaces.Fabrica;
 
 import java.awt.EventQueue;
@@ -7,13 +15,23 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import datatypes.estadoActividad;
 import datosdeprueba.CargarDatosDePrueba;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import webservices.WebServices;
 
 //import logica.*;
 //import presentacion.*;
 import javax.swing.JMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Set;
+
 //import logica.controladores.*;
 import logica.interfaces.ICtrlActividad;
 import logica.interfaces.ICtrlUsuario;
@@ -45,6 +63,9 @@ public class Principal {
 	private AgregarActividadAPaquete agregarActividadPaquete;
 	private ConsultaPaquete consultarPaquete;
 	private aceptarRechazarActividad aceptarRechazarActividad;
+	private ListarTop10 listarTop10;
+	
+	private WebServices webService = new WebServices();
 
 	private boolean yaSeCargaronLosDatosDePrueba;
 
@@ -52,9 +73,9 @@ public class Principal {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-
 				Principal window = new Principal();
 				window.frmGestionDeTurismoUy.setVisible(true);
 
@@ -119,7 +140,7 @@ public class Principal {
 
 		consultaActividadInternalFrame = new ConsultaDeActividadTuristica(ICA);
 		consultaActividadInternalFrame.setSize(510, 462);
-		consultaActividadInternalFrame.setLocation(110, 11);
+		consultaActividadInternalFrame.setLocation(87, 30);
 		consultaActividadInternalFrame.setVisible(false);
 		frmGestionDeTurismoUy.getContentPane().add(consultaActividadInternalFrame);
 
@@ -134,13 +155,18 @@ public class Principal {
 		frmGestionDeTurismoUy.getContentPane().add(agregarActividadPaquete);
 
 		consultarPaquete = new ConsultaPaquete(ICA);
-		consultarPaquete.setBounds(12, 6, 503, 365);
+		consultarPaquete.setBounds(22, 29, 503, 365);
 		consultarPaquete.setVisible(false);
 		frmGestionDeTurismoUy.getContentPane().add(consultarPaquete);
 
 		actualizarUsuario = new ActualizarUsuario(ICU);
 		actualizarUsuario.setVisible(false);
 		frmGestionDeTurismoUy.getContentPane().add(actualizarUsuario);
+		
+		listarTop10 = new ListarTop10(ICA);
+		listarTop10.setBounds(68, 11, 490, 251);
+		listarTop10.setVisible(false);
+		frmGestionDeTurismoUy.getContentPane().add(listarTop10);
 
 		// Esto tiene que ir al final de todo
 		consultaActividadInternalFrame.cargarVentanasConsulta(consultaDeSalida, consultarPaquete);
@@ -191,6 +217,23 @@ public class Principal {
 			}
 		});
 		menuSistema.add(menuCargarDatos);
+		
+    JMenuItem publicar = new JMenuItem("Publicar WS");
+    publicar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        webService.publicar();
+      }
+    });
+    menuSistema.add(publicar);
+    
+    JMenuItem despublicar = new JMenuItem("Despublicar WS");
+    despublicar.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        webService.despublicar();
+      }
+    });
+    menuSistema.add(despublicar);
+
 
 		// -----------MENU USUARIO-----------
 
@@ -265,6 +308,14 @@ public class Principal {
 		});
 		menuActividades.add(menuItemConsultaActividadTuristica);
 
+		JMenuItem menuItemListarTop10 = new JMenuItem("Listar Top 10 visitadas");
+		menuItemListarTop10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listarTop10.cargarInformacion();
+				listarTop10.setVisible(true);
+			}
+		});
+		menuActividades.add(menuItemListarTop10);
 		
 		// -----------MENU SALIDAS-----------
 		JMenu menuSalidas = new JMenu("Salidas");

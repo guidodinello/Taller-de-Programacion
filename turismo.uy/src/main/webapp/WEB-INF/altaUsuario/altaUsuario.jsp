@@ -48,6 +48,11 @@
 	                      <div id="NicknameRegistroTextNullValidate" class="invalid-feedback">
 	                          El campo Nickname es obligatorio.
 	                      </div>
+	                      <div id="DivAjaxUsuarioYaExiste">
+	                      	<i class="fa-solid fa-triangle-exclamation"></i>
+	                      	El usuario con el nickname <span id="spanNicknameYaExisteAjax"></span> ya existe.
+	                      	Sugerencias: <span id="spanNicknameSugerencia"></span>
+	                      </div>
 	                  </div>
 	                  
 	                  <div class="mb-4 text-start" id="NombreRegistroDiv">
@@ -71,6 +76,10 @@
 	                      <input type="email" name="Email" id="EmailRegistroText" placeholder="Ingrese un email" class ="form-control" aria-describedby="EmailRegistroTextNullValidate" required>
 	                      <div id="EmailRegistroTextNullValidate" class="invalid-feedback">
 	                          El campo Email es obligatorio.
+	                      </div>
+	                      <div id="DivAjaxUsuarioYaExisteEmail">
+	                      		<i class="fa-solid fa-triangle-exclamation"></i>
+	                      		El usuario con el email <span id="spanEmailYaExisteAjax"></span> ya existe.
 	                      </div>
 	                  </div>
 	            
