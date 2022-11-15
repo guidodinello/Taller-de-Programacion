@@ -857,7 +857,7 @@
 																	aria-describedby="disabled"
 																	placeholder=
 																	<%= 
-										new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaAlta().toGregorianCalendar().getTime())
+										new SimpleDateFormat("dd/MM/yyyy").format(ad.getFechaBaja().toGregorianCalendar().getTime())
 									%>>
 															</div>
 	
@@ -1154,10 +1154,9 @@
 															salidas.add(s);
 														}
 													} else {
-														Set<DtActividad> actividades = new HashSet<DtActividad>();
-														DtActividadArray activ = port.listarInfoCompletaActividadesProveedor(Usr.getNickname());
-														List <DtActividad> actList = activ.getItem();
-														for (DtActividad nomb : actividades) {
+														
+														List<DtActividad> activ = port.listarInfoCompletaActividadesProveedor(Usr.getNickname()).getItem();
+														for (DtActividad nomb : activ) {
 															for (String sal : nomb.getSalidas()) {
 																salidas.add(port.getInfoCompletaSalida(sal));
 															}
