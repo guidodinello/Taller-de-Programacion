@@ -23,18 +23,18 @@ $("#followButton").on("click", async function(){
   			newFollower: newFollowerVal
   		},
 	}).done(function( jqXHR, textStatus ) {
-		if (isAFollower) {
+		if (isAFollower == "true") {
 			$("#followIcon").removeClass("fa-check");
 	  		$("#followIcon").addClass("fa-plus");
 	  		cantSeguidoresSpan.innerText =  parseInt(cantSeguidoresSpan.innerText) - 1;
 	  		console.log(cantSeguidoresSpan.innerText);
-	  		isAFollower = null;
+	  		isAFollower = "false";
 		} else {
 	  		$("#followIcon").removeClass("fa-plus");
 	  		$("#followIcon").addClass("fa-check");
 	  		cantSeguidoresSpan.innerText =  parseInt(cantSeguidoresSpan.innerText) + 1;
-	  			  		console.log(cantSeguidoresSpan.innerText);
-	  		isAFollower = true;
+	  		console.log(cantSeguidoresSpan.innerText);
+	  		isAFollower = "true";
   		}
 	})
 })
