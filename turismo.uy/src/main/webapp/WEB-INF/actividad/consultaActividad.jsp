@@ -153,7 +153,7 @@
 			</div>
 			
 			<div>
-				<iframe src="<%=actividad.getUrl()%>" title="Video de la actividad<%=actividad.getNombre()%>"></iframe>
+				<iframe class="iframeAct" src="<%=actividad.getUrl()%>" title="Video de la actividad<%=actividad.getNombre()%>"></iframe>
 			</div>
 			
 		</div>

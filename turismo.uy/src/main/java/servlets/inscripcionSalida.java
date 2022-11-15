@@ -173,8 +173,7 @@ public class inscripcionSalida extends HttpServlet {
             }
             DtUsuario usuario = port.getUsuarioByNickName(turista.getNickname());
             session.setAttribute("usuario_logueado", usuario);
-            request.setAttribute("exito", "Te has inscripto con exito a la salida "+ sal);
-            request.getRequestDispatcher("/index").forward(request, response);
+            response.sendRedirect("index?exito=La inscripción se ha realizado con éxito");
         } catch(Exception e) {
             e.printStackTrace();
             request.setAttribute("InscriptionFailedError", e.getMessage());

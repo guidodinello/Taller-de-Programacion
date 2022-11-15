@@ -53,11 +53,12 @@ crossorigin="anonymous"></script>
 			while (itr.hasNext()) {
 			  DtActividad act = itr.next();
 			%>
-			<a class="text-decoration-none" href="consultaActividad?nombreAct=<%=act.getNombre()%>"></a>
+			
 			<div
 				class="card mb-3 rounded-3 bg-image shadow-1-strong hover card-backgroundImg"
 				style="background-image: url('<%=act.getImgDir()%>');">
 				<div class="row g-0 mask card-color">
+				<a class="text-decoration-none" href="consultaActividad?nombreAct=<%=act.getNombre()%>">
 					<div class="col-md-4 align-self-center">
 						
 							<img src="<%=act.getImgDir() %>"
@@ -65,6 +66,7 @@ crossorigin="anonymous"></script>
 								alt="actividad Turistica: <%=act.getNombre()%>">
 						
 					</div>
+					</a>
 						<div class="col-md-8">
 							<div class="card-body text-white">
 								<h5 class="card-title"><%=act.getNombre()%></h5>
@@ -119,6 +121,7 @@ crossorigin="anonymous"></script>
 						</div>
 					</div>
 				</div>
+				
 			<%
 			}
 			%>
