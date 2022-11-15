@@ -18,6 +18,7 @@ import excepciones.YaExisteException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -102,6 +103,21 @@ public class CtrlActividad implements ICtrlActividad{
 	
 	public void altaActividadTuristica(String nomDep, String nomActividad, String desc, int duraHs, float costo, String nombCiudad, String nickProv, GregorianCalendar fechaAlta, String imgDir, Set<String> categorias, String url, estadoActividad estado) throws YaExisteException {
 		HandlerActividades handlerAct = HandlerActividades.getInstance();
+		
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Test");
+    EntityManager em = emf.createEntityManager();
+    Query query = em.createQuery("SELECT act FROM ActividadDao act WHERE act.nombre = '" + nomActividad + "'");
+    
+    try {
+      ActividadDao result = (ActividadDao) query.getSingleResult();      
+      throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
+    } catch(NoResultException e) {
+      e.printStackTrace();
+    }
+    
+    em.close();
+    emf.close();
+    
 		if (handlerAct.existeActividad(nomActividad)){
 			throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
 		}
