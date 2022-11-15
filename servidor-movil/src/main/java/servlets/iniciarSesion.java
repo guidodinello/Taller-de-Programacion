@@ -41,16 +41,18 @@ public class iniciarSesion extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException ,IOException {
 		
 		//Vienen de un form con method=POST desde iniciarSesion.jsp
-		String nickOrEmail = request.getParameter("nick-or-email");
-		String pass = request.getParameter("password");
-		
+		String nickOrEmail = (String)request.getParameter("nick-or-email");
+		String pass = (String)request.getParameter("password");
+
 		// validacion en la logica
 		
-		DtUsuario usr = port.getUsuarioByEmail(nickOrEmail);
-		if (usr == null)
-			usr = port.getUsuarioByNickName(nickOrEmail);
+    DtUsuario usr = null;
+    if (port.existeUsuarioConNickname(nickOrEmail))
+      usr = port.getUsuarioByNickName(nickOrEmail);
+    else if (port.existeUsuarioEmail(nickOrEmail))
+			usr = port.getUsuarioByEmail(nickOrEmail);
 		
-		if (usr == null|| !(usr instanceof DtTurista) || !(port.verifiedUserPassword(usr.getNickname(), pass))) {
+		if (usr == null || !(usr instanceof DtTurista) || !(port.verifiedUserPassword(usr.getNickname(), pass))) {
 			// Controlar en JSP y dar aviso de intento invalido
 			request.setAttribute("invalid_attempt", true);
 		

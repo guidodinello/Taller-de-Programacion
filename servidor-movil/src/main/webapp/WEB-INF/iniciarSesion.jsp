@@ -18,18 +18,18 @@
           class="img-fluid rounded" alt="Phone image">
       </div>
       <div class="col-md-7 mt-5 col-lg-5 col-xl-5 offset-xl-1">
-        <form id="form_ajax_validate" method="POST" action="iniciarSesion">
+        <form id="formularioInicioSesion" method="POST" action="iniciarSesion" class="needs-validation" no-validate>
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="text" class="form-control form-control-lg"name="nick-or-email"
-									id="NicknameOEmailIniciarSesionText" />
+            <input type="text" class="form-control form-control-lg" name="nick-or-email"
+									id="NicknameOEmailIniciarSesionText" required/>
             <label class="form-label" for="form1Example13">Email o Nickname</label>
           </div>
 
           <!-- Password input -->
           <div class="form-outline mb-4">
             <input class="form-control form-control-lg"  type="password" class="input" name="password"
-									id="ContraseniaIniciarSesionText"/>
+									id="ContraseniaIniciarSesionText" required/>
             <label class="form-label" for="form1Example23">Contrase�a</label>
           </div>
 

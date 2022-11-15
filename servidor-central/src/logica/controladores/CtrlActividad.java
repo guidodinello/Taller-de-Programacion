@@ -112,7 +112,6 @@ public class CtrlActividad implements ICtrlActividad{
       ActividadDao result = (ActividadDao) query.getSingleResult();      
       throw new YaExisteException("Ya existe una actividad turistica " + nomActividad + " registrada.");
     } catch(NoResultException e) {
-      e.printStackTrace();
     }
     
     em.close();

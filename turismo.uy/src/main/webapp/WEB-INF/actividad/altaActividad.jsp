@@ -117,6 +117,11 @@
 	                      		</div>
 							</div>
 							
+							<div class="mb-4 text-start" id="CiudadAltaActDiv">
+								<label for="URLvideo" class = "form-label" id="URLvideoLabel">URL de video</label>
+								<input type="text" name="URLvideo" id="URLvideoText" value="" placeholder="Ingrese un URL de video" class ="form-control" aria-describedby="CiudadAltaActTextNullValidate" required>
+							</div>
+							
 							<div class="row g-3 align-items-center">
 	                      		<div class="col-auto">
 	                          		<label for="ImagenActividad" class ="form-label">Subir imagen de actividad</label>
