@@ -44,9 +44,11 @@ public class iniciarSesion extends HttpServlet {
 		
 		// validacion en la logica
 		
-		DtUsuario usr = port.getUsuarioByEmail(nickOrEmail);
-		if (usr == null)
-			usr = port.getUsuarioByNickName(nickOrEmail);
+	    DtUsuario usr = null;
+	    if (port.existeUsuarioConNickname(nickOrEmail))
+	      usr = port.getUsuarioByNickName(nickOrEmail);
+	    else if (port.existeUsuarioEmail(nickOrEmail))
+	            usr = port.getUsuarioByEmail(nickOrEmail);
 		
 		if (usr == null || !(port.verifiedUserPassword(usr.getNickname(), pass))) {
 			request.setAttribute("invalid_attempt", true);

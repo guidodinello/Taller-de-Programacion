@@ -64,6 +64,14 @@ public class HandlerUsuarios {
 		return usuarios.get(nick);
 	}
 	
+	 //tira null si no existe
+  public Usuario getUsuarioByEmail(String email){
+    Usuario usr = proveedores.get(email);
+    if (usr == null)
+       usr = turistas.get(email);
+    return usr;
+  }
+	
 	public Proveedor getProveedorByNickname(String nick) {
 		return (Proveedor) usuarios.get(nick);
 	}
@@ -94,4 +102,7 @@ public class HandlerUsuarios {
 	public boolean existeUsuarioConEmail(String email) {
 		return turistas.containsKey(email) || proveedores.containsKey(email);
 	}
+	public boolean existeUsuarioConNickname(String nick) {
+    return usuarios.containsKey(nick);
+  }
 }

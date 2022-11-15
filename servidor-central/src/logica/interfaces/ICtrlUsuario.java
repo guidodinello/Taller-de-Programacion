@@ -33,4 +33,6 @@ public interface ICtrlUsuario {
 	public abstract boolean verifiedUserPassword(String nick, String pass);
 	public abstract void seguirUsuario(String nickSeguidor, String nickSeguido);
 	public abstract byte[] obtenerComprobanteInscripcion(String usuario, String salida) throws DocumentException, IOException;
+  public boolean existeUsuarioConEmail(String email);
+  public boolean existeUsuarioConNickname(String nick);
 }

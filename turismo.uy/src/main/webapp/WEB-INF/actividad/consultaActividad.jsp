@@ -87,7 +87,6 @@
 							</div>
 						</fieldset>
 						
-						
 						<fieldset disabled>
 							<div class="row g-3 align-items-center pt-3">
 								<div class="col-auto">
@@ -150,10 +149,15 @@
 				
 		  			</form>
 				</div>
+				
+				
 			</div>
 			
-			<div>
-				<iframe class="iframeAct" src="<%=actividad.getUrl()%>" title="Video de la actividad<%=actividad.getNombre()%>"></iframe>
+			
+			<div style="margin-top: 80px" id="videoDiv">
+				<iframe id="video" width="100%" height="400px"
+					src="<%= actividad.getUrl() %>">
+				</iframe>
 			</div>
 			
 		</div>

@@ -496,4 +496,14 @@ public class WebServices {
     public SalidaDao getSalidaDeActividadFinalizada(String nombreSalida) {
     	return ctrlAct.getSalidaDeActividadFinalizada(nombreSalida);
     }
+    
+    @WebMethod
+    public boolean existeUsuarioConEmail(String email) {
+      return ctrlUsr.existeUsuarioConEmail(email);
+    }
+    
+    @WebMethod
+    public boolean existeUsuarioConNickname(String nick) {
+      return ctrlUsr.existeUsuarioConNickname(nick);
+    }
 }

@@ -4,6 +4,7 @@ import logica.interfaces.ICtrlUsuario;
 import logica.clases.Proveedor;
 import logica.clases.Turista;
 import logica.clases.Usuario;
+import logica.clases.dao.SalidaDao;
 import logica.clases.SalidaTuristica;
 import logica.clases.InscripcionSalida;
 import logica.handlers.HandlerSalidas;
@@ -30,6 +31,7 @@ import com.itextpdf.text.DocumentException;
 import java.util.HashSet;
 
 import excepciones.YaExisteException;
+import jakarta.jws.WebMethod;
 import excepciones.InscriptionFailException;
 import excepciones.CompraFailException;
 
@@ -187,7 +189,7 @@ public class CtrlUsuario implements ICtrlUsuario {
   public DTUsuario getUsuarioByEmail(String email) {
     HandlerUsuarios handlerUsr = HandlerUsuarios.getInstance();
     DTUsuario resultado = null;
-    Usuario usuario = handlerUsr.getUsuarioByNickname(email);
+    Usuario usuario = handlerUsr.getUsuarioByEmail(email);
     if (usuario instanceof Proveedor) {
       resultado = new DTProveedor((Proveedor) usuario);
     } else {
@@ -237,6 +239,16 @@ public class CtrlUsuario implements ICtrlUsuario {
 	  DTInscripcion dtInsc = turista.getInfoInscripcion(salida);
 	  
 	  return new ComprobanteInscripcion().generar(dtInsc);
+  }
+  
+  public boolean existeUsuarioConEmail(String email) {
+    HandlerUsuarios hU = HandlerUsuarios.getInstance();
+    return hU.existeUsuarioConEmail(email);
+  }
+  
+  public boolean existeUsuarioConNickname(String nick) {
+    HandlerUsuarios hU = HandlerUsuarios.getInstance();
+    return hU.existeUsuarioConNickname(nick);
   }
   
 }
