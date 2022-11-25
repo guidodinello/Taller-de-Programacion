@@ -3,9 +3,9 @@
 The project consists on 3 elements:
 
 * servidor-central: the desktop app.
-* servidor-movil: a sub version of the website design for mobile devices.
+* servidor-movil: a sub version of the website, design specifically for mobile devices.
 * turismo.uy: the website.
-* servidor-web-estatico: static templates made for the website design.
+* servidor-web-estatico: static designs for the website.
 
 Compilation:
 
